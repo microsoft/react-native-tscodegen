@@ -7,8 +7,16 @@
     "noEmitOnError": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
-    "lib": ["es6"],
+    "lib": [
+      "es6"
+    ],
     "outDir": "./lib",
   },
-  "exclude": ["node_modules", "src/test", "lib", "lib-amd"]
+  "exclude": [
+    "node_modules",
+    "src/test",
+    "lib",
+    "lib-amd",
+    "src/inputs/modules_failure_TWO_NATIVE_MODULES_EXPORTED_WITH_DEFAULT.ts"
+  ]
 }

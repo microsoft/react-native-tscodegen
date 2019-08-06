@@ -36,12 +36,13 @@ ${flowSourceCode
       .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
       .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
       .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
-      .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // fix mistakes in test cases
+      .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // ad-hoc fix mistakes in test cases
       .replace(/interfaceOnly: ([^;]+);/g, 'interfaceOnly: $1,')                                      //
       .replace(/paperComponentName: ([^;]+);/g, 'paperComponentName: $1,')                            //
       .replace(/paperComponentNameDeprecated: ([^;]+);/g, 'paperComponentNameDeprecated: $1,')        //
       .replace(/deprecatedViewConfigName: ([^;]+);/g, 'deprecatedViewConfigName: $1,')                //
       .replace(/\+getValueWithCallback: \(/g, 'getValueWithCallback: (')                              //
+      .replace(/null;(\s+)'paper(\w+)EventDefinedInlineNullWithPaperName',/g, `null,$1'paper$2EventDefinedInlineNullWithPaperName'`)
     }`;
 
   let header = '';

@@ -31,8 +31,8 @@ type ModuleProps = Readonly<ViewProps & {
   onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
   onDirectEventDefinedInlineNullWithPaperName?: null | undefined | 
     DirectEventHandler<
-      null;
-      'paperDirectEventDefinedInlineNullWithPaperName',
+      null,
+      'paperDirectEventDefinedInlineNullWithPaperName'
     >;
 
   onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
@@ -41,8 +41,8 @@ type ModuleProps = Readonly<ViewProps & {
   onBubblingEventDefinedInlineNullOptionalBoth?: null | undefined | BubblingEventHandler<null>;
   onBubblingEventDefinedInlineNullWithPaperName?: null | undefined | 
     BubblingEventHandler<
-      null;
-      'paperBubblingEventDefinedInlineNullWithPaperName',
+      null,
+      'paperBubblingEventDefinedInlineNullWithPaperName'
     >;
 }>;
 
