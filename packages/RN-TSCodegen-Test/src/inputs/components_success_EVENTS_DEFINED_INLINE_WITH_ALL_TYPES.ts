@@ -1,4 +1,8 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {BubblingEventHandler} from '../lib/CodegenTypes';
+import {DirectEventHandler} from '../lib/CodegenTypes';
+import {Float} from '../lib/CodegenTypes';
+import {Int32} from '../lib/CodegenTypes';
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -76,7 +80,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onDirectEventDefinedInlineOptionalKey?:
@@ -133,7 +137,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onDirectEventDefinedInlineOptionalValue: null | undefined | 
@@ -190,7 +194,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onDirectEventDefinedInlineOptionalBoth?: null | undefined | 
@@ -247,7 +251,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onDirectEventDefinedInlineWithPaperName?: null | undefined | 
@@ -304,8 +308,8 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
-      'paperDirectEventDefinedInlineWithPaperName',
+      }>,
+      'paperDirectEventDefinedInlineWithPaperName'
     >;
 
   onBubblingEventDefinedInline:
@@ -362,7 +366,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onBubblingEventDefinedInlineOptionalKey?:
@@ -419,7 +423,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onBubblingEventDefinedInlineOptionalValue: null | undefined | 
@@ -476,7 +480,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onBubblingEventDefinedInlineOptionalBoth?: null | undefined | 
@@ -533,7 +537,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>
     >;
 
   onBubblingEventDefinedInlineWithPaperName?: null | undefined | 
@@ -590,7 +594,7 @@ type ModuleProps = Readonly<ViewProps & {
     }
   }
 
-      }>;
+      }>,
       'paperBubblingEventDefinedInlineWithPaperName'
     >;
 }>;

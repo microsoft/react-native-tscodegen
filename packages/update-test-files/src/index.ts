@@ -13,7 +13,9 @@ const importMaps = {
   WithDefault: `import {WithDefault} from '../lib/CodegenTypes';`,
   React: `import * as React from '../lib/React';`,
   codegenNativeComponent: `import codegenNativeComponent = require('../lib/codegenNativeComponent');`,
-  codegenNativeCommands: `import codegenNativeCommands = require('../lib/codegenNativeCommands');`
+  codegenNativeCommands: `import codegenNativeCommands = require('../lib/codegenNativeCommands');`,
+  TurboModule: `import {TurboModule} from '../lib/RCTExport'`,
+  TurboModuleEntry: `import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';`
 };
 
 function flowToTs(flowSourceCode: string, importCodegenTypes: boolean): string {
@@ -34,6 +36,8 @@ ${flowSourceCode
       .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')                                          // Array -> Array<any>
       .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')                                      // Promise -> Promise<any>
       .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
+      .replace(/import [^']*?'.*?RCTExport?';/g, '')                                                  //
+      .replace(/import [^']*?'.*?TurboModuleRegistry?';/g, '')                                        //
       .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
       .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
       .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // ad-hoc fix mistakes in test cases
