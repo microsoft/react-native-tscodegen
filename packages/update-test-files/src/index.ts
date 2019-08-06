@@ -16,6 +16,8 @@ import {
   WithDefault,
 } from '../lib/CodegenTypes';
 import * as React from '../lib/React';
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import codegenNativeCommands = require('../lib/codegenNativeCommands');
 `}
 ${flowSourceCode
       .replace(/\$ReadOnly</g, `Readonly<`)                                                           // $ReadOnly<T> -> Readonly<T>
@@ -30,9 +32,11 @@ ${flowSourceCode
       .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
       .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
       .replace(/from '(\.\.\/)?([^']+)';/g, `from '../lib/$2';`)                                      //
-      .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')
-      .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')
-      .replace(/import\s*\{[^']*?'.*?CodegenTypese?';/g, '')
+      .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')                                          // Array -> Array<any>
+      .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')                                      // Promise -> Promise<any>
+      .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
+      .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
+      .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
     }`;
 }
 

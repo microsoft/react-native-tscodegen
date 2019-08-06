@@ -8,4 +8,4 @@ export type Float = number;
 export type Int32 = number;
 export type NotString = {};
 export type Stringish = string;
-export type WithDefault<T, V extends T> = null | undefined | T;
+export type WithDefault<T, V> = null | undefined | T;

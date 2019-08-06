@@ -10,6 +10,8 @@ import {
   WithDefault,
 } from '../lib/CodegenTypes';
 import * as React from '../lib/React';
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import codegenNativeCommands = require('../lib/codegenNativeCommands');
 
 
 /**
@@ -24,7 +26,7 @@ import * as React from '../lib/React';
 
 'use strict';
 
-import codegenNativeComponent = require('../lib/codegenNativeComponent');
+
 
 import {ViewProps} from '../lib/ViewPropTypes';
 

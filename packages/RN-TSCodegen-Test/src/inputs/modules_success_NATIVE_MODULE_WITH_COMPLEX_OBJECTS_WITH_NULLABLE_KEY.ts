@@ -10,6 +10,8 @@ import {
   WithDefault,
 } from '../lib/CodegenTypes';
 import * as React from '../lib/React';
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import codegenNativeCommands = require('../lib/codegenNativeCommands');
 
 
 /**
