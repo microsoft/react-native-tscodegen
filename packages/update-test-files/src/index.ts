@@ -32,8 +32,8 @@ function flowToTs(flowSourceCode: string, importCodegenTypes: boolean, keyName?:
     .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
     .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
     .replace(/from '(\.\.\/)?([^']+)';/g, `from '../lib/$2';`)                                      //
-    .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')                                          // Array -> Array<any>
-    .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')                                      // Promise -> Promise<any>
+    .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')                                          // Array -> Array<any>, consider remove
+    .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')                                      // Promise -> Promise<any>, consider remove
     .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
     .replace(/import [^']*?'.*?RCTExport?';/g, '')                                                  //
     .replace(/import [^']*?'.*?TurboModuleRegistry?';/g, '')                                        //
@@ -154,3 +154,15 @@ const msCases = convertTestInput(path.join(testCaseInputFolder, `./modules/__tes
 const mfCases = convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), testCaseOutputFolder, 'modules_failure_');
 convertTestOutput(path.join(testCaseInputFolder, `./components/__tests__/__snapshots__/component-parser-test.js.snap`), testCaseOutputFolder, 'components', csCases, cfCases);
 convertTestOutput(path.join(testCaseInputFolder, `./modules/__tests__/__snapshots__/module-parser-test.js.snap`), testCaseOutputFolder, 'modules', msCases, mfCases);
+
+const testCaseIndex = {
+  components: {
+    success: Object.keys(csCases),
+    failure: Object.keys(cfCases)
+  },
+  modules: {
+    success: Object.keys(msCases),
+    failure: Object.keys(mfCases)
+  }
+};
+fs.writeFileSync(path.join(testCaseOutputFolder, `__index__.json`), JSON.stringify(testCaseIndex, undefined, 2), { encoding: 'utf-8' });
