@@ -4,6 +4,7 @@
   ],
   "rules": {
     "linebreak-style": false,
+    "newline-per-chained-call": false,
     "no-console": [
       true,
       "debug",
@@ -13,6 +14,7 @@
       "trace"
     ],
     "non-literal-fs-path": false,
+    "non-literal-require": false,
     "typedef": [
       true,
       "call-signature",

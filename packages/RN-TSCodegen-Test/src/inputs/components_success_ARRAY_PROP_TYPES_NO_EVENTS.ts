@@ -1,0 +1,77 @@
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * @flow
+ */
+
+'use strict';
+
+const codegenNativeComponent = require('codegenNativeComponent');
+
+import type {
+  Int32,
+  Float,
+  WithDefault,
+} from 'CodegenTypes';
+
+import type {ColorValue, PointValue} from 'StyleSheetTypes';
+import type {ImageSource} from 'ImageSource';
+import type {ViewProps} from 'ViewPropTypes';
+
+type ModuleProps = $ReadOnly<{|
+  ...ViewProps,
+
+  // Props
+  // Boolean props
+  array_boolean_required: $ReadOnlyArray<boolean>,
+  array_boolean_optional_key?: $ReadOnlyArray<boolean>,
+  array_boolean_optional_value: ?$ReadOnlyArray<boolean>,
+  array_boolean_optional_both?: ?$ReadOnlyArray<boolean>,
+
+  // String props
+  array_string_required: $ReadOnlyArray<string>,
+  array_string_optional_key?: $ReadOnlyArray<string>,
+  array_string_optional_value: ?$ReadOnlyArray<string>,
+  array_string_optional_both?: ?$ReadOnlyArray<string>,
+
+  // Float props
+  array_float_required: $ReadOnlyArray<Float>,
+  array_float_optional_key?: $ReadOnlyArray<Float>,
+  array_float_optional_value: ?$ReadOnlyArray<Float>,
+  array_float_optional_both?: ?$ReadOnlyArray<Float>,
+
+  // Int32 props
+  array_int32_required: $ReadOnlyArray<Int32>,
+  array_int32_optional_key?: $ReadOnlyArray<Int32>,
+  array_int32_optional_value: ?$ReadOnlyArray<Int32>,
+  array_int32_optional_both?: ?$ReadOnlyArray<Int32>,
+
+  // String enum props
+  array_enum_optional_key?: WithDefault<$ReadOnlyArray<('small' | 'large')>, 'small'>,
+  array_enum_optional_both?: WithDefault<$ReadOnlyArray<('small' | 'large')>, 'small'>,
+
+  // ImageSource props
+  array_image_required: $ReadOnlyArray<ImageSource>,
+  array_image_optional_key?: $ReadOnlyArray<ImageSource>,
+  array_image_optional_value: ?$ReadOnlyArray<ImageSource>,
+  array_image_optional_both?: ?$ReadOnlyArray<ImageSource>,
+
+  // ColorValue props
+  array_color_required: $ReadOnlyArray<ColorValue>,
+  array_color_optional_key?: $ReadOnlyArray<ColorValue>,
+  array_color_optional_value: ?$ReadOnlyArray<ColorValue>,
+  array_color_optional_both?: ?$ReadOnlyArray<ColorValue>,
+
+  // PointValue props
+  array_point_required: $ReadOnlyArray<PointValue>,
+  array_point_optional_key?: $ReadOnlyArray<PointValue>,
+  array_point_optional_value: ?$ReadOnlyArray<PointValue>,
+  array_point_optional_both?: ?$ReadOnlyArray<PointValue>,
+|}>;
+
+export default codegenNativeComponent<ModuleProps>('Module');

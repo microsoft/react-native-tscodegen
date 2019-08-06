@@ -1,13 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-function convertCodegenSchema(): void {
-  console.log('Converting CodegenSchema.js ...');
-
-  const inputPath = path.join(__dirname, `../../../react-native/packages/react-native-codegen/src/CodegenSchema.js`);
-  const outputPath = path.join(__dirname, `../../RN-TSCodegen/src/CodegenSchema.ts`);
-  const flowSourceCode = fs.readFileSync(inputPath, { encoding: 'utf-8' });
-  const tsSourceCode = `
+function flowToTs(flowSourceCode: string): string {
+  return `
 // tslint:disable:no-reserved-keywords
 ${flowSourceCode
       .replace(/\$ReadOnly</g, `Readonly<`)                   // $ReadOnly<T> -> Readonly<T>
@@ -19,7 +14,38 @@ ${flowSourceCode
       .replace(/\}>,/g, `}>;`)
       .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')              // {...a, b; c;} -> a & {b; c;}
     }`;
+}
+
+function convertCodegenSchema(): void {
+  const inputPath = path.join(__dirname, `../../../react-native/packages/react-native-codegen/src/CodegenSchema.js`);
+  const outputPath = path.join(__dirname, `../../RN-TSCodegen/src/CodegenSchema.ts`);
+  console.log(`Converting ${inputPath} ...`);
+
+  const flowSourceCode = fs.readFileSync(inputPath, { encoding: 'utf-8' });
+  const tsSourceCode = flowToTs(flowSourceCode);
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }
 
+type TestCaseModule = { [key: string]: string };
+
+function convertTestInput(inputJsPath: string, outputFolder: string, prefix: string): TestCaseModule {
+  console.log(`Converting ${inputJsPath} ...`);
+
+  const testCases = <TestCaseModule>require(inputJsPath);
+  Object.keys(testCases).forEach((key: string) => {
+    const outputPath = path.join(outputFolder, `${prefix}${key}.ts`);
+    const flowSourceCode = testCases[key];
+    fs.writeFileSync(outputPath, flowSourceCode, { encoding: 'utf-8' });
+  });
+
+  return testCases;
+}
+
 convertCodegenSchema();
+
+const testCaseInputFolder = path.join(__dirname, `../../../react-native/packages/react-native-codegen/src/parsers/flow`);
+const testCaseOutputFolder = path.join(__dirname, `../../RN-TSCodegen-Test/src/inputs`);
+convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'components_success_');
+convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/failures.js`), testCaseOutputFolder, 'components_failure_');
+convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'modules_success_');
+convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), testCaseOutputFolder, 'modules_failure_');
