@@ -50,8 +50,10 @@ function flowToTs(flowSourceCode: string, importCodegenTypes: boolean, keyName?:
 
   if (keyName === 'EVENTS_DEFINED_INLINE_WITH_ALL_TYPES') {
     tsSourceCode = tsSourceCode
-      .replace(/^(\s{6})\}>;$/g, `$1}>`)
+      .replace(/^(\s+)\}>;$/gm, `$1}>`)
       .replace(/'paperDirectEventDefinedInlineWithPaperName',/g, `'paperDirectEventDefinedInlineWithPaperName'`)
+      .replace(/\}>(\s+)'paperDirectEventDefinedInlineWithPaperName'/g, `}>,$1'paperDirectEventDefinedInlineWithPaperName'`)
+      .replace(/\}>(\s+)'paperBubblingEventDefinedInlineWithPaperName'/g, `}>,$1'paperBubblingEventDefinedInlineWithPaperName'`)
       ;
   }
 
