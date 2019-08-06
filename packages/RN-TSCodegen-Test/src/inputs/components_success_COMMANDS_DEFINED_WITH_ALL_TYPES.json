@@ -1,0 +1,63 @@
+
+Object {
+  "modules": Object {
+    "Module": Object {
+      "components": Object {
+        "Module": Object {
+          "commands": Array [
+            Object {
+              "name": "hotspotUpdate",
+              "optional": false,
+              "typeAnnotation": Object {
+                "params": Array [
+                  Object {
+                    "name": "x",
+                    "typeAnnotation": Object {
+                      "type": "Int32TypeAnnotation",
+                    },
+                  },
+                  Object {
+                    "name": "y",
+                    "typeAnnotation": Object {
+                      "type": "Int32TypeAnnotation",
+                    },
+                  },
+                ],
+                "type": "FunctionTypeAnnotation",
+              },
+            },
+            Object {
+              "name": "scrollTo",
+              "optional": false,
+              "typeAnnotation": Object {
+                "params": Array [
+                  Object {
+                    "name": "y",
+                    "typeAnnotation": Object {
+                      "type": "Int32TypeAnnotation",
+                    },
+                  },
+                  Object {
+                    "name": "animated",
+                    "typeAnnotation": Object {
+                      "type": "BooleanTypeAnnotation",
+                    },
+                  },
+                ],
+                "type": "FunctionTypeAnnotation",
+              },
+            },
+          ],
+          "events": Array [],
+          "extendsProps": Array [
+            Object {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType",
+            },
+          ],
+          "props": Array [],
+        },
+      },
+    },
+  },
+}

@@ -1,0 +1,21 @@
+
+Object {
+  "modules": Object {
+    "Module": Object {
+      "components": Object {
+        "Module": Object {
+          "commands": Array [],
+          "deprecatedViewConfigName": "DeprecateModuleName",
+          "events": Array [],
+          "extendsProps": Array [
+            Object {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType",
+            },
+          ],
+          "props": Array [],
+        },
+      },
+    },
+  },
+}

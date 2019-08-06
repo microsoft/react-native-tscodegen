@@ -80,6 +80,7 @@ function convertCodegenSchema(): void {
 }
 
 type TestCaseModule = { [key: string]: string };
+type TestCaseSnapshot = { [key: string]: string };
 
 function convertTestInput(inputJsPath: string, outputFolder: string, prefix: string): TestCaseModule {
   console.log(`Converting ${inputJsPath} ...`);
@@ -95,11 +96,51 @@ function convertTestInput(inputJsPath: string, outputFolder: string, prefix: str
   return testCases;
 }
 
+function convertSuccessSnapshotContent(snapshotContent: string): string {
+  return snapshotContent;
+}
+
+function convertFailureSnapshotContent(snapshotContent: string): string {
+  return snapshotContent;
+}
+
+function convertTestOutput(inputSnapshotPath: string, outputFolder: string, category: string, successCases: TestCaseModule, failureCases: TestCaseModule): void {
+  console.log(`Converting ${inputSnapshotPath} ...`);
+
+  const successCasePrefix = `${category}_success_`;
+  const failureCasePrefix = `${category}_failure_`;
+  const successSnapshotPrefix = `RN Codegen Flow Parser can generate fixture `;
+  const failureSnapshotPrefix = `RN Codegen Flow Parser Fails with error message `;
+  const snapshot = <TestCaseSnapshot>(require(inputSnapshotPath));
+
+  Object.keys(successCases).forEach((key: string) => {
+    const outputPath = path.join(outputFolder, `${successCasePrefix}${key}.json`);
+    const snapshotContent = snapshot[`${successSnapshotPrefix}${key} 1`];
+    if (snapshotContent === undefined) {
+      console.error(`ERROR: Cannot find snapshot for category "${category}" and success case "${key}".`);
+    } else {
+      fs.writeFileSync(outputPath, convertSuccessSnapshotContent(snapshotContent), { encoding: 'utf-8' });
+    }
+  });
+
+  Object.keys(failureCases).forEach((key: string) => {
+    const outputPath = path.join(outputFolder, `${failureCasePrefix}${key}.json`);
+    const snapshotContent = snapshot[`${failureSnapshotPrefix}${key} 1`];
+    if (snapshotContent === undefined) {
+      console.error(`ERROR: Cannot find snapshot for category "${category}" and failure case "${key}".`);
+    } else {
+      fs.writeFileSync(outputPath, convertFailureSnapshotContent(snapshotContent), { encoding: 'utf-8' });
+    }
+  });
+}
+
 convertCodegenSchema();
 
 const testCaseInputFolder = path.join(__dirname, `../../../react-native/packages/react-native-codegen/src/parsers/flow`);
 const testCaseOutputFolder = path.join(__dirname, `../../RN-TSCodegen-Test/src/inputs`);
-convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'components_success_');
-convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/failures.js`), testCaseOutputFolder, 'components_failure_');
-convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'modules_success_');
-convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), testCaseOutputFolder, 'modules_failure_');
+const csCases = convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'components_success_');
+const cfCases = convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/failures.js`), testCaseOutputFolder, 'components_failure_');
+const msCases = convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'modules_success_');
+const mfCases = convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), testCaseOutputFolder, 'modules_failure_');
+convertTestOutput(path.join(testCaseInputFolder, `./components/__tests__/__snapshots__/component-parser-test.js.snap`), testCaseOutputFolder, 'components', csCases, cfCases);
+convertTestOutput(path.join(testCaseInputFolder, `./modules/__tests__/__snapshots__/module-parser-test.js.snap`), testCaseOutputFolder, 'modules', msCases, mfCases);

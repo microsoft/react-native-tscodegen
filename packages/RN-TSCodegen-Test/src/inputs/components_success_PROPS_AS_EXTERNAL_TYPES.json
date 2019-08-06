@@ -1,0 +1,34 @@
+
+Object {
+  "modules": Object {
+    "Module": Object {
+      "components": Object {
+        "Module": Object {
+          "commands": Array [],
+          "events": Array [],
+          "extendsProps": Array [],
+          "props": Array [
+            Object {
+              "name": "disable",
+              "optional": false,
+              "typeAnnotation": Object {
+                "default": null,
+                "type": "StringTypeAnnotation",
+              },
+            },
+            Object {
+              "name": "array",
+              "optional": false,
+              "typeAnnotation": Object {
+                "elementType": Object {
+                  "type": "StringTypeAnnotation",
+                },
+                "type": "ArrayTypeAnnotation",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+}

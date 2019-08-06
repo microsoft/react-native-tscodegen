@@ -1,0 +1,143 @@
+
+Object {
+  "modules": Object {
+    "Module": Object {
+      "components": Object {
+        "Module": Object {
+          "commands": Array [],
+          "events": Array [
+            Object {
+              "bubblingType": "direct",
+              "name": "onDirectEventDefinedInlineNull",
+              "optional": false,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "direct",
+              "name": "onDirectEventDefinedInlineNullOptionalKey",
+              "optional": true,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "direct",
+              "name": "onDirectEventDefinedInlineNullOptionalValue",
+              "optional": true,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "direct",
+              "name": "onDirectEventDefinedInlineNullOptionalBoth",
+              "optional": true,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "direct",
+              "name": "onDirectEventDefinedInlineNullWithPaperName",
+              "optional": true,
+              "paperTopLevelNameDeprecated": "paperDirectEventDefinedInlineNullWithPaperName",
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "bubble",
+              "name": "onBubblingEventDefinedInlineNull",
+              "optional": false,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "bubble",
+              "name": "onBubblingEventDefinedInlineNullOptionalKey",
+              "optional": true,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "bubble",
+              "name": "onBubblingEventDefinedInlineNullOptionalValue",
+              "optional": true,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "bubble",
+              "name": "onBubblingEventDefinedInlineNullOptionalBoth",
+              "optional": true,
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+            Object {
+              "bubblingType": "bubble",
+              "name": "onBubblingEventDefinedInlineNullWithPaperName",
+              "optional": true,
+              "paperTopLevelNameDeprecated": "paperBubblingEventDefinedInlineNullWithPaperName",
+              "typeAnnotation": Object {
+                "argument": Object {
+                  "properties": Array [],
+                  "type": "ObjectTypeAnnotation",
+                },
+                "type": "EventTypeAnnotation",
+              },
+            },
+          ],
+          "extendsProps": Array [
+            Object {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType",
+            },
+          ],
+          "props": Array [],
+        },
+      },
+    },
+  },
+}

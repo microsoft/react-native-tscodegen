@@ -1,0 +1,12 @@
+
+Object {
+  "modules": Object {
+    "NativeSampleTurboModule": Object {
+      "nativeModules": Object {
+        "SampleTurboModule": Object {
+          "properties": Array [],
+        },
+      },
+    },
+  },
+}

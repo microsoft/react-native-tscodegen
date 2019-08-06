@@ -1,0 +1,3 @@
+
+"Default export for module specified incorrectly. It should containts
+    either type extending \"TurboModule\" or \"codegenNativeComponent\"."
