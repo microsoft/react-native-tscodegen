@@ -1,5 +1,20 @@
 
 
+import {
+  BubblingEvent,
+  BubblingEventHandler,
+  DirectEvent,
+  DirectEventHandler,
+  Float,
+  Int32,
+  NotString,
+  Options,
+  Stringish,
+  WithDefault,
+} from '../lib/CodegenTypes';
+import * as React from '../lib/React';
+
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -16,7 +31,7 @@ import {TurboModule} from '../lib/RCTExport';
 import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  getString: (arg: string) => Array;
+  getString: (arg: string) => Array<any>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

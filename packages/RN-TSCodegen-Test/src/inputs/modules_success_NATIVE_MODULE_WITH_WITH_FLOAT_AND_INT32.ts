@@ -1,5 +1,20 @@
 
 
+import {
+  BubblingEvent,
+  BubblingEventHandler,
+  DirectEvent,
+  DirectEventHandler,
+  Float,
+  Int32,
+  NotString,
+  Options,
+  Stringish,
+  WithDefault,
+} from '../lib/CodegenTypes';
+import * as React from '../lib/React';
+
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,7 +29,7 @@
 
 import {TurboModule} from '../lib/RCTExport';
 import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
-import {Int32, Float} from '../lib/react-native/Libraries/Types/CodegenTypes';
+
 
 export interface Spec extends TurboModule {
   getInt (arg: Int32) : Int32;

@@ -1,5 +1,20 @@
 
 
+import {
+  BubblingEvent,
+  BubblingEventHandler,
+  DirectEvent,
+  DirectEventHandler,
+  Float,
+  Int32,
+  NotString,
+  Options,
+  Stringish,
+  WithDefault,
+} from '../lib/CodegenTypes';
+import * as React from '../lib/React';
+
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,12 +29,7 @@
 
 import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-import {
-  Int32,
-  Float,
-  BubblingEventHandler,
-  DirectEventHandler,
-} from '../lib/CodegenTypes';
+
 
 import {ViewProps} from '../lib/ViewPropTypes';
 
@@ -82,7 +92,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onDirectEventDefinedInlineOptionalKey?:
     DirectEventHandler<
@@ -139,7 +149,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onDirectEventDefinedInlineOptionalValue: null | undefined | 
     DirectEventHandler<
@@ -196,7 +206,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onDirectEventDefinedInlineOptionalBoth?: null | undefined | 
     DirectEventHandler<
@@ -253,7 +263,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onDirectEventDefinedInlineWithPaperName?: null | undefined | 
     DirectEventHandler<
@@ -311,7 +321,7 @@ type ModuleProps = Readonly<ViewProps & {
 
       }>;
       'paperDirectEventDefinedInlineWithPaperName',
-    >,
+    >;
 
   onBubblingEventDefinedInline:
     BubblingEventHandler<
@@ -368,7 +378,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onBubblingEventDefinedInlineOptionalKey?:
     BubblingEventHandler<
@@ -425,7 +435,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onBubblingEventDefinedInlineOptionalValue: null | undefined | 
     BubblingEventHandler<
@@ -482,7 +492,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onBubblingEventDefinedInlineOptionalBoth?: null | undefined | 
     BubblingEventHandler<
@@ -539,7 +549,7 @@ type ModuleProps = Readonly<ViewProps & {
   }
 
       }>;
-    >,
+    >;
 
   onBubblingEventDefinedInlineWithPaperName?: null | undefined | 
     BubblingEventHandler<
@@ -597,7 +607,7 @@ type ModuleProps = Readonly<ViewProps & {
 
       }>;
       'paperBubblingEventDefinedInlineWithPaperName'
-    >,
+    >;
 }>;
 
 export default codegenNativeComponent<ModuleProps>('Module');

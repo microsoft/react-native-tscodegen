@@ -1,5 +1,20 @@
 
 
+import {
+  BubblingEvent,
+  BubblingEventHandler,
+  DirectEvent,
+  DirectEventHandler,
+  Float,
+  Int32,
+  NotString,
+  Options,
+  Stringish,
+  WithDefault,
+} from '../lib/CodegenTypes';
+import * as React from '../lib/React';
+
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,10 +29,7 @@
 
 import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-import {
-  BubblingEventHandler,
-  DirectEventHandler,
-} from '../lib/CodegenTypese';
+
 
 import {ViewProps} from '../lib/ViewPropTypes';
 
@@ -28,7 +40,7 @@ type ModuleProps = Readonly<ViewProps & {
   // No props
 
   // Events defined inline
-  onDirectEventDefinedInlineNull:DirectEventHandler<null>,
+  onDirectEventDefinedInlineNull:DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalValue: null | undefined | DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
@@ -36,7 +48,7 @@ type ModuleProps = Readonly<ViewProps & {
     DirectEventHandler<
       null;
       'paperDirectEventDefinedInlineNullWithPaperName',
-    >,
+    >;
 
   onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
   onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
@@ -46,7 +58,7 @@ type ModuleProps = Readonly<ViewProps & {
     BubblingEventHandler<
       null;
       'paperBubblingEventDefinedInlineNullWithPaperName',
-    >,
+    >;
 }>;
 
 export default codegenNativeComponent<ModuleProps>('Module');

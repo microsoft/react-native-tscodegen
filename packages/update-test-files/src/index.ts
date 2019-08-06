@@ -3,8 +3,23 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-function flowToTs(flowSourceCode: string): string {
+function flowToTs(flowSourceCode: string, importCodegenTypes: boolean): string {
   return `
+${!importCodegenTypes ? '' : `
+import {
+  BubblingEvent,
+  BubblingEventHandler,
+  DirectEvent,
+  DirectEventHandler,
+  Float,
+  Int32,
+  NotString,
+  Options,
+  Stringish,
+  WithDefault,
+} from '../lib/CodegenTypes';
+import * as React from '../lib/React';
+`}
 ${flowSourceCode
       .replace(/\$ReadOnly</g, `Readonly<`)                                                           // $ReadOnly<T> -> Readonly<T>
       .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)                                                 // $ReadOnlyArray<T> -> ReadonlyArray<T>
@@ -12,12 +27,15 @@ ${flowSourceCode
       .replace(/\|\}/g, `}`)                                                                          //
       .replace(/: \?/g, `: null | undefined | `)                                                      // ?T -> null | undefined | T
       .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?)(,|;)$/gm, '$1: $2;')                                 // {+a,b,c} -> {a; b; c;}
-      .replace(/\}>,/g, `}>;`)                                                                        //
+      .replace(/(\}?)>,$/gm, `$1>;`)                                                                  //
       .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?(,|;|\{))/gm, '$1$2$3:$4')                    //
       .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')                                                      // {...a, b; c;} -> a & {b; c;}
       .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
       .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
       .replace(/from '(\.\.\/)?([^']+)';/g, `from '../lib/$2';`)                                      //
+      .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')
+      .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')
+      .replace(/import\s*\{[^']*?'.*?CodegenTypese?';/g, '')
     }`;
 }
 
@@ -27,7 +45,7 @@ function convertCodegenSchema(): void {
   console.log(`Converting ${inputPath} ...`);
 
   const flowSourceCode = fs.readFileSync(inputPath, { encoding: 'utf-8' });
-  const tsSourceCode = flowToTs(flowSourceCode);
+  const tsSourceCode = flowToTs(flowSourceCode, false);
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }
 
@@ -40,7 +58,7 @@ function convertTestInput(inputJsPath: string, outputFolder: string, prefix: str
   Object.keys(testCases).forEach((key: string) => {
     const outputPath = path.join(outputFolder, `${prefix}${key}.ts`);
     const flowSourceCode = testCases[key];
-    const tsSourceCode = flowToTs(flowSourceCode);
+    const tsSourceCode = flowToTs(flowSourceCode, true);
     fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
   });
 
