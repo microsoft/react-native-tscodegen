@@ -1,12 +1,11 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
       "nativeModules": {
         "SampleTurboModule": {
-          "properties": [],
-        },
-      },
-    },
-  },
+          "properties": []
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -12,12 +11,12 @@
                 "params": [],
                 "returnTypeAnnotation": {
                   "resolvedType": {
-                    "type": "StringTypeAnnotation",
+                    "type": "StringTypeAnnotation"
                   },
-                  "type": "GenericPromiseTypeAnnotation",
+                  "type": "GenericPromiseTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getValueWithPromiseDefinedSomewhereElse",
@@ -26,12 +25,12 @@
                 "params": [],
                 "returnTypeAnnotation": {
                   "resolvedType": {
-                    "type": "StringTypeAnnotation",
+                    "type": "StringTypeAnnotation"
                   },
-                  "type": "GenericPromiseTypeAnnotation",
+                  "type": "GenericPromiseTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getValueWithPromiseObjDefinedSomewhereElse",
@@ -45,20 +44,20 @@
                         "name": "a",
                         "optional": false,
                         "typeAnnotation": {
-                          "type": "StringTypeAnnotation",
-                        },
-                      },
+                          "type": "StringTypeAnnotation"
+                        }
+                      }
                     ],
-                    "type": "ObjectTypeAnnotation",
+                    "type": "ObjectTypeAnnotation"
                   },
-                  "type": "GenericPromiseTypeAnnotation",
+                  "type": "GenericPromiseTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -24,17 +23,17 @@
                                 "name": "const1",
                                 "optional": false,
                                 "typeAnnotation": {
-                                  "type": "BooleanTypeAnnotation",
-                                },
-                              },
+                                  "type": "BooleanTypeAnnotation"
+                                }
+                              }
                             ],
-                            "type": "ObjectTypeAnnotation",
-                          },
-                        },
+                            "type": "ObjectTypeAnnotation"
+                          }
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
-                  },
+                      "type": "ObjectTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
                   "properties": [
@@ -47,18 +46,18 @@
                             "name": "const1",
                             "optional": false,
                             "typeAnnotation": {
-                              "type": "BooleanTypeAnnotation",
-                            },
-                          },
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
                         ],
-                        "type": "ObjectTypeAnnotation",
-                      },
-                    },
+                        "type": "ObjectTypeAnnotation"
+                      }
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getObject2",
@@ -74,19 +73,19 @@
                           "name": "a",
                           "optional": false,
                           "typeAnnotation": {
-                            "type": "StringTypeAnnotation",
-                          },
-                        },
+                            "type": "StringTypeAnnotation"
+                          }
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
-                  },
+                      "type": "ObjectTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "GenericObjectTypeAnnotation",
+                  "type": "GenericObjectTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getObjectInArray",
@@ -107,17 +106,17 @@
                                 "name": "const1",
                                 "optional": false,
                                 "typeAnnotation": {
-                                  "type": "BooleanTypeAnnotation",
-                                },
-                              },
+                                  "type": "BooleanTypeAnnotation"
+                                }
+                              }
                             ],
-                            "type": "ObjectTypeAnnotation",
-                          },
-                        },
+                            "type": "ObjectTypeAnnotation"
+                          }
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
-                  },
+                      "type": "ObjectTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
                   "elementType": {
@@ -131,24 +130,24 @@
                               "name": "const1",
                               "optional": false,
                               "typeAnnotation": {
-                                "type": "BooleanTypeAnnotation",
-                              },
-                            },
+                                "type": "BooleanTypeAnnotation"
+                              }
+                            }
                           ],
-                          "type": "ObjectTypeAnnotation",
-                        },
-                      },
+                          "type": "ObjectTypeAnnotation"
+                        }
+                      }
                     ],
-                    "type": "ObjectTypeAnnotation",
+                    "type": "ObjectTypeAnnotation"
                   },
-                  "type": "ArrayTypeAnnotation",
+                  "type": "ArrayTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "Module": {
@@ -13,10 +12,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "direct",
@@ -25,10 +24,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "direct",
@@ -37,10 +36,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "direct",
@@ -49,10 +48,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "direct",
@@ -62,10 +61,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "bubble",
@@ -74,10 +73,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "bubble",
@@ -86,10 +85,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "bubble",
@@ -98,10 +97,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "bubble",
@@ -110,10 +109,10 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "bubble",
@@ -123,21 +122,21 @@
               "typeAnnotation": {
                 "argument": {
                   "properties": [],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
-            },
+                "type": "EventTypeAnnotation"
+              }
+            }
           ],
           "extendsProps": [
             {
               "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType",
-            },
+              "type": "ReactNativeBuiltInType"
+            }
           ],
-          "props": [],
-        },
-      },
-    },
-  },
+          "props": []
+        }
+      }
+    }
+  }
 }

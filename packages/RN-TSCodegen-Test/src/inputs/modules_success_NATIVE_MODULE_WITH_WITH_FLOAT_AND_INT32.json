@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -14,15 +13,15 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "Int32TypeAnnotation",
-                    },
-                  },
+                      "type": "Int32TypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "Int32TypeAnnotation",
+                  "type": "Int32TypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getFloat",
@@ -33,19 +32,19 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "FloatTypeAnnotation",
-                    },
-                  },
+                      "type": "FloatTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "FloatTypeAnnotation",
+                  "type": "FloatTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

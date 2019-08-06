@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -19,8 +18,8 @@
                           "name": "value",
                           "nullable": false,
                           "typeAnnotation": {
-                            "type": "StringTypeAnnotation",
-                          },
+                            "type": "StringTypeAnnotation"
+                          }
                         },
                         {
                           "name": "arr",
@@ -28,30 +27,30 @@
                           "typeAnnotation": {
                             "elementType": {
                               "elementType": {
-                                "type": "StringTypeAnnotation",
+                                "type": "StringTypeAnnotation"
                               },
-                              "type": "ArrayTypeAnnotation",
+                              "type": "ArrayTypeAnnotation"
                             },
-                            "type": "ArrayTypeAnnotation",
-                          },
-                        },
+                            "type": "ArrayTypeAnnotation"
+                          }
+                        }
                       ],
                       "returnTypeAnnotation": {
-                        "type": "VoidTypeAnnotation",
+                        "type": "VoidTypeAnnotation"
                       },
-                      "type": "FunctionTypeAnnotation",
-                    },
-                  },
+                      "type": "FunctionTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

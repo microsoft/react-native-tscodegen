@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -14,19 +13,19 @@
                     "name": "o",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "GenericObjectTypeAnnotation",
-                    },
-                  },
+                      "type": "GenericObjectTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "GenericObjectTypeAnnotation",
+                  "type": "GenericObjectTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

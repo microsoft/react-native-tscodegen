@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -14,15 +13,15 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "BooleanTypeAnnotation",
-                    },
-                  },
+                      "type": "BooleanTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "passNumber",
@@ -33,15 +32,15 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "NumberTypeAnnotation",
-                    },
-                  },
+                      "type": "NumberTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "passString",
@@ -52,15 +51,15 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "StringTypeAnnotation",
-                    },
-                  },
+                      "type": "StringTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "passStringish",
@@ -71,19 +70,19 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "StringTypeAnnotation",
-                    },
-                  },
+                      "type": "StringTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

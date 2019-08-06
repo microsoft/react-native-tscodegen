@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "Module": {
@@ -16,134 +15,134 @@
                     {
                       "name": "boolean_required",
                       "optional": false,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_key",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_value",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_both",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "string_required",
                       "optional": false,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_key",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_value",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_both",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "float_required",
                       "optional": false,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_key",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_value",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_both",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "int32_required",
                       "optional": false,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_key",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_value",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_both",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "enum_required",
                       "optional": false,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_key",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_value",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_both",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "object_required",
@@ -152,10 +151,10 @@
                         {
                           "name": "boolean_required",
                           "optional": false,
-                          "type": "BooleanTypeAnnotation",
-                        },
+                          "type": "BooleanTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_key",
@@ -164,10 +163,10 @@
                         {
                           "name": "string_optional_key",
                           "optional": true,
-                          "type": "StringTypeAnnotation",
-                        },
+                          "type": "StringTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_value",
@@ -176,10 +175,10 @@
                         {
                           "name": "float_optional_value",
                           "optional": true,
-                          "type": "FloatTypeAnnotation",
-                        },
+                          "type": "FloatTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_both",
@@ -188,10 +187,10 @@
                         {
                           "name": "int32_optional_both",
                           "optional": true,
-                          "type": "Int32TypeAnnotation",
-                        },
+                          "type": "Int32TypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_required_nested_2_layers",
@@ -204,34 +203,34 @@
                             {
                               "name": "boolean_required",
                               "optional": false,
-                              "type": "Int32TypeAnnotation",
+                              "type": "Int32TypeAnnotation"
                             },
                             {
                               "name": "string_optional_key",
                               "optional": true,
-                              "type": "StringTypeAnnotation",
+                              "type": "StringTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
                               "optional": true,
-                              "type": "FloatTypeAnnotation",
+                              "type": "FloatTypeAnnotation"
                             },
                             {
                               "name": "int32_optional_both",
                               "optional": true,
-                              "type": "Int32TypeAnnotation",
-                            },
+                              "type": "Int32TypeAnnotation"
+                            }
                           ],
-                          "type": "ObjectTypeAnnotation",
-                        },
+                          "type": "ObjectTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
+                      "type": "ObjectTypeAnnotation"
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "bubble",
@@ -244,134 +243,134 @@
                     {
                       "name": "boolean_required",
                       "optional": false,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_key",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_value",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_both",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "string_required",
                       "optional": false,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_key",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_value",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_both",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "float_required",
                       "optional": false,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_key",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_value",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_both",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "int32_required",
                       "optional": false,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_key",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_value",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_both",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "enum_required",
                       "optional": false,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_key",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_value",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_both",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "object_required",
@@ -380,10 +379,10 @@
                         {
                           "name": "boolean_required",
                           "optional": false,
-                          "type": "BooleanTypeAnnotation",
-                        },
+                          "type": "BooleanTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_key",
@@ -392,10 +391,10 @@
                         {
                           "name": "string_optional_key",
                           "optional": true,
-                          "type": "StringTypeAnnotation",
-                        },
+                          "type": "StringTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_value",
@@ -404,10 +403,10 @@
                         {
                           "name": "float_optional_value",
                           "optional": true,
-                          "type": "FloatTypeAnnotation",
-                        },
+                          "type": "FloatTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_both",
@@ -416,10 +415,10 @@
                         {
                           "name": "int32_optional_both",
                           "optional": true,
-                          "type": "Int32TypeAnnotation",
-                        },
+                          "type": "Int32TypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_required_nested_2_layers",
@@ -432,34 +431,34 @@
                             {
                               "name": "boolean_required",
                               "optional": false,
-                              "type": "Int32TypeAnnotation",
+                              "type": "Int32TypeAnnotation"
                             },
                             {
                               "name": "string_optional_key",
                               "optional": true,
-                              "type": "StringTypeAnnotation",
+                              "type": "StringTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
                               "optional": true,
-                              "type": "FloatTypeAnnotation",
+                              "type": "FloatTypeAnnotation"
                             },
                             {
                               "name": "int32_optional_both",
                               "optional": true,
-                              "type": "Int32TypeAnnotation",
-                            },
+                              "type": "Int32TypeAnnotation"
+                            }
                           ],
-                          "type": "ObjectTypeAnnotation",
-                        },
+                          "type": "ObjectTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
+                      "type": "ObjectTypeAnnotation"
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "direct",
@@ -471,134 +470,134 @@
                     {
                       "name": "boolean_required",
                       "optional": false,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_key",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_value",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_both",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "string_required",
                       "optional": false,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_key",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_value",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_both",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "float_required",
                       "optional": false,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_key",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_value",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_both",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "int32_required",
                       "optional": false,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_key",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_value",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_both",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "enum_required",
                       "optional": false,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_key",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_value",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_both",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "object_required",
@@ -607,10 +606,10 @@
                         {
                           "name": "boolean_required",
                           "optional": false,
-                          "type": "BooleanTypeAnnotation",
-                        },
+                          "type": "BooleanTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_key",
@@ -619,10 +618,10 @@
                         {
                           "name": "string_optional_key",
                           "optional": true,
-                          "type": "StringTypeAnnotation",
-                        },
+                          "type": "StringTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_value",
@@ -631,10 +630,10 @@
                         {
                           "name": "float_optional_value",
                           "optional": true,
-                          "type": "FloatTypeAnnotation",
-                        },
+                          "type": "FloatTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_both",
@@ -643,10 +642,10 @@
                         {
                           "name": "int32_optional_both",
                           "optional": true,
-                          "type": "Int32TypeAnnotation",
-                        },
+                          "type": "Int32TypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_required_nested_2_layers",
@@ -659,34 +658,34 @@
                             {
                               "name": "boolean_required",
                               "optional": false,
-                              "type": "Int32TypeAnnotation",
+                              "type": "Int32TypeAnnotation"
                             },
                             {
                               "name": "string_optional_key",
                               "optional": true,
-                              "type": "StringTypeAnnotation",
+                              "type": "StringTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
                               "optional": true,
-                              "type": "FloatTypeAnnotation",
+                              "type": "FloatTypeAnnotation"
                             },
                             {
                               "name": "int32_optional_both",
                               "optional": true,
-                              "type": "Int32TypeAnnotation",
-                            },
+                              "type": "Int32TypeAnnotation"
+                            }
                           ],
-                          "type": "ObjectTypeAnnotation",
-                        },
+                          "type": "ObjectTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
+                      "type": "ObjectTypeAnnotation"
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
+                "type": "EventTypeAnnotation"
+              }
             },
             {
               "bubblingType": "direct",
@@ -699,134 +698,134 @@
                     {
                       "name": "boolean_required",
                       "optional": false,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_key",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_value",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "boolean_optional_both",
                       "optional": true,
-                      "type": "BooleanTypeAnnotation",
+                      "type": "BooleanTypeAnnotation"
                     },
                     {
                       "name": "string_required",
                       "optional": false,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_key",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_value",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "string_optional_both",
                       "optional": true,
-                      "type": "StringTypeAnnotation",
+                      "type": "StringTypeAnnotation"
                     },
                     {
                       "name": "float_required",
                       "optional": false,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_key",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_value",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "float_optional_both",
                       "optional": true,
-                      "type": "FloatTypeAnnotation",
+                      "type": "FloatTypeAnnotation"
                     },
                     {
                       "name": "int32_required",
                       "optional": false,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_key",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_value",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "int32_optional_both",
                       "optional": true,
-                      "type": "Int32TypeAnnotation",
+                      "type": "Int32TypeAnnotation"
                     },
                     {
                       "name": "enum_required",
                       "optional": false,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_key",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_value",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "enum_optional_both",
                       "optional": true,
                       "options": [
                         {
-                          "name": "small",
+                          "name": "small"
                         },
                         {
-                          "name": "large",
-                        },
+                          "name": "large"
+                        }
                       ],
-                      "type": "StringEnumTypeAnnotation",
+                      "type": "StringEnumTypeAnnotation"
                     },
                     {
                       "name": "object_required",
@@ -835,10 +834,10 @@
                         {
                           "name": "boolean_required",
                           "optional": false,
-                          "type": "BooleanTypeAnnotation",
-                        },
+                          "type": "BooleanTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_key",
@@ -847,10 +846,10 @@
                         {
                           "name": "string_optional_key",
                           "optional": true,
-                          "type": "StringTypeAnnotation",
-                        },
+                          "type": "StringTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_value",
@@ -859,10 +858,10 @@
                         {
                           "name": "float_optional_value",
                           "optional": true,
-                          "type": "FloatTypeAnnotation",
-                        },
+                          "type": "FloatTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_optional_both",
@@ -871,10 +870,10 @@
                         {
                           "name": "int32_optional_both",
                           "optional": true,
-                          "type": "Int32TypeAnnotation",
-                        },
+                          "type": "Int32TypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
+                      "type": "ObjectTypeAnnotation"
                     },
                     {
                       "name": "object_required_nested_2_layers",
@@ -887,45 +886,45 @@
                             {
                               "name": "boolean_required",
                               "optional": false,
-                              "type": "Int32TypeAnnotation",
+                              "type": "Int32TypeAnnotation"
                             },
                             {
                               "name": "string_optional_key",
                               "optional": true,
-                              "type": "StringTypeAnnotation",
+                              "type": "StringTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
                               "optional": true,
-                              "type": "FloatTypeAnnotation",
+                              "type": "FloatTypeAnnotation"
                             },
                             {
                               "name": "int32_optional_both",
                               "optional": true,
-                              "type": "Int32TypeAnnotation",
-                            },
+                              "type": "Int32TypeAnnotation"
+                            }
                           ],
-                          "type": "ObjectTypeAnnotation",
-                        },
+                          "type": "ObjectTypeAnnotation"
+                        }
                       ],
-                      "type": "ObjectTypeAnnotation",
-                    },
+                      "type": "ObjectTypeAnnotation"
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "EventTypeAnnotation",
-              },
-            },
+                "type": "EventTypeAnnotation"
+              }
+            }
           ],
           "extendsProps": [
             {
               "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType",
-            },
+              "type": "ReactNativeBuiltInType"
+            }
           ],
-          "props": [],
-        },
-      },
-    },
-  },
+          "props": []
+        }
+      }
+    }
+  }
 }

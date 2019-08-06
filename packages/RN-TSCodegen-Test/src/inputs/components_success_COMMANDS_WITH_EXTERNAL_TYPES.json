@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "Module": {
@@ -13,30 +12,30 @@
                   {
                     "name": "y",
                     "typeAnnotation": {
-                      "type": "Int32TypeAnnotation",
-                    },
+                      "type": "Int32TypeAnnotation"
+                    }
                   },
                   {
                     "name": "animated",
                     "typeAnnotation": {
-                      "type": "BooleanTypeAnnotation",
-                    },
-                  },
+                      "type": "BooleanTypeAnnotation"
+                    }
+                  }
                 ],
-                "type": "FunctionTypeAnnotation",
-              },
-            },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
           ],
           "events": [],
           "extendsProps": [
             {
               "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType",
-            },
+              "type": "ReactNativeBuiltInType"
+            }
           ],
-          "props": [],
-        },
-      },
-    },
-  },
+          "props": []
+        }
+      }
+    }
+  }
 }

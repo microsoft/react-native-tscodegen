@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "Module": {
@@ -9,8 +8,8 @@
           "extendsProps": [
             {
               "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType",
-            },
+              "type": "ReactNativeBuiltInType"
+            }
           ],
           "props": [
             {
@@ -18,152 +17,152 @@
               "optional": false,
               "typeAnnotation": {
                 "default": false,
-                "type": "BooleanTypeAnnotation",
-              },
+                "type": "BooleanTypeAnnotation"
+              }
             },
             {
               "name": "boolean_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": true,
-                "type": "BooleanTypeAnnotation",
-              },
+                "type": "BooleanTypeAnnotation"
+              }
             },
             {
               "name": "boolean_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": true,
-                "type": "BooleanTypeAnnotation",
-              },
+                "type": "BooleanTypeAnnotation"
+              }
             },
             {
               "name": "string_required",
               "optional": false,
               "typeAnnotation": {
                 "default": null,
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "string_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": "",
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "string_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": "",
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "string_null_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": null,
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "string_null_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": null,
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "stringish_required",
               "optional": false,
               "typeAnnotation": {
                 "default": null,
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "stringish_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": "",
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "stringish_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": "",
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "stringish_null_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": null,
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "stringish_null_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": null,
-                "type": "StringTypeAnnotation",
-              },
+                "type": "StringTypeAnnotation"
+              }
             },
             {
               "name": "float_required",
               "optional": false,
               "typeAnnotation": {
                 "default": 0,
-                "type": "FloatTypeAnnotation",
-              },
+                "type": "FloatTypeAnnotation"
+              }
             },
             {
               "name": "float_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": 1.1,
-                "type": "FloatTypeAnnotation",
-              },
+                "type": "FloatTypeAnnotation"
+              }
             },
             {
               "name": "float_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": 1.1,
-                "type": "FloatTypeAnnotation",
-              },
+                "type": "FloatTypeAnnotation"
+              }
             },
             {
               "name": "int32_required",
               "optional": false,
               "typeAnnotation": {
                 "default": 0,
-                "type": "Int32TypeAnnotation",
-              },
+                "type": "Int32TypeAnnotation"
+              }
             },
             {
               "name": "int32_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "default": 1,
-                "type": "Int32TypeAnnotation",
-              },
+                "type": "Int32TypeAnnotation"
+              }
             },
             {
               "name": "int32_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "default": 1,
-                "type": "Int32TypeAnnotation",
-              },
+                "type": "Int32TypeAnnotation"
+              }
             },
             {
               "name": "enum_optional_key",
@@ -172,14 +171,14 @@
                 "default": "small",
                 "options": [
                   {
-                    "name": "small",
+                    "name": "small"
                   },
                   {
-                    "name": "large",
-                  },
+                    "name": "large"
+                  }
                 ],
-                "type": "StringEnumTypeAnnotation",
-              },
+                "type": "StringEnumTypeAnnotation"
+              }
             },
             {
               "name": "enum_optional_both",
@@ -188,70 +187,70 @@
                 "default": "small",
                 "options": [
                   {
-                    "name": "small",
+                    "name": "small"
                   },
                   {
-                    "name": "large",
-                  },
+                    "name": "large"
+                  }
                 ],
-                "type": "StringEnumTypeAnnotation",
-              },
+                "type": "StringEnumTypeAnnotation"
+              }
             },
             {
               "name": "image_required",
               "optional": false,
               "typeAnnotation": {
                 "name": "ImageSourcePrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "image_optional_value",
               "optional": true,
               "typeAnnotation": {
                 "name": "ImageSourcePrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "image_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "name": "ImageSourcePrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "color_required",
               "optional": false,
               "typeAnnotation": {
                 "name": "ColorPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "color_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "name": "ColorPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "color_optional_value",
               "optional": true,
               "typeAnnotation": {
                 "name": "ColorPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "color_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "name": "ColorPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "color_array_required",
@@ -259,10 +258,10 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation",
+                  "type": "NativePrimitiveTypeAnnotation"
                 },
-                "type": "ArrayTypeAnnotation",
-              },
+                "type": "ArrayTypeAnnotation"
+              }
             },
             {
               "name": "color_array_optional_key",
@@ -270,10 +269,10 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation",
+                  "type": "NativePrimitiveTypeAnnotation"
                 },
-                "type": "ArrayTypeAnnotation",
-              },
+                "type": "ArrayTypeAnnotation"
+              }
             },
             {
               "name": "color_array_optional_value",
@@ -281,10 +280,10 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation",
+                  "type": "NativePrimitiveTypeAnnotation"
                 },
-                "type": "ArrayTypeAnnotation",
-              },
+                "type": "ArrayTypeAnnotation"
+              }
             },
             {
               "name": "color_array_optional_both",
@@ -292,46 +291,46 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation",
+                  "type": "NativePrimitiveTypeAnnotation"
                 },
-                "type": "ArrayTypeAnnotation",
-              },
+                "type": "ArrayTypeAnnotation"
+              }
             },
             {
               "name": "point_required",
               "optional": false,
               "typeAnnotation": {
                 "name": "PointPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "point_optional_key",
               "optional": true,
               "typeAnnotation": {
                 "name": "PointPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "point_optional_value",
               "optional": true,
               "typeAnnotation": {
                 "name": "PointPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
             },
             {
               "name": "point_optional_both",
               "optional": true,
               "typeAnnotation": {
                 "name": "PointPrimitive",
-                "type": "NativePrimitiveTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "NativePrimitiveTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

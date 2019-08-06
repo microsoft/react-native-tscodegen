@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -14,15 +13,15 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "type": "NumberTypeAnnotation",
-                    },
-                  },
+                      "type": "NumberTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getVoid",
@@ -30,10 +29,10 @@
                 "optional": false,
                 "params": [],
                 "returnTypeAnnotation": {
-                  "type": "VoidTypeAnnotation",
+                  "type": "VoidTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
+                "type": "FunctionTypeAnnotation"
+              }
             },
             {
               "name": "getArray",
@@ -45,11 +44,11 @@
                     "nullable": false,
                     "typeAnnotation": {
                       "elementType": {
-                        "type": "NumberTypeAnnotation",
+                        "type": "NumberTypeAnnotation"
                       },
-                      "type": "ArrayTypeAnnotation",
-                    },
-                  },
+                      "type": "ArrayTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
                   "properties": [
@@ -57,18 +56,18 @@
                       "name": "a",
                       "optional": false,
                       "typeAnnotation": {
-                        "type": "NumberTypeAnnotation",
-                      },
-                    },
+                        "type": "NumberTypeAnnotation"
+                      }
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

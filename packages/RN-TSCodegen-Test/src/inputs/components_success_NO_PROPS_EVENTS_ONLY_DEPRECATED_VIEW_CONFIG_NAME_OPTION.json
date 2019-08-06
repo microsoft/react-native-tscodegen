@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "Module": {
@@ -10,12 +9,12 @@
           "extendsProps": [
             {
               "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType",
-            },
+              "type": "ReactNativeBuiltInType"
+            }
           ],
-          "props": [],
-        },
-      },
-    },
-  },
+          "props": []
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -14,21 +13,19 @@
                     "name": "arg",
                     "nullable": false,
                     "typeAnnotation": {
-                      "elementType": undefined,
-                      "type": "ArrayTypeAnnotation",
-                    },
-                  },
+                      "type": "ArrayTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
-                  "elementType": undefined,
-                  "type": "ArrayTypeAnnotation",
+                  "type": "ArrayTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

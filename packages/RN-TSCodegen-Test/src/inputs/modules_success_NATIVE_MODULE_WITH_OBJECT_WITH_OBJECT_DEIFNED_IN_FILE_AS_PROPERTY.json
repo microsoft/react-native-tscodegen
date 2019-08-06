@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -26,26 +25,26 @@
                                   "name": "width",
                                   "optional": false,
                                   "typeAnnotation": {
-                                    "type": "NumberTypeAnnotation",
-                                  },
-                                },
+                                    "type": "NumberTypeAnnotation"
+                                  }
+                                }
                               ],
-                              "type": "ObjectTypeAnnotation",
-                            },
-                          },
+                              "type": "ObjectTypeAnnotation"
+                            }
+                          }
                         ],
-                        "type": "ObjectTypeAnnotation",
-                      },
-                    },
+                        "type": "ObjectTypeAnnotation"
+                      }
+                    }
                   ],
-                  "type": "ObjectTypeAnnotation",
+                  "type": "ObjectTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

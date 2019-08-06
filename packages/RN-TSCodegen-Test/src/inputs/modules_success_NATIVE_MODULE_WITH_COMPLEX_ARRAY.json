@@ -1,4 +1,3 @@
-
 {
   "modules": {
     "NativeSampleTurboModule": {
@@ -19,38 +18,38 @@
                           "elementType": {
                             "elementType": {
                               "elementType": {
-                                "type": "AnyTypeAnnotation",
+                                "type": "AnyTypeAnnotation"
                               },
-                              "type": "ArrayTypeAnnotation",
+                              "type": "ArrayTypeAnnotation"
                             },
-                            "type": "ArrayTypeAnnotation",
+                            "type": "ArrayTypeAnnotation"
                           },
-                          "type": "ArrayTypeAnnotation",
+                          "type": "ArrayTypeAnnotation"
                         },
-                        "type": "ArrayTypeAnnotation",
+                        "type": "ArrayTypeAnnotation"
                       },
-                      "type": "ArrayTypeAnnotation",
-                    },
-                  },
+                      "type": "ArrayTypeAnnotation"
+                    }
+                  }
                 ],
                 "returnTypeAnnotation": {
                   "elementType": {
                     "elementType": {
                       "elementType": {
-                        "type": "StringTypeAnnotation",
+                        "type": "StringTypeAnnotation"
                       },
-                      "type": "ArrayTypeAnnotation",
+                      "type": "ArrayTypeAnnotation"
                     },
-                    "type": "ArrayTypeAnnotation",
+                    "type": "ArrayTypeAnnotation"
                   },
-                  "type": "ArrayTypeAnnotation",
+                  "type": "ArrayTypeAnnotation"
                 },
-                "type": "FunctionTypeAnnotation",
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

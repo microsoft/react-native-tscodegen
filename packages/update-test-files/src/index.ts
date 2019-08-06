@@ -97,10 +97,17 @@ function convertTestInput(inputJsPath: string, outputFolder: string, prefix: str
 }
 
 function convertSuccessSnapshotContent(snapshotContent: string): string {
-  return snapshotContent
+  const normalizedJson = snapshotContent
     .replace(/Object \{/g, '{')
     .replace(/Array \[/g, '[')
     ;
+
+  return JSON.stringify(
+    // tslint:disable-next-line:no-eval
+    eval(`(${normalizedJson})`),
+    undefined,
+    2
+  );
 }
 
 function convertFailureSnapshotContent(snapshotContent: string): string {
