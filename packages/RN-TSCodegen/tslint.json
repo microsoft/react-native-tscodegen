@@ -1,16 +1,5 @@
 {
   "extends": [
-    "tslint-microsoft-contrib"
-  ],
-  "rules": {
-    "linebreak-style": false,
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ]
-  }
+    "tslint-shared"
+  ]
 }

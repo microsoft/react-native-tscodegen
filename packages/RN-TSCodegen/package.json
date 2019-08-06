@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "jest": "^24.8.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "tslint-shared": "^1.0.0"
   }
 }

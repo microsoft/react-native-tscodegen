@@ -1,12 +1,8 @@
 {
-  "name": "update-test-files",
+  "name": "tslint-shared",
   "version": "1.0.0",
-  "description": "Convert a few files from facebook/react-native and write them to RN-TSCodegen",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "tslint --project tsconfig.json & tsc",
-    "start": "node ./lib/index.js"
-  },
+  "description": "Shared tslint rules",
+  "main": "tslint-export.json",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZihanChen-MSFT/RN-TSCodegen.git"
@@ -18,10 +14,8 @@
   },
   "homepage": "https://github.com/ZihanChen-MSFT/RN-TSCodegen#readme",
   "devDependencies": {
-    "@types/node": "^12.6.9",
     "tslint": "^5.18.0",
-    "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",
-    "tslint-shared": "^1.0.0"
+    "tslint-microsoft-contrib": "^6.2.0"
   }
 }
