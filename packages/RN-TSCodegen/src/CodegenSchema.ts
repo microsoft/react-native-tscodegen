@@ -1,3 +1,5 @@
+
+// tslint:disable:no-reserved-keywords
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -10,130 +12,130 @@
 
 'use strict';
 
-export type CommandsFunctionTypeAnnotation = $ReadOnly<{|
+export type CommandsFunctionTypeAnnotation = Readonly<{
   type: 'FunctionTypeAnnotation',
-  params: $ReadOnlyArray<CommandsFunctionTypeParamAnnotation>,
-|}>;
+  params: ReadonlyArray<CommandsFunctionTypeParamAnnotation>,
+}>;
 
-export type CommandsFunctionTypeParamAnnotation = $ReadOnly<{|
+export type CommandsFunctionTypeParamAnnotation = Readonly<{
   name: string,
   typeAnnotation: CommandsTypeAnnotation,
-|}>;
+}>;
 
 export type CommandsTypeAnnotation =
   | BooleanTypeAnnotation
   | Int32TypeAnnotation
   | StringTypeAnnotation;
 
-export type BooleanTypeAnnotation = $ReadOnly<{|
+export type BooleanTypeAnnotation = Readonly<{
   type: 'BooleanTypeAnnotation',
-|}>;
+}>;
 
-export type Int32TypeAnnotation = $ReadOnly<{|
+export type Int32TypeAnnotation = Readonly<{
   type: 'Int32TypeAnnotation',
-|}>;
+}>;
 
-export type StringTypeAnnotation = $ReadOnly<{|
+export type StringTypeAnnotation = Readonly<{
   type: 'StringTypeAnnotation',
-|}>;
+}>;
 
 export type ObjectPropertyType =
-  | $ReadOnly<{|
+  | Readonly<{
       type: 'BooleanTypeAnnotation',
       name: string,
       optional: boolean,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'StringTypeAnnotation',
       name: string,
       optional: boolean,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'FloatTypeAnnotation',
       name: string,
       optional: boolean,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'Int32TypeAnnotation',
       name: string,
       optional: boolean,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'StringEnumTypeAnnotation',
       name: string,
       optional: boolean,
-      options: $ReadOnlyArray<{|
+      options: ReadonlyArray<{
         name: string,
-      |}>,
-    |}>
-  | $ReadOnly<{|
+      }>,
+    }>
+  | Readonly<{
       type: 'ObjectTypeAnnotation',
       name: string,
       optional: boolean,
-      properties: $ReadOnlyArray<ObjectPropertyType>,
-    |}>;
+      properties: ReadonlyArray<ObjectPropertyType>,
+    }>;
 
 type PropTypeTypeAnnotation =
-  | $ReadOnly<{|
+  | Readonly<{
       type: 'BooleanTypeAnnotation',
       default: boolean,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'StringTypeAnnotation',
       default: string | null,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'FloatTypeAnnotation',
       default: number,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'Int32TypeAnnotation',
       default: number,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'StringEnumTypeAnnotation',
       default: string,
-      options: $ReadOnlyArray<{|
+      options: ReadonlyArray<{
         name: string,
-      |}>,
-    |}>
-  | $ReadOnly<{|
+      }>,
+    }>
+  | Readonly<{
       type: 'NativePrimitiveTypeAnnotation',
       name: 'ColorPrimitive' | 'ImageSourcePrimitive' | 'PointPrimitive',
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'ArrayTypeAnnotation',
       elementType:
-        | $ReadOnly<{|
+        | Readonly<{
             type: 'BooleanTypeAnnotation',
-          |}>
-        | $ReadOnly<{|
+          }>
+        | Readonly<{
             type: 'StringTypeAnnotation',
-          |}>
-        | $ReadOnly<{|
+          }>
+        | Readonly<{
             type: 'FloatTypeAnnotation',
-          |}>
-        | $ReadOnly<{|
+          }>
+        | Readonly<{
             type: 'Int32TypeAnnotation',
-          |}>
-        | $ReadOnly<{|
+          }>
+        | Readonly<{
             type: 'StringEnumTypeAnnotation',
             default: string,
-            options: $ReadOnlyArray<{|
+            options: ReadonlyArray<{
               name: string,
-            |}>,
-          |}>
-        | $ReadOnly<{|
+            }>,
+          }>
+        | Readonly<{
             type: 'NativePrimitiveTypeAnnotation',
             name: 'ColorPrimitive' | 'ImageSourcePrimitive' | 'PointPrimitive',
-          |}>,
-    |}>;
+          }>,
+    }>;
 
-export type PropTypeShape = $ReadOnly<{|
+export type PropTypeShape = Readonly<{
   name: string,
   optional: boolean,
   typeAnnotation: PropTypeTypeAnnotation,
-|}>;
+}>;
 
 export type PrimitiveTypeAnnotationType =
   | 'StringTypeAnnotation'
@@ -143,96 +145,96 @@ export type PrimitiveTypeAnnotationType =
   | 'BooleanTypeAnnotation'
   | 'GenericObjectTypeAnnotation';
 
-export type PrimitiveTypeAnnotation = $ReadOnly<{|
+export type PrimitiveTypeAnnotation = Readonly<{
   type: PrimitiveTypeAnnotationType,
-|}>;
+}>;
 
 export type FunctionTypeAnnotationParamTypeAnnotation =
-  | $ReadOnly<{|
+  | Readonly<{
       type: 'AnyTypeAnnotation' | PrimitiveTypeAnnotationType,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'ArrayTypeAnnotation',
-      elementType: ?FunctionTypeAnnotationParamTypeAnnotation,
-    |}>
-  | $ReadOnly<{|
+      elementType: null | undefined | FunctionTypeAnnotationParamTypeAnnotation,
+    }>
+  | Readonly<{
       type: 'ObjectTypeAnnotation',
-      properties: ?$ReadOnlyArray<ObjectParamTypeAnnotation>,
-    |}>
-  | $ReadOnly<{|
+      properties: null | undefined | ReadonlyArray<ObjectParamTypeAnnotation>,
+    }>
+  | Readonly<{
       type: 'FunctionTypeAnnotation',
-      params: $ReadOnlyArray<FunctionTypeAnnotationParam>,
+      params: ReadonlyArray<FunctionTypeAnnotationParam>,
       returnTypeAnnotation: FunctionTypeAnnotationReturn,
-    |}>;
+    }>;
 
 export type FunctionTypeAnnotationReturnArrayElementType = FunctionTypeAnnotationParamTypeAnnotation;
 
-export type ObjectParamTypeAnnotation = $ReadOnly<{|
+export type ObjectParamTypeAnnotation = Readonly<{
   optional: boolean,
   name: string,
   typeAnnotation: FunctionTypeAnnotationParamTypeAnnotation,
-|}>;
+}>;
 
 export type FunctionTypeAnnotationReturn =
-  | $ReadOnly<{|
+  | Readonly<{
       type: PrimitiveTypeAnnotationType | 'VoidTypeAnnotation',
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'ArrayTypeAnnotation',
-      elementType: ?FunctionTypeAnnotationReturnArrayElementType,
-    |}>
-  | $ReadOnly<{|
+      elementType: null | undefined | FunctionTypeAnnotationReturnArrayElementType,
+    }>
+  | Readonly<{
       type: 'GenericPromiseTypeAnnotation',
       resolvedType: FunctionTypeAnnotationReturn,
-    |}>
-  | $ReadOnly<{|
+    }>
+  | Readonly<{
       type: 'ObjectTypeAnnotation',
-      properties: ?$ReadOnlyArray<ObjectParamTypeAnnotation>,
-    |}>;
+      properties: null | undefined | ReadonlyArray<ObjectParamTypeAnnotation>,
+    }>;
 
-export type FunctionTypeAnnotationParam = $ReadOnly<{|
+export type FunctionTypeAnnotationParam = Readonly<{
   nullable: boolean,
   name: string,
   typeAnnotation: FunctionTypeAnnotationParamTypeAnnotation,
-|}>;
+}>;
 
-export type FunctionTypeAnnotation = $ReadOnly<{|
+export type FunctionTypeAnnotation = Readonly<{
   type: 'FunctionTypeAnnotation',
-  params: $ReadOnlyArray<FunctionTypeAnnotationParam>,
+  params: ReadonlyArray<FunctionTypeAnnotationParam>,
   returnTypeAnnotation: FunctionTypeAnnotationReturn,
   optional: boolean,
-|}>;
+}>;
 
-export type MethodTypeShape = $ReadOnly<{|
+export type MethodTypeShape = Readonly<{
   name: string,
   typeAnnotation: FunctionTypeAnnotation,
-|}>;
+}>;
 
-export type NativeModuleShape = $ReadOnly<{|
-  properties: $ReadOnlyArray<MethodTypeShape>,
-|}>;
+export type NativeModuleShape = Readonly<{
+  properties: ReadonlyArray<MethodTypeShape>,
+}>;
 
-export type EventTypeShape = $ReadOnly<{|
+export type EventTypeShape = Readonly<{
   name: string,
   bubblingType: 'direct' | 'bubble',
   optional: boolean,
   paperTopLevelNameDeprecated?: string,
-  typeAnnotation: $ReadOnly<{|
+  typeAnnotation: Readonly<{
     type: 'EventTypeAnnotation',
-    argument?: $ReadOnly<{|
+    argument?: Readonly<{
       type: 'ObjectTypeAnnotation',
-      properties: $ReadOnlyArray<ObjectPropertyType>,
-    |}>,
-  |}>,
-|}>;
+      properties: ReadonlyArray<ObjectPropertyType>,
+    }>,
+  }>,
+}>;
 
-export type CommandTypeShape = $ReadOnly<{|
+export type CommandTypeShape = Readonly<{
   name: string,
   optional: boolean,
   typeAnnotation: CommandsFunctionTypeAnnotation,
-|}>;
+}>;
 
-export type OptionsShape = $ReadOnly<{|
+export type OptionsShape = Readonly<{
   interfaceOnly?: boolean,
 
   // Use for components with no current paper rename in progress
@@ -242,30 +244,31 @@ export type OptionsShape = $ReadOnly<{|
   // Use for components currently being renamed in paper
   // Will use new name if it is available and fallback to this name
   paperComponentNameDeprecated?: string,
-|}>;
+}>;
 
-export type ExtendsPropsShape = $ReadOnly<{|
+export type ExtendsPropsShape = Readonly<{
   type: 'ReactNativeBuiltInType',
   knownTypeName: 'ReactNativeCoreViewProps',
-|}>;
+}>;
 
-export type ComponentShape = $ReadOnly<{|
+export type ComponentShape = Readonly<{
   ...OptionsShape,
-  extendsProps: $ReadOnlyArray<ExtendsPropsShape>,
-  events: $ReadOnlyArray<EventTypeShape>,
-  props: $ReadOnlyArray<PropTypeShape>,
-  commands: $ReadOnlyArray<CommandTypeShape>,
-|}>;
+  extendsProps: ReadonlyArray<ExtendsPropsShape>,
+  events: ReadonlyArray<EventTypeShape>,
+  props: ReadonlyArray<PropTypeShape>,
+  commands: ReadonlyArray<CommandTypeShape>,
+}>;
 
-export type SchemaType = $ReadOnly<{|
-  modules: $ReadOnly<{
-    [module: string]: $ReadOnly<{|
-      components?: $ReadOnly<{
+export type SchemaType = Readonly<{
+  modules: Readonly<{
+    [module: string]: Readonly<{
+      components?: Readonly<{
         [component: string]: ComponentShape,
       }>,
-      nativeModules?: $ReadOnly<{
+      nativeModules?: Readonly<{
         [nativeModule: string]: NativeModuleShape,
       }>,
-    |}>,
+    }>,
   }>,
-|}>;
+}>;
+
