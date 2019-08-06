@@ -1,5 +1,4 @@
 import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React';import codegenNativeComponent = require('../lib/codegenNativeComponent');import codegenNativeCommands = require('../lib/codegenNativeCommands');
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

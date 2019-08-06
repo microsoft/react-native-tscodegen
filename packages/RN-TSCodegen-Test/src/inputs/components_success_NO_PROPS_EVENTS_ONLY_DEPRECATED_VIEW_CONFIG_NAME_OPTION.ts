@@ -1,5 +1,4 @@
 import codegenNativeComponent = require('../lib/codegenNativeComponent');
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

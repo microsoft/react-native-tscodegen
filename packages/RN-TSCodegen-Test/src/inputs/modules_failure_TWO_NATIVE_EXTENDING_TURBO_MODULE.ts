@@ -1,5 +1,4 @@
 import {TurboModule} from '../lib/RCTExport'
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

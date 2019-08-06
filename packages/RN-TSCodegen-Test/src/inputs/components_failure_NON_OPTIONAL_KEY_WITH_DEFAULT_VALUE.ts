@@ -1,5 +1,4 @@
 import {Float} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

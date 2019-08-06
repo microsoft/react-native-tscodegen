@@ -1,5 +1,4 @@
 import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
