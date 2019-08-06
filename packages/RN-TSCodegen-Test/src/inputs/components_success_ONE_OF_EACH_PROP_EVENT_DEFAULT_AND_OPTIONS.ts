@@ -29,6 +29,6 @@ type ModuleProps = Readonly<ViewProps & {
 }>;
 
 export default codegenNativeComponent<ModuleProps>('Module', {
-  interfaceOnly: true;
-  paperComponentName: 'RCTModule';
+  interfaceOnly: true,
+  paperComponentName: 'RCTModule',
 });

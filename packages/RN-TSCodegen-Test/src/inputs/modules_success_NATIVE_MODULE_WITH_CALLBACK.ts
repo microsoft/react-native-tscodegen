@@ -17,7 +17,7 @@ import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
   // Exported methods.
-  +getValueWithCallback: (
+  getValueWithCallback: (
     callback: (value: string, arr: Array<Array<string>>) => void,
   ) => void;
 }

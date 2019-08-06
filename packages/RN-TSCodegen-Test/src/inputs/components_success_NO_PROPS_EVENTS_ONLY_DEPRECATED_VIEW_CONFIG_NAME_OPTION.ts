@@ -20,5 +20,5 @@ type ModuleProps = Readonly<ViewProps & {
 }>;
 
 export default codegenNativeComponent<ModuleProps>('Module', {
-  deprecatedViewConfigName: 'DeprecateModuleName';
+  deprecatedViewConfigName: 'DeprecateModuleName',
 });

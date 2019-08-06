@@ -16,11 +16,11 @@ import {TurboModule} from '../lib/RCTExport';
 import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getSth(a : null | undefined | number) => void
+  getSth(a : null | undefined | number) : void
 }
 
 export interface Spec2 extends TurboModule {
-  +getSth(a : null | undefined | number) => void
+  getSth(a : null | undefined | number) : void
 }
 
 

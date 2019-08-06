@@ -26,7 +26,7 @@ ${flowSourceCode
       .replace(/: \?/g, `: null | undefined | `)                                                      // ?T -> null | undefined | T
       .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?)(,|;)$/gm, '$1: $2;')                                 // {+a,b,c} -> {a; b; c;}
       .replace(/(\}?)>,$/gm, `$1>;`)                                                                  //
-      .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?(,|;|\{))/gm, '$1$2$3:$4')                    //
+      .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?((void)|,|;|\{))/gm, '$1$2$3:$4')             //
       .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')                                                      // {...a, b; c;} -> a & {b; c;}
       .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
       .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
@@ -37,6 +37,11 @@ ${flowSourceCode
       .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
       .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
       .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // fix mistakes in test cases
+      .replace(/interfaceOnly: ([^;]+);/g, 'interfaceOnly: $1,')                                      //
+      .replace(/paperComponentName: ([^;]+);/g, 'paperComponentName: $1,')                            //
+      .replace(/paperComponentNameDeprecated: ([^;]+);/g, 'paperComponentNameDeprecated: $1,')        //
+      .replace(/deprecatedViewConfigName: ([^;]+);/g, 'deprecatedViewConfigName: $1,')                //
+      .replace(/\+getValueWithCallback: \(/g, 'getValueWithCallback: (')                              //
     }`;
 
   let header = '';
