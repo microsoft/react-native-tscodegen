@@ -10,13 +10,14 @@ function convertCodegenSchema(): void {
   const tsSourceCode = `
 // tslint:disable:no-reserved-keywords
 ${flowSourceCode
-      .replace(/\$ReadOnly</g, `Readonly<`)
-      .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)
-      .replace(/\{\|/g, `{`)
+      .replace(/\$ReadOnly</g, `Readonly<`)                   // $ReadOnly<T> -> Readonly<T>
+      .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)         // $ReadOnlyArray<T> -> ReadonlyArray<T>
+      .replace(/\{\|/g, `{`)                                  // {| ... |} -> { ... }
       .replace(/\|\}/g, `}`)
+      .replace(/: \?/g, `: null | undefined | `)              // ?T -> null | undefined | T
+      .replace(/([a-zA-Z_0-9$]+\??): ([^,]+),/g, '$1: $2;')   // {a,b,c} -> {a; b; c;}
       .replace(/\}>,/g, `}>;`)
-      .replace(/: \?/g, `: null | undefined | `)
-      .replace(/([a-zA-Z_0-9$]+\??): ([^,]+),/g, '$1: $2;')
+      .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')              // {...a, b; c;} -> a & {b; c;}
     }`;
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }

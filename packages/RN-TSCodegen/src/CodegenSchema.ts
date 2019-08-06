@@ -251,8 +251,7 @@ export type ExtendsPropsShape = Readonly<{
   knownTypeName: 'ReactNativeCoreViewProps';
 }>;
 
-export type ComponentShape = Readonly<{
-  ...OptionsShape,
+export type ComponentShape = Readonly<OptionsShape & {
   extendsProps: ReadonlyArray<ExtendsPropsShape>;
   events: ReadonlyArray<EventTypeShape>;
   props: ReadonlyArray<PropTypeShape>;
