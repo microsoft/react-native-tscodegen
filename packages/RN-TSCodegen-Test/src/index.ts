@@ -1,1 +1,1 @@
-console.log('This is a test project!')
+console.log('This is a test project!');

@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/node": "^12.6.9",
     "tslint": "^5.18.0",
+    "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3"
   }
 }
