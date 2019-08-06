@@ -14,8 +14,10 @@ ${flowSourceCode
       .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)
       .replace(/\{\|/g, `{`)
       .replace(/\|\}/g, `}`)
-      .replace(/: \?/g, `: null | undefined | `)}
-`;
+      .replace(/\}>,/g, `}>;`)
+      .replace(/: \?/g, `: null | undefined | `)
+      .replace(/([a-zA-Z_0-9$]+\??): ([^,]+),/g, '$1: $2;')
+    }`;
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }
 
