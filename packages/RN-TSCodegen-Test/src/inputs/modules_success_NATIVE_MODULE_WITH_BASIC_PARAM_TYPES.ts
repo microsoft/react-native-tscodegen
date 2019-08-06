@@ -1,4 +1,4 @@
-import {Stringish} from '../lib/CodegenTypes';
+import {Stringish} from '../lib/CodegenTypes';import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -12,8 +12,8 @@ import {Stringish} from '../lib/CodegenTypes';
 
 'use strict';
 
-import {TurboModule} from '../lib/RCTExport';
-import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
+
+
 
 export interface Spec extends TurboModule {
   passBool? (arg: boolean) : void;

@@ -15,7 +15,7 @@ const importMaps = {
   codegenNativeComponent: `import codegenNativeComponent = require('../lib/codegenNativeComponent');`,
   codegenNativeCommands: `import codegenNativeCommands = require('../lib/codegenNativeCommands');`,
   TurboModule: `import {TurboModule} from '../lib/RCTExport'`,
-  TurboModuleEntry: `import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';`
+  TurboModuleRegistry: `import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';`
 };
 
 function flowToTs(flowSourceCode: string, importCodegenTypes: boolean): string {

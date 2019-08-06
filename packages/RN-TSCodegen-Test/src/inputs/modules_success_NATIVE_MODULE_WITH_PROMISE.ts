@@ -1,4 +1,4 @@
-
+import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,8 +11,8 @@
 
 'use strict';
 
-import {TurboModule} from '../lib/RCTExport';
-import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
+
+
 
 export type String = string
 export type SomeObj = { a: string };
