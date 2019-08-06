@@ -16,7 +16,7 @@ import {TurboModule} from '../lib/RCTExport';
 import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getConstants: () => {
+  getConstants () : {
     isTesting: boolean;
     reactNativeVersion: {
       major: number;

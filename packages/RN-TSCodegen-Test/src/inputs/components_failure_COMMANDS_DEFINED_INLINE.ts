@@ -28,7 +28,7 @@ export type ModuleProps = Readonly<ViewProps & {
 }>;
 
 export const Commands = codegenNativeCommands<{
-  +hotspotUpdate: (ref: React.Ref<'RCTView'>, x: Int32, y: Int32) => void;
+  hotspotUpdate (ref: React.Ref<'RCTView'>, x: Int32, y: Int32) : void;
 }>({
   supportedCommands: ['hotspotUpdate']
 });

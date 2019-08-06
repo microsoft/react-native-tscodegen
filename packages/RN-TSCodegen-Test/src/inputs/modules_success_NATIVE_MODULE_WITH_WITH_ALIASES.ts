@@ -24,9 +24,9 @@ export type B = number;
 
 export interface Spec extends TurboModule {
   // Exported methods.
-  +getNumber: Num2;
-  +getVoid: () => Void;
-  +getArray: (a : Array<A>) => { a: B };
+  getNumber: Num2;
+  getVoid () : Void;
+  getArray (a : Array<A>) : { a: B };
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

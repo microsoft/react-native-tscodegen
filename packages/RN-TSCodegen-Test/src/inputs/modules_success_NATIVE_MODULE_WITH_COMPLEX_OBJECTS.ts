@@ -19,11 +19,11 @@ export type String = string
 
 export interface Spec extends TurboModule {
   // Exported methods.
-  +getObject: (arg: {const1: {const1: boolean}}) => {
+  getObject (arg: {const1: {const1: boolean}}) : {
     const1: {const1: boolean};
   };
-  +getObject2: (arg: { a: String }) => Object;
-  +getObjectInArray: (arg: {const1: {const1: boolean}}) => Array<{
+  getObject2 (arg: { a: String }) : Object;
+  getObjectInArray (arg: {const1: {const1: boolean}}) : Array<{
     const1: {const1: boolean};
   }>;
 }

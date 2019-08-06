@@ -18,7 +18,7 @@ import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 export type SomeString = string;
 
 export interface Spec extends TurboModule {
-  +getArray: (arg: Array<SomeString>) => Array<string>;
+  getArray (arg: Array<SomeString>) : Array<string>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

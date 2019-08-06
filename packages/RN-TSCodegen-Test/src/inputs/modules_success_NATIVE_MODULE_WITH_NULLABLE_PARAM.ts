@@ -17,7 +17,7 @@ import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
   // Exported methods.
-  +voidFunc: (arg: null | undefined | string) => void;
+  voidFunc (arg: null | undefined | string) : void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

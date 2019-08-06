@@ -30,7 +30,7 @@ export type Void = void;
 export type ScrollTo = (viewRef: React.Ref<'RCTView'>, y: Int, animated: Boolean) => Void
 
 interface NativeCommands {
-  +scrollTo: ScrollTo;
+  scrollTo: ScrollTo;
 }
 
 export type ModuleProps = Readonly<ViewProps & {

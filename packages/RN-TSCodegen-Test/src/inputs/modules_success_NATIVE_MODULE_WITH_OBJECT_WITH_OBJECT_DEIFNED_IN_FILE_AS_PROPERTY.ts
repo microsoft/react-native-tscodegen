@@ -20,7 +20,7 @@ type DisplayMetricsAndroid = {
 };
 
 export interface Spec extends TurboModule {
-  +getConstants: () => {
+  getConstants () : {
     Dimensions: {
       windowPhysicalPixels: DisplayMetricsAndroid;
     },

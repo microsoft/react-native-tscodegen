@@ -16,10 +16,10 @@ import {TurboModule} from '../lib/RCTExport';
 import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +passBool?: (arg: boolean) => void;
-  +passNumber: (arg: number) => void;
-  +passString: (arg: string) => void;
-  +passStringish: (arg: Stringish) => void;
+  passBool? (arg: boolean) : void;
+  passNumber (arg: number) : void;
+  passString (arg: string) : void;
+  passStringish (arg: Stringish) : void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

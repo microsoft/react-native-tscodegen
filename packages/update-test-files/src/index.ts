@@ -11,9 +11,9 @@ ${flowSourceCode
       .replace(/\{\|/g, `{`)                                                                          // {| ... |} -> { ... }
       .replace(/\|\}/g, `}`)                                                                          //
       .replace(/: \?/g, `: null | undefined | `)                                                      // ?T -> null | undefined | T
-      .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?),$/gm, '$1: $2;')                                     // {+a,b,c} -> {a; b; c;}
+      .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?)(,|;)$/gm, '$1: $2;')                                 // {+a,b,c} -> {a; b; c;}
       .replace(/\}>,/g, `}>;`)                                                                        //
-      //.replace(/^(\s*)\+(\w+):/gm, '$1$2:')                                                         // {+a:b;} -> {a:b;}
+      .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?(,|;|\{))/gm, '$1$2$3:$4')                    //
       .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')                                                      // {...a, b; c;} -> a & {b; c;}
       .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
       .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';

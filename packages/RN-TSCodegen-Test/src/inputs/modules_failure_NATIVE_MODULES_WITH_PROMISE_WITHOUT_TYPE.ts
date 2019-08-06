@@ -16,7 +16,7 @@ import {TurboModule} from '../lib/RCTExport';
 import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getBool: (arg: boolean) => Promise;
+  getBool (arg: boolean) : Promise;
 
 }
 

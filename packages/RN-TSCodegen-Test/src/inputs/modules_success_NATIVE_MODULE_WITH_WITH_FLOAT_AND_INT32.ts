@@ -17,8 +17,8 @@ import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 import {Int32, Float} from '../lib/react-native/Libraries/Types/CodegenTypes';
 
 export interface Spec extends TurboModule {
-  +getInt: (arg: Int32) => Int32;
-  +getFloat: (arg: Float) => Float;
+  getInt (arg: Int32) : Int32;
+  getFloat (arg: Float) : Float;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

@@ -24,8 +24,8 @@ import {
 import {ViewProps} from '../lib/ViewPropTypes';
 
 interface NativeCommands {
-  +hotspotUpdate: (viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32) => void;
-  +scrollTo: (viewRef: React.Ref<'RCTView'>, y: Int32, animated: boolean) => void;
+  hotspotUpdate (viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32) : void;
+  scrollTo (viewRef: React.Ref<'RCTView'>, y: Int32, animated: boolean) : void;
 }
 
 export type ModuleProps = Readonly<ViewProps & {

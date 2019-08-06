@@ -24,7 +24,7 @@ import {
 import {ViewProps} from '../lib/ViewPropTypes';
 
 interface NativeCommands {
-  +hotspotUpdate: (x: Int32, y: Int32) => void;
+  hotspotUpdate (x: Int32, y: Int32) : void;
 }
 
 export type ModuleProps = Readonly<ViewProps & {
