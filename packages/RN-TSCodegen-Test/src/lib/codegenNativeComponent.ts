@@ -6,6 +6,6 @@ type Options = Readonly<{
   paperComponentNameDeprecated?: string;
 }>;
 
-export = function codegenNativeComponent<T>(componentName: string, optios?: Options): void {
+export = function codegenNativeComponent<T>(componentName: string, optios?: Options): {} {
   throw 'Not implemented';
 };

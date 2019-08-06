@@ -3,22 +3,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+const importMaps = {
+  BubblingEventHandler: `import {BubblingEventHandler} from '../lib/CodegenTypes';`,
+  DirectEventHandler: `import {DirectEventHandler} from '../lib/CodegenTypes';`,
+  Float: `import {Float} from '../lib/CodegenTypes';`,
+  Int32: `import {Int32} from '../lib/CodegenTypes';`,
+  NotString: `import {NotString} from '../lib/CodegenTypes';`,
+  Stringish: `import {Stringish} from '../lib/CodegenTypes';`,
+  WithDefault: `import {WithDefault} from '../lib/CodegenTypes';`,
+  React: `import * as React from '../lib/React';`,
+  codegenNativeComponent: `import codegenNativeComponent = require('../lib/codegenNativeComponent');`,
+  codegenNativeCommands: `import codegenNativeCommands = require('../lib/codegenNativeCommands');`
+};
+
 function flowToTs(flowSourceCode: string, importCodegenTypes: boolean): string {
-  return `
-${!importCodegenTypes ? '' : `
-import {
-  BubblingEventHandler,
-  DirectEventHandler,
-  Float,
-  Int32,
-  NotString,
-  Stringish,
-  WithDefault,
-} from '../lib/CodegenTypes';
-import * as React from '../lib/React';
-import codegenNativeComponent = require('../lib/codegenNativeComponent');
-import codegenNativeCommands = require('../lib/codegenNativeCommands');
-`}
+  const tsSourceCode = `
 ${flowSourceCode
       .replace(/\$ReadOnly</g, `Readonly<`)                                                           // $ReadOnly<T> -> Readonly<T>
       .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)                                                 // $ReadOnlyArray<T> -> ReadonlyArray<T>
@@ -37,7 +36,19 @@ ${flowSourceCode
       .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
       .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
       .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
+      .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // fix mistakes in test cases
     }`;
+
+  let header = '';
+  if (importCodegenTypes) {
+    Object.keys(importMaps).forEach((key: string) => {
+      if (tsSourceCode.match(new RegExp(`\\W${key}\\W`)) !== null) {
+        header += `${importMaps[key]}\r`;
+      }
+    });
+  }
+
+  return header + tsSourceCode;
 }
 
 function convertCodegenSchema(): void {

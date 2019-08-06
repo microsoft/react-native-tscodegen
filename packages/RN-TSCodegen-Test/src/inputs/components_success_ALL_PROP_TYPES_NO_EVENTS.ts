@@ -1,18 +1,4 @@
-
-
-import {
-  BubblingEventHandler,
-  DirectEventHandler,
-  Float,
-  Int32,
-  NotString,
-  Stringish,
-  WithDefault,
-} from '../lib/CodegenTypes';
-import * as React from '../lib/React';
-import codegenNativeComponent = require('../lib/codegenNativeComponent');
-import codegenNativeCommands = require('../lib/codegenNativeCommands');
-
+import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {Stringish} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -98,4 +84,4 @@ type ModuleProps = Readonly<ViewProps & {
   point_optional_both?: null | undefined | PointValue;
 }>;
 
-export default codegenNativeComponent<ModuleProps, Options>('Module');
+export default codegenNativeComponent<ModuleProps>('Module');
