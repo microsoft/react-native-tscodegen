@@ -1,1 +1,1 @@
-"codegenNativeCommands expected the same supportedCommands specified in the NativeCommands interface: hotspotUpdate, scrollTo"
+{"error": "codegenNativeCommands expected the same supportedCommands specified in the NativeCommands interface: hotspotUpdate, scrollTo"}

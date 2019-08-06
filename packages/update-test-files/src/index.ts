@@ -97,11 +97,14 @@ function convertTestInput(inputJsPath: string, outputFolder: string, prefix: str
 }
 
 function convertSuccessSnapshotContent(snapshotContent: string): string {
-  return snapshotContent;
+  return snapshotContent
+    .replace(/Object \{/g, '{')
+    .replace(/Array \[/g, '[')
+    ;
 }
 
 function convertFailureSnapshotContent(snapshotContent: string): string {
-  return snapshotContent;
+  return `{"error": ${snapshotContent}}`;
 }
 
 function convertTestOutput(inputSnapshotPath: string, outputFolder: string, category: string, successCases: TestCaseModule, failureCases: TestCaseModule): void {

@@ -1,17 +1,17 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getValueWithPromise",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [],
-                "returnTypeAnnotation": Object {
-                  "resolvedType": Object {
+                "params": [],
+                "returnTypeAnnotation": {
+                  "resolvedType": {
                     "type": "StringTypeAnnotation",
                   },
                   "type": "GenericPromiseTypeAnnotation",
@@ -19,13 +19,13 @@ Object {
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getValueWithPromiseDefinedSomewhereElse",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [],
-                "returnTypeAnnotation": Object {
-                  "resolvedType": Object {
+                "params": [],
+                "returnTypeAnnotation": {
+                  "resolvedType": {
                     "type": "StringTypeAnnotation",
                   },
                   "type": "GenericPromiseTypeAnnotation",
@@ -33,18 +33,18 @@ Object {
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getValueWithPromiseObjDefinedSomewhereElse",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [],
-                "returnTypeAnnotation": Object {
-                  "resolvedType": Object {
-                    "properties": Array [
-                      Object {
+                "params": [],
+                "returnTypeAnnotation": {
+                  "resolvedType": {
+                    "properties": [
+                      {
                         "name": "a",
                         "optional": false,
-                        "typeAnnotation": Object {
+                        "typeAnnotation": {
                           "type": "StringTypeAnnotation",
                         },
                       },

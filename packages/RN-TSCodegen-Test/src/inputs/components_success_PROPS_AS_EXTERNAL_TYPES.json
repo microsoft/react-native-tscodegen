@@ -1,26 +1,26 @@
 
-Object {
-  "modules": Object {
-    "Module": Object {
-      "components": Object {
-        "Module": Object {
-          "commands": Array [],
-          "events": Array [],
-          "extendsProps": Array [],
-          "props": Array [
-            Object {
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "events": [],
+          "extendsProps": [],
+          "props": [
+            {
               "name": "disable",
               "optional": false,
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "default": null,
                 "type": "StringTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "array",
               "optional": false,
-              "typeAnnotation": Object {
-                "elementType": Object {
+              "typeAnnotation": {
+                "elementType": {
                   "type": "StringTypeAnnotation",
                 },
                 "type": "ArrayTypeAnnotation",

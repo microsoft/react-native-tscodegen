@@ -1,62 +1,62 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getNumber",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "NumberTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getVoid",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [],
-                "returnTypeAnnotation": Object {
+                "params": [],
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getArray",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "a",
                     "nullable": false,
-                    "typeAnnotation": Object {
-                      "elementType": Object {
+                    "typeAnnotation": {
+                      "elementType": {
                         "type": "NumberTypeAnnotation",
                       },
                       "type": "ArrayTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
-                  "properties": Array [
-                    Object {
+                "returnTypeAnnotation": {
+                  "properties": [
+                    {
                       "name": "a",
                       "optional": false,
-                      "typeAnnotation": Object {
+                      "typeAnnotation": {
                         "type": "NumberTypeAnnotation",
                       },
                     },

@@ -1,24 +1,24 @@
 
-Object {
-  "modules": Object {
-    "Module": Object {
-      "components": Object {
-        "Module": Object {
-          "commands": Array [
-            Object {
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [
+            {
               "name": "scrollTo",
               "optional": false,
-              "typeAnnotation": Object {
-                "params": Array [
-                  Object {
+              "typeAnnotation": {
+                "params": [
+                  {
                     "name": "y",
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "Int32TypeAnnotation",
                     },
                   },
-                  Object {
+                  {
                     "name": "animated",
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "BooleanTypeAnnotation",
                     },
                   },
@@ -27,14 +27,14 @@ Object {
               },
             },
           ],
-          "events": Array [],
-          "extendsProps": Array [
-            Object {
+          "events": [],
+          "extendsProps": [
+            {
               "knownTypeName": "ReactNativeCoreViewProps",
               "type": "ReactNativeBuiltInType",
             },
           ],
-          "props": Array [],
+          "props": [],
         },
       },
     },

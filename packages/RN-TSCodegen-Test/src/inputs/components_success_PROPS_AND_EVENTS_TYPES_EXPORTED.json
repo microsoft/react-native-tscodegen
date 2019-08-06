@@ -1,155 +1,155 @@
 
-Object {
-  "modules": Object {
-    "Module": Object {
-      "components": Object {
-        "Module": Object {
-          "commands": Array [],
-          "events": Array [
-            Object {
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "events": [
+            {
               "bubblingType": "bubble",
               "name": "onBubblingEventDefinedInline",
               "optional": false,
-              "typeAnnotation": Object {
-                "argument": Object {
-                  "properties": Array [
-                    Object {
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [
+                    {
                       "name": "boolean_required",
                       "optional": false,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_key",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_value",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_both",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_required",
                       "optional": false,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_key",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_value",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_both",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_key",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_value",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_both",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_required",
                       "optional": false,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_key",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_value",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_both",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_required",
                       "optional": false,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_key",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_value",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_both",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "boolean_required",
                           "optional": false,
                           "type": "BooleanTypeAnnotation",
@@ -157,11 +157,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_key",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "string_optional_key",
                           "optional": true,
                           "type": "StringTypeAnnotation",
@@ -169,11 +169,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_value",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "float_optional_value",
                           "optional": true,
                           "type": "FloatTypeAnnotation",
@@ -181,11 +181,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_both",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "int32_optional_both",
                           "optional": true,
                           "type": "Int32TypeAnnotation",
@@ -193,30 +193,30 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required_nested_2_layers",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "object_optional_nested_1_layer",
                           "optional": true,
-                          "properties": Array [
-                            Object {
+                          "properties": [
+                            {
                               "name": "boolean_required",
                               "optional": false,
                               "type": "Int32TypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "float_optional_value",
                               "optional": true,
                               "type": "FloatTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "int32_optional_both",
                               "optional": true,
                               "type": "Int32TypeAnnotation",
@@ -233,151 +233,151 @@ Object {
                 "type": "EventTypeAnnotation",
               },
             },
-            Object {
+            {
               "bubblingType": "bubble",
               "name": "onBubblingEventDefinedInlineWithPaperName",
               "optional": false,
               "paperTopLevelNameDeprecated": "paperBubblingEventDefinedInlineWithPaperName",
-              "typeAnnotation": Object {
-                "argument": Object {
-                  "properties": Array [
-                    Object {
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [
+                    {
                       "name": "boolean_required",
                       "optional": false,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_key",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_value",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_both",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_required",
                       "optional": false,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_key",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_value",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_both",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_key",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_value",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_both",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_required",
                       "optional": false,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_key",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_value",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_both",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_required",
                       "optional": false,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_key",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_value",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_both",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "boolean_required",
                           "optional": false,
                           "type": "BooleanTypeAnnotation",
@@ -385,11 +385,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_key",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "string_optional_key",
                           "optional": true,
                           "type": "StringTypeAnnotation",
@@ -397,11 +397,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_value",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "float_optional_value",
                           "optional": true,
                           "type": "FloatTypeAnnotation",
@@ -409,11 +409,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_both",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "int32_optional_both",
                           "optional": true,
                           "type": "Int32TypeAnnotation",
@@ -421,30 +421,30 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required_nested_2_layers",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "object_optional_nested_1_layer",
                           "optional": true,
-                          "properties": Array [
-                            Object {
+                          "properties": [
+                            {
                               "name": "boolean_required",
                               "optional": false,
                               "type": "Int32TypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "float_optional_value",
                               "optional": true,
                               "type": "FloatTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "int32_optional_both",
                               "optional": true,
                               "type": "Int32TypeAnnotation",
@@ -461,150 +461,150 @@ Object {
                 "type": "EventTypeAnnotation",
               },
             },
-            Object {
+            {
               "bubblingType": "direct",
               "name": "onDirectEventDefinedInline",
               "optional": false,
-              "typeAnnotation": Object {
-                "argument": Object {
-                  "properties": Array [
-                    Object {
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [
+                    {
                       "name": "boolean_required",
                       "optional": false,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_key",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_value",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_both",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_required",
                       "optional": false,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_key",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_value",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_both",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_key",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_value",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_both",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_required",
                       "optional": false,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_key",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_value",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_both",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_required",
                       "optional": false,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_key",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_value",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_both",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "boolean_required",
                           "optional": false,
                           "type": "BooleanTypeAnnotation",
@@ -612,11 +612,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_key",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "string_optional_key",
                           "optional": true,
                           "type": "StringTypeAnnotation",
@@ -624,11 +624,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_value",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "float_optional_value",
                           "optional": true,
                           "type": "FloatTypeAnnotation",
@@ -636,11 +636,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_both",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "int32_optional_both",
                           "optional": true,
                           "type": "Int32TypeAnnotation",
@@ -648,30 +648,30 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required_nested_2_layers",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "object_optional_nested_1_layer",
                           "optional": true,
-                          "properties": Array [
-                            Object {
+                          "properties": [
+                            {
                               "name": "boolean_required",
                               "optional": false,
                               "type": "Int32TypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "float_optional_value",
                               "optional": true,
                               "type": "FloatTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "int32_optional_both",
                               "optional": true,
                               "type": "Int32TypeAnnotation",
@@ -688,151 +688,151 @@ Object {
                 "type": "EventTypeAnnotation",
               },
             },
-            Object {
+            {
               "bubblingType": "direct",
               "name": "onDirectEventDefinedInlineWithPaperName",
               "optional": false,
               "paperTopLevelNameDeprecated": "paperDirectEventDefinedInlineWithPaperName",
-              "typeAnnotation": Object {
-                "argument": Object {
-                  "properties": Array [
-                    Object {
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [
+                    {
                       "name": "boolean_required",
                       "optional": false,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_key",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_value",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "boolean_optional_both",
                       "optional": true,
                       "type": "BooleanTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_required",
                       "optional": false,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_key",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_value",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "string_optional_both",
                       "optional": true,
                       "type": "StringTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_key",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_value",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "float_optional_both",
                       "optional": true,
                       "type": "FloatTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_required",
                       "optional": false,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_key",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_value",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "int32_optional_both",
                       "optional": true,
                       "type": "Int32TypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_required",
                       "optional": false,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_key",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_value",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "enum_optional_both",
                       "optional": true,
-                      "options": Array [
-                        Object {
+                      "options": [
+                        {
                           "name": "small",
                         },
-                        Object {
+                        {
                           "name": "large",
                         },
                       ],
                       "type": "StringEnumTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "boolean_required",
                           "optional": false,
                           "type": "BooleanTypeAnnotation",
@@ -840,11 +840,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_key",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "string_optional_key",
                           "optional": true,
                           "type": "StringTypeAnnotation",
@@ -852,11 +852,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_value",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "float_optional_value",
                           "optional": true,
                           "type": "FloatTypeAnnotation",
@@ -864,11 +864,11 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_optional_both",
                       "optional": true,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "int32_optional_both",
                           "optional": true,
                           "type": "Int32TypeAnnotation",
@@ -876,30 +876,30 @@ Object {
                       ],
                       "type": "ObjectTypeAnnotation",
                     },
-                    Object {
+                    {
                       "name": "object_required_nested_2_layers",
                       "optional": false,
-                      "properties": Array [
-                        Object {
+                      "properties": [
+                        {
                           "name": "object_optional_nested_1_layer",
                           "optional": true,
-                          "properties": Array [
-                            Object {
+                          "properties": [
+                            {
                               "name": "boolean_required",
                               "optional": false,
                               "type": "Int32TypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "float_optional_value",
                               "optional": true,
                               "type": "FloatTypeAnnotation",
                             },
-                            Object {
+                            {
                               "name": "int32_optional_both",
                               "optional": true,
                               "type": "Int32TypeAnnotation",
@@ -917,13 +917,13 @@ Object {
               },
             },
           ],
-          "extendsProps": Array [
-            Object {
+          "extendsProps": [
+            {
               "knownTypeName": "ReactNativeCoreViewProps",
               "type": "ReactNativeBuiltInType",
             },
           ],
-          "props": Array [],
+          "props": [],
         },
       },
     },

@@ -1,54 +1,54 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getConstants",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [],
-                "returnTypeAnnotation": Object {
-                  "properties": Array [
-                    Object {
+                "params": [],
+                "returnTypeAnnotation": {
+                  "properties": [
+                    {
                       "name": "isTesting",
                       "optional": false,
-                      "typeAnnotation": Object {
+                      "typeAnnotation": {
                         "type": "BooleanTypeAnnotation",
                       },
                     },
-                    Object {
+                    {
                       "name": "reactNativeVersion",
                       "optional": false,
-                      "typeAnnotation": Object {
-                        "properties": Array [
-                          Object {
+                      "typeAnnotation": {
+                        "properties": [
+                          {
                             "name": "major",
                             "optional": false,
-                            "typeAnnotation": Object {
+                            "typeAnnotation": {
                               "type": "NumberTypeAnnotation",
                             },
                           },
-                          Object {
+                          {
                             "name": "minor",
                             "optional": false,
-                            "typeAnnotation": Object {
+                            "typeAnnotation": {
                               "type": "NumberTypeAnnotation",
                             },
                           },
-                          Object {
+                          {
                             "name": "patch",
                             "optional": false,
-                            "typeAnnotation": Object {
+                            "typeAnnotation": {
                               "type": "NumberTypeAnnotation",
                             },
                           },
-                          Object {
+                          {
                             "name": "prerelease",
                             "optional": true,
-                            "typeAnnotation": Object {
+                            "typeAnnotation": {
                               "type": "NumberTypeAnnotation",
                             },
                           },
@@ -56,31 +56,31 @@ Object {
                         "type": "ObjectTypeAnnotation",
                       },
                     },
-                    Object {
+                    {
                       "name": "forceTouchAvailable",
                       "optional": false,
-                      "typeAnnotation": Object {
+                      "typeAnnotation": {
                         "type": "BooleanTypeAnnotation",
                       },
                     },
-                    Object {
+                    {
                       "name": "osVersion",
                       "optional": false,
-                      "typeAnnotation": Object {
+                      "typeAnnotation": {
                         "type": "StringTypeAnnotation",
                       },
                     },
-                    Object {
+                    {
                       "name": "systemName",
                       "optional": false,
-                      "typeAnnotation": Object {
+                      "typeAnnotation": {
                         "type": "StringTypeAnnotation",
                       },
                     },
-                    Object {
+                    {
                       "name": "interfaceIdiom",
                       "optional": false,
-                      "typeAnnotation": Object {
+                      "typeAnnotation": {
                         "type": "StringTypeAnnotation",
                       },
                     },

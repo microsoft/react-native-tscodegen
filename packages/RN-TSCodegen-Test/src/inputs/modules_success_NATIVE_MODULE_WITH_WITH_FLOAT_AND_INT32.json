@@ -1,43 +1,43 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getInt",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "Int32TypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "Int32TypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getFloat",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "FloatTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "FloatTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",

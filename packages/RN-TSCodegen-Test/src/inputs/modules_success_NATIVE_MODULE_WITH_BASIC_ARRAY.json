@@ -1,28 +1,28 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getArray",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
-                      "elementType": Object {
+                    "typeAnnotation": {
+                      "elementType": {
                         "type": "StringTypeAnnotation",
                       },
                       "type": "ArrayTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
-                  "elementType": Object {
+                "returnTypeAnnotation": {
+                  "elementType": {
                     "type": "StringTypeAnnotation",
                   },
                   "type": "ArrayTypeAnnotation",

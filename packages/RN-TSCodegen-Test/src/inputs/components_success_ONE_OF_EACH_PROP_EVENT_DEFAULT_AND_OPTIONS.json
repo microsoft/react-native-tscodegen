@@ -1,49 +1,49 @@
 
-Object {
-  "modules": Object {
-    "Module": Object {
-      "components": Object {
-        "Module": Object {
-          "commands": Array [],
-          "events": Array [
-            Object {
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "events": [
+            {
               "bubblingType": "direct",
               "name": "onDirectEventDefinedInlineNull",
               "optional": false,
-              "typeAnnotation": Object {
-                "argument": Object {
-                  "properties": Array [],
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [],
                   "type": "ObjectTypeAnnotation",
                 },
                 "type": "EventTypeAnnotation",
               },
             },
-            Object {
+            {
               "bubblingType": "bubble",
               "name": "onBubblingEventDefinedInlineNull",
               "optional": false,
-              "typeAnnotation": Object {
-                "argument": Object {
-                  "properties": Array [],
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [],
                   "type": "ObjectTypeAnnotation",
                 },
                 "type": "EventTypeAnnotation",
               },
             },
           ],
-          "extendsProps": Array [
-            Object {
+          "extendsProps": [
+            {
               "knownTypeName": "ReactNativeCoreViewProps",
               "type": "ReactNativeBuiltInType",
             },
           ],
           "interfaceOnly": true,
           "paperComponentName": "RCTModule",
-          "props": Array [
-            Object {
+          "props": [
+            {
               "name": "boolean_default_true_optional_both",
               "optional": true,
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "default": true,
                 "type": "BooleanTypeAnnotation",
               },

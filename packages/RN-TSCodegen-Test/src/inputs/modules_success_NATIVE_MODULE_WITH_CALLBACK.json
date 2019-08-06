@@ -1,33 +1,33 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getValueWithCallback",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "callback",
                     "nullable": false,
-                    "typeAnnotation": Object {
-                      "params": Array [
-                        Object {
+                    "typeAnnotation": {
+                      "params": [
+                        {
                           "name": "value",
                           "nullable": false,
-                          "typeAnnotation": Object {
+                          "typeAnnotation": {
                             "type": "StringTypeAnnotation",
                           },
                         },
-                        Object {
+                        {
                           "name": "arr",
                           "nullable": false,
-                          "typeAnnotation": Object {
-                            "elementType": Object {
-                              "elementType": Object {
+                          "typeAnnotation": {
+                            "elementType": {
+                              "elementType": {
                                 "type": "StringTypeAnnotation",
                               },
                               "type": "ArrayTypeAnnotation",
@@ -36,14 +36,14 @@ Object {
                           },
                         },
                       ],
-                      "returnTypeAnnotation": Object {
+                      "returnTypeAnnotation": {
                         "type": "VoidTypeAnnotation",
                       },
                       "type": "FunctionTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",

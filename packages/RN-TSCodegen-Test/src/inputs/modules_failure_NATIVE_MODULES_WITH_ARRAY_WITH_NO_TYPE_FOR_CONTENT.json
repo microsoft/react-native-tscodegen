@@ -1,1 +1,1 @@
-"Unsupported return type for getString: expected to find annotation for type of array contents"
+{"error": "Unsupported return type for getString: expected to find annotation for type of array contents"}

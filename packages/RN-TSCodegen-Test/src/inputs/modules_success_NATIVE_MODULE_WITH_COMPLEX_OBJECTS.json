@@ -1,29 +1,29 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getObject",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
-                      "properties": Array [
-                        Object {
+                    "typeAnnotation": {
+                      "properties": [
+                        {
                           "name": "const1",
                           "optional": false,
-                          "typeAnnotation": Object {
-                            "properties": Array [
-                              Object {
+                          "typeAnnotation": {
+                            "properties": [
+                              {
                                 "name": "const1",
                                 "optional": false,
-                                "typeAnnotation": Object {
+                                "typeAnnotation": {
                                   "type": "BooleanTypeAnnotation",
                                 },
                               },
@@ -36,17 +36,17 @@ Object {
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
-                  "properties": Array [
-                    Object {
+                "returnTypeAnnotation": {
+                  "properties": [
+                    {
                       "name": "const1",
                       "optional": false,
-                      "typeAnnotation": Object {
-                        "properties": Array [
-                          Object {
+                      "typeAnnotation": {
+                        "properties": [
+                          {
                             "name": "const1",
                             "optional": false,
-                            "typeAnnotation": Object {
+                            "typeAnnotation": {
                               "type": "BooleanTypeAnnotation",
                             },
                           },
@@ -60,20 +60,20 @@ Object {
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getObject2",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
-                      "properties": Array [
-                        Object {
+                    "typeAnnotation": {
+                      "properties": [
+                        {
                           "name": "a",
                           "optional": false,
-                          "typeAnnotation": Object {
+                          "typeAnnotation": {
                             "type": "StringTypeAnnotation",
                           },
                         },
@@ -82,31 +82,31 @@ Object {
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "GenericObjectTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "getObjectInArray",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
-                      "properties": Array [
-                        Object {
+                    "typeAnnotation": {
+                      "properties": [
+                        {
                           "name": "const1",
                           "optional": false,
-                          "typeAnnotation": Object {
-                            "properties": Array [
-                              Object {
+                          "typeAnnotation": {
+                            "properties": [
+                              {
                                 "name": "const1",
                                 "optional": false,
-                                "typeAnnotation": Object {
+                                "typeAnnotation": {
                                   "type": "BooleanTypeAnnotation",
                                 },
                               },
@@ -119,18 +119,18 @@ Object {
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
-                  "elementType": Object {
-                    "properties": Array [
-                      Object {
+                "returnTypeAnnotation": {
+                  "elementType": {
+                    "properties": [
+                      {
                         "name": "const1",
                         "optional": false,
-                        "typeAnnotation": Object {
-                          "properties": Array [
-                            Object {
+                        "typeAnnotation": {
+                          "properties": [
+                            {
                               "name": "const1",
                               "optional": false,
-                              "typeAnnotation": Object {
+                              "typeAnnotation": {
                                 "type": "BooleanTypeAnnotation",
                               },
                             },

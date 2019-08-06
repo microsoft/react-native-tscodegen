@@ -1,81 +1,81 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "passBool",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": true,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "BooleanTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "passNumber",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "NumberTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "passString",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "StringTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",
               },
             },
-            Object {
+            {
               "name": "passStringish",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [
-                  Object {
+                "params": [
+                  {
                     "name": "arg",
                     "nullable": false,
-                    "typeAnnotation": Object {
+                    "typeAnnotation": {
                       "type": "StringTypeAnnotation",
                     },
                   },
                 ],
-                "returnTypeAnnotation": Object {
+                "returnTypeAnnotation": {
                   "type": "VoidTypeAnnotation",
                 },
                 "type": "FunctionTypeAnnotation",

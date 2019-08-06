@@ -1,1 +1,1 @@
-"codegenNativeCommands doesn't support inline definitions. Specify a file local type alias"
+{"error": "codegenNativeCommands doesn't support inline definitions. Specify a file local type alias"}

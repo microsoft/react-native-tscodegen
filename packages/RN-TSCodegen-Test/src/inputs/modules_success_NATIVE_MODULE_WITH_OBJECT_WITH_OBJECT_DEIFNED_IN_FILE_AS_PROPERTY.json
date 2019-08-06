@@ -1,31 +1,31 @@
 
-Object {
-  "modules": Object {
-    "NativeSampleTurboModule": Object {
-      "nativeModules": Object {
-        "SampleTurboModule": Object {
-          "properties": Array [
-            Object {
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
               "name": "getConstants",
-              "typeAnnotation": Object {
+              "typeAnnotation": {
                 "optional": false,
-                "params": Array [],
-                "returnTypeAnnotation": Object {
-                  "properties": Array [
-                    Object {
+                "params": [],
+                "returnTypeAnnotation": {
+                  "properties": [
+                    {
                       "name": "Dimensions",
                       "optional": false,
-                      "typeAnnotation": Object {
-                        "properties": Array [
-                          Object {
+                      "typeAnnotation": {
+                        "properties": [
+                          {
                             "name": "windowPhysicalPixels",
                             "optional": false,
-                            "typeAnnotation": Object {
-                              "properties": Array [
-                                Object {
+                            "typeAnnotation": {
+                              "properties": [
+                                {
                                   "name": "width",
                                   "optional": false,
-                                  "typeAnnotation": Object {
+                                  "typeAnnotation": {
                                     "type": "NumberTypeAnnotation",
                                   },
                                 },

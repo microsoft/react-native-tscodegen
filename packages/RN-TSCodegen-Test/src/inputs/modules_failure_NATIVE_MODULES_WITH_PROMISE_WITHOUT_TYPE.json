@@ -1,1 +1,1 @@
-"Unsupported return promise type for getBool: expected to find annotation for type of promise content"
+{"error": "Unsupported return promise type for getBool: expected to find annotation for type of promise content"}
