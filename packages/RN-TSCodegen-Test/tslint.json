@@ -4,7 +4,8 @@
   ],
   "linterOptions": {
     "exclude": [
-      "src/inputs/*.ts"
+      "src/inputs/*.ts",
+      "src/lib/*.ts",
     ]
   }
 }

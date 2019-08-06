@@ -1,14 +1,11 @@
 
 
 import {
-  BubblingEvent,
   BubblingEventHandler,
-  DirectEvent,
   DirectEventHandler,
   Float,
   Int32,
   NotString,
-  Options,
   Stringish,
   WithDefault,
 } from '../lib/CodegenTypes';

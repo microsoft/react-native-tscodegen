@@ -7,14 +7,11 @@ function flowToTs(flowSourceCode: string, importCodegenTypes: boolean): string {
   return `
 ${!importCodegenTypes ? '' : `
 import {
-  BubblingEvent,
   BubblingEventHandler,
-  DirectEvent,
   DirectEventHandler,
   Float,
   Int32,
   NotString,
-  Options,
   Stringish,
   WithDefault,
 } from '../lib/CodegenTypes';
