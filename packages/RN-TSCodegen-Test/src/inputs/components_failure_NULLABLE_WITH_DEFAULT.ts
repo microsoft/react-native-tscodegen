@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,19 +12,18 @@
 
 'use strict';
 
-const codegenNativeComponent = require('codegenNativeComponent');
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-import type {
+import {
   WithDefault,
   Float,
-} from 'CodegenTypes';
+} from '../lib/CodegenTypes';
 
-import type {ViewProps} from 'ViewPropTypes';
+import {ViewProps} from '../lib/ViewPropTypes';
 
 
-export type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
-  nullable_with_default: ?WithDefault<Float, 1.0>,
-|}>;
+export type ModuleProps = Readonly<ViewProps & {
+  nullable_with_default: null | undefined | WithDefault<Float, 1.0>;
+}>;
 
 export default codegenNativeComponent<ModuleProps>('Module');

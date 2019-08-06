@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -12,11 +13,11 @@
 'use strict';
 
 export type String = string;
-export type AnotherArray = $ReadOnlyArray<String>;
+export type AnotherArray = ReadonlyArray<String>;
 
-export type ModuleProps = $ReadOnly<{|
-  disable: String,
-  array: AnotherArray,
-|}>;
+export type ModuleProps = Readonly<{
+  disable: String;
+  array: AnotherArray;
+}>;
 
 export default codegenNativeComponent<ModuleProps>('Module');

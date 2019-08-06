@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,20 +12,20 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export type String = string
 
 export interface Spec extends TurboModule {
   // Exported methods.
-  +getObject: (arg: {|const1: {|const1: boolean|}|}) => {|
-    const1: {|const1: boolean|},
-  |};
+  +getObject: (arg: {const1: {const1: boolean}}) => {
+    const1: {const1: boolean};
+  };
   +getObject2: (arg: { a: String }) => Object;
-  +getObjectInArray: (arg: {const1: {|const1: boolean|}}) => Array<{|
-    const1: {const1: boolean},
-  |}>;
+  +getObjectInArray: (arg: {const1: {const1: boolean}}) => Array<{
+    const1: {const1: boolean};
+  }>;
 }
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');
 

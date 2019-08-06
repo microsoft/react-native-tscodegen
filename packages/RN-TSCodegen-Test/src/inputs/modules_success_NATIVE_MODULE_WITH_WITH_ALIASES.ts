@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,8 +12,8 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 type NumNum = number;
 export type Num = (arg: NumNum) => void;
@@ -25,7 +26,7 @@ export interface Spec extends TurboModule {
   // Exported methods.
   +getNumber: Num2;
   +getVoid: () => Void;
-  +getArray: (a : Array<A>) => {| a: B |};
+  +getArray: (a : Array<A>) => { a: B };
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

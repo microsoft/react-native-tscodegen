@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,14 +12,13 @@
 
 'use strict';
 
-const codegenNativeComponent = require('codegenNativeComponent');
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-import type {ViewProps} from 'ViewPropTypes';
+import {ViewProps} from '../lib/ViewPropTypes';
 
-type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
-|}>;
+type ModuleProps = Readonly<ViewProps & {
+}>;
 
 export default codegenNativeComponent<ModuleProps>('Module', {
-  deprecatedViewConfigName: 'DeprecateModuleName',
+  deprecatedViewConfigName: 'DeprecateModuleName';
 });

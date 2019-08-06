@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -10,11 +11,11 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export type String = string
-export type SomeObj = {| a: string |};
+export type SomeObj = { a: string };
 
 export interface Spec extends TurboModule {
   +getValueWithPromise: () => Promise<string>;

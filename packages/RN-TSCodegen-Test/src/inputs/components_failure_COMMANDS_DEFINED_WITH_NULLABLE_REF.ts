@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,25 +12,24 @@
 
 'use strict';
 
-const codegenNativeComponent = require('codegenNativeComponent');
-const codegenNativeCommands = require('codegenNativeCommands');
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import codegenNativeCommands = require('../lib/codegenNativeCommands');
 
-import type {
+import {
   Int32,
   BubblingEvent,
   DirectEvent,
-} from 'CodegenTypes';
+} from '../lib/CodegenTypes';
 
-import type {ViewProps} from 'ViewPropTypes';
+import {ViewProps} from '../lib/ViewPropTypes';
 
 interface NativeCommands {
-  +hotspotUpdate: (viewRef: ?React.Ref<'RCTView'>, x: Int32, y: Int32) => void;
+  +hotspotUpdate: (viewRef: null | undefined | React.Ref<'RCTView'>, x: Int32, y: Int32) => void;
 }
 
-export type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
+export type ModuleProps = Readonly<ViewProps & {
   // No props or events
-|}>;
+}>;
 
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['hotspotUpdate']

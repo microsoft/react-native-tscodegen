@@ -1,18 +1,23 @@
+// tslint:disable:max-line-length
+
 import * as fs from 'fs';
 import * as path from 'path';
 
 function flowToTs(flowSourceCode: string): string {
   return `
-// tslint:disable:no-reserved-keywords
 ${flowSourceCode
-      .replace(/\$ReadOnly</g, `Readonly<`)                   // $ReadOnly<T> -> Readonly<T>
-      .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)         // $ReadOnlyArray<T> -> ReadonlyArray<T>
-      .replace(/\{\|/g, `{`)                                  // {| ... |} -> { ... }
-      .replace(/\|\}/g, `}`)
-      .replace(/: \?/g, `: null | undefined | `)              // ?T -> null | undefined | T
-      .replace(/([a-zA-Z_0-9$]+\??): ([^,]+),/g, '$1: $2;')   // {a,b,c} -> {a; b; c;}
-      .replace(/\}>,/g, `}>;`)
-      .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')              // {...a, b; c;} -> a & {b; c;}
+      .replace(/\$ReadOnly</g, `Readonly<`)                                                           // $ReadOnly<T> -> Readonly<T>
+      .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)                                                 // $ReadOnlyArray<T> -> ReadonlyArray<T>
+      .replace(/\{\|/g, `{`)                                                                          // {| ... |} -> { ... }
+      .replace(/\|\}/g, `}`)                                                                          //
+      .replace(/: \?/g, `: null | undefined | `)                                                      // ?T -> null | undefined | T
+      .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?),$/gm, '$1: $2;')                                     // {+a,b,c} -> {a; b; c;}
+      .replace(/\}>,/g, `}>;`)                                                                        //
+      //.replace(/^(\s*)\+(\w+):/gm, '$1$2:')                                                         // {+a:b;} -> {a:b;}
+      .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')                                                      // {...a, b; c;} -> a & {b; c;}
+      .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
+      .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
+      .replace(/from '(\.\.\/)?([^']+)';/g, `from '../lib/$2';`)                                      //
     }`;
 }
 
@@ -35,7 +40,8 @@ function convertTestInput(inputJsPath: string, outputFolder: string, prefix: str
   Object.keys(testCases).forEach((key: string) => {
     const outputPath = path.join(outputFolder, `${prefix}${key}.ts`);
     const flowSourceCode = testCases[key];
-    fs.writeFileSync(outputPath, flowSourceCode, { encoding: 'utf-8' });
+    const tsSourceCode = flowToTs(flowSourceCode);
+    fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
   });
 
   return testCases;

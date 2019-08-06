@@ -1,5 +1,10 @@
 {
   "extends": [
     "tslint-shared"
-  ]
+  ],
+  "linterOptions": {
+    "exclude": [
+      "src/CodegenSchema.ts"
+    ]
+  }
 }

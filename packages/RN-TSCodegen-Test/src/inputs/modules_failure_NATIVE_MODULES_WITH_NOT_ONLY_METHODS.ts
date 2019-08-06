@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,14 +12,14 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
   +getBool: (arg: boolean) => boolean;
   +getNumber: (arg: number) => number;
   +getString: (arg: string) => string;
-  sampleBool: boolean,
+  sampleBool: boolean;
 
 }
 

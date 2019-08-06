@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,19 +12,19 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
-type DisplayMetricsAndroid = {|
- width: number,
-|};
+type DisplayMetricsAndroid = {
+ width: number;
+};
 
 export interface Spec extends TurboModule {
-  +getConstants: () => {|
-    +Dimensions: {
-      windowPhysicalPixels: DisplayMetricsAndroid,
+  +getConstants: () => {
+    Dimensions: {
+      windowPhysicalPixels: DisplayMetricsAndroid;
     },
-  |};
+  };
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

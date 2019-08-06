@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,28 +12,27 @@
 
 'use strict';
 
-const codegenNativeComponent = require('codegenNativeComponent');
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-import type {
+import {
   BubblingEventHandler,
   DirectEventHandler,
   WithDefault,
-} from 'CodegenTypes';
+} from '../lib/CodegenTypes';
 
-import type {ViewProps} from 'ViewPropTypes';
+import {ViewProps} from '../lib/ViewPropTypes';
 
-type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
+type ModuleProps = Readonly<ViewProps & {
 
   // Props
-  boolean_default_true_optional_both?: WithDefault<boolean, true>,
+  boolean_default_true_optional_both?: WithDefault<boolean, true>;
 
   // Events
-  onDirectEventDefinedInlineNull: DirectEventHandler<null>,
-  onBubblingEventDefinedInlineNull: BubblingEventHandler<null>,
-|}>;
+  onDirectEventDefinedInlineNull: DirectEventHandler<null>;
+  onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
+}>;
 
 export default codegenNativeComponent<ModuleProps>('Module', {
-  interfaceOnly: true,
-  paperComponentName: 'RCTModule',
+  interfaceOnly: true;
+  paperComponentName: 'RCTModule';
 });

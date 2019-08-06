@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,42 +12,41 @@
 
 'use strict';
 
-const codegenNativeComponent = require('codegenNativeComponent');
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-import type {
+import {
   BubblingEventHandler,
   DirectEventHandler,
-} from 'CodegenTypese';
+} from '../lib/CodegenTypese';
 
-import type {ViewProps} from 'ViewPropTypes';
+import {ViewProps} from '../lib/ViewPropTypes';
 
-const codegenNativeComponent = require('codegenNativeComponent');
+import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
-type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
+type ModuleProps = Readonly<ViewProps & {
 
   // No props
 
   // Events defined inline
   onDirectEventDefinedInlineNull:DirectEventHandler<null>,
-  onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>,
-  onDirectEventDefinedInlineNullOptionalValue: ?DirectEventHandler<null>,
-  onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>,
-  onDirectEventDefinedInlineNullWithPaperName?: ?
+  onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
+  onDirectEventDefinedInlineNullOptionalValue: null | undefined | DirectEventHandler<null>;
+  onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
+  onDirectEventDefinedInlineNullWithPaperName?: null | undefined | 
     DirectEventHandler<
-      null,
+      null;
       'paperDirectEventDefinedInlineNullWithPaperName',
     >,
 
-  onBubblingEventDefinedInlineNull: BubblingEventHandler<null>,
-  onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>,
-  onBubblingEventDefinedInlineNullOptionalValue: ?BubblingEventHandler<null>,
-  onBubblingEventDefinedInlineNullOptionalBoth?: ?BubblingEventHandler<null>,
-  onBubblingEventDefinedInlineNullWithPaperName?: ?
+  onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
+  onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
+  onBubblingEventDefinedInlineNullOptionalValue: null | undefined | BubblingEventHandler<null>;
+  onBubblingEventDefinedInlineNullOptionalBoth?: null | undefined | BubblingEventHandler<null>;
+  onBubblingEventDefinedInlineNullWithPaperName?: null | undefined | 
     BubblingEventHandler<
-      null,
+      null;
       'paperBubblingEventDefinedInlineNullWithPaperName',
     >,
-|}>;
+}>;
 
 export default codegenNativeComponent<ModuleProps>('Module');

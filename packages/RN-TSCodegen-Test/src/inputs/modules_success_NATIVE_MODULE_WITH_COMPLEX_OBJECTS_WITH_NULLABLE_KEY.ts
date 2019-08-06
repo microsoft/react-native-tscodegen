@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,23 +12,23 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getConstants: () => {|
-    isTesting: boolean,
-    reactNativeVersion: {|
-      major: number,
-      minor: number,
-      patch: number,
-      prerelease: ?number,
-    |},
-    forceTouchAvailable: boolean,
-    osVersion: string,
-    systemName: string,
-    interfaceIdiom: string,
-  |};
+  +getConstants: () => {
+    isTesting: boolean;
+    reactNativeVersion: {
+      major: number;
+      minor: number;
+      patch: number;
+      prerelease: null | undefined | number;
+    },
+    forceTouchAvailable: boolean;
+    osVersion: string;
+    systemName: string;
+    interfaceIdiom: string;
+  };
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('PlatformConstants');

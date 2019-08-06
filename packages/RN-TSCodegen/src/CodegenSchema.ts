@@ -1,5 +1,4 @@
 
-// tslint:disable:no-reserved-keywords
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

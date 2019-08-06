@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,15 +12,15 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getSth(a : ?number) => void
+  +getSth(a : null | undefined | number) => void
 }
 
 export interface Spec2 extends TurboModule {
-  +getSth(a : ?number) => void
+  +getSth(a : null | undefined | number) => void
 }
 
 

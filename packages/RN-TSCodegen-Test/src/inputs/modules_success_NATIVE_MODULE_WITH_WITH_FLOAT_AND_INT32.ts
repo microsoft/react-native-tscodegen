@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,9 +12,9 @@
 
 'use strict';
 
-import type {TurboModule} from '../RCTExport';
-import * as TurboModuleRegistry from '../TurboModuleRegistry';
-import type {Int32, Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {TurboModule} from '../lib/RCTExport';
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
+import {Int32, Float} from '../lib/react-native/Libraries/Types/CodegenTypes';
 
 export interface Spec extends TurboModule {
   +getInt: (arg: Int32) => Int32;

@@ -3,6 +3,7 @@
     "tslint-microsoft-contrib"
   ],
   "rules": {
+    "interface-name": false,
     "linebreak-style": false,
     "newline-per-chained-call": false,
     "no-console": [
