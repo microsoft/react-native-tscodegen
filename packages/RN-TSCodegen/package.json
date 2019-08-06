@@ -1,0 +1,30 @@
+{
+  "name": "rn-tscodegen",
+  "version": "1.0.0",
+  "description": "TypeScript Code Generation for React Native Turbo Module",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tslint --project tsconfig.json & tsc",
+    "test": "echo OK!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZihanChen-MSFT/RN-TSCodegen.git"
+  },
+  "author": "Zihan Chen",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ZihanChen-MSFT/RN-TSCodegen/issues"
+  },
+  "homepage": "https://github.com/ZihanChen-MSFT/RN-TSCodegen#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.6.9",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0"
+  },
+  "dependencies": {
+    "jest": "^24.8.0",
+    "typescript": "^3.5.3"
+  }
+}
