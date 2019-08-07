@@ -62,3 +62,6 @@ typings/
 
 # Generated JavaScript files
 packages/*/lib/
+
+# package-lock.json
+package-lock.json
