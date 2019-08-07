@@ -22,7 +22,9 @@ const testCaseIndex = <TestCaseIndex>JSON.parse(readFileSync(
 testCaseIndex.components.success.forEach((key: string) => {
     test(`component codegen: ${key}`, () => {
         const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.ts`);
-        typeScriptToCodeSchema(inputFile);
-        assert.equal(1, 1);
+        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.json`);
+        const schema = typeScriptToCodeSchema(inputFile);
+        const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
+        assert.deepEqual(schema, snapshot);
     });
 });
