@@ -2,6 +2,7 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
 import * as path from 'path';
+import { typeScriptToCodeSchema } from '../src';
 
 interface TestCaseCategory {
     success: string[];
@@ -20,6 +21,8 @@ const testCaseIndex = <TestCaseIndex>JSON.parse(readFileSync(
 
 testCaseIndex.components.success.forEach((key: string) => {
     test(`component codegen: ${key}`, () => {
-        assert.deepStrictEqual({ a: 1, b: 2 }, { b: 2, a: 1 });
+        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.ts`);
+        typeScriptToCodeSchema(inputFile);
+        assert.equal(1, 1);
     });
 });

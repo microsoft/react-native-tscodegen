@@ -3,8 +3,10 @@
     "tslint-microsoft-contrib"
   ],
   "rules": {
+    "export-name": false,
     "interface-name": false,
     "linebreak-style": false,
+    "newline-before-return": false,
     "newline-per-chained-call": false,
     "no-console": [
       true,
@@ -14,6 +16,7 @@
       "timeEnd",
       "trace"
     ],
+    "no-relative-imports": false,
     "non-literal-fs-path": false,
     "non-literal-require": false,
     "typedef": [
