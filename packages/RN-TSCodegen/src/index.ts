@@ -1,7 +1,8 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
-import { tryParseComponent } from './ComponentParser';
-import { tryParseNativeModule } from './NativeModuleParser';
+import { processComponent } from './ComponentParser';
+import * as ep from './ExportParser';
+import { processNativeModule } from './NativeModuleParser';
 
 export function typeScriptToCodeSchema(fileName: string): cs.SchemaType {
     const program = ts.createProgram([fileName], {});
@@ -10,34 +11,51 @@ export function typeScriptToCodeSchema(fileName: string): cs.SchemaType {
         throw new Error('Please ensure that the input TypeScript source file compiles.');
     }
 
-    let component: { [name: string]: cs.ComponentShape };
-    let nativeModule: { [name: string]: cs.NativeModuleShape };
+    const nativeModuleInfos: ep.ExportNativeModuleInfo[] = [];
+    const componentInfos: ep.ExportComponentInfo[] = [];
+    const commandInfos: ep.ExportCommandInfo[] = [];
     program.getSourceFiles().forEach((sourceFile: ts.SourceFile) => {
         sourceFile.forEachChild((node: ts.Node) => {
-            const currentComponent = tryParseComponent(program, sourceFile, node);
-            const currentNativeModule = tryParseNativeModule(program, sourceFile, node);
+            const currentNativeModuleInfo = ep.tryParseExportNativeModule(program, sourceFile, node);
+            const currentComponentInfo = ep.tryParseExportComponent(program, sourceFile, node);
+            const currentCommandInfo = ep.tryParseExportCommand(program, sourceFile, node);
 
-            if (currentComponent !== undefined || currentNativeModule !== undefined) {
-                if (component !== undefined || nativeModule !== undefined) {
-                    throw new Error('A TypeScript source file should only container either one component or one native module.');
-                }
-                component = currentComponent;
-                nativeModule = currentNativeModule;
+            if (currentNativeModuleInfo !== undefined) {
+                nativeModuleInfos.push(currentNativeModuleInfo);
+            }
+            if (currentComponentInfo !== undefined) {
+                componentInfos.push(currentComponentInfo);
+            }
+            if (currentCommandInfo !== undefined) {
+                commandInfos.push(currentCommandInfo);
             }
         });
     });
 
-    if (component !== undefined) {
-        return {
-            modules: { Module: { components: component } }
-        };
+    if (nativeModuleInfos.length + componentInfos.length === 0) {
+        throw new Error('Cannot find any component or native module.');
+    }
+    if (nativeModuleInfos.length + componentInfos.length > 1) {
+        throw new Error('A TypeScript source file should only container either one component or one native module.');
     }
 
-    if (nativeModule !== undefined) {
-        return {
-            modules: { Module: { nativeModules: nativeModule } }
-        };
-    }
+    if (nativeModuleInfos.length === 1) {
+        if (commandInfos.length > 0) {
+            throw new Error('Command list should not be exported in a TypeScript source file that exports a native module.');
+        }
 
-    throw new Error('Cannot find any component or native module.');
+        const info = nativeModuleInfos[0];
+        const result = {};
+        result[info.name] = processNativeModule(info);
+        return { modules: { Module: { nativeModules: result } } };
+    } else {
+        if (commandInfos.length > 1) {
+            throw new Error('A TypeScript source file should not export more than one command list.');
+        }
+
+        const info = componentInfos[0];
+        const result = {};
+        result[info.name] = processComponent(info, commandInfos[0]);
+        return { modules: { Module: { components: result } } };
+    }
 }

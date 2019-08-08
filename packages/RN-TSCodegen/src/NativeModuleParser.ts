@@ -1,6 +1,6 @@
-import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
+import { ExportNativeModuleInfo } from './ExportParser';
 
-export function tryParseNativeModule(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): { [name: string]: cs.NativeModuleShape } {
+export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModuleShape {
     return undefined;
 }

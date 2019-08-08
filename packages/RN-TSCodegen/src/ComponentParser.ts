@@ -1,47 +1,37 @@
-import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
+import { ExportCommandInfo, ExportComponentInfo } from './ExportParser';
 
-function parseComponent(program: ts.Program, sourceFile: ts.SourceFile, componentTypeNode: ts.Node): cs.ComponentShape {
-    return {
+/*
+function parseComponent(program: ts.Program, sourceFile: ts.SourceFile, componentTypeNode: ts.TypeNode): cs.ComponentShape {
+    const componentShape: cs.ComponentShape = {
         extendsProps: [{ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' }],
         events: [],
         props: [],
         commands: []
     };
+
+    const typeChecker = program.getTypeChecker();
+    const interfaceType = typeChecker.getTypeFromTypeNode(componentTypeNode);
+    if (interfaceType.flags !== ts.TypeFlags.Object) {
+        throw new Error(`${componentTypeNode.getText(sourceFile)} is expected to be an interface type.`);
+    }
+
+    console.log(ts.SymbolFlags[interfaceType.symbol.flags]);
+    console.log(ts.SyntaxKind[interfaceType.symbol.declarations[0].kind]);
+
+    return componentShape;
 }
+*/
 
-export function tryParseComponent(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): { [name: string]: cs.ComponentShape } {
-    // find export default codegenNativeComponent<TYPE>('NAME');
-
-    if (!ts.isExportAssignment(node) || node.isExportEquals) {
-        return undefined;
+export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo | undefined): cs.ComponentShape {
+    const componentShape: cs.ComponentShape = {
+        extendsProps: [{ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' }],
+        events: [],
+        props: [],
+        commands: []
+    };
+    if (commandsInfo !== undefined) {
+        // do nothing;
     }
-    if (!ts.isCallExpression(node.expression)) {
-        return undefined;
-    }
-
-    const callExpression = node.expression;
-    if (callExpression.typeArguments === undefined || callExpression.typeArguments.length !== 1) {
-        return undefined;
-    }
-    if (callExpression.arguments.length === 0) {
-        return undefined;
-    }
-
-    if (!ts.isIdentifier(callExpression.expression)) {
-        return undefined;
-    }
-    if (callExpression.expression.text !== 'codegenNativeComponent') {
-        return undefined;
-    }
-
-    const componentNameNode = callExpression.arguments[0];
-    if (!ts.isStringLiteral(componentNameNode)) {
-        return undefined;
-    }
-
-    // process the component using the first type argument
-    const result = {};
-    result[componentNameNode.text] = parseComponent(program, sourceFile, callExpression.typeArguments[0]);
-    return result;
+    return componentShape;
 }
