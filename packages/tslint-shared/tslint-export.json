@@ -7,6 +7,7 @@
     "export-name": false,
     "interface-name": false,
     "linebreak-style": false,
+    "max-func-body-length": false,
     "max-line-length": false,
     "newline-before-return": false,
     "newline-per-chained-call": false,
