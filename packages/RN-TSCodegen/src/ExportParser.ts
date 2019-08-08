@@ -116,5 +116,46 @@ export function tryParseExportComponent(program: ts.Program, sourceFile: ts.Sour
 }
 
 export function tryParseExportCommand(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportCommandInfo {
-    return undefined;
+    const pair = tryParseExport(program, sourceFile, node, 'codegenNativeCommands');
+    if (pair === undefined) {
+        return undefined;
+    }
+
+    const [typeNode, componentNameNode] = pair;
+    const commandNameError = new Error(`The first argument to codegenNativeCommands is expected to be {supportedCommands:ARRAY-OF-STRING-LITERALS}, instead of ${componentNameNode.getText()}.`);
+
+    if (!ts.isObjectLiteralExpression(componentNameNode)) {
+        throw commandNameError;
+    }
+    if (componentNameNode.properties.length !== 1) {
+        throw commandNameError;
+    }
+
+    const commandNameProp = componentNameNode.properties[0];
+    if (!ts.isPropertyAssignment(commandNameProp)) {
+        throw commandNameError;
+    }
+    if (!ts.isIdentifier(commandNameProp.name) && !ts.isStringLiteral(commandNameProp.name)) {
+        throw commandNameError;
+    }
+    if (commandNameProp.name.text !== 'supportedCommands') {
+        throw commandNameError;
+    }
+
+    const commandNameArray = commandNameProp.initializer;
+    if (!ts.isArrayLiteralExpression(commandNameArray)) {
+        throw commandNameError;
+    }
+
+    return {
+        program,
+        sourceFile,
+        typeNode,
+        supportedCommands: commandNameArray.elements.map((value: ts.Expression) => {
+            if (!ts.isStringLiteral(value)) {
+                throw commandNameError;
+            }
+            return value.text;
+        })
+    };
 }
