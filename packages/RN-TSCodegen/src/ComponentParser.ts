@@ -16,17 +16,17 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
 
     const typeChecker = info.program.getTypeChecker();
     const mappedType = typeChecker.getTypeFromTypeNode(info.typeNode);
-    if (mappedType.symbol.members === undefined) {
-        throw new Error(`${info.typeNode.getText()} is expected to be an interface type.`);
-    }
 
-    mappedType.symbol.members.forEach((propSymbol: ts.Symbol) => {
-        if (propSymbol.declarations.length !== 1 || !ts.isPropertyDeclaration(propSymbol.declarations[0])) {
-            throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} should not be generic.`);
+    mappedType.getProperties().forEach((propSymbol: ts.Symbol) => {
+        if (propSymbol.declarations.length !== 1) {
+            throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} is expected to be a property.`);
         }
-        const propDecl = <ts.PropertyDeclaration>propSymbol.declarations[0];
+        const propDecl = propSymbol.declarations[0];
+        if (!ts.isPropertySignature(propDecl)) {
+            throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} is expected to be a property.`);
+        }
         if (propDecl.type === undefined) {
-            throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} is not a property or an event.`);
+            throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} is expected to be a property.`);
         }
 
         const eventShape = tryParseEvent(info, propDecl);

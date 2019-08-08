@@ -6,9 +6,6 @@ import { isBoolean, isInt32, isString, isVoid } from './TypeChecker';
 export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
     const typeChecker = info.program.getTypeChecker();
     const mappedType = typeChecker.getTypeFromTypeNode(info.typeNode);
-    if (mappedType.symbol.members === undefined) {
-        throw new Error(`${info.typeNode.getText()} is expected to be an interface type.`);
-    }
 
     const commands: cs.CommandTypeShape[] = [];
     for (const commandName of info.supportedCommands) {
