@@ -1,3 +1,4 @@
+import * as path from 'path';
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { processComponent } from './ComponentParser';
@@ -15,21 +16,23 @@ export function typeScriptToCodeSchema(fileName: string): cs.SchemaType {
     const componentInfos: ep.ExportComponentInfo[] = [];
     const commandInfos: ep.ExportCommandInfo[] = [];
     program.getSourceFiles().forEach((sourceFile: ts.SourceFile) => {
-        sourceFile.forEachChild((node: ts.Node) => {
-            const currentNativeModuleInfo = ep.tryParseExportNativeModule(program, sourceFile, node);
-            const currentComponentInfo = ep.tryParseExportComponent(program, sourceFile, node);
-            const currentCommandInfo = ep.tryParseExportCommand(program, sourceFile, node);
+        if (path.basename(fileName) === path.basename(sourceFile.fileName)) {
+            sourceFile.statements.forEach((node: ts.Node) => {
+                const currentNativeModuleInfo = ep.tryParseExportNativeModule(program, sourceFile, node);
+                const currentComponentInfo = ep.tryParseExportComponent(program, sourceFile, node);
+                const currentCommandInfo = ep.tryParseExportCommand(program, sourceFile, node);
 
-            if (currentNativeModuleInfo !== undefined) {
-                nativeModuleInfos.push(currentNativeModuleInfo);
-            }
-            if (currentComponentInfo !== undefined) {
-                componentInfos.push(currentComponentInfo);
-            }
-            if (currentCommandInfo !== undefined) {
-                commandInfos.push(currentCommandInfo);
-            }
-        });
+                if (currentNativeModuleInfo !== undefined) {
+                    nativeModuleInfos.push(currentNativeModuleInfo);
+                }
+                if (currentComponentInfo !== undefined) {
+                    componentInfos.push(currentComponentInfo);
+                }
+                if (currentCommandInfo !== undefined) {
+                    commandInfos.push(currentCommandInfo);
+                }
+            });
+        }
     });
 
     if (nativeModuleInfos.length + componentInfos.length === 0) {
