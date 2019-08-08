@@ -3,6 +3,7 @@
     "tslint-microsoft-contrib"
   ],
   "rules": {
+    "cyclomatic-complexity": false,
     "export-name": false,
     "interface-name": false,
     "linebreak-style": false,
