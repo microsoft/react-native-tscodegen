@@ -21,7 +21,7 @@ export function isString(tsType: ts.Type): boolean {
     return (tsType.flags & ts.TypeFlags.String) !== 0;
 }
 
-export function isInt32(tsType: ts.Type, program?: ts.Program, tsNode?: ts.TypeNode): boolean {
+export function isInt32(tsType: ts.Type, program: ts.Program, tsNode: ts.TypeNode): boolean {
     if (tsType === undefined) {
         return false;
     }
