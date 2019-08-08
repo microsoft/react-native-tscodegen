@@ -52,7 +52,7 @@ function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should be a function.`);
         }
 
-        if (funcReturnType === undefined || (funcReturnType.flags !== ts.TypeFlags.Undefined && funcReturnType.flags !== ts.TypeFlags.Void)) {
+        if (funcReturnType === undefined || (funcReturnType.flags & ts.TypeFlags.VoidLike) === 0) {
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should return void.`);
         }
         if (funcParameters.length === 0) {
@@ -77,14 +77,15 @@ function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
                 params: funcParameters.slice(1).map((param: ts.ParameterDeclaration): cs.CommandsFunctionTypeParamAnnotation => {
                     let typeAnnotation: cs.CommandsTypeAnnotation;
 
-                    if (param.type.kind === ts.SyntaxKind.StringKeyword) {
+                    const paramType = typeChecker.getTypeFromTypeNode(param.type);
+                    if ((paramType.flags & ts.TypeFlags.String) !== 0) {
                         typeAnnotation = { type: 'StringTypeAnnotation' };
-                    } else if (param.type.kind === ts.SyntaxKind.BooleanKeyword) {
+                    } else if ((paramType.flags & ts.TypeFlags.Boolean) !== 0) {
                         typeAnnotation = { type: 'BooleanTypeAnnotation' };
-                    } else if (ts.isTypeReferenceNode(param.type) && ts.isIdentifier(param.type.typeName)) {
-                        if (param.type.getText() === 'Int32') {
-                            typeAnnotation = { type: 'Int32TypeAnnotation' };
-                        }
+                    } else if ((paramType.flags & ts.TypeFlags.Number) !== 0) {
+                        typeAnnotation = { type: 'Int32TypeAnnotation' };
+                    } else {
+                        console.log(paramType.flags);
                     }
 
                     if (typeAnnotation === undefined) {
