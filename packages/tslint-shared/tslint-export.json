@@ -6,6 +6,7 @@
     "export-name": false,
     "interface-name": false,
     "linebreak-style": false,
+    "max-line-length": false,
     "newline-before-return": false,
     "newline-per-chained-call": false,
     "no-console": [
