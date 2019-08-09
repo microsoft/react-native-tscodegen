@@ -43,28 +43,28 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
     return {
       type: 'BooleanTypeAnnotation',
       name: argument.name.getText(),
-      optional: false
+      optional: argument.questionToken !== undefined
     };
   } else if (isString(argumentType)) {
     return {
       type: 'StringTypeAnnotation',
       name: argument.name.getText(),
-      optional: false
+      optional: argument.questionToken !== undefined
     };
   } else if (isFloat(argumentType)) {
     return {
       type: 'FloatTypeAnnotation',
       name: argument.name.getText(),
-      optional: false
+      optional: argument.questionToken !== undefined
     };
   } else if (isInt32(argumentType)) {
     return {
       type: 'Int32TypeAnnotation',
       name: argument.name.getText(),
-      optional: false
+      optional: argument.questionToken !== undefined
     };
   } else if (argumentType.isUnion()) {
-    let optional = false;
+    let optional = argument.questionToken !== undefined;
     const stringLiterals: string[] = [];
     let result: WritableObjectType<cs.ObjectPropertyType>;
 
@@ -88,7 +88,7 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
       return {
         type: 'StringEnumTypeAnnotation',
         name: argument.name.getText(),
-        optional: false,
+        optional,
         options: stringLiterals.map((name: string) => { return { name }; })
       };
     } else {
@@ -99,7 +99,7 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
     return {
       type: 'ObjectTypeAnnotation',
       name: argument.name.getText(),
-      optional: false,
+      optional: argument.questionToken !== undefined,
       properties: argumentType.getProperties().map((propSymbol: ts.Symbol) => {
         return processEventArgument(propSymbol, info, propDecl);
       })
