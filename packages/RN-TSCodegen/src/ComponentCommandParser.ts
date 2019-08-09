@@ -80,7 +80,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
                         typeAnnotation = { type: 'StringTypeAnnotation' };
                     } else if (isBoolean(paramType)) {
                         typeAnnotation = { type: 'BooleanTypeAnnotation' };
-                    } else if (isInt32(paramType, info.program, param.type)) {
+                    } else if (isInt32(paramType)) {
                         typeAnnotation = { type: 'Int32TypeAnnotation' };
                     }
 

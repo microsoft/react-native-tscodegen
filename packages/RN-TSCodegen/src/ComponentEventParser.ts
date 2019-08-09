@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isNull, isVoid, WritableObjectType } from './TypeChecker';
+import { isBoolean, isFloat, isInt32, isNull, isString, isVoid, WritableObjectType } from './TypeChecker';
 
 function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string] {
   if (eventType.isUnion()) {
@@ -38,6 +38,38 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
   }
 }
 
+function processEventArgumentType(argument: ts.PropertySignature, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
+  const argumentType = info.program.getTypeChecker().getTypeFromTypeNode(argument.type);
+  if (isBoolean(argumentType)) {
+    return {
+      type: 'BooleanTypeAnnotation',
+      name: argument.name.getText(),
+      optional: false
+    };
+  } else if (isString(argumentType)) {
+    return {
+      type: 'StringTypeAnnotation',
+      name: argument.name.getText(),
+      optional: false
+    };
+  } else if (isFloat(argumentType)) {
+    return {
+      type: 'FloatTypeAnnotation',
+      name: argument.name.getText(),
+      optional: false
+    };
+  } else if (isInt32(argumentType)) {
+    return {
+      type: 'Int32TypeAnnotation',
+      name: argument.name.getText(),
+      optional: false
+    };
+  } else if (argumentType.isUnion()) {
+  } else {
+    throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+  }
+}
+
 export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape {
   const typeChecker = info.program.getTypeChecker();
   const eventTypeTuple = checkEventType(typeChecker.getTypeFromTypeNode(propDecl.type), info, propDecl);
@@ -48,7 +80,17 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
 
   const eventProperties: WritableObjectType<cs.ObjectPropertyType>[] = [];
   if (!isNull(eventType)) {
-    // nothing;
+    for (const argumentSymbol of eventType.getProperties()) {
+      if (argumentSymbol.declarations === undefined || !ts.isPropertySignature(argumentSymbol.declarations[0])) {
+        throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
+      }
+
+      const argumentDecl = <ts.PropertySignature>argumentSymbol.declarations[0];
+      if (argumentDecl.type === undefined) {
+        throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
+      }
+      eventProperties.push(processEventArgumentType(argumentDecl, info, propDecl));
+    }
   }
 
   const result: WritableObjectType<cs.EventTypeShape> = {
