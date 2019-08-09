@@ -16,4 +16,4 @@ export type NotString = {};
 export type Stringish = string;
 
 export class ReactNull { }
-export type WithDefault<T, V> = null | undefined | T;
+export type WithDefault<T, V> = ReactNull | T;

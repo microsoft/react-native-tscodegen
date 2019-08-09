@@ -20,13 +20,11 @@ const testCaseIndex = <TestCaseIndex>JSON.parse(readFileSync(
 ));
 
 testCaseIndex.components.success.forEach((key: string) => {
-    if ((key.indexOf('COMMANDS') !== -1 || key.indexOf('EVENTS') !== -1) && key.indexOf('PROP') === -1) {
-        test(`component codegen: ${key}`, () => {
-            const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.ts`);
-            const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.json`);
-            const schema = typeScriptToCodeSchema(inputFile);
-            const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
-            assert.deepEqual(schema, snapshot);
-        });
-    }
+    test(`component codegen: ${key}`, () => {
+        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.ts`);
+        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.json`);
+        const schema = typeScriptToCodeSchema(inputFile);
+        const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
+        assert.deepEqual(schema, snapshot);
+    });
 });

@@ -2,7 +2,7 @@
 
 export type ColorValue = null | string;
 export type ColorArrayValue = null | ReadonlyArray<ColorValue>;
-export type PointValue = {
+export interface PointValue {
   x: number;
   y: number;
 };

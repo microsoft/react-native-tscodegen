@@ -16,7 +16,9 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
         }
       }
     }
-    result[0] = true;
+    if (result !== undefined) {
+      result[0] = true;
+    }
     return result;
   } else {
     if (eventType.aliasSymbol === undefined || (eventType.aliasSymbol.name !== 'DirectEventHandler' && eventType.aliasSymbol.name !== 'BubblingEventHandler')) {
