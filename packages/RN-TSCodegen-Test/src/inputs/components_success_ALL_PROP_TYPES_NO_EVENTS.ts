@@ -1,4 +1,4 @@
-import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {Stringish} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {Stringish} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -61,26 +61,26 @@ type ModuleProps = Readonly<ViewProps & {
 
   // ImageSource props
   image_required: ImageSource;
-  image_optional_value: ReactNull | ImageSource;
-  image_optional_both?: ReactNull | ImageSource;
+  image_optional_value: null | undefined | ImageSource;
+  image_optional_both?: null | undefined | ImageSource;
 
   // ColorValue props
   color_required: ColorValue;
   color_optional_key?: ColorValue;
-  color_optional_value: ReactNull | ColorValue;
-  color_optional_both?: ReactNull | ColorValue;
+  color_optional_value: null | undefined | ColorValue;
+  color_optional_both?: null | undefined | ColorValue;
 
   // ColorArrayValue props
   color_array_required: ColorArrayValue;
   color_array_optional_key?: ColorArrayValue;
-  color_array_optional_value: ReactNull | ColorArrayValue;
-  color_array_optional_both?: ReactNull | ColorArrayValue;
+  color_array_optional_value: null | undefined | ColorArrayValue;
+  color_array_optional_both?: null | undefined | ColorArrayValue;
 
   // PointValue props
   point_required: PointValue;
   point_optional_key?: PointValue;
-  point_optional_value: ReactNull | PointValue;
-  point_optional_both?: ReactNull | PointValue;
+  point_optional_value: null | undefined | PointValue;
+  point_optional_both?: null | undefined | PointValue;
 }>;
 
 export default codegenNativeComponent<ModuleProps>('Module');

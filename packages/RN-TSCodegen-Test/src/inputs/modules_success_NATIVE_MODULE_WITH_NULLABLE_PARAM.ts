@@ -1,4 +1,4 @@
-import {ReactNull} from '../lib/CodegenTypes';import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
+import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -16,7 +16,7 @@ import {ReactNull} from '../lib/CodegenTypes';import {TurboModule} from '../lib
 
 export interface Spec extends TurboModule {
   // Exported methods.
-  voidFunc (arg: ReactNull | string) : void;
+  voidFunc (arg: null | undefined | string) : void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

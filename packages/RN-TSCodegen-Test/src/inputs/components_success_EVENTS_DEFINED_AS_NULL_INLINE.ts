@@ -1,4 +1,4 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -26,9 +26,9 @@ type ModuleProps = Readonly<ViewProps & {
   // Events defined inline
   onDirectEventDefinedInlineNull:DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullOptionalValue: ReactNull | DirectEventHandler<null>;
+  onDirectEventDefinedInlineNullOptionalValue: null | undefined | DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullWithPaperName?: ReactNull | 
+  onDirectEventDefinedInlineNullWithPaperName?: null | undefined | 
     DirectEventHandler<
       null,
       'paperDirectEventDefinedInlineNullWithPaperName'
@@ -36,9 +36,9 @@ type ModuleProps = Readonly<ViewProps & {
 
   onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
   onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalValue: ReactNull | BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalBoth?: ReactNull | BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullWithPaperName?: ReactNull | 
+  onBubblingEventDefinedInlineNullOptionalValue: null | undefined | BubblingEventHandler<null>;
+  onBubblingEventDefinedInlineNullOptionalBoth?: null | undefined | BubblingEventHandler<null>;
+  onBubblingEventDefinedInlineNullWithPaperName?: null | undefined | 
     BubblingEventHandler<
       null,
       'paperBubblingEventDefinedInlineNullWithPaperName'
