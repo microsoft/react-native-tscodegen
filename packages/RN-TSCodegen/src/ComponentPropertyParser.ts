@@ -9,6 +9,7 @@ import { isBoolean, isFloatNotExported, isInt32NotExported, isNumber, isReactNul
 type PrimitiveType = [boolean, cs.PropTypeTypeAnnotation];
 
 function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): PrimitiveType {
+  const errorMessage = `${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`;
   const elementTypes = argumentType.isUnion() ? argumentType.types : [argumentType];
 
   let itemReactNull = false;
@@ -19,6 +20,7 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   let itemString = false;
   const itemStringLiterals: string[] = [];
   const itemOthers: cs.PropTypeTypeAnnotation[] = [];
+  let defaultValue: string;
 
   for (const elementType of elementTypes) {
     if (isReactNull(elementType)) {
@@ -35,6 +37,37 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
       itemStringLiterals.push(elementType.value);
     } else if (isString(elementType)) {
       itemString = true;
+    } else if (elementType.isIntersection()) {
+      let currentDefaultValue: string;
+      if (elementType.types.length === 2) {
+        const literalType = elementType.types.find(
+          (value: ts.Type) => value.flags === ts.TypeFlags.BooleanLiteral || value.flags === ts.TypeFlags.StringLiteral || value.flags === ts.TypeFlags.NumberLiteral
+        );
+        const objectType = elementType.types.find(
+          (value: ts.Type) => value !== literalType
+        );
+
+        if (literalType !== undefined && objectType !== undefined) {
+          if (objectType.getProperty('__DoNotUse__') !== undefined) {
+            if (literalType.isStringLiteral()) {
+              currentDefaultValue = literalType.value;
+            } else {
+              currentDefaultValue = info.program.getTypeChecker().typeToString(literalType);
+            }
+          }
+        }
+      }
+
+      if (currentDefaultValue === undefined || defaultValue !== undefined) {
+        throw new Error(errorMessage);
+      } else {
+        defaultValue = currentDefaultValue;
+      }
+    } else if (elementType.symbol !== undefined && elementType.symbol.name === 'PointValue') {
+      itemOthers.push({
+        type: 'NativePrimitiveTypeAnnotation',
+        name: 'PointPrimitive'
+      });
     } else {
       // throw new Error(`${argument.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
       itemOthers.push({
@@ -47,14 +80,14 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   if (itemBoolean) {
     itemOthers.push({
       type: 'BooleanTypeAnnotation',
-      default: false
+      default: defaultValue === undefined ? false : defaultValue === 'true'
     });
   }
 
   if (itemString) {
     itemOthers.push({
       type: 'StringTypeAnnotation',
-      default: null
+      default: defaultValue === undefined ? null : defaultValue
     });
   }
 
@@ -62,15 +95,15 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
     if (itemFloatNotExported && !itemInt32NotExported) {
       itemOthers.push({
         type: 'FloatTypeAnnotation',
-        default: 0
+        default: defaultValue === undefined ? 0 : +defaultValue
       });
     } else if (!itemFloatNotExported && itemInt32NotExported) {
       itemOthers.push({
         type: 'Int32TypeAnnotation',
-        default: 0
+        default: defaultValue === undefined ? 0 : +defaultValue
       });
     } else {
-      throw new Error(`${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+      throw new Error(errorMessage);
     }
   }
 
@@ -79,11 +112,11 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   } else if (itemOthers.length === 0 && itemStringLiterals.length > 0) {
     return [itemReactNull, {
       type: 'StringEnumTypeAnnotation',
-      default: null,
+      default: defaultValue === undefined ? null : defaultValue,
       options: itemStringLiterals.map((name: string) => { return { name }; })
     }];
   } else {
-    throw new Error(`${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+    throw new Error(errorMessage);
   }
 }
 
@@ -91,7 +124,7 @@ export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySi
   const [optional, typeAnnotation] = processPropertyPrimitiveType(info.program.getTypeChecker().getTypeFromTypeNode(propDecl.type), info, propDecl);
   return {
     name: propDecl.name.getText(),
-    optional,
+    optional: propDecl.questionToken !== undefined || optional,
     typeAnnotation
   };
 }
