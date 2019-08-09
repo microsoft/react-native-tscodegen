@@ -14,4 +14,5 @@ export type BubblingEventHandler<T, PaperName extends string | {} = {}> = (event
 export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
 export type NotString = {};
 export type Stringish = string;
+export type ReactNull = null;
 export type WithDefault<T, V> = null | undefined | T;

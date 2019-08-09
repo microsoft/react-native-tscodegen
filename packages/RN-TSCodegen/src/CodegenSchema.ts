@@ -153,11 +153,11 @@ export type FunctionTypeAnnotationParamTypeAnnotation =
     }>
   | Readonly<{
       type: 'ArrayTypeAnnotation';
-      elementType: null | undefined | FunctionTypeAnnotationParamTypeAnnotation;
+      elementType: FunctionTypeAnnotationParamTypeAnnotation;
     }>
   | Readonly<{
       type: 'ObjectTypeAnnotation';
-      properties: null | undefined | ReadonlyArray<ObjectParamTypeAnnotation>;
+      properties: ReadonlyArray<ObjectParamTypeAnnotation>;
     }>
   | Readonly<{
       type: 'FunctionTypeAnnotation';
@@ -179,7 +179,7 @@ export type FunctionTypeAnnotationReturn =
     }>
   | Readonly<{
       type: 'ArrayTypeAnnotation';
-      elementType: null | undefined | FunctionTypeAnnotationReturnArrayElementType;
+      elementType: FunctionTypeAnnotationReturnArrayElementType;
     }>
   | Readonly<{
       type: 'GenericPromiseTypeAnnotation';
@@ -187,7 +187,7 @@ export type FunctionTypeAnnotationReturn =
     }>
   | Readonly<{
       type: 'ObjectTypeAnnotation';
-      properties: null | undefined | ReadonlyArray<ObjectParamTypeAnnotation>;
+      properties: ReadonlyArray<ObjectParamTypeAnnotation>;
     }>;
 
 export type FunctionTypeAnnotationParam = Readonly<{

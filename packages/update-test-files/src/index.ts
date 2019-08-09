@@ -10,6 +10,7 @@ const importMaps = {
   Int32: `import {Int32} from '../lib/CodegenTypes';`,
   NotString: `import {NotString} from '../lib/CodegenTypes';`,
   Stringish: `import {Stringish} from '../lib/CodegenTypes';`,
+  ReactNull: `import {ReactNull} from '../lib/CodegenTypes';`,
   WithDefault: `import {WithDefault} from '../lib/CodegenTypes';`,
   React: `import * as React from '../lib/React';`,
   codegenNativeComponent: `import codegenNativeComponent = require('../lib/codegenNativeComponent');`,
@@ -24,7 +25,7 @@ function flowToTs(flowSourceCode: string, importCodegenTypes: boolean, keyName?:
     .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)                                                 // $ReadOnlyArray<T> -> ReadonlyArray<T>
     .replace(/\{\|/g, `{`)                                                                          // {| ... |} -> { ... }
     .replace(/\|\}/g, `}`)                                                                          //
-    .replace(/: \?/g, `: null | undefined | `)                                                      // ?T -> null | undefined | T
+    .replace(/: \?/g, (importCodegenTypes ? `: ReactNull | ` : `: `))                               // ?T -> ReactNull | T
     .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?)(,|;)$/gm, '$1: $2;')                                 // {+a,b,c} -> {a; b; c;}
     .replace(/(\}?)>,$/gm, `$1>;`)                                                                  //
     .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?((void)|,|;|\{))/gm, '$1$2$3:$4')             //
