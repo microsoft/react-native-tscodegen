@@ -4,12 +4,38 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isBoolean, isFloatNotExported, isInt32NotExported, isNumber, isReactNull, isString, tryGetArrayType } from './TypeChecker';
+import { isBoolean, isFloatNotExported, isInt32NotExported, isNumber, isReactNull, isString, tryGetArrayType, WritableObjectType } from './TypeChecker';
 
 type PrimitiveType = [boolean, cs.PropTypeTypeAnnotation];
 
+function createErrorMessage(info: ExportComponentInfo, propDecl: ts.PropertySignature): string {
+  return `${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`;
+}
+
+function extractWithDefault(elementType: ts.IntersectionType, info: ExportComponentInfo): string {
+  if (elementType.types.length === 2) {
+    const literalType = elementType.types.find(
+      (value: ts.Type) => value.flags === ts.TypeFlags.BooleanLiteral || value.flags === ts.TypeFlags.StringLiteral || value.flags === ts.TypeFlags.NumberLiteral
+    );
+    const objectType = elementType.types.find(
+      (value: ts.Type) => value !== literalType
+    );
+
+    if (literalType !== undefined && objectType !== undefined) {
+      if (objectType.getProperty('__DoNotUse__') !== undefined) {
+        if (literalType.isStringLiteral()) {
+          return literalType.value;
+        } else {
+          return info.program.getTypeChecker().typeToString(literalType);
+        }
+      }
+    }
+  }
+  return undefined;
+}
+
 function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): PrimitiveType {
-  const errorMessage = `${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`;
+  const errorMessage = createErrorMessage(info, propDecl);
   const elementTypes = argumentType.isUnion() ? argumentType.types : [argumentType];
 
   let itemReactNull = false;
@@ -39,25 +65,7 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
     } else if (isString(elementType)) {
       itemString = true;
     } else if (elementType.isIntersection()) {
-      let currentDefaultValue: string;
-      if (elementType.types.length === 2) {
-        const literalType = elementType.types.find(
-          (value: ts.Type) => value.flags === ts.TypeFlags.BooleanLiteral || value.flags === ts.TypeFlags.StringLiteral || value.flags === ts.TypeFlags.NumberLiteral
-        );
-        const objectType = elementType.types.find(
-          (value: ts.Type) => value !== literalType
-        );
-
-        if (literalType !== undefined && objectType !== undefined) {
-          if (objectType.getProperty('__DoNotUse__') !== undefined) {
-            if (literalType.isStringLiteral()) {
-              currentDefaultValue = literalType.value;
-            } else {
-              currentDefaultValue = info.program.getTypeChecker().typeToString(literalType);
-            }
-          }
-        }
-      }
+      const currentDefaultValue = extractWithDefault(elementType, info);
 
       if (currentDefaultValue === undefined || defaultValue !== undefined) {
         throw new Error(errorMessage);
@@ -134,7 +142,7 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   } else if (itemOthers.length === 0 && itemStringLiterals.length > 0) {
     return [itemReactNull, {
       type: 'StringEnumTypeAnnotation',
-      default: defaultValue === undefined ? null : defaultValue,
+      default: defaultValue === undefined ? itemStringLiterals[0] : defaultValue,
       options: itemStringLiterals.map((name: string) => { return { name }; })
     }];
   } else {
@@ -143,7 +151,7 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
 }
 
 function processPropertyArrayType(isReadonly: boolean, argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeTypeAnnotation {
-  const errorMessage = `${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`;
+  const errorMessage = createErrorMessage(info, propDecl);
   const [optional, typeAnnotation] = processPropertyPrimitiveType(argumentType, info, propDecl);
 
   if (optional) {
@@ -184,15 +192,20 @@ export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySi
     return primitiveTypeToPropTypeShape([false, processPropertyArrayType(arrayInfo[0], arrayInfo[1], info, propDecl)], propDecl);
   }
 
-  if (argumentType.isUnion() && argumentType.types.length === 2) {
-    if (isReactNull(argumentType.types[0])) {
-      arrayInfo = tryGetArrayType(argumentType.types[1], typeChecker);
-    } else if (isReactNull(argumentType.types[1])) {
-      arrayInfo = tryGetArrayType(argumentType.types[0], typeChecker);
+  if (argumentType.isUnion() && (argumentType.types.length === 2 || argumentType.types.length === 3)) {
+    const reactNullType = argumentType.types.find(isReactNull);
+    const intersectionType = argumentType.types.find((value: ts.Type) => value.isIntersection());
+    const arrayType = argumentType.types.find((value: ts.Type) => value !== reactNullType && value !== intersectionType);
+
+    arrayInfo = arrayType === undefined ? undefined : tryGetArrayType(arrayType, typeChecker);
+    if (arrayInfo !== undefined) {
+      const defaultValue = intersectionType === undefined ? undefined : extractWithDefault(<ts.IntersectionType>intersectionType, info);
+      const typeAnnotation = <WritableObjectType<cs.PropTypeTypeAnnotation>>processPropertyArrayType(arrayInfo[0], arrayInfo[1], info, propDecl);
+      if (defaultValue !== undefined && typeAnnotation.type === 'ArrayTypeAnnotation' && typeAnnotation.elementType.type === 'StringEnumTypeAnnotation') {
+        typeAnnotation.elementType.default = defaultValue;
+      }
+      return primitiveTypeToPropTypeShape([true, typeAnnotation], propDecl);
     }
-  }
-  if (arrayInfo !== undefined) {
-    return primitiveTypeToPropTypeShape([true, processPropertyArrayType(arrayInfo[0], arrayInfo[1], info, propDecl)], propDecl);
   }
 
   return primitiveTypeToPropTypeShape(processPropertyPrimitiveType(argumentType, info, propDecl), propDecl);
