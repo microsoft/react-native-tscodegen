@@ -20,6 +20,7 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   let itemString = false;
   const itemStringLiterals: string[] = [];
   const itemOthers: cs.PropTypeTypeAnnotation[] = [];
+  let itemUnknown = false;
   let defaultValue: string;
 
   for (const elementType of elementTypes) {
@@ -63,17 +64,29 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
       } else {
         defaultValue = currentDefaultValue;
       }
-    } else if (elementType.symbol !== undefined && elementType.symbol.name === 'PointValue') {
-      itemOthers.push({
-        type: 'NativePrimitiveTypeAnnotation',
-        name: 'PointPrimitive'
-      });
+    } else if (elementType.symbol !== undefined) {
+      if (elementType.symbol.name === 'ColorValueNotExported') {
+        itemOthers.push({
+          type: 'NativePrimitiveTypeAnnotation',
+          name: 'ColorPrimitive'
+        });
+      } else if (elementType.symbol.name === 'ImageSourceNotExported') {
+        itemOthers.push({
+          type: 'NativePrimitiveTypeAnnotation',
+          name: 'ImageSourcePrimitive'
+        });
+      } else if (elementType.symbol.name === 'PointValue') {
+        itemOthers.push({
+          type: 'NativePrimitiveTypeAnnotation',
+          name: 'PointPrimitive'
+        });
+      } else {
+        // delete
+        itemUnknown = true;
+      }
     } else {
-      // throw new Error(`${argument.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
-      itemOthers.push({
-        type: 'NativePrimitiveTypeAnnotation',
-        name: null
-      });
+      // throw new Error(errorMessage);
+      itemUnknown = true;
     }
   }
 
@@ -85,10 +98,12 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   }
 
   if (itemString) {
-    itemOthers.push({
-      type: 'StringTypeAnnotation',
-      default: defaultValue === undefined ? null : defaultValue
-    });
+    if (itemOthers.find((item: cs.PropTypeTypeAnnotation) => item.type === 'NativePrimitiveTypeAnnotation' && item.name === 'ColorPrimitive') === undefined) {
+      itemOthers.push({
+        type: 'StringTypeAnnotation',
+        default: defaultValue === undefined ? null : defaultValue
+      });
+    }
   }
 
   if (itemNumber) {
@@ -105,6 +120,13 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
     } else {
       throw new Error(errorMessage);
     }
+  }
+
+  if (itemOthers.length === 0 && itemUnknown) {
+    itemOthers.push({
+      type: 'NativePrimitiveTypeAnnotation',
+      name: 'PointPrimitive'
+    });
   }
 
   if (itemOthers.length === 1 && itemStringLiterals.length === 0) {
