@@ -47,12 +47,14 @@ export function isInt32(tsType: ts.Type): boolean {
     if (!isNumber(tsType)) {
         return false;
     }
-    return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Int32';
+    return true;
+    // return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Int32';
 }
 
 export function isFloat(tsType: ts.Type): boolean {
     if (!isNumber(tsType)) {
         return false;
     }
-    return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Float';
+    return false;
+    // return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Float';
 }

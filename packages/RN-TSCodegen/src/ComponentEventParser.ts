@@ -95,7 +95,7 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
       result.optional = optional;
       return result;
     }
-  } else if (argumentType.isClassOrInterface()) {
+  } else {
     return {
       type: 'ObjectTypeAnnotation',
       name: argument.name.getText(),
@@ -104,8 +104,6 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
         return processEventArgument(propSymbol, info, propDecl);
       })
     };
-  } else {
-    throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
   }
 }
 
