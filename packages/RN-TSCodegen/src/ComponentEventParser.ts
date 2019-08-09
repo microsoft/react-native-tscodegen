@@ -108,8 +108,8 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
 }
 
 function processEventArgument(argumentSymbol: ts.Symbol, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
-  if (argumentSymbol.declarations === undefined || !ts.isPropertySignature(argumentSymbol.declarations[0])) {
-    throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
+  if (!ts.isPropertySignature(argumentSymbol.declarations[0])) {
+    return undefined;
   }
 
   const argumentDecl = <ts.PropertySignature>argumentSymbol.declarations[0];
@@ -130,7 +130,10 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
   const eventProperties: WritableObjectType<cs.ObjectPropertyType>[] = [];
   if (!isNull(eventType)) {
     for (const argumentSymbol of eventType.getProperties()) {
-      eventProperties.push(processEventArgument(argumentSymbol, info, propDecl));
+      const eventProperty = processEventArgument(argumentSymbol, info, propDecl);
+      if (eventProperty !== undefined) {
+        eventProperties.push(eventProperty);
+      }
     }
   }
 

@@ -30,21 +30,21 @@ export function isBoolean(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
-    return (tsType.flags & ts.TypeFlags.Boolean) !== 0;
+    return (tsType.flags & ts.TypeFlags.BooleanLike) !== 0;
 }
 
 export function isString(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
-    return (tsType.flags & ts.TypeFlags.String) !== 0;
+    return (tsType.flags & ts.TypeFlags.StringLike) !== 0;
 }
 
 export function isNumber(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
-    return (tsType.flags & ts.TypeFlags.Number) !== 0;
+    return (tsType.flags & ts.TypeFlags.NumberLike) !== 0;
 }
 
 export function isInt32(tsType: ts.Type): boolean {
