@@ -38,8 +38,7 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
   }
 }
 
-function processEventArgumentType(argument: ts.PropertySignature, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
-  const argumentType = info.program.getTypeChecker().getTypeFromTypeNode(argument.type);
+function processEventArgumentType(argument: ts.PropertySignature, argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
   if (isBoolean(argumentType)) {
     return {
       type: 'BooleanTypeAnnotation',
@@ -65,9 +64,61 @@ function processEventArgumentType(argument: ts.PropertySignature, info: ExportCo
       optional: false
     };
   } else if (argumentType.isUnion()) {
+    let optional = false;
+    const stringLiterals: string[] = [];
+    let result: WritableObjectType<cs.ObjectPropertyType>;
+
+    for (const elementType of argumentType.types) {
+      if (isNull(elementType) || isVoid(elementType)) {
+        optional = true;
+      } else if (elementType.isStringLiteral()) {
+        if (result !== undefined) {
+          throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+        }
+        stringLiterals.push(elementType.value);
+      } else {
+        if (result !== undefined || stringLiterals.length !== 0) {
+          throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+        }
+        result = processEventArgumentType(argument, elementType, info, propDecl);
+      }
+    }
+
+    if (result === undefined) {
+      return {
+        type: 'StringEnumTypeAnnotation',
+        name: argument.name.getText(),
+        optional: false,
+        options: stringLiterals.map((name: string) => { return { name }; })
+      };
+    } else {
+      result.optional = optional;
+      return result;
+    }
+  } else if (argumentType.isClassOrInterface()) {
+    return {
+      type: 'ObjectTypeAnnotation',
+      name: argument.name.getText(),
+      optional: false,
+      properties: argumentType.getProperties().map((propSymbol: ts.Symbol) => {
+        return processEventArgument(propSymbol, info, propDecl);
+      })
+    };
   } else {
     throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
   }
+}
+
+function processEventArgument(argumentSymbol: ts.Symbol, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
+  if (argumentSymbol.declarations === undefined || !ts.isPropertySignature(argumentSymbol.declarations[0])) {
+    throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
+  }
+
+  const argumentDecl = <ts.PropertySignature>argumentSymbol.declarations[0];
+  if (argumentDecl.type === undefined) {
+    throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
+  }
+  return processEventArgumentType(argumentDecl, info.program.getTypeChecker().getTypeFromTypeNode(argumentDecl.type), info, propDecl);
 }
 
 export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape {
@@ -81,15 +132,7 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
   const eventProperties: WritableObjectType<cs.ObjectPropertyType>[] = [];
   if (!isNull(eventType)) {
     for (const argumentSymbol of eventType.getProperties()) {
-      if (argumentSymbol.declarations === undefined || !ts.isPropertySignature(argumentSymbol.declarations[0])) {
-        throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
-      }
-
-      const argumentDecl = <ts.PropertySignature>argumentSymbol.declarations[0];
-      if (argumentDecl.type === undefined) {
-        throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
-      }
-      eventProperties.push(processEventArgumentType(argumentDecl, info, propDecl));
+      eventProperties.push(processEventArgument(argumentSymbol, info, propDecl));
     }
   }
 
