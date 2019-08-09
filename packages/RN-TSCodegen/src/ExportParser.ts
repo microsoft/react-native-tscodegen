@@ -12,6 +12,7 @@ export interface ExportComponentInfo {
     sourceFile: ts.SourceFile;
     typeNode: ts.TypeNode;
     name: string;
+    options: { [key: string]: boolean | string };
 }
 
 export interface ExportCommandInfo {
@@ -21,7 +22,7 @@ export interface ExportCommandInfo {
     supportedCommands: string[];
 }
 
-type ExportInfo = [ts.TypeNode, ts.Expression];
+type ExportInfo = [ts.TypeNode, ts.Expression, ts.Expression];
 
 export function tryParseExportedCallExpression(callExpression: ts.Expression, functionName: string): ExportInfo {
     // ensure that the export statement is exporting the result of a function call to the specified function
@@ -54,7 +55,7 @@ export function tryParseExportedCallExpression(callExpression: ts.Expression, fu
         throw new Error(`The call to function ${functionName} should have one at least one argument.`);
     }
 
-    return [callExpression.typeArguments[0], callExpression.arguments[0]];
+    return [callExpression.typeArguments[0], callExpression.arguments[0], callExpression.arguments[1]];
 }
 
 export function tryParseExport(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node, functionName: string): ExportInfo {
@@ -97,31 +98,47 @@ export function tryParseExportNativeModule(program: ts.Program, sourceFile: ts.S
 }
 
 export function tryParseExportComponent(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportComponentInfo {
-    const pair = tryParseExport(program, sourceFile, node, 'codegenNativeComponent');
-    if (pair === undefined) {
+    const exportInfo = tryParseExport(program, sourceFile, node, 'codegenNativeComponent');
+    if (exportInfo === undefined) {
         return undefined;
     }
 
-    const [typeNode, componentNameNode] = pair;
+    const [typeNode, componentNameNode, optionsNode] = exportInfo;
     if (!ts.isStringLiteral(componentNameNode)) {
         return undefined;
     }
 
-    return {
+    const result: ExportComponentInfo = {
         program,
         sourceFile,
         typeNode,
-        name: componentNameNode.text
+        name: componentNameNode.text,
+        options: {}
     };
+
+    if (optionsNode !== undefined && ts.isObjectLiteralExpression(optionsNode)) {
+        optionsNode.properties.forEach((optionItem: ts.ObjectLiteralElementLike) => {
+            if (ts.isPropertyAssignment(optionItem) && optionItem.initializer !== undefined) {
+                if (ts.isStringLiteral(optionItem.initializer)) {
+                    result.options[optionItem.name.getText()] = optionItem.initializer.text;
+                } else if (optionItem.initializer.kind === ts.SyntaxKind.TrueKeyword) {
+                    result.options[optionItem.name.getText()] = true;
+                } else if (optionItem.initializer.kind === ts.SyntaxKind.FalseKeyword) {
+                    result.options[optionItem.name.getText()] = false;
+                }
+            }
+        });
+    }
+    return result;
 }
 
 export function tryParseExportCommand(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportCommandInfo {
-    const pair = tryParseExport(program, sourceFile, node, 'codegenNativeCommands');
-    if (pair === undefined) {
+    const exportInfo = tryParseExport(program, sourceFile, node, 'codegenNativeCommands');
+    if (exportInfo === undefined) {
         return undefined;
     }
 
-    const [typeNode, componentNameNode] = pair;
+    const [typeNode, componentNameNode] = exportInfo;
     const commandNameError = new Error(`The first argument to codegenNativeCommands is expected to be {supportedCommands:ARRAY-OF-STRING-LITERALS}, instead of ${componentNameNode.getText()}.`);
 
     if (!ts.isObjectLiteralExpression(componentNameNode)) {

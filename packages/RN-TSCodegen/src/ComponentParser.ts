@@ -37,10 +37,14 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
         }
     });
 
-    return {
+    const result = {
         extendsProps: [{ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' }],
         events,
         props,
         commands
     };
+    Object.getOwnPropertyNames(info.options).forEach((key: string) => {
+        result[key] = info.options[key];
+    });
+    return <cs.ComponentShape>result;
 }
