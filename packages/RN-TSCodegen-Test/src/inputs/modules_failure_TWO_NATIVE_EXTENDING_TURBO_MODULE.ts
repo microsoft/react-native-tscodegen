@@ -1,4 +1,4 @@
-import {TurboModule} from '../lib/RCTExport'
+import {ReactNull} from '../lib/CodegenTypes';import {TurboModule} from '../lib/RCTExport'
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -15,11 +15,11 @@ import {TurboModule} from '../lib/RCTExport'
 
 
 export interface Spec extends TurboModule {
-  getSth(a : null | undefined | number) : void
+  getSth(a : ReactNull | number) : void
 }
 
 export interface Spec2 extends TurboModule {
-  getSth(a : null | undefined | number) : void
+  getSth(a : ReactNull | number) : void
 }
 
 

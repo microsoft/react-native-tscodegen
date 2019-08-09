@@ -1,4 +1,4 @@
-import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React';import codegenNativeComponent = require('../lib/codegenNativeComponent');import codegenNativeCommands = require('../lib/codegenNativeCommands');
+import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import * as React from '../lib/React';import codegenNativeComponent = require('../lib/codegenNativeComponent');import codegenNativeCommands = require('../lib/codegenNativeCommands');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -19,7 +19,7 @@ import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React'
 import {ViewProps} from '../lib/ViewPropTypes';
 
 interface NativeCommands {
-  hotspotUpdate (viewRef: null | undefined | React.Ref<'RCTView'>, x: Int32, y: Int32) : void;
+  hotspotUpdate (viewRef: ReactNull | React.Ref<'RCTView'>, x: Int32, y: Int32) : void;
 }
 
 export type ModuleProps = Readonly<ViewProps & {

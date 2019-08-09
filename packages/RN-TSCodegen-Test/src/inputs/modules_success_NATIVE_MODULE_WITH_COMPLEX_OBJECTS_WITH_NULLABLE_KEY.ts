@@ -1,4 +1,4 @@
-import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
+import {ReactNull} from '../lib/CodegenTypes';import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -21,7 +21,7 @@ export interface Spec extends TurboModule {
       major: number;
       minor: number;
       patch: number;
-      prerelease: null | undefined | number;
+      prerelease: ReactNull | number;
     },
     forceTouchAvailable: boolean;
     osVersion: string;

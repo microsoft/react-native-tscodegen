@@ -1,4 +1,4 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -27,28 +27,28 @@ type ModuleProps = Readonly<ViewProps & {
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -58,20 +58,20 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
@@ -84,28 +84,28 @@ type ModuleProps = Readonly<ViewProps & {
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -115,54 +115,54 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
       }>
     >;
 
-  onDirectEventDefinedInlineOptionalValue: null | undefined | 
+  onDirectEventDefinedInlineOptionalValue: ReactNull | 
     DirectEventHandler<
       Readonly<{
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -172,54 +172,54 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
       }>
     >;
 
-  onDirectEventDefinedInlineOptionalBoth?: null | undefined | 
+  onDirectEventDefinedInlineOptionalBoth?: ReactNull | 
     DirectEventHandler<
       Readonly<{
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -229,54 +229,54 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
       }>
     >;
 
-  onDirectEventDefinedInlineWithPaperName?: null | undefined | 
+  onDirectEventDefinedInlineWithPaperName?: ReactNull | 
     DirectEventHandler<
       Readonly<{
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -286,20 +286,20 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
@@ -313,28 +313,28 @@ type ModuleProps = Readonly<ViewProps & {
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -344,20 +344,20 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
@@ -370,28 +370,28 @@ type ModuleProps = Readonly<ViewProps & {
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -401,54 +401,54 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
       }>
     >;
 
-  onBubblingEventDefinedInlineOptionalValue: null | undefined | 
+  onBubblingEventDefinedInlineOptionalValue: ReactNull | 
     BubblingEventHandler<
       Readonly<{
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -458,54 +458,54 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
       }>
     >;
 
-  onBubblingEventDefinedInlineOptionalBoth?: null | undefined | 
+  onBubblingEventDefinedInlineOptionalBoth?: ReactNull | 
     BubblingEventHandler<
       Readonly<{
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -515,54 +515,54 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
       }>
     >;
 
-  onBubblingEventDefinedInlineWithPaperName?: null | undefined | 
+  onBubblingEventDefinedInlineWithPaperName?: ReactNull | 
     BubblingEventHandler<
       Readonly<{
         
   boolean_required: boolean;
   boolean_optional_key?: boolean;
-  boolean_optional_value: null | undefined | boolean;
-  boolean_optional_both?: null | undefined | boolean;
+  boolean_optional_value: ReactNull | boolean;
+  boolean_optional_both?: ReactNull | boolean;
 
   string_required: string;
   string_optional_key?: string;
-  string_optional_value: null | undefined | string;
-  string_optional_both?: null | undefined | string;
+  string_optional_value: ReactNull | string;
+  string_optional_both?: ReactNull | string;
 
   float_required: Float;
   float_optional_key?: Float;
-  float_optional_value: null | undefined | Float;
-  float_optional_both?: null | undefined | Float;
+  float_optional_value: ReactNull | Float;
+  float_optional_both?: ReactNull | Float;
 
   int32_required: Int32;
   int32_optional_key?: Int32;
-  int32_optional_value: null | undefined | Int32;
-  int32_optional_both?: null | undefined | Int32;
+  int32_optional_value: ReactNull | Int32;
+  int32_optional_both?: ReactNull | Int32;
 
   enum_required: ('small' | 'large');
   enum_optional_key?: ('small' | 'large');
-  enum_optional_value: null | undefined | ('small' | 'large');
-  enum_optional_both?: null | undefined | ('small' | 'large');
+  enum_optional_value: ReactNull | ('small' | 'large');
+  enum_optional_both?: ReactNull | ('small' | 'large');
 
   object_required: {
     boolean_required: boolean;
@@ -572,20 +572,20 @@ type ModuleProps = Readonly<ViewProps & {
     string_optional_key?: string;
   }
 
-  object_optional_value: null | undefined | {
-    float_optional_value: null | undefined | Float;
+  object_optional_value: ReactNull | {
+    float_optional_value: ReactNull | Float;
   }
 
-  object_optional_both?: null | undefined | {
-    int32_optional_both?: null | undefined | Int32;
+  object_optional_both?: ReactNull | {
+    int32_optional_both?: ReactNull | Int32;
   }
 
   object_required_nested_2_layers: {
-    object_optional_nested_1_layer?: null | undefined | {
+    object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
-      float_optional_value: null | undefined | Float;
-      int32_optional_both?: null | undefined | Int32;
+      float_optional_value: ReactNull | Float;
+      int32_optional_both?: ReactNull | Int32;
     }
   }
 
