@@ -1,13 +1,13 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isBoolean, isFloat, isInt32, isNull, isString, isVoid, WritableObjectType } from './TypeChecker';
+import { isBoolean, isFloat, isInt32, isNull, isReactNull, isString, WritableObjectType } from './TypeChecker';
 
 function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string] {
   if (eventType.isUnion()) {
     let result: [boolean, ts.Type, string, string];
     for (const elementType of eventType.types) {
-      if (!isNull(elementType) && !isVoid(elementType)) {
+      if (!isReactNull(elementType)) {
         const elementResult = checkEventType(elementType, info, propDecl);
         if (result === undefined) {
           result = elementResult;
@@ -16,7 +16,9 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
         }
       }
     }
-    result[0] = true;
+    if (result !== undefined) {
+      result[0] = true;
+    }
     return result;
   } else {
     if (eventType.aliasSymbol === undefined || (eventType.aliasSymbol.name !== 'DirectEventHandler' && eventType.aliasSymbol.name !== 'BubblingEventHandler')) {
@@ -69,7 +71,7 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
     let result: WritableObjectType<cs.ObjectPropertyType>;
 
     for (const elementType of argumentType.types) {
-      if (isNull(elementType) || isVoid(elementType)) {
+      if (isReactNull(elementType)) {
         optional = true;
       } else if (elementType.isStringLiteral()) {
         if (result !== undefined) {

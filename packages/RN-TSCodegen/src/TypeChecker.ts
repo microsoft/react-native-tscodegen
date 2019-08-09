@@ -8,6 +8,13 @@ export type WritableObjectType<T> = {
     - readonly [P in keyof T]: WritablePropType<T[P]>
 };
 
+export function isReactNull(tsType: ts.Type): boolean {
+    if (tsType === undefined) {
+        return false;
+    }
+    return tsType.symbol !== undefined && tsType.symbol.name === 'ReactNull';
+}
+
 export function isNull(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
