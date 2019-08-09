@@ -54,3 +54,11 @@ export function isInt32(tsType: ts.Type): boolean {
 export function isFloat(tsType: ts.Type): boolean {
     return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Float';
 }
+
+export function isInt32NotExported(tsType: ts.Type): boolean {
+    return tsType.symbol !== undefined && tsType.symbol.name === 'Int32NotExported';
+}
+
+export function isFloatNotExported(tsType: ts.Type): boolean {
+    return tsType.symbol !== undefined && tsType.symbol.name === 'FloatNotExported';
+}

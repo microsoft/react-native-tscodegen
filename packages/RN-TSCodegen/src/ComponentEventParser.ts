@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isBoolean, isFloat, isInt32, isNull, isReactNull, isString, WritableObjectType } from './TypeChecker';
+import { isBoolean, isFloat, isFloatNotExported, isInt32, isInt32NotExported, isNull, isNumber, isReactNull, isString, WritableObjectType } from './TypeChecker';
 
 function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string] {
   if (eventType.isUnion()) {
@@ -38,6 +38,74 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
   }
 }
 
+function processEventArgumentUnionType(argument: ts.PropertySignature, argumentType: ts.UnionType, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
+  let itemReactNull = argument.questionToken !== undefined;
+  let itemBoolean = false;
+  let itemNumber = false;
+  let itemFloatNotExported = false;
+  let itemInt32NotExported = false;
+  const itemStringLiterals: string[] = [];
+  const itemOthers: WritableObjectType<cs.ObjectPropertyType>[] = [];
+
+  for (const elementType of argumentType.types) {
+    if (isReactNull(elementType)) {
+      itemReactNull = true;
+    } else if (isBoolean(elementType)) {
+      itemBoolean = true;
+    } else if (isNumber(elementType)) {
+      itemNumber = true;
+    } else if (isFloatNotExported(elementType)) {
+      itemFloatNotExported = true;
+    } else if (isInt32NotExported(elementType)) {
+      itemInt32NotExported = true;
+    } else if (elementType.isStringLiteral()) {
+      itemStringLiterals.push(elementType.value);
+    } else {
+      itemOthers.push(processEventArgumentType(argument, elementType, info, propDecl));
+    }
+  }
+
+  if (itemBoolean) {
+    itemOthers.push({
+      type: 'BooleanTypeAnnotation',
+      name: argument.name.getText(),
+      optional: false
+    });
+  }
+
+  if (itemNumber) {
+    if (itemFloatNotExported && !itemInt32NotExported) {
+      itemOthers.push({
+        type: 'FloatTypeAnnotation',
+        name: argument.name.getText(),
+        optional: false
+      });
+    } else if (!itemFloatNotExported && itemInt32NotExported) {
+      itemOthers.push({
+        type: 'Int32TypeAnnotation',
+        name: argument.name.getText(),
+        optional: false
+      });
+    } else {
+      throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+    }
+  }
+
+  if (itemOthers.length === 1 && itemStringLiterals.length === 0) {
+    itemOthers[0].optional = itemReactNull;
+    return itemOthers[0];
+  } else if (itemOthers.length === 0 && itemStringLiterals.length > 0) {
+    return {
+      type: 'StringEnumTypeAnnotation',
+      name: argument.name.getText(),
+      optional: itemReactNull,
+      options: itemStringLiterals.map((name: string) => { return { name }; })
+    };
+  } else {
+    throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
+  }
+}
+
 function processEventArgumentType(argument: ts.PropertySignature, argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
   if (isBoolean(argumentType)) {
     return {
@@ -64,37 +132,7 @@ function processEventArgumentType(argument: ts.PropertySignature, argumentType: 
       optional: argument.questionToken !== undefined
     };
   } else if (argumentType.isUnion()) {
-    let optional = argument.questionToken !== undefined;
-    const stringLiterals: string[] = [];
-    let result: WritableObjectType<cs.ObjectPropertyType>;
-
-    for (const elementType of argumentType.types) {
-      if (isReactNull(elementType)) {
-        optional = true;
-      } else if (elementType.isStringLiteral()) {
-        if (result !== undefined) {
-          throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
-        }
-        stringLiterals.push(elementType.value);
-      } else {
-        if (result !== undefined || stringLiterals.length !== 0) {
-          throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
-        }
-        result = processEventArgumentType(argument, elementType, info, propDecl);
-      }
-    }
-
-    if (result === undefined) {
-      return {
-        type: 'StringEnumTypeAnnotation',
-        name: argument.name.getText(),
-        optional,
-        options: stringLiterals.map((name: string) => { return { name }; })
-      };
-    } else {
-      result.optional = optional;
-      return result;
-    }
+    return processEventArgumentUnionType(argument, argumentType, info, propDecl);
   } else {
     return {
       type: 'ObjectTypeAnnotation',
