@@ -62,3 +62,15 @@ export function isInt32NotExported(tsType: ts.Type): boolean {
 export function isFloatNotExported(tsType: ts.Type): boolean {
     return tsType.symbol !== undefined && tsType.symbol.name === 'FloatNotExported';
 }
+
+export function tryGetArrayType(tsType: ts.Type, typeChecker: ts.TypeChecker): [boolean, ts.Type] {
+    if (isString(tsType)) {
+        return undefined;
+    }
+    const indexInfo = typeChecker.getIndexInfoOfType(tsType, ts.IndexKind.Number);
+    if (indexInfo === undefined) {
+        return undefined;
+    } else {
+        return [indexInfo.isReadonly, indexInfo.type];
+    }
+}

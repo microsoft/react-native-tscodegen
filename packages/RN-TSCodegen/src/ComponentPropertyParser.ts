@@ -4,7 +4,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isBoolean, isFloatNotExported, isInt32NotExported, isNumber, isReactNull, isString } from './TypeChecker';
+import { isBoolean, isFloatNotExported, isInt32NotExported, isNumber, isReactNull, isString, tryGetArrayType } from './TypeChecker';
 
 type PrimitiveType = [boolean, cs.PropTypeTypeAnnotation];
 
@@ -142,11 +142,58 @@ function processPropertyPrimitiveType(argumentType: ts.Type, info: ExportCompone
   }
 }
 
-export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
-  const [optional, typeAnnotation] = processPropertyPrimitiveType(info.program.getTypeChecker().getTypeFromTypeNode(propDecl.type), info, propDecl);
+function processPropertyArrayType(isReadonly: boolean, argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeTypeAnnotation {
+  const errorMessage = `${propDecl.type.getText()} is not a supported component property type, in property ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`;
+  const [optional, typeAnnotation] = processPropertyPrimitiveType(argumentType, info, propDecl);
+
+  if (optional) {
+    throw new Error(errorMessage);
+  }
+  switch (typeAnnotation.type) {
+    case 'BooleanTypeAnnotation':
+    case 'StringTypeAnnotation':
+    case 'FloatTypeAnnotation':
+    case 'Int32TypeAnnotation': {
+      return { type: 'ArrayTypeAnnotation', elementType: { type: typeAnnotation.type } };
+    }
+    case 'StringEnumTypeAnnotation':
+    case 'NativePrimitiveTypeAnnotation': {
+      return { type: 'ArrayTypeAnnotation', elementType: typeAnnotation };
+    }
+    default: {
+      throw new Error(errorMessage);
+    }
+  }
+}
+
+function primitiveTypeToPropTypeShape(primitiveType: PrimitiveType, propDecl: ts.PropertySignature): cs.PropTypeShape {
+  const [optional, typeAnnotation] = primitiveType;
   return {
     name: propDecl.name.getText(),
     optional: propDecl.questionToken !== undefined || optional,
     typeAnnotation
   };
+}
+
+export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
+  const typeChecker = info.program.getTypeChecker();
+  const argumentType = typeChecker.getTypeFromTypeNode(propDecl.type);
+
+  let arrayInfo = tryGetArrayType(argumentType, typeChecker);
+  if (arrayInfo !== undefined) {
+    return primitiveTypeToPropTypeShape([false, processPropertyArrayType(arrayInfo[0], arrayInfo[1], info, propDecl)], propDecl);
+  }
+
+  if (argumentType.isUnion() && argumentType.types.length === 2) {
+    if (isReactNull(argumentType.types[0])) {
+      arrayInfo = tryGetArrayType(argumentType.types[1], typeChecker);
+    } else if (isReactNull(argumentType.types[1])) {
+      arrayInfo = tryGetArrayType(argumentType.types[0], typeChecker);
+    }
+  }
+  if (arrayInfo !== undefined) {
+    return primitiveTypeToPropTypeShape([true, processPropertyArrayType(arrayInfo[0], arrayInfo[1], info, propDecl)], propDecl);
+  }
+
+  return primitiveTypeToPropTypeShape(processPropertyPrimitiveType(argumentType, info, propDecl), propDecl);
 }
