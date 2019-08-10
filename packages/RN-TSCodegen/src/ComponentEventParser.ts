@@ -1,7 +1,9 @@
+// tslint:disable:no-reserved-keywords
+
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isBoolean, isFloat, isFloatNotExported, isInt32, isInt32NotExported, isNull, isNumber, isReactNull, isString, WritableObjectType } from './TypeChecker';
+import { isReactNull, RNRawType, typeToRNRawType, WritableObjectType } from './TypeChecker';
 
 function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string] {
   if (eventType.isUnion()) {
@@ -40,123 +42,31 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
   }
 }
 
-function processEventArgumentUnionType(argument: ts.PropertySignature, argumentType: ts.UnionType, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
-  let itemReactNull = argument.questionToken !== undefined;
-  let itemBoolean = false;
-  let itemNumber = false;
-  let itemFloatNotExported = false;
-  let itemInt32NotExported = false;
-  const itemStringLiterals: string[] = [];
-  const itemOthers: WritableObjectType<cs.ObjectPropertyType>[] = [];
-
-  for (const elementType of argumentType.types) {
-    if (isReactNull(elementType)) {
-      itemReactNull = true;
-    } else if (isBoolean(elementType)) {
-      itemBoolean = true;
-    } else if (isNumber(elementType)) {
-      itemNumber = true;
-    } else if (isFloatNotExported(elementType)) {
-      itemFloatNotExported = true;
-    } else if (isInt32NotExported(elementType)) {
-      itemInt32NotExported = true;
-    } else if (elementType.isStringLiteral()) {
-      itemStringLiterals.push(elementType.value);
-    } else {
-      itemOthers.push(processEventArgumentType(argument, elementType, info, propDecl));
-    }
-  }
-
-  if (itemBoolean) {
-    itemOthers.push({
-      type: 'BooleanTypeAnnotation',
-      name: argument.name.getText(),
-      optional: false
-    });
-  }
-
-  if (itemNumber) {
-    if (itemFloatNotExported && !itemInt32NotExported) {
-      itemOthers.push({
-        type: 'FloatTypeAnnotation',
-        name: argument.name.getText(),
-        optional: false
-      });
-    } else if (!itemFloatNotExported && itemInt32NotExported) {
-      itemOthers.push({
-        type: 'Int32TypeAnnotation',
-        name: argument.name.getText(),
-        optional: false
-      });
-    } else {
-      throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
-    }
-  }
-
-  if (itemOthers.length === 1 && itemStringLiterals.length === 0) {
-    itemOthers[0].optional = itemReactNull;
-    return itemOthers[0];
-  } else if (itemOthers.length === 0 && itemStringLiterals.length > 0) {
-    return {
+function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.ObjectPropertyType {
+  switch (rawType.kind) {
+    case 'Boolean': return { type: 'BooleanTypeAnnotation', name: undefined, optional: rawType.isNullable };
+    case 'String': return { type: 'StringTypeAnnotation', name: undefined, optional: rawType.isNullable };
+    case 'Float': return { type: 'FloatTypeAnnotation', name: undefined, optional: rawType.isNullable };
+    case 'Int32': return { type: 'Int32TypeAnnotation', name: undefined, optional: rawType.isNullable };
+    case 'StringLiterals': return {
       type: 'StringEnumTypeAnnotation',
-      name: argument.name.getText(),
-      optional: itemReactNull,
-      options: itemStringLiterals.map((name: string) => { return { name }; })
+      name: undefined,
+      optional: rawType.isNullable,
+      options: rawType.values.map((name: string) => { return { name }; })
     };
-  } else {
-    throw new Error(`${argument.type.getText()} is not a supported event property type, in event ${propDecl.name.getText()} in type ${info.typeNode.getText()}.`);
-  }
-}
-
-function processEventArgumentType(argument: ts.PropertySignature, argumentType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
-  if (isBoolean(argumentType)) {
-    return {
-      type: 'BooleanTypeAnnotation',
-      name: argument.name.getText(),
-      optional: argument.questionToken !== undefined
-    };
-  } else if (isString(argumentType)) {
-    return {
-      type: 'StringTypeAnnotation',
-      name: argument.name.getText(),
-      optional: argument.questionToken !== undefined
-    };
-  } else if (isFloat(argumentType)) {
-    return {
-      type: 'FloatTypeAnnotation',
-      name: argument.name.getText(),
-      optional: argument.questionToken !== undefined
-    };
-  } else if (isInt32(argumentType)) {
-    return {
-      type: 'Int32TypeAnnotation',
-      name: argument.name.getText(),
-      optional: argument.questionToken !== undefined
-    };
-  } else if (argumentType.isUnion()) {
-    return processEventArgumentUnionType(argument, argumentType, info, propDecl);
-  } else {
-    return {
+    case 'Object': return {
       type: 'ObjectTypeAnnotation',
-      name: argument.name.getText(),
-      optional: argument.questionToken !== undefined,
-      properties: argumentType.getProperties().map((propSymbol: ts.Symbol) => {
-        return processEventArgument(propSymbol, info, propDecl);
+      name: undefined,
+      optional: rawType.isNullable,
+      properties: rawType.properties.map((rawProp: { name: string, propertyType: RNRawType }) => {
+        const prop = <WritableObjectType<cs.ObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
+        prop.name = rawProp.name;
+        return prop;
       })
     };
+    default:
   }
-}
-
-function processEventArgument(argumentSymbol: ts.Symbol, info: ExportComponentInfo, propDecl: ts.PropertySignature): WritableObjectType<cs.ObjectPropertyType> {
-  if (!ts.isPropertySignature(argumentSymbol.declarations[0])) {
-    return undefined;
-  }
-
-  const argumentDecl = <ts.PropertySignature>argumentSymbol.declarations[0];
-  if (argumentDecl.type === undefined) {
-    throw new Error(`Member ${argumentSymbol.name} in event ${propDecl.name.getText()} in type ${info.typeNode.getText()} is expected to be a property.`);
-  }
-  return processEventArgumentType(argumentDecl, info.program.getTypeChecker().getTypeFromTypeNode(argumentDecl.type), info, propDecl);
+  throw new Error(`Component event type does not support ${typeNode.getText()}.`);
 }
 
 export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape {
@@ -165,15 +75,17 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
   if (eventTypeTuple === undefined) {
     return undefined;
   }
-  const [optional, eventType, eventTypeName, paperTopLevelNameDeprecated] = eventTypeTuple;
 
-  const eventProperties: WritableObjectType<cs.ObjectPropertyType>[] = [];
-  if (!isNull(eventType)) {
-    for (const argumentSymbol of eventType.getProperties()) {
-      const eventProperty = processEventArgument(argumentSymbol, info, propDecl);
-      if (eventProperty !== undefined) {
-        eventProperties.push(eventProperty);
-      }
+  const [optional, eventType, eventTypeName, paperTopLevelNameDeprecated] = eventTypeTuple;
+  const rawType = typeToRNRawType(eventType, typeChecker, true);
+
+  let eventProperties: readonly cs.ObjectPropertyType[] = [];
+  if (rawType.kind !== 'Null') {
+    const objectType = rnRawTypeToObjectPropertyType(propDecl.type, rawType);
+    if (objectType.type === 'ObjectTypeAnnotation') {
+      eventProperties = objectType.properties;
+    } else {
+      throw new Error(`Component event type does not support ${propDecl.type.getText()}.`);
     }
   }
 
@@ -185,7 +97,7 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
       type: 'EventTypeAnnotation',
       argument: {
         type: 'ObjectTypeAnnotation',
-        properties: eventProperties
+        properties: <WritableObjectType<cs.ObjectPropertyType>[]>eventProperties
       }
     }
   };

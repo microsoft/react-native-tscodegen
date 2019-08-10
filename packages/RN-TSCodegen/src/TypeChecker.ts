@@ -127,7 +127,7 @@ function eventTypeToRNRawType(typeArguments: readonly ts.Type[], kind: 'DirectEv
     }
 
     const eventType = typeToRNRawType(typeArguments[0], typeChecker, true);
-    const nameType = typeArguments.length === 1 ? undefined : typeToRNRawType(typeArguments[1], typeChecker, true);
+    const nameType = typeArguments.length === 1 ? undefined : typeToRNRawType(typeArguments[1], typeChecker, false);
     if (nameType !== undefined || nameType.kind !== 'StringLiterals' || nameType.values.length !== 1) {
         throw new Error(`${kind} should have one type argument and anoter optional string literal type argument.`);
     }
@@ -169,7 +169,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     let itemInt32NotExported = false;
     let itemString = false;
     let itemDefaultValue: boolean | number | string;
-    let itemUnknown = false;
+    const itemUnknowns: ts.Type[] = [];
     const itemStringLiterals: string[] = [];
     const itemOthers: RNRawType[] = [];
 
@@ -232,16 +232,16 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             } else if (elementType.symbol.name === 'PointValue') {
                 itemOthers.push({ kind: 'rn:PointPrimitive', isNullable: false });
             } else {
-                itemUnknown = true;
+                itemUnknowns.push(elementType);
             }
         } else if (elementType.aliasSymbol !== undefined) {
             if (elementType.symbol.name === 'DirectEventHandler' || elementType.symbol.name === 'BubblingEventHandler') {
                 itemOthers.push(eventTypeToRNRawType(elementType.aliasTypeArguments, elementType.symbol.name, typeChecker));
             } else {
-                itemUnknown = true;
+                itemUnknowns.push(elementType);
             }
         } else {
-            itemUnknown = true;
+            itemUnknowns.push(elementType);
         }
     }
 
@@ -275,29 +275,33 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         itemOthers.push({ kind: 'StringLiterals', values: itemStringLiterals, isNullable: false });
     }
 
-    if (itemOthers.length === 0 && itemUnknown && allowObject) {
-        itemOthers.push({
-            kind: 'Object',
-            isNullable: false,
-            properties: tsType.getProperties()
-                .filter((propSymbol: ts.Symbol) => {
-                    if (propSymbol.declarations.length !== 1) {
-                        return false;
-                    }
-                    const propDecl = propSymbol.declarations[0];
-                    return ts.isPropertySignature(propDecl) && propDecl.type !== undefined;
-                }).map((propSymbol: ts.Symbol) => {
-                    const propDecl = <ts.PropertySignature>propSymbol.declarations[0];
-                    const propertyType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propDecl.type), typeChecker, true);
-                    if (propDecl.questionToken !== undefined) {
-                        propertyType.isNullable = true;
-                    }
-                    return {
-                        name: propDecl.name.getText(),
-                        propertyType
-                    };
-                })
-        });
+    if (itemOthers.length === 0 && allowObject) {
+        if (itemUnknowns.length === 1) {
+            itemOthers.push({
+                kind: 'Object',
+                isNullable: false,
+                properties: itemUnknowns[0].getProperties()
+                    .filter((propSymbol: ts.Symbol) => {
+                        if (propSymbol.declarations.length !== 1) {
+                            return false;
+                        }
+                        const propDecl = propSymbol.declarations[0];
+                        return ts.isPropertySignature(propDecl) && propDecl.type !== undefined;
+                    }).map((propSymbol: ts.Symbol) => {
+                        const propDecl = <ts.PropertySignature>propSymbol.declarations[0];
+                        const propertyType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propDecl.type), typeChecker, true);
+                        if (propDecl.questionToken !== undefined) {
+                            propertyType.isNullable = true;
+                        }
+                        return {
+                            name: propDecl.name.getText(),
+                            propertyType
+                        };
+                    })
+            });
+        } else if (itemUnknowns.length > 1) {
+            throw new Error(`typeToRNRawType:NotSupported`);
+        }
     }
 
     if (itemOthers.length === 1) {
