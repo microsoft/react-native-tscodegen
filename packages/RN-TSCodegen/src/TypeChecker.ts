@@ -115,6 +115,9 @@ export type RNRawType = (
         kind: 'Function';
         returnType: RNRawType;
         parameters: { name: string; parameterType: RNRawType }[];
+    } | {
+        kind: 'Union';
+        types: RNRawType[];
     }
 ) & {
     isNullable: boolean;
@@ -417,12 +420,19 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         }
     }
 
-    if (itemOthers.length === 1) {
-        itemOthers[0].isNullable = itemReactNull;
+    if (itemOthers.length === 0) {
+        throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
+    } else {
+        const result: RNRawType = itemOthers.length === 1 ? itemOthers[0] : {
+            kind: 'Union',
+            isNullable: itemReactNull,
+            types: itemOthers
+        };
+
+        result.isNullable = itemReactNull;
         if (itemDefaultValue !== undefined) {
-            itemOthers[0].defaultValue = itemDefaultValue;
+            result.defaultValue = itemDefaultValue;
         }
-        return itemOthers[0];
+        return result;
     }
-    throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
 }
