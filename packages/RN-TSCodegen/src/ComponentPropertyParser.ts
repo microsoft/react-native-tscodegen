@@ -22,7 +22,7 @@ function extractWithDefault(elementType: ts.IntersectionType, info: ExportCompon
     );
 
     if (literalType !== undefined && objectType !== undefined) {
-      if (objectType.getProperty('__DoNotUse__') !== undefined) {
+      if (objectType.getProperty('__WithDefault__') !== undefined) {
         if (literalType.isStringLiteral()) {
           return literalType.value;
         } else {

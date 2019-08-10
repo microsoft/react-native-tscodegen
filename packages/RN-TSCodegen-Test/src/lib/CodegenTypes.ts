@@ -17,4 +17,4 @@ export type Stringish = string;
 
 export class ReactNull { private constructor() { } }
 // parser knows WithDefault<T, V> is used if it sees (V & { __DoNotUse__: void }) in a union type
-export type WithDefault<T, V> = ReactNull | T | (V & { __DoNotUse__: void });
+export type WithDefault<T, V> = ReactNull | T | (V & { __WithDefault__: void });
