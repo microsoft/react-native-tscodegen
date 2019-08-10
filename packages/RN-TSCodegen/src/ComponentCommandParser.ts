@@ -1,7 +1,22 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportCommandInfo } from './ExportParser';
-import { isBoolean, isInt32, isString, isVoid } from './TypeChecker';
+import { isVoid, typeToRNRawType } from './TypeChecker';
+
+function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): cs.CommandsTypeAnnotation {
+    //try {
+    const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(typeNode), typeChecker, false);
+    switch (rawType.kind) {
+        case 'String': return { type: 'StringTypeAnnotation' };
+        case 'Int32': return { type: 'Int32TypeAnnotation' };
+        case 'Boolean': return { type: 'BooleanTypeAnnotation' };
+        default:
+    }
+    // } catch (error) {
+    // nothing
+    //}
+    throw new Error(`Component command argument type does not support ${typeNode.getText()}.`);
+}
 
 export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
     const typeChecker = info.program.getTypeChecker();
@@ -73,24 +88,9 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
             typeAnnotation: {
                 type: 'FunctionTypeAnnotation',
                 params: funcParameters.slice(1).map((param: ts.ParameterDeclaration): cs.CommandsFunctionTypeParamAnnotation => {
-                    let typeAnnotation: cs.CommandsTypeAnnotation;
-
-                    const paramType = typeChecker.getTypeFromTypeNode(param.type);
-                    if (isString(paramType)) {
-                        typeAnnotation = { type: 'StringTypeAnnotation' };
-                    } else if (isBoolean(paramType)) {
-                        typeAnnotation = { type: 'BooleanTypeAnnotation' };
-                    } else if (isInt32(paramType)) {
-                        typeAnnotation = { type: 'Int32TypeAnnotation' };
-                    }
-
-                    if (typeAnnotation === undefined) {
-                        throw new Error(`Parameter ${param.name.getText()} in command ${commandName} in type ${info.typeNode.getText()} should be either string, boolean or Int32, instead of ${param.type.getText()}.`);
-                    }
-
                     return {
                         name: param.name.getText(),
-                        typeAnnotation
+                        typeAnnotation: typeNodeToCommandsTypeAnnotation(param.type, typeChecker)
                     };
                 })
             }

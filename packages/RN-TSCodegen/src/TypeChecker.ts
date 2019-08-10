@@ -182,8 +182,8 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemOthers.push({ kind: 'Null', isNullable: true });
         } else if (isBoolean(elementType)) {
             const value = typeChecker.typeToString(elementType);
-            itemTrue = value !== 'false';
-            itemFalse = value !== 'true';
+            itemTrue = itemTrue || value !== 'false';
+            itemFalse = itemFalse || value !== 'true';
         } else if (elementType.isStringLiteral()) {
             itemStringLiterals.push(elementType.value);
         } else if (elementType.isNumberLiteral()) {
