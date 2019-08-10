@@ -89,10 +89,12 @@ export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModu
 
     const properties: cs.MethodTypeShape[] = [];
     for (const prop of rawType.properties) {
-        properties.push({
-            name: prop.name,
-            typeAnnotation: rawTypeToFunctionTypeAnnotation(prop.propertyType, prop.name, info.typeNode)
-        });
+        if (prop.name !== 'getConstants') { // this function is from TurboModule
+            properties.push({
+                name: prop.name,
+                typeAnnotation: rawTypeToFunctionTypeAnnotation(prop.propertyType, prop.name, info.typeNode)
+            });
+        }
     }
 
     return { properties };
