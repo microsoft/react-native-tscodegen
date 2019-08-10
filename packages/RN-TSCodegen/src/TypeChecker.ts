@@ -95,6 +95,17 @@ export type RNRawType = (
         paperTopLevelNameDeprecated: string | undefined;
     } | {
         kind: 'Null';
+    } | {
+        kind: 'Void';
+    } | {
+        kind: 'js:Object';
+    } | {
+        kind: 'js:Promise';
+        elementType: RNRawType;
+    } | {
+        kind: 'Function';
+        returnType: RNRawType;
+        parameters: { name: string; parameterType: RNRawType }[];
     }
 ) & {
     isNullable: boolean;
@@ -135,7 +146,7 @@ function withDefaultToRNRawType(elementType: ts.IntersectionType, typeChecker: t
             }
         }
     }
-    throw new Error(`typeToRNRawType:NotSupported`);
+    throw new Error(`Type is not supported: ${typeChecker.typeToString(elementType)}.`);
 }
 
 export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
@@ -160,6 +171,8 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemReactNull = true;
         } else if (isNull(elementType)) {
             itemOthers.push({ kind: 'Null', isNullable: true });
+        } else if (isVoid(elementType)) {
+            itemOthers.push({ kind: 'Null', isNullable: true });
         } else if (isBoolean(elementType)) {
             const value = typeChecker.typeToString(elementType);
             itemTrue = itemTrue || value !== 'false';
@@ -181,10 +194,6 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         } else if (elementType.isIntersection()) {
             const currentDefaultValue = withDefaultToRNRawType(elementType, typeChecker);
 
-            if (itemDefaultValue !== undefined) {
-                throw new Error(`typeToRNRawType:NotSupported`);
-            }
-
             switch (currentDefaultValue.kind) {
                 case 'BooleanLiteral':
                 case 'NumberLiteral': {
@@ -200,7 +209,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             }
 
             if (itemDefaultValue === undefined) {
-                throw new Error(`typeToRNRawType:NotSupported`);
+                throw new Error(`Type is not supported: ${typeChecker.typeToString(elementType)}.`);
             }
         } else if ((indexInfo = typeChecker.getIndexInfoOfType(elementType, ts.IndexKind.Number)) !== undefined) {
             itemOthers.push({ kind: 'Array', elementType: typeToRNRawType(indexInfo.type, typeChecker, allowObject), isNullable: false });
@@ -211,6 +220,10 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                 itemOthers.push({ kind: 'rn:ImageSourcePrimitive', isNullable: false });
             } else if (elementType.symbol.name === 'PointValue') {
                 itemOthers.push({ kind: 'rn:PointPrimitive', isNullable: false });
+            } else if (elementType.symbol.name === 'Object') {
+                itemOthers.push({ kind: 'js:Object', isNullable: false });
+            } else if (elementType.symbol.name === 'Promise') {
+                itemOthers.push({ kind: 'js:Promise', elementType: { kind: 'Void', isNullable: false }, isNullable: false });
             } else {
                 itemUnknowns.push(elementType);
             }
@@ -247,7 +260,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         } else if (!itemFloatNotExported && !itemInt32NotExported) {
             itemOthers.push({ kind: 'Number', isNullable: false });
         } else {
-            throw new Error(`typeToRNRawType:NotSupported`);
+            throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
         }
     }
 
@@ -257,30 +270,92 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
 
     if (itemOthers.length === 0 && allowObject) {
         if (itemUnknowns.length === 1) {
-            itemOthers.push({
+
+            const objectRawType: RNRawType = {
                 kind: 'Object',
                 isNullable: false,
-                properties: itemUnknowns[0].getProperties()
-                    .filter((propSymbol: ts.Symbol) => {
-                        if (propSymbol.declarations.length !== 1) {
-                            return false;
+                properties: []
+            };
+            itemOthers.push(objectRawType);
+
+            for (const propSymbol of itemUnknowns[0].getProperties()) {
+
+                if (propSymbol.declarations.length === 1) {
+                    const propSymbolDecl = propSymbol.declarations[0];
+                    let propDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature;
+                    let propType: ts.Type;
+                    let funcReturnType: ts.Type;
+                    let funcParameters: readonly ts.ParameterDeclaration[];
+
+                    if (ts.isMethodSignature(propSymbolDecl) || ts.isCallSignatureDeclaration(propSymbolDecl)) {
+                        if (propSymbolDecl.typeParameters !== undefined && propSymbolDecl.typeParameters.length !== 0) {
+                            throw new Error(`Generic function is not supported: ${propSymbolDecl.getText()}.`);
                         }
-                        const propDecl = propSymbol.declarations[0];
-                        return ts.isPropertySignature(propDecl) && propDecl.type !== undefined;
-                    }).map((propSymbol: ts.Symbol) => {
-                        const propDecl = <ts.PropertySignature>propSymbol.declarations[0];
-                        const propertyType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propDecl.type), typeChecker, true);
+                        propDecl = propSymbolDecl;
+                        funcReturnType = typeChecker.getTypeFromTypeNode(propSymbolDecl.type);
+                        funcParameters = propSymbolDecl.parameters;
+                    } else if (ts.isPropertySignature(propSymbolDecl)) {
+                        propDecl = propSymbolDecl;
+                        propType = typeChecker.getTypeFromTypeNode(propSymbolDecl.type);
+                        const signatures = propType.getCallSignatures();
+                        if (signatures !== undefined && signatures.length > 0) {
+                            propType = undefined;
+                            if (signatures.length === 1) {
+                                if (signatures[0].typeParameters !== undefined && signatures[0].typeParameters.length !== 0) {
+                                    throw new Error(`Generic function is not supported: ${propSymbolDecl.getText()}.`);
+                                }
+                                funcReturnType = signatures[0].getReturnType();
+                                const params: ts.ParameterDeclaration[] = [];
+                                for (const parameterSymbol of signatures[0].parameters) {
+                                    if (parameterSymbol.declarations.length === 1 && ts.isParameter(parameterSymbol.declarations[0])) {
+                                        params.push(<ts.ParameterDeclaration>parameterSymbol.declarations[0]);
+                                    }
+                                }
+                                funcParameters = params;
+                            }
+                        }
+                    }
+
+                    if (propType !== undefined) {
+                        const propRawType = typeToRNRawType(propType, typeChecker, true);
                         if (propDecl.questionToken !== undefined) {
-                            propertyType.isNullable = true;
+                            propRawType.isNullable = true;
                         }
-                        return {
+                        objectRawType.properties.push({
                             name: propDecl.name.getText(),
-                            propertyType
+                            propertyType: propRawType
+                        });
+                    } else if (funcReturnType !== undefined) {
+                        const funcRawType: RNRawType = {
+                            kind: 'Function',
+                            isNullable: propDecl.questionToken !== undefined,
+                            returnType: typeToRNRawType(funcReturnType, typeChecker, allowObject),
+                            parameters: []
                         };
-                    })
-            });
+                        for (const paramDecl of funcParameters) {
+                            if (paramDecl.type !== undefined) {
+                                const paramRawType = {
+                                    name: paramDecl.name.getText(),
+                                    parameterType: typeToRNRawType(typeChecker.getTypeFromTypeNode(paramDecl.type), typeChecker, allowObject)
+                                };
+                                if (paramDecl.questionToken !== undefined) {
+                                    paramRawType.parameterType.isNullable = true;
+                                }
+                                funcRawType.parameters.push(paramRawType);
+                            }
+                        }
+                        objectRawType.properties.push({
+                            name: propDecl.name.getText(),
+                            propertyType: funcRawType
+                        });
+                    } else {
+                        console.log(ts.SyntaxKind[propSymbolDecl.kind]);
+                        throw new Error(`Only properties and functions are: ${propSymbolDecl.getText()}.`);
+                    }
+                }
+            }
         } else if (itemUnknowns.length > 1) {
-            throw new Error(`typeToRNRawType:NotSupported`);
+            throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
         }
     }
 
@@ -291,5 +366,5 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         }
         return itemOthers[0];
     }
-    throw new Error(`typeToRNRawType:NotSupported`);
+    throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
 }
