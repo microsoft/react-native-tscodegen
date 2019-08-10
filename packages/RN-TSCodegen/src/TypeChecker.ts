@@ -218,11 +218,6 @@ function getRawFunctionType(funcReturnType: ts.Type, funcParameters: readonly ts
         parameters: []
     };
     for (const paramDecl of funcParameters) {
-        if (paramDecl.name.getText() === 'callback') {
-            console.log(paramDecl.getText());
-            const paramType = typeChecker.getTypeFromTypeNode(paramDecl.type);
-            console.log(ts.SyntaxKind[paramType.getCallSignatures()[0].getDeclaration().kind]);
-        }
         if (paramDecl.type !== undefined) {
             const paramRawType = {
                 name: paramDecl.name.getText(),
@@ -313,7 +308,13 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             } else if (elementType.symbol.name === 'Object') {
                 itemOthers.push({ kind: 'js:Object', isNullable: false });
             } else if (elementType.symbol.name === 'Promise') {
-                itemOthers.push({ kind: 'js:Promise', elementType: { kind: 'Void', isNullable: false }, isNullable: false });
+                const typeReference = <ts.TypeReference>elementType;
+                if (typeReference.typeArguments !== undefined && typeReference.typeArguments.length === 1) {
+                    const promiseType = typeReference.typeArguments[0];
+                    itemOthers.push({ kind: 'js:Promise', elementType: typeToRNRawType(promiseType, typeChecker, allowObject), isNullable: false });
+                } else {
+                    throw new Error(`Unable to extract type from ${typeChecker.typeToString(elementType)}.`);
+                }
             } else {
                 itemUnknowns.push(elementType);
             }
@@ -406,8 +407,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                                 propertyType: funcRawType
                             });
                         } else {
-                            console.log(ts.SyntaxKind[propSymbolDecl.kind]);
-                            throw new Error(`Only properties and functions are: ${propSymbolDecl.getText()}.`);
+                            throw new Error(`Only properties and functions are allowed: ${propSymbolDecl.getText()}.`);
                         }
                     }
                 }
