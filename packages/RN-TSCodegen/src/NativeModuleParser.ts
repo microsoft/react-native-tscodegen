@@ -12,7 +12,14 @@ function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamT
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'Any': return { type: 'AnyTypeAnnotation' };
-        case 'Array': return { type: 'ArrayTypeAnnotation', elementType: rawTypeToParamType(rawType.elementType) };
+        case 'Array': {
+            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
+                const result = { type: 'ArrayTypeAnnotation' };
+                return <cs.FunctionTypeAnnotationParamTypeAnnotation>result;
+            } else {
+                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToParamType(rawType.elementType) };
+            }
+        }
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
             properties: rawType.properties.map((param: { name: string; propertyType: RNRawType }) => {
@@ -34,7 +41,13 @@ function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamT
             }),
             returnTypeAnnotation: rawTypeToReturnType(rawType.returnType)
         };
-        default: throw new Error(`${rawType.kind} is not supported in native module.`);
+        default:
+    }
+
+    if (rawType.kind === 'Union' || rawType.kind === 'Tuple') {
+        throw new Error(`${rawType.kind} is only allowed in arrays in native module.`);
+    } else {
+        throw new Error(`${rawType.kind} is not supported in native module.`);
     }
 }
 
@@ -47,7 +60,14 @@ function rawTypeToReturnType(rawType: RNRawType): cs.FunctionTypeAnnotationRetur
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
-        case 'Array': return { type: 'ArrayTypeAnnotation', elementType: rawTypeToParamType(rawType.elementType) };
+        case 'Array': {
+            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
+                const result = { type: 'ArrayTypeAnnotation' };
+                return <cs.FunctionTypeAnnotationReturn>result;
+            } else {
+                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToParamType(rawType.elementType) };
+            }
+        }
         case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', resolvedType: rawTypeToReturnType(rawType.elementType) };
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
@@ -59,7 +79,13 @@ function rawTypeToReturnType(rawType: RNRawType): cs.FunctionTypeAnnotationRetur
                 };
             })
         };
-        default: throw new Error(`${rawType.kind} is not supported in native module.`);
+        default:
+    }
+
+    if (rawType.kind === 'Union' || rawType.kind === 'Tuple') {
+        throw new Error(`${rawType.kind} is only allowed in arrays in native module.`);
+    } else {
+        throw new Error(`${rawType.kind} is not supported in native module.`);
     }
 }
 

@@ -75,21 +75,9 @@ export type RNRawType = (
         kind: 'StringLiterals';
         values: string[];
     } | {
-        kind: 'Boolean';
+        kind: 'Boolean' | 'Number' | 'Float' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
     } | {
-        kind: 'Number';
-    } | {
-        kind: 'Float';
-    } | {
-        kind: 'Int32';
-    } | {
-        kind: 'String';
-    } | {
-        kind: 'rn:ColorPrimitive';
-    } | {
-        kind: 'rn:ImageSourcePrimitive';
-    } | {
-        kind: 'rn:PointPrimitive';
+        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive';
     } | {
         kind: 'Array';
         elementType: RNRawType;
@@ -101,12 +89,6 @@ export type RNRawType = (
         elementType: RNRawType;
         paperTopLevelNameDeprecated: string | undefined;
     } | {
-        kind: 'Null';
-    } | {
-        kind: 'Void';
-    } | {
-        kind: 'Any';
-    } | {
         kind: 'js:Object';
     } | {
         kind: 'js:Promise';
@@ -116,7 +98,7 @@ export type RNRawType = (
         returnType: RNRawType;
         parameters: { name: string; parameterType: RNRawType }[];
     } | {
-        kind: 'Union';
+        kind: 'Union' | 'Tuple';
         types: RNRawType[];
     }
 ) & {
