@@ -158,6 +158,85 @@ function withDefaultToRNRawType(elementType: ts.IntersectionType, typeChecker: t
     throw new Error(`Type is not supported: ${typeChecker.typeToString(elementType)}.`);
 }
 
+function readSignature(signature: ts.Signature, decl: ts.Declaration): [ts.Type, readonly ts.ParameterDeclaration[]] {
+    let funcReturnType: ts.Type;
+    const funcParameters: ts.ParameterDeclaration[] = [];
+
+    if (signature.typeParameters !== undefined && signature.typeParameters.length !== 0) {
+        throw new Error(`Generic function is not supported: ${decl.getText()}.`);
+    }
+    funcReturnType = signature.getReturnType();
+    for (const parameterSymbol of signature.parameters) {
+        if (parameterSymbol.declarations.length === 1 && ts.isParameter(parameterSymbol.declarations[0])) {
+            funcParameters.push(<ts.ParameterDeclaration>parameterSymbol.declarations[0]);
+        }
+    }
+    return [funcReturnType, funcParameters];
+}
+
+function tryReadMemberSignature(propSymbolDecl: ts.Declaration, typeChecker: ts.TypeChecker): [
+    ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature,
+    ts.Type,
+    ts.Type,
+    readonly ts.ParameterDeclaration[]
+] {
+    let propDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature;
+    let propType: ts.Type;
+    let funcType: [ts.Type, readonly ts.ParameterDeclaration[]];
+
+    if (ts.isMethodSignature(propSymbolDecl) || ts.isCallSignatureDeclaration(propSymbolDecl)) {
+        if (propSymbolDecl.typeParameters !== undefined && propSymbolDecl.typeParameters.length !== 0) {
+            throw new Error(`Generic function is not supported: ${propSymbolDecl.getText()}.`);
+        }
+        propDecl = propSymbolDecl;
+        funcType = [typeChecker.getTypeFromTypeNode(propSymbolDecl.type), propSymbolDecl.parameters];
+    } else if (ts.isPropertySignature(propSymbolDecl)) {
+        propDecl = propSymbolDecl;
+        propType = typeChecker.getTypeFromTypeNode(propSymbolDecl.type);
+        const signatures = propType.getCallSignatures();
+        if (signatures !== undefined && signatures.length > 0) {
+            propType = undefined;
+            if (signatures.length === 1) {
+                funcType = readSignature(signatures[0], propSymbolDecl);
+            }
+        }
+    }
+
+    return [
+        propDecl,
+        propType,
+        funcType === undefined ? undefined : funcType[0],
+        funcType === undefined ? undefined : funcType[1]
+    ];
+}
+
+function getRawFunctionType(funcReturnType: ts.Type, funcParameters: readonly ts.ParameterDeclaration[], typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
+    const funcRawType: RNRawType = {
+        kind: 'Function',
+        isNullable: false,
+        returnType: typeToRNRawType(funcReturnType, typeChecker, allowObject),
+        parameters: []
+    };
+    for (const paramDecl of funcParameters) {
+        if (paramDecl.name.getText() === 'callback') {
+            console.log(paramDecl.getText());
+            const paramType = typeChecker.getTypeFromTypeNode(paramDecl.type);
+            console.log(ts.SyntaxKind[paramType.getCallSignatures()[0].getDeclaration().kind]);
+        }
+        if (paramDecl.type !== undefined) {
+            const paramRawType = {
+                name: paramDecl.name.getText(),
+                parameterType: typeToRNRawType(typeChecker.getTypeFromTypeNode(paramDecl.type), typeChecker, allowObject)
+            };
+            if (paramDecl.questionToken !== undefined) {
+                paramRawType.parameterType.isNullable = true;
+            }
+            funcRawType.parameters.push(paramRawType);
+        }
+    }
+    return funcRawType;
+}
+
 export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
     const tsItems = tsType.isUnion() ? tsType.types : [tsType];
 
@@ -293,39 +372,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
 
                 if (propSymbol.declarations.length === 1) {
                     const propSymbolDecl = propSymbol.declarations[0];
-                    let propDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature;
-                    let propType: ts.Type;
-                    let funcReturnType: ts.Type;
-                    let funcParameters: readonly ts.ParameterDeclaration[];
-
-                    if (ts.isMethodSignature(propSymbolDecl) || ts.isCallSignatureDeclaration(propSymbolDecl)) {
-                        if (propSymbolDecl.typeParameters !== undefined && propSymbolDecl.typeParameters.length !== 0) {
-                            throw new Error(`Generic function is not supported: ${propSymbolDecl.getText()}.`);
-                        }
-                        propDecl = propSymbolDecl;
-                        funcReturnType = typeChecker.getTypeFromTypeNode(propSymbolDecl.type);
-                        funcParameters = propSymbolDecl.parameters;
-                    } else if (ts.isPropertySignature(propSymbolDecl)) {
-                        propDecl = propSymbolDecl;
-                        propType = typeChecker.getTypeFromTypeNode(propSymbolDecl.type);
-                        const signatures = propType.getCallSignatures();
-                        if (signatures !== undefined && signatures.length > 0) {
-                            propType = undefined;
-                            if (signatures.length === 1) {
-                                if (signatures[0].typeParameters !== undefined && signatures[0].typeParameters.length !== 0) {
-                                    throw new Error(`Generic function is not supported: ${propSymbolDecl.getText()}.`);
-                                }
-                                funcReturnType = signatures[0].getReturnType();
-                                const params: ts.ParameterDeclaration[] = [];
-                                for (const parameterSymbol of signatures[0].parameters) {
-                                    if (parameterSymbol.declarations.length === 1 && ts.isParameter(parameterSymbol.declarations[0])) {
-                                        params.push(<ts.ParameterDeclaration>parameterSymbol.declarations[0]);
-                                    }
-                                }
-                                funcParameters = params;
-                            }
-                        }
-                    }
+                    const [propDecl, propType, funcReturnType, funcParameters] = tryReadMemberSignature(propSymbolDecl, typeChecker);
 
                     if (propType !== undefined) {
                         const propRawType = typeToRNRawType(propType, typeChecker, true);
@@ -337,23 +384,9 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                             propertyType: propRawType
                         });
                     } else if (funcReturnType !== undefined) {
-                        const funcRawType: RNRawType = {
-                            kind: 'Function',
-                            isNullable: propDecl.questionToken !== undefined,
-                            returnType: typeToRNRawType(funcReturnType, typeChecker, allowObject),
-                            parameters: []
-                        };
-                        for (const paramDecl of funcParameters) {
-                            if (paramDecl.type !== undefined) {
-                                const paramRawType = {
-                                    name: paramDecl.name.getText(),
-                                    parameterType: typeToRNRawType(typeChecker.getTypeFromTypeNode(paramDecl.type), typeChecker, allowObject)
-                                };
-                                if (paramDecl.questionToken !== undefined) {
-                                    paramRawType.parameterType.isNullable = true;
-                                }
-                                funcRawType.parameters.push(paramRawType);
-                            }
+                        const funcRawType = getRawFunctionType(funcReturnType, funcParameters, typeChecker, true);
+                        if (propDecl.questionToken !== undefined) {
+                            funcRawType.isNullable = true;
                         }
                         objectRawType.properties.push({
                             name: propDecl.name.getText(),

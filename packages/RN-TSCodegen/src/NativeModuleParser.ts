@@ -89,17 +89,19 @@ export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModu
 
     const properties: cs.MethodTypeShape[] = [];
     for (const prop of rawType.properties) {
-        if (prop.name !== 'getConstants') { // this function is from TurboModule
-            try {
-                properties.push({
-                    name: prop.name,
-                    typeAnnotation: rawTypeToFunctionTypeAnnotation(prop.propertyType, prop.name, info.typeNode)
-                });
-            } catch (error) {
-                console.log(prop);
-                throw error;
-            }
+        if (prop.name === 'getConstants' &&
+            prop.propertyType.isNullable === true &&
+            prop.propertyType.kind === 'Function' &&
+            prop.propertyType.parameters.length === 0 &&
+            prop.propertyType.returnType.kind === 'Object' &&
+            prop.propertyType.returnType.properties.length === 0) {
+            // this function is from TurboModule
+            continue;
         }
+        properties.push({
+            name: prop.name,
+            typeAnnotation: rawTypeToFunctionTypeAnnotation(prop.propertyType, prop.name, info.typeNode)
+        });
     }
 
     return { properties };
