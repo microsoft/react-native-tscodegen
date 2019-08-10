@@ -23,7 +23,17 @@ testCaseIndex.components.success.forEach((key: string) => {
     test(`component codegen: ${key}`, () => {
         const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.ts`);
         const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.json`);
-        const schema = typeScriptToCodeSchema(inputFile);
+        const schema = typeScriptToCodeSchema(inputFile, 'Module');
+        const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
+        assert.deepEqual(schema, snapshot);
+    });
+});
+
+testCaseIndex.modules.success.forEach((key: string) => {
+    test(`module codegen: ${key}`, () => {
+        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success_${key}.ts`);
+        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success_${key}.json`);
+        const schema = typeScriptToCodeSchema(inputFile, 'NativeSampleTurboModule');
         const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
         assert.deepEqual(schema, snapshot);
     });

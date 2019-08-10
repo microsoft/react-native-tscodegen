@@ -34,11 +34,11 @@ export function tryParseExportedCallExpression(callExpression: ts.Expression, fu
             return undefined;
         }
     } else if (ts.isQualifiedName(callExpression.expression)) {
-        if (callExpression.expression.right.text !== functionName) {
+        if (callExpression.expression.getText() !== functionName) {
             return undefined;
         }
     } else if (ts.isPropertyAccessExpression(callExpression.expression)) {
-        if (callExpression.expression.name.text !== functionName) {
+        if (callExpression.expression.getText() !== functionName) {
             return undefined;
         }
     } else {
@@ -94,7 +94,21 @@ export function tryParseExport(program: ts.Program, sourceFile: ts.SourceFile, n
 }
 
 export function tryParseExportNativeModule(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportNativeModuleInfo {
-    return undefined;
+    const exportInfo = tryParseExport(program, sourceFile, node, 'TurboModuleRegistry.getEnforcing');
+    if (exportInfo === undefined) {
+        return undefined;
+    }
+
+    const [typeNode, moduleNameNode] = exportInfo;
+    if (!ts.isStringLiteral(moduleNameNode)) {
+        return undefined;
+    }
+    return {
+        program,
+        sourceFile,
+        name: moduleNameNode.text,
+        typeNode
+    };
 }
 
 export function tryParseExportComponent(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportComponentInfo {

@@ -4,8 +4,9 @@ import * as cs from './CodegenSchema';
 import { processComponent } from './ComponentParser';
 import * as ep from './ExportParser';
 import { processNativeModule } from './NativeModuleParser';
+import { WritableObjectType } from './TypeChecker';
 
-export function typeScriptToCodeSchema(fileName: string): cs.SchemaType {
+export function typeScriptToCodeSchema(fileName: string, moduleName: string): cs.SchemaType {
     const program = ts.createProgram([fileName], {});
     const errors = ts.getPreEmitDiagnostics(program).filter((value: ts.Diagnostic) => value.category === ts.DiagnosticCategory.Error);
     if (errors.length > 0) {
@@ -48,17 +49,19 @@ export function typeScriptToCodeSchema(fileName: string): cs.SchemaType {
         }
 
         const info = nativeModuleInfos[0];
-        const result = {};
-        result[info.name] = processNativeModule(info);
-        return { modules: { Module: { nativeModules: result } } };
+        const result: WritableObjectType<cs.SchemaType> = { modules: {} };
+        result.modules[moduleName] = { nativeModules: {} };
+        result.modules[moduleName].nativeModules[info.name] = <WritableObjectType<cs.NativeModuleShape>>processNativeModule(info);
+        return result;
     } else {
         if (commandInfos.length > 1) {
             throw new Error('A TypeScript source file should not export more than one command list.');
         }
 
         const info = componentInfos[0];
-        const result = {};
-        result[info.name] = processComponent(info, commandInfos[0]);
-        return { modules: { Module: { components: result } } };
+        const result: WritableObjectType<cs.SchemaType> = { modules: {} };
+        result.modules[moduleName] = { components: {} };
+        result.modules[moduleName].components[info.name] = <WritableObjectType<cs.ComponentShape>>processComponent(info, commandInfos[0]);
+        return result;
     }
 }
