@@ -46,7 +46,7 @@ function rawTypeToReturnType(rawType: RNRawType): cs.FunctionTypeAnnotationRetur
         case 'Float': return { type: 'FloatTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
-        case 'Void': return { type: 'VoidTypeAnnotation' };
+        case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Array': return { type: 'ArrayTypeAnnotation', elementType: rawTypeToParamType(rawType.elementType) };
         case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', resolvedType: rawTypeToReturnType(rawType.elementType) };
         case 'Object': return {
@@ -90,10 +90,15 @@ export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModu
     const properties: cs.MethodTypeShape[] = [];
     for (const prop of rawType.properties) {
         if (prop.name !== 'getConstants') { // this function is from TurboModule
-            properties.push({
-                name: prop.name,
-                typeAnnotation: rawTypeToFunctionTypeAnnotation(prop.propertyType, prop.name, info.typeNode)
-            });
+            try {
+                properties.push({
+                    name: prop.name,
+                    typeAnnotation: rawTypeToFunctionTypeAnnotation(prop.propertyType, prop.name, info.typeNode)
+                });
+            } catch (error) {
+                console.log(prop);
+                throw error;
+            }
         }
     }
 
