@@ -361,40 +361,54 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     if (itemOthers.length === 0 && allowObject) {
         if (itemUnknowns.length === 1) {
 
-            const objectRawType: RNRawType = {
-                kind: 'Object',
-                isNullable: false,
-                properties: []
-            };
-            itemOthers.push(objectRawType);
+            let isFunction = false;
+            const itemSignatures = itemUnknowns[0].getCallSignatures();
+            if (itemSignatures !== undefined && itemSignatures.length === 1) {
+                const signature = itemSignatures[0];
+                const signatureDecl = signature.getDeclaration();
+                if (signatureDecl !== undefined && signatureDecl.name === undefined) {
+                    const [funcReturnType, funcParameters] = readSignature(signature, signatureDecl);
+                    itemOthers.push(getRawFunctionType(funcReturnType, funcParameters, typeChecker, true));
+                    isFunction = true;
+                }
+            }
 
-            for (const propSymbol of itemUnknowns[0].getProperties()) {
+            if (!isFunction) {
+                const objectRawType: RNRawType = {
+                    kind: 'Object',
+                    isNullable: false,
+                    properties: []
+                };
+                itemOthers.push(objectRawType);
 
-                if (propSymbol.declarations.length === 1) {
-                    const propSymbolDecl = propSymbol.declarations[0];
-                    const [propDecl, propType, funcReturnType, funcParameters] = tryReadMemberSignature(propSymbolDecl, typeChecker);
+                for (const propSymbol of itemUnknowns[0].getProperties()) {
 
-                    if (propType !== undefined) {
-                        const propRawType = typeToRNRawType(propType, typeChecker, true);
-                        if (propDecl.questionToken !== undefined) {
-                            propRawType.isNullable = true;
+                    if (propSymbol.declarations.length === 1) {
+                        const propSymbolDecl = propSymbol.declarations[0];
+                        const [propDecl, propType, funcReturnType, funcParameters] = tryReadMemberSignature(propSymbolDecl, typeChecker);
+
+                        if (propType !== undefined) {
+                            const propRawType = typeToRNRawType(propType, typeChecker, true);
+                            if (propDecl.questionToken !== undefined) {
+                                propRawType.isNullable = true;
+                            }
+                            objectRawType.properties.push({
+                                name: propDecl.name.getText(),
+                                propertyType: propRawType
+                            });
+                        } else if (funcReturnType !== undefined) {
+                            const funcRawType = getRawFunctionType(funcReturnType, funcParameters, typeChecker, true);
+                            if (propDecl.questionToken !== undefined) {
+                                funcRawType.isNullable = true;
+                            }
+                            objectRawType.properties.push({
+                                name: propDecl.name.getText(),
+                                propertyType: funcRawType
+                            });
+                        } else {
+                            console.log(ts.SyntaxKind[propSymbolDecl.kind]);
+                            throw new Error(`Only properties and functions are: ${propSymbolDecl.getText()}.`);
                         }
-                        objectRawType.properties.push({
-                            name: propDecl.name.getText(),
-                            propertyType: propRawType
-                        });
-                    } else if (funcReturnType !== undefined) {
-                        const funcRawType = getRawFunctionType(funcReturnType, funcParameters, typeChecker, true);
-                        if (propDecl.questionToken !== undefined) {
-                            funcRawType.isNullable = true;
-                        }
-                        objectRawType.properties.push({
-                            name: propDecl.name.getText(),
-                            propertyType: funcRawType
-                        });
-                    } else {
-                        console.log(ts.SyntaxKind[propSymbolDecl.kind]);
-                        throw new Error(`Only properties and functions are: ${propSymbolDecl.getText()}.`);
                     }
                 }
             }
