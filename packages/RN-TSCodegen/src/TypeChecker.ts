@@ -14,6 +14,13 @@ export function isReactNull(tsType: ts.Type): boolean {
     return tsType.symbol !== undefined && tsType.symbol.name === 'ReactNull';
 }
 
+function isAny(tsType: ts.Type): boolean {
+    if (tsType === undefined) {
+        return false;
+    }
+    return (tsType.flags & ts.TypeFlags.Any) !== 0;
+}
+
 function isNull(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
@@ -98,6 +105,8 @@ export type RNRawType = (
     } | {
         kind: 'Void';
     } | {
+        kind: 'Any';
+    } | {
         kind: 'js:Object';
     } | {
         kind: 'js:Promise';
@@ -169,6 +178,8 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
 
         if (isReactNull(elementType)) {
             itemReactNull = true;
+        } else if (isAny(elementType)) {
+            itemOthers.push({ kind: 'Any', isNullable: true });
         } else if (isNull(elementType)) {
             itemOthers.push({ kind: 'Null', isNullable: true });
         } else if (isVoid(elementType)) {
