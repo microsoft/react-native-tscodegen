@@ -140,24 +140,6 @@ function eventTypeToRNRawType(typeArguments: readonly ts.Type[], kind: 'DirectEv
     };
 }
 
-function withDefaultToRNRawType(elementType: ts.IntersectionType, typeChecker: ts.TypeChecker): RNRawType {
-    if (elementType.types.length === 2) {
-        const literalType = elementType.types.find(
-            (value: ts.Type) => value.flags === ts.TypeFlags.BooleanLiteral || value.flags === ts.TypeFlags.StringLiteral || value.flags === ts.TypeFlags.NumberLiteral
-        );
-        const objectType = elementType.types.find(
-            (value: ts.Type) => value !== literalType
-        );
-
-        if (literalType !== undefined && objectType !== undefined) {
-            if (objectType.getProperty('__WithDefault__') !== undefined) {
-                return typeToRNRawType(literalType, typeChecker, false);
-            }
-        }
-    }
-    throw new Error(`Type is not supported: ${typeChecker.typeToString(elementType)}.`);
-}
-
 function readSignature(signature: ts.Signature, decl: ts.Declaration): [ts.Type, readonly ts.ParameterDeclaration[]] {
     let funcReturnType: ts.Type;
     const funcParameters: ts.ParameterDeclaration[] = [];
@@ -247,6 +229,28 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     const itemStringLiterals: string[] = [];
     const itemOthers: RNRawType[] = [];
 
+    function setDefaultValue(elementType: ts.Type, defaultValueType: ts.Type): void {
+        const currentDefaultValue = typeToRNRawType(defaultValueType, typeChecker, allowObject);
+
+        switch (currentDefaultValue.kind) {
+            case 'BooleanLiteral':
+            case 'NumberLiteral': {
+                itemDefaultValue = currentDefaultValue.value;
+                break;
+            }
+            case 'StringLiterals': {
+                if (currentDefaultValue.values.length === 1) {
+                    itemDefaultValue = currentDefaultValue.values[0];
+                }
+            }
+            default:
+        }
+
+        if (itemDefaultValue === undefined && currentDefaultValue.kind !== 'Null') {
+            throw new Error(`Default value should be null, true, false, number literal or string literal: ${typeChecker.typeToString(defaultValueType)}.`);
+        }
+    }
+
     for (const elementType of tsItems) {
         let indexInfo: ts.IndexInfo;
 
@@ -276,26 +280,6 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemStringLiterals.push(elementType.value);
         } else if (isString(elementType)) {
             itemString = true;
-        } else if (elementType.isIntersection()) {
-            const currentDefaultValue = withDefaultToRNRawType(elementType, typeChecker);
-
-            switch (currentDefaultValue.kind) {
-                case 'BooleanLiteral':
-                case 'NumberLiteral': {
-                    itemDefaultValue = currentDefaultValue.value;
-                    break;
-                }
-                case 'StringLiterals': {
-                    if (currentDefaultValue.values.length === 1) {
-                        itemDefaultValue = currentDefaultValue.values[0];
-                    }
-                }
-                default:
-            }
-
-            if (itemDefaultValue === undefined) {
-                throw new Error(`Type is not supported: ${typeChecker.typeToString(elementType)}.`);
-            }
         } else if ((indexInfo = typeChecker.getIndexInfoOfType(elementType, ts.IndexKind.Number)) !== undefined) {
             itemOthers.push({ kind: 'Array', elementType: typeToRNRawType(indexInfo.type, typeChecker, allowObject), isNullable: false });
         } else if (elementType.symbol !== undefined) {
@@ -315,12 +299,28 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                 } else {
                     throw new Error(`Unable to extract type from ${typeChecker.typeToString(elementType)}.`);
                 }
+            } else if (elementType.symbol.name === 'WithDefaultNotExported') {
+                const typeReference = <ts.TypeReference>elementType;
+                if (typeReference.typeArguments !== undefined && typeReference.typeArguments.length === 1) {
+                    setDefaultValue(elementType, typeReference.typeArguments[0]);
+                } else {
+                    throw new Error(`Unable to extract type from ${typeChecker.typeToString(elementType)}.`);
+                }
             } else {
                 itemUnknowns.push(elementType);
             }
         } else if (elementType.aliasSymbol !== undefined) {
-            if (elementType.symbol.name === 'DirectEventHandler' || elementType.symbol.name === 'BubblingEventHandler') {
-                itemOthers.push(eventTypeToRNRawType(elementType.aliasTypeArguments, elementType.symbol.name, typeChecker));
+            if (elementType.aliasSymbol.name === 'DirectEventHandler' || elementType.aliasSymbol.name === 'BubblingEventHandler') {
+                itemOthers.push(eventTypeToRNRawType(elementType.aliasTypeArguments, elementType.aliasSymbol.name, typeChecker));
+            } else if (elementType.aliasSymbol.name === 'WithDefault') {
+                const typeArguments = elementType.aliasTypeArguments;
+                if (typeArguments === undefined || typeArguments.length !== 2) {
+                    throw new Error(`WithDefault should have one type argument and one literal of that type.`);
+                }
+
+                itemReactNull = true;
+                itemOthers.push(typeToRNRawType(typeArguments[0], typeChecker, allowObject));
+                setDefaultValue(elementType, typeArguments[1]);
             } else {
                 itemUnknowns.push(elementType);
             }

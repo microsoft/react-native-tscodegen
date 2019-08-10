@@ -4,16 +4,12 @@ import { ExportCommandInfo } from './ExportParser';
 import { isVoid, typeToRNRawType } from './TypeChecker';
 
 function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): cs.CommandsTypeAnnotation {
-    try {
-        const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(typeNode), typeChecker, false);
-        switch (rawType.kind) {
-            case 'String': return { type: 'StringTypeAnnotation' };
-            case 'Int32': return { type: 'Int32TypeAnnotation' };
-            case 'Boolean': return { type: 'BooleanTypeAnnotation' };
-            default:
-        }
-    } catch (error) {
-        // nothing
+    const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(typeNode), typeChecker, false);
+    switch (rawType.kind) {
+        case 'String': return { type: 'StringTypeAnnotation' };
+        case 'Int32': return { type: 'Int32TypeAnnotation' };
+        case 'Boolean': return { type: 'BooleanTypeAnnotation' };
+        default:
     }
     throw new Error(`Component command argument type does not support ${typeNode.getText()}.`);
 }
