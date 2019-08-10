@@ -58,7 +58,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
       type: 'ObjectTypeAnnotation',
       name: undefined,
       optional: rawType.isNullable,
-      properties: rawType.properties.map((rawProp: { name: string, propertyType: RNRawType }) => {
+      properties: rawType.properties.map((rawProp: { name: string; propertyType: RNRawType }) => {
         const prop = <WritableObjectType<cs.ObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
         prop.name = rawProp.name;
         return prop;

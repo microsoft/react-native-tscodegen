@@ -14,7 +14,7 @@ export function isReactNull(tsType: ts.Type): boolean {
     return tsType.symbol !== undefined && tsType.symbol.name === 'ReactNull';
 }
 
-export function isNull(tsType: ts.Type): boolean {
+function isNull(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
@@ -28,53 +28,33 @@ export function isVoid(tsType: ts.Type): boolean {
     return (tsType.flags & ts.TypeFlags.VoidLike) !== 0;
 }
 
-export function isBoolean(tsType: ts.Type): boolean {
+function isBoolean(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
     return (tsType.flags & ts.TypeFlags.BooleanLike) !== 0;
 }
 
-export function isString(tsType: ts.Type): boolean {
+function isString(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
     return (tsType.flags & ts.TypeFlags.StringLike) !== 0;
 }
 
-export function isNumber(tsType: ts.Type): boolean {
+function isNumber(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
     return (tsType.flags & ts.TypeFlags.NumberLike) !== 0;
 }
 
-export function isInt32(tsType: ts.Type): boolean {
-    return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Int32';
-}
-
-export function isFloat(tsType: ts.Type): boolean {
-    return tsType.aliasSymbol !== undefined && tsType.aliasSymbol.name === 'Float';
-}
-
-export function isInt32NotExported(tsType: ts.Type): boolean {
+function isInt32NotExported(tsType: ts.Type): boolean {
     return tsType.symbol !== undefined && tsType.symbol.name === 'Int32NotExported';
 }
 
-export function isFloatNotExported(tsType: ts.Type): boolean {
+function isFloatNotExported(tsType: ts.Type): boolean {
     return tsType.symbol !== undefined && tsType.symbol.name === 'FloatNotExported';
-}
-
-export function tryGetArrayType(tsType: ts.Type, typeChecker: ts.TypeChecker): [boolean, ts.Type] {
-    if (isString(tsType)) {
-        return undefined;
-    }
-    const indexInfo = typeChecker.getIndexInfoOfType(tsType, ts.IndexKind.Number);
-    if (indexInfo === undefined) {
-        return undefined;
-    } else {
-        return [indexInfo.isReadonly, indexInfo.type];
-    }
 }
 
 export type RNRawType = (
