@@ -237,7 +237,33 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     }
 
     for (const elementType of tsItems) {
-        let indexInfo: ts.IndexInfo;
+        // test tuple, array, readonly array
+        // these are all represented as a generic TypeReference to a type
+        if (elementType.flags === ts.TypeFlags.Object) {
+            if (((<ts.ObjectType>elementType).objectFlags & ts.ObjectFlags.Reference) !== 0) {
+                const typeReference = <ts.TypeReference>elementType;
+                if (typeReference.typeArguments !== undefined && typeReference.typeArguments.length > 0) {
+                    if (typeReference.target.flags === ts.TypeFlags.Object) {
+                        const typeReferenceTarget = <ts.ObjectType>typeReference.target;
+                        if ((typeReferenceTarget.objectFlags & ts.ObjectFlags.Tuple) !== 0) {
+                            itemOthers.push({
+                                kind: 'Tuple',
+                                isNullable: false,
+                                types: typeReference.typeArguments.map((value: ts.Type) => typeToRNRawType(value, typeChecker, allowObject))
+                            });
+                            continue;
+                        } else if (typeReferenceTarget.symbol.name === 'Array' || typeReferenceTarget.symbol.name === 'ReadonlyArray') {
+                            itemOthers.push({
+                                kind: 'Array',
+                                isNullable: false,
+                                elementType: typeToRNRawType(typeReference.typeArguments[0], typeChecker, allowObject)
+                            });
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
 
         if (isReactNull(elementType)) {
             itemReactNull = true;
@@ -265,8 +291,6 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemStringLiterals.push(elementType.value);
         } else if (isString(elementType)) {
             itemString = true;
-        } else if ((indexInfo = typeChecker.getIndexInfoOfType(elementType, ts.IndexKind.Number)) !== undefined) {
-            itemOthers.push({ kind: 'Array', elementType: typeToRNRawType(indexInfo.type, typeChecker, allowObject), isNullable: false });
         } else if (elementType.symbol !== undefined) {
             if (elementType.symbol.name === 'ColorValueNotExported') {
                 itemOthers.push({ kind: 'rn:ColorPrimitive', isNullable: false });
