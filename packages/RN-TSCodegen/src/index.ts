@@ -6,7 +6,7 @@ import * as ep from './ExportParser';
 import { processNativeModule } from './NativeModuleParser';
 import { WritableObjectType } from './TypeChecker';
 
-export function typeScriptToCodeSchema(fileName: string, moduleName: string): cs.SchemaType {
+export function typeScriptToCodeSchema(fileName: string, moduleName: string, targetName?: string): cs.SchemaType {
     const program = ts.createProgram([fileName], {});
     const errors = ts.getPreEmitDiagnostics(program).filter((value: ts.Diagnostic) => value.category === ts.DiagnosticCategory.Error);
     if (errors.length > 0) {
@@ -51,7 +51,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string): cs
         const info = nativeModuleInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
         result.modules[moduleName] = { nativeModules: {} };
-        result.modules[moduleName].nativeModules[info.name] = <WritableObjectType<cs.NativeModuleShape>>processNativeModule(info);
+        result.modules[moduleName].nativeModules[targetName === undefined ? info.name : targetName] = <WritableObjectType<cs.NativeModuleShape>>processNativeModule(info);
         return result;
     } else {
         if (commandInfos.length > 1) {
@@ -61,7 +61,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string): cs
         const info = componentInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
         result.modules[moduleName] = { components: {} };
-        result.modules[moduleName].components[info.name] = <WritableObjectType<cs.ComponentShape>>processComponent(info, commandInfos[0]);
+        result.modules[moduleName].components[targetName === undefined ? info.name : targetName] = <WritableObjectType<cs.ComponentShape>>processComponent(info, commandInfos[0]);
         return result;
     }
 }

@@ -33,7 +33,7 @@ testCaseIndex.modules.success.forEach((key: string) => {
     test(`module codegen: ${key}`, () => {
         const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success_${key}.ts`);
         const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success_${key}.json`);
-        const schema = typeScriptToCodeSchema(inputFile, 'NativeSampleTurboModule');
+        const schema = typeScriptToCodeSchema(inputFile, 'NativeSampleTurboModule', 'SampleTurboModule');
         const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
         assert.deepEqual(schema, snapshot);
     });
