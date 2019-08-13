@@ -5,6 +5,28 @@ import { tryParseEvent } from './ComponentEventParser';
 import { parseProperty } from './ComponentPropertyParser';
 import { ExportCommandInfo, ExportComponentInfo } from './ExportParser';
 
+function importExists(sourceFile: ts.SourceFile, name: string): boolean {
+    return sourceFile.forEachChild((importNode: ts.Node) => {
+        if (ts.isImportDeclaration(importNode)) {
+            if (importNode.importClause !== undefined) {
+                if (importNode.importClause.name !== undefined) {
+                    if (importNode.importClause.name.getText() === name) {
+                        return true;
+                    }
+                }
+                if (importNode.importClause.namedBindings !== undefined && ts.isNamedImports(importNode.importClause.namedBindings)) {
+                    for (const specifier of importNode.importClause.namedBindings.elements) {
+                        if (specifier.name.getText() === name) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return undefined;
+        }
+    }) || false;
+}
+
 export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo | undefined): cs.ComponentShape {
     const events: cs.EventTypeShape[] = [];
     const props: cs.PropTypeShape[] = [];
@@ -38,13 +60,18 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
     });
 
     const result = {
-        extendsProps: [{ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' }],
+        extendsProps: [],
         events,
         props,
         commands
     };
+
+    if (importExists(info.sourceFile, 'ViewProps')) {
+        result.extendsProps.push({ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' });
+    }
     Object.getOwnPropertyNames(info.options).forEach((key: string) => {
         result[key] = info.options[key];
     });
+
     return <cs.ComponentShape>result;
 }
