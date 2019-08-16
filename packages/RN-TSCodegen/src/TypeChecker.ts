@@ -407,7 +407,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                         const [propDecl, propType, funcReturnType, funcParameters] = tryReadMemberSignature(propSymbolDecl, typeChecker);
 
                         if (propType !== undefined) {
-                            const propRawType = typeToRNRawType(propType, typeChecker, true);
+                            const propRawType = typeToRNRawType(propType, typeChecker, allowObject);
                             if (propDecl.questionToken !== undefined) {
                                 propRawType.isNullable = true;
                             }
