@@ -7,6 +7,8 @@ function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
     const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(typeNode), typeChecker, false);
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
+        case 'Float': return { type: 'FloatTypeAnnotation' };
+        case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Int32': return { type: 'Int32TypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         default:

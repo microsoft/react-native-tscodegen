@@ -47,6 +47,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
     case 'Boolean': return { type: 'BooleanTypeAnnotation', name: undefined, optional: rawType.isNullable };
     case 'String': return { type: 'StringTypeAnnotation', name: undefined, optional: rawType.isNullable };
     case 'Float': return { type: 'FloatTypeAnnotation', name: undefined, optional: rawType.isNullable };
+    case 'Double': return { type: 'DoubleTypeAnnotation', name: undefined, optional: rawType.isNullable };
     case 'Int32': return { type: 'Int32TypeAnnotation', name: undefined, optional: rawType.isNullable };
     case 'StringLiterals': return {
       type: 'StringEnumTypeAnnotation',

@@ -56,12 +56,16 @@ function isNumber(tsType: ts.Type): boolean {
     return (tsType.flags & ts.TypeFlags.NumberLike) !== 0;
 }
 
-function isInt32NotExported(tsType: ts.Type): boolean {
-    return tsType.symbol !== undefined && tsType.symbol.name === 'Int32NotExported';
+function isInt32RNTag(tsType: ts.Type): boolean {
+    return tsType.symbol !== undefined && tsType.symbol.name === 'Int32RNTag';
 }
 
-function isFloatNotExported(tsType: ts.Type): boolean {
-    return tsType.symbol !== undefined && tsType.symbol.name === 'FloatNotExported';
+function isFloatRNTag(tsType: ts.Type): boolean {
+    return tsType.symbol !== undefined && tsType.symbol.name === 'FloatRNTag';
+}
+
+function isDoubleRNTag(tsType: ts.Type): boolean {
+    return tsType.symbol !== undefined && tsType.symbol.name === 'DoubleRNTag';
 }
 
 export type RNRawType = (
@@ -75,7 +79,7 @@ export type RNRawType = (
         kind: 'StringLiterals';
         values: string[];
     } | {
-        kind: 'Boolean' | 'Number' | 'Float' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
+        kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
     } | {
         kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive';
     } | {
@@ -206,8 +210,9 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     let itemTrue = false;
     let itemFalse = false;
     let itemNumber = false;
-    let itemFloatNotExported = false;
-    let itemInt32NotExported = false;
+    let itemFloatRNTag = false;
+    let itemDoubleRNTag = false;
+    let itemInt32RNTag = false;
     let itemString = false;
     let itemDefaultValue: boolean | number | string;
     const itemUnknowns: ts.Type[] = [];
@@ -283,18 +288,20 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemOthers.push({ kind: 'NumberLiteral', value: elementType.value, isNullable: false });
         } else if (isNumber(elementType)) {
             itemNumber = true;
-        } else if (isFloatNotExported(elementType)) {
-            itemFloatNotExported = true;
-        } else if (isInt32NotExported(elementType)) {
-            itemInt32NotExported = true;
+        } else if (isFloatRNTag(elementType)) {
+            itemFloatRNTag = true;
+        } else if (isDoubleRNTag(elementType)) {
+            itemDoubleRNTag = true;
+        } else if (isInt32RNTag(elementType)) {
+            itemInt32RNTag = true;
         } else if (elementType.isStringLiteral()) {
             itemStringLiterals.push(elementType.value);
         } else if (isString(elementType)) {
             itemString = true;
         } else if (elementType.symbol !== undefined) {
-            if (elementType.symbol.name === 'ColorValueNotExported') {
+            if (elementType.symbol.name === 'ColorValueRNTag') {
                 itemOthers.push({ kind: 'rn:ColorPrimitive', isNullable: false });
-            } else if (elementType.symbol.name === 'ImageSourceNotExported') {
+            } else if (elementType.symbol.name === 'ImageSourceRNTag') {
                 itemOthers.push({ kind: 'rn:ImageSourcePrimitive', isNullable: false });
             } else if (elementType.symbol.name === 'PointValue') {
                 itemOthers.push({ kind: 'rn:PointPrimitive', isNullable: false });
@@ -308,7 +315,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                 } else {
                     throw new Error(`Unable to extract type from ${typeChecker.typeToString(elementType)}.`);
                 }
-            } else if (elementType.symbol.name === 'WithDefaultNotExported') {
+            } else if (elementType.symbol.name === 'WithDefaultRNTag') {
                 const typeReference = <ts.TypeReference>elementType;
                 if (typeReference.typeArguments !== undefined && typeReference.typeArguments.length === 1) {
                     setDefaultValue(elementType, typeReference.typeArguments[0]);
@@ -353,11 +360,13 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     }
 
     if (itemNumber) {
-        if (itemFloatNotExported && !itemInt32NotExported) {
+        if (itemFloatRNTag && !itemDoubleRNTag && !itemInt32RNTag) {
             itemOthers.push({ kind: 'Float', isNullable: false });
-        } else if (!itemFloatNotExported && itemInt32NotExported) {
+        } else if (!itemFloatRNTag && itemDoubleRNTag && !itemInt32RNTag) {
+            itemOthers.push({ kind: 'Double', isNullable: false });
+        } else if (!itemFloatRNTag && !itemDoubleRNTag && itemInt32RNTag) {
             itemOthers.push({ kind: 'Int32', isNullable: false });
-        } else if (!itemFloatNotExported && !itemInt32NotExported) {
+        } else if (!itemFloatRNTag && !itemDoubleRNTag && !itemInt32RNTag) {
             itemOthers.push({ kind: 'Number', isNullable: false });
         } else {
             throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);

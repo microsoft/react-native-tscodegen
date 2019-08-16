@@ -22,6 +22,10 @@ function typeNodeToPropTypeTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
       type: 'FloatTypeAnnotation',
       default: (rawType.defaultValue === undefined ? 0 : +rawType.defaultValue)
     }];
+    case 'Double': return [rawType.isNullable, {
+      type: 'DoubleTypeAnnotation',
+      default: (rawType.defaultValue === undefined ? 0 : +rawType.defaultValue)
+    }];
     case 'Int32': return [rawType.isNullable, {
       type: 'Int32TypeAnnotation',
       default: (rawType.defaultValue === undefined ? 0 : +rawType.defaultValue)
@@ -56,6 +60,10 @@ function typeNodeToPropTypeTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
         case 'Float': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
           elementType: { type: 'FloatTypeAnnotation' }
+        }];
+        case 'Double': return [rawType.isNullable, {
+          type: 'ArrayTypeAnnotation',
+          elementType: { type: 'DoubleTypeAnnotation' }
         }];
         case 'Int32': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',

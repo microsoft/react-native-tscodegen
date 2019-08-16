@@ -30,16 +30,20 @@ function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamT
                 };
             })
         };
+        // What happened?
+        // case 'Function': return {
+        //     type: 'FunctionTypeAnnotation',
+        //     params: rawType.parameters.map((param: { name: string; parameterType: RNRawType }) => {
+        //         return {
+        //             nullable: param.parameterType.isNullable,
+        //             name: param.name,
+        //             typeAnnotation: rawTypeToParamType(param.parameterType)
+        //         };
+        //     }),
+        //     returnTypeAnnotation: rawTypeToReturnType(rawType.returnType)
+        // };
         case 'Function': return {
-            type: 'FunctionTypeAnnotation',
-            params: rawType.parameters.map((param: { name: string; parameterType: RNRawType }) => {
-                return {
-                    nullable: param.parameterType.isNullable,
-                    name: param.name,
-                    typeAnnotation: rawTypeToParamType(param.parameterType)
-                };
-            }),
-            returnTypeAnnotation: rawTypeToReturnType(rawType.returnType)
+            type: 'FunctionTypeAnnotation'
         };
         default:
     }
@@ -53,24 +57,27 @@ function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamT
 
 function rawTypeToReturnType(rawType: RNRawType): cs.FunctionTypeAnnotationReturn {
     switch (rawType.kind) {
-        case 'String': return { type: 'StringTypeAnnotation' };
-        case 'Number': return { type: 'NumberTypeAnnotation' };
-        case 'Int32': return { type: 'Int32TypeAnnotation' };
-        case 'Float': return { type: 'FloatTypeAnnotation' };
-        case 'Boolean': return { type: 'BooleanTypeAnnotation' };
-        case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
-        case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
+        case 'String': return { type: 'StringTypeAnnotation', nullable: rawType.isNullable };
+        case 'Number': return { type: 'NumberTypeAnnotation', nullable: rawType.isNullable };
+        case 'Int32': return { type: 'Int32TypeAnnotation', nullable: rawType.isNullable };
+        case 'Float': return { type: 'FloatTypeAnnotation', nullable: rawType.isNullable };
+        case 'Boolean': return { type: 'BooleanTypeAnnotation', nullable: rawType.isNullable };
+        case 'js:Object': return { type: 'GenericObjectTypeAnnotation', nullable: rawType.isNullable };
+        case 'Void': case 'Null': return { type: 'VoidTypeAnnotation', nullable: rawType.isNullable };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
-                const result = { type: 'ArrayTypeAnnotation' };
+                const result = { type: 'ArrayTypeAnnotation', nullable: rawType.isNullable };
                 return <cs.FunctionTypeAnnotationReturn>result;
             } else {
-                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToParamType(rawType.elementType) };
+                return { type: 'ArrayTypeAnnotation', nullable: rawType.isNullable, elementType: rawTypeToParamType(rawType.elementType) };
             }
         }
-        case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', resolvedType: rawTypeToReturnType(rawType.elementType) };
+        // What happened?
+        // case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', nullable: rawType.isNullable, resolvedType: rawTypeToReturnType(rawType.elementType) };
+        case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', nullable: rawType.isNullable };
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
+            nullable: rawType.isNullable,
             properties: rawType.properties.map((param: { name: string; propertyType: RNRawType }) => {
                 return {
                     optional: param.propertyType.isNullable,

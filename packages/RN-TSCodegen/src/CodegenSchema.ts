@@ -88,7 +88,7 @@ export type ObjectPropertyType =
       properties: ReadonlyArray<ObjectPropertyType>;
     }>;
 
-type PropTypeTypeAnnotation =
+export type PropTypeTypeAnnotation =
   | Readonly<{
       type: 'BooleanTypeAnnotation';
       default: boolean;
