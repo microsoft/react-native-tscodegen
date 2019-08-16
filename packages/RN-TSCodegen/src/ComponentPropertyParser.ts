@@ -4,11 +4,9 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { typeToRNRawType } from './TypeChecker';
+import { RNRawType, typeToRNRawType } from './TypeChecker';
 
-function typeNodeToPropTypeTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): [boolean, cs.PropTypeTypeAnnotation] {
-
-  const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(typeNode), typeChecker, false);
+function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): [boolean, cs.PropTypeTypeAnnotation] {
   switch (rawType.kind) {
     case 'Boolean': return [rawType.isNullable, {
       type: 'BooleanTypeAnnotation',
@@ -46,6 +44,17 @@ function typeNodeToPropTypeTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
     case 'rn:PointPrimitive': return [rawType.isNullable, {
       type: 'NativePrimitiveTypeAnnotation',
       name: 'PointPrimitive'
+    }];
+    case 'Object': return [rawType.isNullable, {
+      type: 'ObjectTypeAnnotation',
+      properties: rawType.properties.map((value: { name: string, propertyType: RNRawType }) => {
+        const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
+        return {
+          name: value.name,
+          optional,
+          typeAnnotation
+        };
+      })
     }];
     case 'Array':
       switch (rawType.elementType.kind) {
@@ -98,6 +107,20 @@ function typeNodeToPropTypeTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
             name: 'PointPrimitive'
           }
         }];
+        case 'Object': return [rawType.isNullable, {
+          type: 'ArrayTypeAnnotation',
+          elementType: {
+            type: 'ObjectTypeAnnotation',
+            properties: rawType.elementType.properties.map((value: { name: string, propertyType: RNRawType }) => {
+              const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
+              return {
+                name: value.name,
+                optional,
+                typeAnnotation
+              };
+            })
+          }
+        }];
         default:
       }
       break;
@@ -107,7 +130,9 @@ function typeNodeToPropTypeTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
 }
 
 export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
-  const [optional, typeAnnotation] = typeNodeToPropTypeTypeAnnotation(propDecl.type, info.program.getTypeChecker());
+  const typeChecker = info.program.getTypeChecker();
+  const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propDecl.type), typeChecker, false);
+  const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propDecl.type, info.program.getTypeChecker());
   return {
     name: propDecl.name.getText(),
     optional: propDecl.questionToken !== undefined || optional,
