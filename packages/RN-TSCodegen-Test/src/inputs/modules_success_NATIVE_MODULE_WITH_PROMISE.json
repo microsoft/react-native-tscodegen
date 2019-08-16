@@ -10,9 +10,7 @@
                 "optional": false,
                 "params": [],
                 "returnTypeAnnotation": {
-                  "resolvedType": {
-                    "type": "StringTypeAnnotation"
-                  },
+                  "nullable": false,
                   "type": "GenericPromiseTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -24,9 +22,7 @@
                 "optional": false,
                 "params": [],
                 "returnTypeAnnotation": {
-                  "resolvedType": {
-                    "type": "StringTypeAnnotation"
-                  },
+                  "nullable": false,
                   "type": "GenericPromiseTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -38,18 +34,7 @@
                 "optional": false,
                 "params": [],
                 "returnTypeAnnotation": {
-                  "resolvedType": {
-                    "properties": [
-                      {
-                        "name": "a",
-                        "optional": false,
-                        "typeAnnotation": {
-                          "type": "StringTypeAnnotation"
-                        }
-                      }
-                    ],
-                    "type": "ObjectTypeAnnotation"
-                  },
+                  "nullable": false,
                   "type": "GenericPromiseTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

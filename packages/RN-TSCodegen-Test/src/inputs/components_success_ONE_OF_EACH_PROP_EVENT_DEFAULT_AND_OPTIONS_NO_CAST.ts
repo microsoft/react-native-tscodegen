@@ -27,7 +27,7 @@ type ModuleProps = Readonly<ViewProps & {
   onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module', {
+export default codegenNativeComponent<ModuleProps>('Module', {
   interfaceOnly: true,
   paperComponentName: 'RCTModule',
-}): NativeComponent<ModuleProps>);
+});

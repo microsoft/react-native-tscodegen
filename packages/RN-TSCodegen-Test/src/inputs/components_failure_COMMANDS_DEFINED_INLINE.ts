@@ -15,17 +15,19 @@ import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React'
 
 
 
-
 import {ViewProps} from '../lib/ViewPropTypes';
+import {NativeComponent} from '../lib/codegenNativeComponent';
 
 export type ModuleProps = Readonly<ViewProps & {
   // No props
 }>;
 
 export const Commands = codegenNativeCommands<{
-  hotspotUpdate (ref: React.Ref<'RCTView'>, x: Int32, y: Int32) : void;
+  hotspotUpdate (ref: React.Ref<'RCTView'>, x: Int32, y: Int32) : void,
 }>({
-  supportedCommands: ['hotspotUpdate']
+  supportedCommands: ['hotspotUpdate'];
 });
 
-export default codegenNativeComponent<ModuleProps>('Module');
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

@@ -14,21 +14,9 @@ import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry fro
 
 
 
-type DisplayMetricsAndroid = {
- width: number;
-};
-
 export interface Spec extends TurboModule {
-  getConstants () : {
-    Dimensions: {
-      windowPhysicalPixels: DisplayMetricsAndroid;
-    },
-  };
-  getConstants2 () : Readonly<{
-    Dimensions: {
-      windowPhysicalPixels: DisplayMetricsAndroid;
-    },
-  }>;
+  getBool (boolean) : boolean;
+
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

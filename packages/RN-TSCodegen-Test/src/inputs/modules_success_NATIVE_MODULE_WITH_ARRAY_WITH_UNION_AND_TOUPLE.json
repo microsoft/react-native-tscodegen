@@ -18,6 +18,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "ArrayTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

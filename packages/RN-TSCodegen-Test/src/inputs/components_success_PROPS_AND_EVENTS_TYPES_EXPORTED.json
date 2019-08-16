@@ -53,6 +53,26 @@
                       "type": "StringTypeAnnotation"
                     },
                     {
+                      "name": "double_required",
+                      "optional": false,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation"
@@ -209,6 +229,11 @@
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation"
+                            },
+                            {
+                              "name": "double_optional_value",
+                              "optional": true,
+                              "type": "DoubleTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
@@ -281,6 +306,26 @@
                       "type": "StringTypeAnnotation"
                     },
                     {
+                      "name": "double_required",
+                      "optional": false,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation"
@@ -437,6 +482,11 @@
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation"
+                            },
+                            {
+                              "name": "double_optional_value",
+                              "optional": true,
+                              "type": "DoubleTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
@@ -508,6 +558,26 @@
                       "type": "StringTypeAnnotation"
                     },
                     {
+                      "name": "double_required",
+                      "optional": false,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation"
@@ -664,6 +734,11 @@
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation"
+                            },
+                            {
+                              "name": "double_optional_value",
+                              "optional": true,
+                              "type": "DoubleTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",
@@ -736,6 +811,26 @@
                       "type": "StringTypeAnnotation"
                     },
                     {
+                      "name": "double_required",
+                      "optional": false,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "type": "DoubleTypeAnnotation"
+                    },
+                    {
                       "name": "float_required",
                       "optional": false,
                       "type": "FloatTypeAnnotation"
@@ -892,6 +987,11 @@
                               "name": "string_optional_key",
                               "optional": true,
                               "type": "StringTypeAnnotation"
+                            },
+                            {
+                              "name": "double_optional_value",
+                              "optional": true,
+                              "type": "DoubleTypeAnnotation"
                             },
                             {
                               "name": "float_optional_value",

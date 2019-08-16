@@ -36,6 +36,63 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
+                  "properties": [
+                    {
+                      "name": "const1",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "properties": [
+                          {
+                            "name": "const1",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ],
+                        "type": "ObjectTypeAnnotation"
+                      }
+                    }
+                  ],
+                  "type": "ObjectTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            },
+            {
+              "name": "getReadOnlyObject",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [
+                  {
+                    "name": "arg",
+                    "nullable": false,
+                    "typeAnnotation": {
+                      "properties": [
+                        {
+                          "name": "const1",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "properties": [
+                              {
+                                "name": "const1",
+                                "optional": false,
+                                "typeAnnotation": {
+                                  "type": "BooleanTypeAnnotation"
+                                }
+                              }
+                            ],
+                            "type": "ObjectTypeAnnotation"
+                          }
+                        }
+                      ],
+                      "type": "ObjectTypeAnnotation"
+                    }
+                  }
+                ],
+                "returnTypeAnnotation": {
+                  "nullable": false,
                   "properties": [
                     {
                       "name": "const1",
@@ -82,6 +139,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "GenericObjectTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -140,6 +198,7 @@
                     ],
                     "type": "ObjectTypeAnnotation"
                   },
+                  "nullable": false,
                   "type": "ArrayTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

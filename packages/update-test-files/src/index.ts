@@ -7,6 +7,7 @@ const importMaps = {
   BubblingEventHandler: `import {BubblingEventHandler} from '../lib/CodegenTypes';`,
   DirectEventHandler: `import {DirectEventHandler} from '../lib/CodegenTypes';`,
   Float: `import {Float} from '../lib/CodegenTypes';`,
+  Double: `import {Double} from '../lib/CodegenTypes';`,
   Int32: `import {Int32} from '../lib/CodegenTypes';`,
   NotString: `import {NotString} from '../lib/CodegenTypes';`,
   Stringish: `import {Stringish} from '../lib/CodegenTypes';`,

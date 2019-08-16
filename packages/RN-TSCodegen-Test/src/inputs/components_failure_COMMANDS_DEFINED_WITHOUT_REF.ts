@@ -15,8 +15,8 @@ import {Int32} from '../lib/CodegenTypes';import codegenNativeComponent = requi
 
 
 
-
 import {ViewProps} from '../lib/ViewPropTypes';
+import {NativeComponent} from '../lib/codegenNativeComponent';
 
 interface NativeCommands {
   hotspotUpdate (x: Int32, y: Int32) : void;
@@ -27,7 +27,9 @@ export type ModuleProps = Readonly<ViewProps & {
 }>;
 
 export const Commands = codegenNativeCommands<NativeCommands>({
-  supportedCommands: ['hotspotUpdate']
+  supportedCommands: ['hotspotUpdate'];
 });
 
-export default codegenNativeComponent<ModuleProps>('Module');
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

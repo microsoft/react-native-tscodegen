@@ -1,4 +1,4 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,6 +11,7 @@ import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHan
 
 'use strict';
 
+import {NativeComponent} from '../lib/codegenNativeComponent';
 
 
 
@@ -35,6 +36,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -70,6 +76,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -92,6 +99,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -127,6 +139,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -149,6 +162,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -184,6 +202,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -206,6 +225,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -241,6 +265,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -263,6 +288,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -298,6 +328,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -321,6 +352,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -356,6 +392,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -378,6 +415,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -413,6 +455,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -435,6 +478,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -470,6 +518,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -492,6 +541,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -527,6 +581,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -549,6 +604,11 @@ type ModuleProps = Readonly<ViewProps & {
   string_optional_value: ReactNull | string;
   string_optional_both?: ReactNull | string;
 
+  double_required: Double;
+  double_optional_key?: Double;
+  double_optional_value: ReactNull | Double;
+  double_optional_both?: ReactNull | Double;
+
   float_required: Float;
   float_optional_key?: Float;
   float_optional_value: ReactNull | Float;
@@ -584,6 +644,7 @@ type ModuleProps = Readonly<ViewProps & {
     object_optional_nested_1_layer?: ReactNull | {
       boolean_required: Int32;
       string_optional_key?: string;
+      double_optional_value: ReactNull | Double;
       float_optional_value: ReactNull | Float;
       int32_optional_both?: ReactNull | Int32;
     }
@@ -594,5 +655,6 @@ type ModuleProps = Readonly<ViewProps & {
     >;
 }>;
 
-export default codegenNativeComponent<ModuleProps>('Module');
-
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

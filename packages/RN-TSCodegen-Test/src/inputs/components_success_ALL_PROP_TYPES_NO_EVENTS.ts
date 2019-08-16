@@ -1,4 +1,4 @@
-import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {Stringish} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {Stringish} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,10 +14,10 @@ import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTy
 
 
 
-
-import {ColorValue, ColorArrayValue, PointValue} from '../lib/StyleSheetTypes';
 import {ImageSource} from '../lib/ImageSource';
+import {ColorValue, ColorArrayValue, PointValue} from '../lib/StyleSheetTypes';
 import {ViewProps} from '../lib/ViewPropTypes';
+import {NativeComponent} from '../lib/codegenNativeComponent';
 
 type ModuleProps = Readonly<ViewProps & {
 
@@ -45,6 +45,11 @@ type ModuleProps = Readonly<ViewProps & {
   stringish_null_optional_key?: WithDefault<Stringish, null>;
   stringish_null_optional_both?: WithDefault<Stringish, null>;
 
+  // Double props
+  double_required: Double;
+  double_optional_key?: WithDefault<Double, 1.1>;
+  double_optional_both?: WithDefault<Double, 1.1>;
+
   // Float props
   float_required: Float;
   float_optional_key?: WithDefault<Float, 1.1>;
@@ -56,8 +61,13 @@ type ModuleProps = Readonly<ViewProps & {
   int32_optional_both?: WithDefault<Int32, 1>;
 
   // String enum props
-  enum_optional_key?: WithDefault<('small' | 'large'), 'small'>;
-  enum_optional_both?: WithDefault<('small' | 'large'), 'small'>;
+  enum_optional_key?: WithDefault<'small' | 'large', 'small'>;
+  enum_optional_both?: WithDefault<'small' | 'large', 'small'>;
+
+  // Object props
+  object_optional_key?: Readonly<{ prop: string }>;
+  object_optional_both?: ReactNull | Readonly<{ prop: string }>;
+  object_optional_value: ReactNull | Readonly<{ prop: string }>;
 
   // ImageSource props
   image_required: ImageSource;
@@ -83,4 +93,6 @@ type ModuleProps = Readonly<ViewProps & {
   point_optional_both?: ReactNull | PointValue;
 }>;
 
-export default codegenNativeComponent<ModuleProps>('Module');
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

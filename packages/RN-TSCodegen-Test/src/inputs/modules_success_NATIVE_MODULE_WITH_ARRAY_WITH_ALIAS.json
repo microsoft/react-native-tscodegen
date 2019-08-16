@@ -24,6 +24,7 @@
                   "elementType": {
                     "type": "StringTypeAnnotation"
                   },
+                  "nullable": false,
                   "type": "ArrayTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

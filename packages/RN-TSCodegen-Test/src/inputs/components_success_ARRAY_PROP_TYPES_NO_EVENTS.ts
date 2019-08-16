@@ -1,4 +1,4 @@
-import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,10 +14,13 @@ import {Float} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTy
 
 
 
-
-import {ColorValue, PointValue} from '../lib/StyleSheetTypes';
 import {ImageSource} from '../lib/ImageSource';
+import {ColorValue, PointValue} from '../lib/StyleSheetTypes';
 import {ViewProps} from '../lib/ViewPropTypes';
+import {NativeComponent} from '../lib/codegenNativeComponent';
+
+type ObjectType = Readonly<{ prop: string }>;
+type Array<any>ObjectType = ReadonlyArray<Readonly<{ prop: string }>>;
 
 type ModuleProps = Readonly<ViewProps & {
 
@@ -34,6 +37,12 @@ type ModuleProps = Readonly<ViewProps & {
   array_string_optional_value: ReactNull | ReadonlyArray<string>;
   array_string_optional_both?: ReactNull | ReadonlyArray<string>;
 
+  // Double props
+  array_double_required: ReadonlyArray<Double>;
+  array_double_optional_key?: ReadonlyArray<Double>;
+  array_double_optional_value: ReactNull | ReadonlyArray<Double>;
+  array_double_optional_both?: ReactNull | ReadonlyArray<Double>;
+
   // Float props
   array_float_required: ReadonlyArray<Float>;
   array_float_optional_key?: ReadonlyArray<Float>;
@@ -47,8 +56,14 @@ type ModuleProps = Readonly<ViewProps & {
   array_int32_optional_both?: ReactNull | ReadonlyArray<Int32>;
 
   // String enum props
-  array_enum_optional_key?: WithDefault<ReadonlyArray<('small' | 'large')>, 'small'>;
-  array_enum_optional_both?: WithDefault<ReadonlyArray<('small' | 'large')>, 'small'>;
+  array_enum_optional_key?: WithDefault<
+    ReadonlyArray<'small' | 'large'>;
+    'small',
+  >;
+  array_enum_optional_both?: WithDefault<
+    ReadonlyArray<'small' | 'large'>;
+    'small',
+  >;
 
   // ImageSource props
   array_image_required: ReadonlyArray<ImageSource>;
@@ -67,6 +82,14 @@ type ModuleProps = Readonly<ViewProps & {
   array_point_optional_key?: ReadonlyArray<PointValue>;
   array_point_optional_value: ReactNull | ReadonlyArray<PointValue>;
   array_point_optional_both?: ReactNull | ReadonlyArray<PointValue>;
+
+  // Object props
+  array_object_required: ReadonlyArray<Readonly<{ prop: string }>>;
+  array_object_optional_key?: ReadonlyArray<Readonly<{ prop: string }>>;
+  array_object_optional_value: ReactNull | Array<any>ObjectType;
+  array_object_optional_both?: ReactNull | ReadonlyArray<ObjectType>;
 }>;
 
-export default codegenNativeComponent<ModuleProps>('Module');
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

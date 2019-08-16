@@ -18,6 +18,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "VoidTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -37,6 +38,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "VoidTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -56,6 +58,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "VoidTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -75,6 +78,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "VoidTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

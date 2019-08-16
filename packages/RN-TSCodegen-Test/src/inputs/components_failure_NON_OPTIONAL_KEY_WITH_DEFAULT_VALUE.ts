@@ -14,12 +14,13 @@ import {Float} from '../lib/CodegenTypes';import {WithDefault} from '../lib/Cod
 
 
 
-
 import {ViewProps} from '../lib/ViewPropTypes';
-
+import {NativeComponent} from '../lib/codegenNativeComponent';
 
 export type ModuleProps = Readonly<ViewProps & {
   required_key_with_default: WithDefault<Float, 1.0>;
 }>;
 
-export default codegenNativeComponent<ModuleProps>('Module');
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

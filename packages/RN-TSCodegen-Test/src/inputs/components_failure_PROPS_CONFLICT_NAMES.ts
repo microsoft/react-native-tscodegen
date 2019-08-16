@@ -11,16 +11,15 @@ import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
 'use strict';
 
-
-
+import {ViewProps} from '../lib/ViewPropTypes';
 import {NativeComponent} from '../lib/codegenNativeComponent';
 
-export type String = string;
-export type AnotherArray = ReadonlyArray<String>;
 
-export type ModuleProps = Readonly<{
-  disable: String;
-  array: AnotherArray;
+
+export type ModuleProps = Readonly<ViewProps & {
+  isEnabled: string;
+
+  isEnabled: boolean;
 }>;
 
 export default (codegenNativeComponent<ModuleProps>(

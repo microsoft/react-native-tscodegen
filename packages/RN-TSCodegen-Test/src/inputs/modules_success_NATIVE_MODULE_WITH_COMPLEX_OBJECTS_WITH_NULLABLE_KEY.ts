@@ -20,7 +20,7 @@ export interface Spec extends TurboModule {
     reactNativeVersion: {
       major: number;
       minor: number;
-      patch: number;
+      patch?: number;
       prerelease: ReactNull | number;
     },
     forceTouchAvailable: boolean;

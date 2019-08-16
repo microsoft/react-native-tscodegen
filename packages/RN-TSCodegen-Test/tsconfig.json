@@ -17,6 +17,7 @@
     "src/test",
     "lib",
     "lib-amd",
-    "src/inputs/modules_failure_TWO_NATIVE_MODULES_EXPORTED_WITH_DEFAULT.ts"
+    "src/inputs/components_failure_*.ts",
+    "src/inputs/modules_failure_*.ts"
   ]
 }

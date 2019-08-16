@@ -13,36 +13,12 @@
                     "name": "callback",
                     "nullable": false,
                     "typeAnnotation": {
-                      "params": [
-                        {
-                          "name": "value",
-                          "nullable": false,
-                          "typeAnnotation": {
-                            "type": "StringTypeAnnotation"
-                          }
-                        },
-                        {
-                          "name": "arr",
-                          "nullable": false,
-                          "typeAnnotation": {
-                            "elementType": {
-                              "elementType": {
-                                "type": "StringTypeAnnotation"
-                              },
-                              "type": "ArrayTypeAnnotation"
-                            },
-                            "type": "ArrayTypeAnnotation"
-                          }
-                        }
-                      ],
-                      "returnTypeAnnotation": {
-                        "type": "VoidTypeAnnotation"
-                      },
                       "type": "FunctionTypeAnnotation"
                     }
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "VoidTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

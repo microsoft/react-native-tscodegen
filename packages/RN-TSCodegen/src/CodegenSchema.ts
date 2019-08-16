@@ -23,7 +23,17 @@ export type CommandsFunctionTypeParamAnnotation = Readonly<{
 export type CommandsTypeAnnotation =
   | BooleanTypeAnnotation
   | Int32TypeAnnotation
+  | DoubleTypeAnnotation
+  | FloatTypeAnnotation
   | StringTypeAnnotation;
+
+export type DoubleTypeAnnotation = Readonly<{
+  type: 'DoubleTypeAnnotation';
+}>;
+
+export type FloatTypeAnnotation = Readonly<{
+  type: 'FloatTypeAnnotation';
+}>;
 
 export type BooleanTypeAnnotation = Readonly<{
   type: 'BooleanTypeAnnotation';
@@ -45,6 +55,11 @@ export type ObjectPropertyType =
     }>
   | Readonly<{
       type: 'StringTypeAnnotation';
+      name: string;
+      optional: boolean;
+    }>
+  | Readonly<{
+      type: 'DoubleTypeAnnotation';
       name: string;
       optional: boolean;
     }>
@@ -73,7 +88,7 @@ export type ObjectPropertyType =
       properties: ReadonlyArray<ObjectPropertyType>;
     }>;
 
-export type PropTypeTypeAnnotation =
+type PropTypeTypeAnnotation =
   | Readonly<{
       type: 'BooleanTypeAnnotation';
       default: boolean;
@@ -81,6 +96,10 @@ export type PropTypeTypeAnnotation =
   | Readonly<{
       type: 'StringTypeAnnotation';
       default: string | null;
+    }>
+  | Readonly<{
+      type: 'DoubleTypeAnnotation';
+      default: number;
     }>
   | Readonly<{
       type: 'FloatTypeAnnotation';
@@ -102,6 +121,10 @@ export type PropTypeTypeAnnotation =
       name: 'ColorPrimitive' | 'ImageSourcePrimitive' | 'PointPrimitive';
     }>
   | Readonly<{
+      type: 'ObjectTypeAnnotation';
+      properties: ReadonlyArray<PropTypeShape>;
+    }>
+  | Readonly<{
       type: 'ArrayTypeAnnotation';
       elementType:
         | Readonly<{
@@ -109,6 +132,9 @@ export type PropTypeTypeAnnotation =
           }>
         | Readonly<{
             type: 'StringTypeAnnotation';
+          }>
+        | Readonly<{
+            type: 'DoubleTypeAnnotation';
           }>
         | Readonly<{
             type: 'FloatTypeAnnotation';
@@ -122,6 +148,10 @@ export type PropTypeTypeAnnotation =
             options: ReadonlyArray<{
               name: string;
             }>;
+          }>
+        | Readonly<{
+            type: 'ObjectTypeAnnotation';
+            properties: ReadonlyArray<PropTypeShape>;
           }>
         | Readonly<{
             type: 'NativePrimitiveTypeAnnotation';
@@ -139,6 +169,7 @@ export type PrimitiveTypeAnnotationType =
   | 'StringTypeAnnotation'
   | 'NumberTypeAnnotation'
   | 'Int32TypeAnnotation'
+  | 'DoubleTypeAnnotation'
   | 'FloatTypeAnnotation'
   | 'BooleanTypeAnnotation'
   | 'GenericObjectTypeAnnotation';
@@ -149,7 +180,10 @@ export type PrimitiveTypeAnnotation = Readonly<{
 
 export type FunctionTypeAnnotationParamTypeAnnotation =
   | Readonly<{
-      type: 'AnyTypeAnnotation' | PrimitiveTypeAnnotationType;
+      type:
+        | 'AnyTypeAnnotation'
+        | 'FunctionTypeAnnotation'
+        | PrimitiveTypeAnnotationType,
     }>
   | Readonly<{
       type: 'ArrayTypeAnnotation';
@@ -158,11 +192,6 @@ export type FunctionTypeAnnotationParamTypeAnnotation =
   | Readonly<{
       type: 'ObjectTypeAnnotation';
       properties: ReadonlyArray<ObjectParamTypeAnnotation>;
-    }>
-  | Readonly<{
-      type: 'FunctionTypeAnnotation';
-      params: ReadonlyArray<FunctionTypeAnnotationParam>;
-      returnTypeAnnotation: FunctionTypeAnnotationReturn;
     }>;
 
 export type FunctionTypeAnnotationReturnArrayElementType = FunctionTypeAnnotationParamTypeAnnotation;
@@ -175,17 +204,19 @@ export type ObjectParamTypeAnnotation = Readonly<{
 
 export type FunctionTypeAnnotationReturn =
   | Readonly<{
-      type: PrimitiveTypeAnnotationType | 'VoidTypeAnnotation';
+      nullable: boolean;
+      type:
+        | PrimitiveTypeAnnotationType
+        | 'VoidTypeAnnotation'
+        | 'GenericPromiseTypeAnnotation',
     }>
   | Readonly<{
+      nullable: boolean;
       type: 'ArrayTypeAnnotation';
       elementType: FunctionTypeAnnotationReturnArrayElementType;
     }>
   | Readonly<{
-      type: 'GenericPromiseTypeAnnotation';
-      resolvedType: FunctionTypeAnnotationReturn;
-    }>
-  | Readonly<{
+      nullable: boolean;
       type: 'ObjectTypeAnnotation';
       properties: ReadonlyArray<ObjectParamTypeAnnotation>;
     }>;

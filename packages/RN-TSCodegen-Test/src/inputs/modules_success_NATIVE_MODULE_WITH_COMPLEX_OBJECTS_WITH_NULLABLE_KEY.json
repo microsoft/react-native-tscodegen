@@ -10,6 +10,7 @@
                 "optional": false,
                 "params": [],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "properties": [
                     {
                       "name": "isTesting",
@@ -39,7 +40,7 @@
                           },
                           {
                             "name": "patch",
-                            "optional": false,
+                            "optional": true,
                             "typeAnnotation": {
                               "type": "NumberTypeAnnotation"
                             }

@@ -21,6 +21,9 @@ export interface Spec extends TurboModule {
   getObject (arg: {const1: {const1: boolean}}) : {
     const1: {const1: boolean};
   };
+  getReadOnlyObject (arg: Readonly<{const1: Readonly<{const1: boolean}>}>) : Readonly<{
+    const1: {const1: boolean};
+  }>;
   getObject2 (arg: { a: String }) : Object;
   getObjectInArray (arg: {const1: {const1: boolean}}) : Array<{
     const1: {const1: boolean};

@@ -14,12 +14,13 @@ import {Float} from '../lib/CodegenTypes';import {ReactNull} from '../lib/Codeg
 
 
 
-
 import {ViewProps} from '../lib/ViewPropTypes';
-
+import {NativeComponent} from '../lib/codegenNativeComponent';
 
 export type ModuleProps = Readonly<ViewProps & {
   nullable_with_default: ReactNull | WithDefault<Float, 1.0>;
 }>;
 
-export default codegenNativeComponent<ModuleProps>('Module');
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);

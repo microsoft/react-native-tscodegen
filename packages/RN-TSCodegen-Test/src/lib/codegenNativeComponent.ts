@@ -7,6 +7,8 @@ type Options = Readonly<{
   deprecatedViewConfigName?: string;
 }>;
 
-export = function codegenNativeComponent<T>(componentName: string, optios?: Options): {} {
+export type NativeComponent<T> = {};
+
+export default function codegenNativeComponent<T>(componentName: string, optios?: Options): NativeComponent<T> {
   throw 'Not implemented';
 };

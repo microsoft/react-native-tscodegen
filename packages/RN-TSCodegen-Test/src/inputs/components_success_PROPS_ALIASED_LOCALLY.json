@@ -1,0 +1,113 @@
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "events": [],
+          "extendsProps": [
+            {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType"
+            }
+          ],
+          "props": [
+            {
+              "name": "otherStringProp",
+              "optional": false,
+              "typeAnnotation": {
+                "default": null,
+                "type": "StringTypeAnnotation"
+              }
+            },
+            {
+              "name": "isEnabled",
+              "optional": false,
+              "typeAnnotation": {
+                "default": false,
+                "type": "BooleanTypeAnnotation"
+              }
+            },
+            {
+              "name": "label",
+              "optional": false,
+              "typeAnnotation": {
+                "default": null,
+                "type": "StringTypeAnnotation"
+              }
+            },
+            {
+              "name": "localType",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "otherStringProp",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "default": null,
+                      "type": "StringTypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "isEnabled",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "default": false,
+                      "type": "BooleanTypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "label",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "default": null,
+                      "type": "StringTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "localArr",
+              "optional": false,
+              "typeAnnotation": {
+                "elementType": {
+                  "properties": [
+                    {
+                      "name": "otherStringProp",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "default": null,
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "isEnabled",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "default": false,
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "label",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "default": null,
+                        "type": "StringTypeAnnotation"
+                      }
+                    }
+                  ],
+                  "type": "ObjectTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

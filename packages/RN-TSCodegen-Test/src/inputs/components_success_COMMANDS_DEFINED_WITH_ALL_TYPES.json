@@ -31,9 +31,21 @@
               "typeAnnotation": {
                 "params": [
                   {
+                    "name": "x",
+                    "typeAnnotation": {
+                      "type": "FloatTypeAnnotation"
+                    }
+                  },
+                  {
                     "name": "y",
                     "typeAnnotation": {
                       "type": "Int32TypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "z",
+                    "typeAnnotation": {
+                      "type": "DoubleTypeAnnotation"
                     }
                   },
                   {

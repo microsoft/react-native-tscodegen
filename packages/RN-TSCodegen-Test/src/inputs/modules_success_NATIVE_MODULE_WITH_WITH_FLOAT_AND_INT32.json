@@ -18,6 +18,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "Int32TypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"
@@ -37,6 +38,7 @@
                   }
                 ],
                 "returnTypeAnnotation": {
+                  "nullable": false,
                   "type": "FloatTypeAnnotation"
                 },
                 "type": "FunctionTypeAnnotation"

@@ -11,14 +11,31 @@ import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
 'use strict';
 
-
-
 import {ViewProps} from '../lib/ViewPropTypes';
 import {NativeComponent} from '../lib/codegenNativeComponent';
 
-type ModuleProps = Readonly<ViewProps & {
+
+
+type DeepSpread = Readonly<{
+  otherStringProp: string;
+}>
+
+export type PropsInFile = Readonly<DeepSpread & {
+  isEnabled: boolean;
+  label: string;
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module', {
-  deprecatedViewConfigName: 'DeprecateModuleName',
-}): NativeComponent<ModuleProps>);
+export type ModuleProps = Readonly<ViewProps & {
+
+  ...PropsInFile
+
+  localType: Readonly<{
+    ...PropsInFile
+  }>
+
+  localArr: ReadonlyArray<PropsInFile>
+}>;
+
+export default (codegenNativeComponent<ModuleProps>(
+  'Module',
+): NativeComponent<ModuleProps>);
