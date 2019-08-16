@@ -1,4 +1,8 @@
-import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';import codegenNativeCommands from '../lib/codegenNativeCommands';
+import {Int32} from '../lib/CodegenTypes';
+import * as React from '../lib/React';
+import {NativeComponent} from '../lib/codegenNativeComponent';
+import codegenNativeComponent from '../lib/codegenNativeComponent';
+import codegenNativeCommands from '../lib/codegenNativeCommands';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -23,9 +27,9 @@ export type Int = Int32;
 export type Void = void;
 
 export type ScrollTo = (
-  viewRef: React.Ref<'RCTView'>;
-  y: Int;
-  animated: Boolean;
+  viewRef: React.Ref<'RCTView'>,
+  y: Int,
+  animated: Boolean
 ) => Void;
 
 interface NativeCommands {
@@ -37,7 +41,7 @@ export type ModuleProps = Readonly<ViewProps & {
 }>;
 
 export const Commands = codegenNativeCommands<NativeCommands>({
-  supportedCommands: ['scrollTo'];
+  supportedCommands: ['scrollTo']
 });
 
 export default (codegenNativeComponent<ModuleProps>(

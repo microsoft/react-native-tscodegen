@@ -1,4 +1,10 @@
-import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
+import {Float} from '../lib/CodegenTypes';
+import {Double} from '../lib/CodegenTypes';
+import {Int32} from '../lib/CodegenTypes';
+import {ReactNull} from '../lib/CodegenTypes';
+import {WithDefault} from '../lib/CodegenTypes';
+import {NativeComponent} from '../lib/codegenNativeComponent';
+import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -57,12 +63,12 @@ type ModuleProps = Readonly<ViewProps & {
 
   // String enum props
   array_enum_optional_key?: WithDefault<
-    ReadonlyArray<'small' | 'large'>;
-    'small',
+    ReadonlyArray<'small' | 'large'>,
+    'small'
   >;
   array_enum_optional_both?: WithDefault<
-    ReadonlyArray<'small' | 'large'>;
-    'small',
+    ReadonlyArray<'small' | 'large'>,
+    'small'
   >;
 
   // ImageSource props

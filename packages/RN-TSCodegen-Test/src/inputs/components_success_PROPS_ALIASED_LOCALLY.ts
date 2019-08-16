@@ -1,4 +1,5 @@
-import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
+import {NativeComponent} from '../lib/codegenNativeComponent';
+import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -25,12 +26,8 @@ export type PropsInFile = Readonly<DeepSpread & {
   label: string;
 }>;
 
-export type ModuleProps = Readonly<ViewProps & {
-
-  ...PropsInFile
-
-  localType: Readonly<{
-    ...PropsInFile
+export type ModuleProps = Readonly<ViewProps & PropsInFile & {
+  localType: Readonly<PropsInFile & {
   }>
 
   localArr: ReadonlyArray<PropsInFile>
