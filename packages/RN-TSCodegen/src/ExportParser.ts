@@ -25,6 +25,12 @@ export interface ExportCommandInfo {
 type ExportInfo = [ts.TypeNode, ts.Expression, ts.Expression];
 
 export function tryParseExportedCallExpression(callExpression: ts.Expression, functionName: string): ExportInfo {
+    // the export statement may be "export default (CALL-EXPRESSION as Type)"
+    while (ts.isParenthesizedExpression(callExpression) || ts.isTypeAssertion(callExpression) || ts.isAsExpression(callExpression)) {
+        // tslint:disable-next-line:no-parameter-reassignment
+        callExpression = callExpression.expression;
+    }
+
     // ensure that the export statement is exporting the result of a function call to the specified function
     if (!ts.isCallExpression(callExpression)) {
         return undefined;
