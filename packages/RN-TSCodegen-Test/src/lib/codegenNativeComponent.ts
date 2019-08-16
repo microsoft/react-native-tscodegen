@@ -9,6 +9,6 @@ type Options = Readonly<{
 
 export type NativeComponent<T> = {};
 
-export default function codegenNativeComponent<T>(componentName: string, optios?: Options): NativeComponent<T> {
+export default function codegenNativeComponent<T>(componentName: string, optios?: Options): {} {
   throw 'Not implemented';
 };

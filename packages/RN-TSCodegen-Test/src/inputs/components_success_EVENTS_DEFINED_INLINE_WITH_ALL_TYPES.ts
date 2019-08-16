@@ -1,4 +1,4 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,7 +11,7 @@ import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHan
 
 'use strict';
 
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 
 
@@ -657,4 +657,4 @@ type ModuleProps = Readonly<ViewProps & {
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

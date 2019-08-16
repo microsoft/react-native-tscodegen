@@ -1,4 +1,4 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import * as React from '../lib/React';import codegenNativeComponent = require('../lib/codegenNativeComponent');import codegenNativeCommands = require('../lib/codegenNativeCommands');
+import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import * as React from '../lib/React';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';import codegenNativeCommands from '../lib/codegenNativeCommands';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -13,7 +13,7 @@ import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHan
 
 
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 
 
@@ -104,4 +104,4 @@ export const Commands = codegenNativeCommands<NativeCommands>({
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

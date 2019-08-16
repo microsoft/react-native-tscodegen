@@ -14,8 +14,9 @@ const importMaps = {
   ReactNull: `import {ReactNull} from '../lib/CodegenTypes';`,
   WithDefault: `import {WithDefault} from '../lib/CodegenTypes';`,
   React: `import * as React from '../lib/React';`,
-  codegenNativeComponent: `import codegenNativeComponent = require('../lib/codegenNativeComponent');`,
-  codegenNativeCommands: `import codegenNativeCommands = require('../lib/codegenNativeCommands');`,
+  NativeComponent: `import {NativeComponent} from '../lib/codegenNativeComponent';`,
+  codegenNativeComponent: `import codegenNativeComponent from '../lib/codegenNativeComponent';`,
+  codegenNativeCommands: `import codegenNativeCommands from '../lib/codegenNativeCommands';`,
   TurboModule: `import {TurboModule} from '../lib/RCTExport'`,
   TurboModuleRegistry: `import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';`
 };
@@ -31,14 +32,14 @@ function flowToTs(flowSourceCode: string, importCodegenTypes: boolean, keyName?:
     .replace(/(\}?)>,$/gm, `$1>;`)                                                                  //
     .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?((void)|,|;|\{))/gm, '$1$2$3:$4')             //
     .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')                                                      // {...a, b; c;} -> a & {b; c;}
+    .replace('): NativeComponent<ModuleProps>);', ') as NativeComponent<ModuleProps>);')            // export default ((...):NativeCoponent<T>); -> export default ((...) as NativeCoponent<T>);
     .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
     .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
     .replace(/from '(\.\.\/)?([^']+)';/g, `from '../lib/$2';`)                                      //
-    .replace(/([^a-zA-Z'])Array([^<])/g, '$1Array<any>$2')                                          // Array -> Array<any>, consider remove
-    .replace(/([^a-zA-Z'])Promise([^<])/g, '$1Promise<any>$2')                                      // Promise -> Promise<any>, consider remove
     .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
     .replace(/import [^']*?'.*?RCTExport?';/g, '')                                                  //
     .replace(/import [^']*?'.*?TurboModuleRegistry?';/g, '')                                        //
+    .replace(/import [^']*?'.*?codegenNativeComponent?';/g, '')                                     //
     .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
     .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
     .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // ad-hoc fix mistakes in test cases

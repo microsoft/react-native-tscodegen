@@ -1,4 +1,4 @@
-import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -13,7 +13,7 @@ import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
 
 
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 export type String = string;
 export type AnotherArray = ReadonlyArray<String>;
@@ -25,4 +25,4 @@ export type ModuleProps = Readonly<{
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

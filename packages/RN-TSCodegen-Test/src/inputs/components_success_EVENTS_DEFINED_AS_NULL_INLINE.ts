@@ -1,4 +1,4 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -15,7 +15,7 @@ import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHan
 
 
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 type ModuleProps = Readonly<ViewProps & {
 
@@ -43,4 +43,4 @@ type ModuleProps = Readonly<ViewProps & {
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

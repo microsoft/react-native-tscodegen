@@ -1,5 +1,5 @@
 // \react-native\Libraries\Image\ImageSource.js
 
-class ImageSourceNotExported { private constructor() { } };
+export class ImageSourceRNTag { private constructor() { } };
 
-export type ImageSource = {} | ImageSourceNotExported;
+export type ImageSource = {} | ImageSourceRNTag;

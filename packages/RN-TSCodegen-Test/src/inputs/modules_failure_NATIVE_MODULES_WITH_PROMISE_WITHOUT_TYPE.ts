@@ -15,7 +15,7 @@ import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry fro
 
 
 export interface Spec extends TurboModule {
-  getBool (arg: boolean) : Promise<any>;
+  getBool (arg: boolean) : Promise;
 
 }
 

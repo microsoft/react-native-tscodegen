@@ -1,4 +1,4 @@
-import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenTypes';import {Int32} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {WithDefault} from '../lib/CodegenTypes';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -17,7 +17,7 @@ import {Float} from '../lib/CodegenTypes';import {Double} from '../lib/CodegenT
 import {ImageSource} from '../lib/ImageSource';
 import {ColorValue, PointValue} from '../lib/StyleSheetTypes';
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 type ModuleProps = Readonly<ViewProps & {
 
@@ -74,4 +74,4 @@ type ModuleProps = Readonly<ViewProps & {
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

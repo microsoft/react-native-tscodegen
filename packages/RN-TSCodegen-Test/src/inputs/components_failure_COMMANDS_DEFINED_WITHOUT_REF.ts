@@ -1,4 +1,4 @@
-import {Int32} from '../lib/CodegenTypes';import codegenNativeComponent = require('../lib/codegenNativeComponent');import codegenNativeCommands = require('../lib/codegenNativeCommands');
+import {Int32} from '../lib/CodegenTypes';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';import codegenNativeCommands from '../lib/codegenNativeCommands';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -16,7 +16,7 @@ import {Int32} from '../lib/CodegenTypes';import codegenNativeComponent = requi
 
 
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 interface NativeCommands {
   hotspotUpdate (x: Int32, y: Int32) : void;
@@ -32,4 +32,4 @@ export const Commands = codegenNativeCommands<NativeCommands>({
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

@@ -1,4 +1,4 @@
-import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -12,7 +12,7 @@ import codegenNativeComponent = require('../lib/codegenNativeComponent');
 'use strict';
 
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 
 
@@ -28,4 +28,4 @@ export type ModuleProps = Readonly<ViewProps & {
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

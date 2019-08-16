@@ -1,4 +1,4 @@
-import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React';import codegenNativeComponent = require('../lib/codegenNativeComponent');import codegenNativeCommands = require('../lib/codegenNativeCommands');
+import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';import codegenNativeCommands from '../lib/codegenNativeCommands';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -16,7 +16,7 @@ import {Int32} from '../lib/CodegenTypes';import * as React from '../lib/React'
 
 
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 export type ModuleProps = Readonly<ViewProps & {
   // No props
@@ -30,4 +30,4 @@ export const Commands = codegenNativeCommands<{
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+) as NativeComponent<ModuleProps>);

@@ -1,4 +1,4 @@
-import codegenNativeComponent = require('../lib/codegenNativeComponent');
+import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,11 +14,11 @@ import codegenNativeComponent = require('../lib/codegenNativeComponent');
 
 
 import {ViewProps} from '../lib/ViewPropTypes';
-import {NativeComponent} from '../lib/codegenNativeComponent';
+
 
 type ModuleProps = Readonly<ViewProps & {
 }>;
 
 export default (codegenNativeComponent<ModuleProps>('Module', {
   deprecatedViewConfigName: 'DeprecateModuleName',
-}): NativeComponent<ModuleProps>);
+}) as NativeComponent<ModuleProps>);
