@@ -401,9 +401,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                 itemOthers.push(objectRawType);
 
                 for (const propSymbol of itemUnknowns[0].getProperties()) {
-
-                    if (propSymbol.declarations.length === 1) {
-                        const propSymbolDecl = propSymbol.declarations[0];
+                    for (const propSymbolDecl of propSymbol.declarations) {
                         const [propDecl, propType, funcReturnType, funcParameters] = tryReadMemberSignature(propSymbolDecl, typeChecker);
 
                         if (propType !== undefined) {

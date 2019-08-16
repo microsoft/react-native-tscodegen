@@ -31,8 +31,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
         let funcReturnType: ts.Type;
         let funcParameters: ReadonlyArray<ts.ParameterDeclaration>;
 
-        if (methodSymbol.declarations.length === 1) {
-            const decl = methodSymbol.declarations[0];
+        for (const decl of methodSymbol.declarations) {
             if (ts.isMethodSignature(decl) || ts.isCallSignatureDeclaration(decl)) {
                 if (decl.typeParameters !== undefined && decl.typeParameters.length !== 0) {
                     throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should not be generic.`);

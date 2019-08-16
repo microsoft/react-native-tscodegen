@@ -9,6 +9,7 @@ function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamT
         case 'Number': return { type: 'NumberTypeAnnotation' };
         case 'Int32': return { type: 'Int32TypeAnnotation' };
         case 'Float': return { type: 'FloatTypeAnnotation' };
+        case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'Any': return { type: 'AnyTypeAnnotation' };
@@ -61,6 +62,7 @@ function rawTypeToReturnType(rawType: RNRawType): cs.FunctionTypeAnnotationRetur
         case 'Number': return { type: 'NumberTypeAnnotation', nullable: rawType.isNullable };
         case 'Int32': return { type: 'Int32TypeAnnotation', nullable: rawType.isNullable };
         case 'Float': return { type: 'FloatTypeAnnotation', nullable: rawType.isNullable };
+        case 'Double': return { type: 'DoubleTypeAnnotation', nullable: rawType.isNullable };
         case 'Boolean': return { type: 'BooleanTypeAnnotation', nullable: rawType.isNullable };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation', nullable: rawType.isNullable };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation', nullable: rawType.isNullable };
