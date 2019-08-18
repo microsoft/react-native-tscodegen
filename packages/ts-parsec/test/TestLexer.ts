@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import { buildLexer } from '../src/index';
 
-test(`Test number with commas (one token)`, () => {
+test(`Lexer: number with commas (one token)`, () => {
     enum TokenKind {
         Number,
         Comma,
@@ -22,7 +22,7 @@ test(`Test number with commas (one token)`, () => {
     assert.equal(token.next, undefined);
 });
 
-test(`Test number with commas (multiple token)`, () => {
+test(`Lexer: number with commas (multiple token)`, () => {
     enum TokenKind {
         Number,
         Comma,
@@ -53,7 +53,7 @@ test(`Test number with commas (multiple token)`, () => {
     assert.equal(token, undefined);
 });
 
-test(`Test number with commas (discard commas)`, () => {
+test(`Lexer: number with commas (discard commas)`, () => {
     enum TokenKind {
         Number,
         Comma,
@@ -84,7 +84,7 @@ test(`Test number with commas (discard commas)`, () => {
     assert.equal(token, undefined);
 });
 
-test(`Test identifiers and numbers with discardable commas and spaces`, () => {
+test(`Lexer: identifiers and numbers with discardable commas and spaces`, () => {
     enum TokenKind {
         Number,
         Identifier,
