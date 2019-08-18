@@ -9,7 +9,7 @@ test(`Test number with commas (one token)`, () => {
         Comma,
     }
 
-    const lexer = buildLexer<TokenKind>([
+    const lexer = buildLexer([
         [true, /^\d+/g, TokenKind.Number],
         [true, /^,/g, TokenKind.Comma]
     ]);
@@ -28,7 +28,7 @@ test(`Test number with commas (multiple token)`, () => {
         Comma,
     }
 
-    const lexer = buildLexer<TokenKind>([
+    const lexer = buildLexer([
         [true, /^\d+/g, TokenKind.Number],
         [true, /^,/g, TokenKind.Comma]
     ]);
@@ -59,7 +59,7 @@ test(`Test number with commas (discard commas)`, () => {
         Comma,
     }
 
-    const lexer = buildLexer<TokenKind>([
+    const lexer = buildLexer([
         [true, /^\d+/g, TokenKind.Number],
         [false, /^,/g, TokenKind.Comma]
     ]);
@@ -92,7 +92,7 @@ test(`Test identifiers and numbers with discardable commas and spaces`, () => {
         Space,
     }
 
-    const lexer = buildLexer<TokenKind>([
+    const lexer = buildLexer([
         [true, /^\d+/g, TokenKind.Number],
         [true, /^[a-zA-Z]\w*/g, TokenKind.Identifier],
         [false, /^,/g, TokenKind.Comma],
