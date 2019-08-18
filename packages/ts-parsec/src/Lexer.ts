@@ -20,7 +20,7 @@ class TokenImpl<T> implements Token<T> {
         public kind: T,
         public text: string,
         public index: number,
-        public discarded: boolean
+        public keep: boolean
     ) {
     }
 
@@ -58,11 +58,11 @@ class LexerImpl<T> implements Lexer<T> {
         }
 
         const subString = input.substr(index);
-        for (const [discarded, regexp, kind] of this.rules) {
+        for (const [keep, regexp, kind] of this.rules) {
             regexp.lastIndex = 0;
             if (regexp.test(subString)) {
                 const text = subString.substr(0, regexp.lastIndex);
-                return new TokenImpl<T>(this, input, kind, text, index, discarded);
+                return new TokenImpl<T>(this, input, kind, text, index, keep);
             }
         }
 
@@ -75,7 +75,7 @@ class LexerImpl<T> implements Lexer<T> {
             token = this.parseNext(input, token === undefined ? index : token.index + token.text.length);
             if (token === undefined) {
                 return undefined;
-            } else if (!token.discarded) {
+            } else if (token.keep) {
                 return token;
             }
         }
