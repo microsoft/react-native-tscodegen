@@ -57,10 +57,11 @@ class LexerImpl<T> implements Lexer<T> {
             return undefined;
         }
 
+        const subString = input.substr(index);
         for (const [discarded, regexp, kind] of this.rules) {
-            regexp.lastIndex = index;
-            if (regexp.test(input)) {
-                const text = input.substring(index, regexp.lastIndex);
+            regexp.lastIndex = 0;
+            if (regexp.test(subString)) {
+                const text = subString.substr(0, regexp.lastIndex);
                 return new TokenImpl<T>(this, input, kind, text, index, discarded);
             }
         }
