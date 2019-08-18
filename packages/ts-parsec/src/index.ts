@@ -1,3 +1,1 @@
-export function doSomething(): void {
-    return undefined;
-}
+export { buildLexer, Lexer, Token } from './Lexer';

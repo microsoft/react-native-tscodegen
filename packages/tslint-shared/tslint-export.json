@@ -3,6 +3,7 @@
     "tslint-microsoft-contrib"
   ],
   "rules": {
+    "completed-docs": false,
     "cyclomatic-complexity": false,
     "export-name": false,
     "interface-name": false,
@@ -21,6 +22,7 @@
       "trace"
     ],
     "no-relative-imports": false,
+    "no-parameter-properties": false,
     "non-literal-fs-path": false,
     "non-literal-require": false,
     "typedef": [
