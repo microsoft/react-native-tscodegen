@@ -1,7 +1,7 @@
 // tslint:disable:trailing-comma
 
 import * as assert from 'assert';
-import { alt, buildLexer, opt, opt_sc, rep, rep_sc, repr, seq, str, tok, Token } from '../src/index';
+import { alt, apply, buildLexer, opt, opt_sc, rep, rep_sc, repr, seq, str, tok, Token } from '../src/index';
 
 function notUndefined<T>(t: T | undefined): T {
     assert.notStrictEqual(t, undefined);
@@ -131,5 +131,26 @@ test(`Parser: rep`, () => {
         assert.strictEqual(result[1].nextToken, firstToken.next);
         assert.deepStrictEqual(result[2].result, []);
         assert.strictEqual(result[2].nextToken, firstToken);
+    }
+});
+
+test(`Parser: apply`, () => {
+    const firstToken = notUndefined(lexer.parse(`123,456`));
+    {
+        const result = apply(
+            repr(tok(TokenKind.Number)),
+            (values: Token<TokenKind>[]) => {
+                return values.map((value: Token<TokenKind>) => {
+                    return value.text;
+                }).join(';');
+            }
+        ).parse(firstToken);
+        assert.strictEqual(result.length, 3);
+        assert.strictEqual(result[0].result, '');
+        assert.strictEqual(result[0].nextToken, firstToken);
+        assert.strictEqual(result[1].result, '123');
+        assert.strictEqual(result[1].nextToken, firstToken.next);
+        assert.strictEqual(result[2].result, '123;456');
+        assert.strictEqual(result[2].nextToken, undefined);
     }
 });
