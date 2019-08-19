@@ -8,11 +8,12 @@ export function opt<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TR
 }
 
 export function opt_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult | undefined> {
+    const nilParser = nil<TKind>();
     return {
         parse(token: Token<TKind> | undefined): ParseResult<TKind, TResult | undefined>[] {
             const result = p.parse(token);
             if (result.length === 0) {
-                return nil<TKind>().parse(token);
+                return nilParser.parse(token);
             } else {
                 return result;
             }
