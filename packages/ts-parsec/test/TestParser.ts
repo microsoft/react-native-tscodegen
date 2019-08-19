@@ -54,8 +54,8 @@ test(`Parser: tok`, () => {
         assert.strictEqual(result[0].nextToken, firstToken.next);
     }
     {
-        const result = succeeded(tok(TokenKind.Identifier).parse(firstToken));
-        assert.strictEqual(result.length, 0);
+        const result = str('456').parse(firstToken);
+        assert.strictEqual(parsec.failed(result), true);
     }
 });
 
