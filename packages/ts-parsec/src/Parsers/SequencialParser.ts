@@ -59,7 +59,7 @@ export function seq<TKind, T1, T2, T3, T4, T5, T6, T7, T8>(
 
 export function seq(...ps: Parser<void, {}>[]): Parser<void, {}> {
     return {
-        parse(token: Token<void>): ParseResult<void, {}>[] {
+        parse(token: Token<void> | undefined): ParseResult<void, {}>[] {
             let result: ParseResult<void, {}[]>[] = [{ nextToken: token, result: [] }];
             for (const p of ps) {
                 const steps = result;

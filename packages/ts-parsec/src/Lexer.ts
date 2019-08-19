@@ -8,7 +8,7 @@ export interface Token<T> {
 }
 
 export interface Lexer<T> {
-    parse(input: string): Token<T>;
+    parse(input: string): Token<T> | undefined;
 }
 
 class TokenImpl<T> implements Token<T> {
@@ -70,7 +70,7 @@ class LexerImpl<T> implements Lexer<T> {
     }
 
     public parseNextAvailable(input: string, index: number): TokenImpl<T> | undefined {
-        let token: TokenImpl<T>;
+        let token: TokenImpl<T> | undefined;
         while (true) {
             token = this.parseNext(input, token === undefined ? index : token.index + token.text.length);
             if (token === undefined) {

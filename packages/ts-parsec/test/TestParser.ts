@@ -1,7 +1,7 @@
 // tslint:disable:trailing-comma
 
 import * as assert from 'assert';
-import { alt, buildLexer, seq, str, tok } from '../src/index';
+import { alt, buildLexer, opt, opt_sc, seq, str, tok } from '../src/index';
 
 enum TokenKind {
     Number,
@@ -68,5 +68,27 @@ test(`Parser: seq`, () => {
         assert.equal(result[0].result[0].text, '123');
         assert.equal(result[0].result[1].text, '456');
         assert.equal(result[0].nextToken, undefined);
+    }
+});
+
+test(`Parser: opt`, () => {
+    const firstToken = lexer.parse(`123,456`);
+    {
+        const result = opt(tok(TokenKind.Number)).parse(firstToken);
+        assert.equal(result.length, 2);
+        assert.equal(result[0].result.text, '123');
+        assert.equal(result[0].nextToken, firstToken.next);
+        assert.equal(result[1].result, undefined);
+        assert.equal(result[1].nextToken, firstToken);
+    }
+});
+
+test(`Parser: opt_sc`, () => {
+    const firstToken = lexer.parse(`123,456`);
+    {
+        const result = opt_sc(tok(TokenKind.Number)).parse(firstToken);
+        assert.equal(result.length, 1);
+        assert.equal(result[0].result.text, '123');
+        assert.equal(result[0].nextToken, firstToken.next);
     }
 });
