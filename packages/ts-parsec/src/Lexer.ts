@@ -22,7 +22,7 @@ export interface Lexer<T> {
 }
 
 export class TokenError extends Error {
-    constructor(public pos: TokenPosition, errorMessage: string) {
+    constructor(public pos: TokenPosition | undefined, errorMessage: string) {
         super(errorMessage);
     }
 }

@@ -6,3 +6,4 @@ export * from './Parsers/AlternativeParser';
 export * from './Parsers/OptionalParser';
 export * from './Parsers/RepeativeParser';
 export * from './Parsers/ApplyParser';
+export * from './Parsers/Rule';
