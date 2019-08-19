@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { betterError, ParseError, Parser, ParseResult, resultOrError, succeeded } from './ParserInterface';
+import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError, succeeded } from './ParserInterface';
 
 export function seq<TKind, T1, T2>(
     p1: Parser<TKind, T1>,
@@ -59,7 +59,7 @@ export function seq<TKind, T1, T2, T3, T4, T5, T6, T7, T8>(
 
 export function seq(...ps: Parser<void, {}>[]): Parser<void, {}> {
     return {
-        parse(token: Token<void> | undefined): ParseResult<void, {}>[] | ParseError {
+        parse(token: Token<void> | undefined): ParserOutput<void, {}> {
             let error: ParseError | undefined;
             let result: ParseResult<void, {}[]>[] = [{ nextToken: token, result: [] }];
 

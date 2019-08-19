@@ -11,15 +11,17 @@ export interface ParseError {
     readonly message: string;
 }
 
+export type ParserOutput<TKind, TResult> = ParseResult<TKind, TResult>[] | ParseError;
+
 export interface Parser<TKind, TResult> {
-    parse(token: Token<TKind> | undefined): ParseResult<TKind, TResult>[] | ParseError;
+    parse(token: Token<TKind> | undefined): ParserOutput<TKind, TResult>;
 }
 
-export function succeeded<TKind, TResult>(r: ParseResult<TKind, TResult>[] | ParseError): r is ParseResult<TKind, TResult>[] {
+export function succeeded<TKind, TResult>(r: ParserOutput<TKind, TResult>): r is ParseResult<TKind, TResult>[] {
     return r instanceof Array;
 }
 
-export function failed<TKind, TResult>(r: ParseResult<TKind, TResult>[] | ParseError): r is ParseError {
+export function failed<TKind, TResult>(r: ParserOutput<TKind, TResult>): r is ParseError {
     return !(r instanceof Array);
 }
 
@@ -38,7 +40,7 @@ export function betterError(e1: ParseError | undefined, e2: ParseError | undefin
     }
 }
 
-export function resultOrError<TKind, TResult>(result: ParseResult<TKind, TResult>[], error: ParseError | undefined): ParseResult<TKind, TResult>[] | ParseError {
+export function resultOrError<TKind, TResult>(result: ParseResult<TKind, TResult>[], error: ParseError | undefined): ParserOutput<TKind, TResult> {
     return result.length === 0 && error !== undefined ? error : result;
 }
 

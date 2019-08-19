@@ -3,12 +3,12 @@
 // tslint:disable:prefer-for-of
 
 import { Token } from '../Lexer';
-import { betterError, ParseError, Parser, ParseResult, resultOrError, succeeded } from './ParserInterface';
+import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError, succeeded } from './ParserInterface';
 
 export function rep<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     const reprParser = repr(p);
     return {
-        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] | ParseError {
+        parse(token: Token<TKind>): ParserOutput<TKind, TResult[]> {
             const result = reprParser.parse(token);
             return succeeded(result) ? result.reverse() : result;
         }
@@ -17,7 +17,7 @@ export function rep<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TR
 
 export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     return {
-        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] | ParseError {
+        parse(token: Token<TKind>): ParserOutput<TKind, TResult[]> {
             let error: ParseError | undefined;
             let result: ParseResult<TKind, TResult[]>[] = [{ nextToken: token, result: [] }];
 
@@ -50,7 +50,7 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
 
 export function repr<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     return {
-        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] | ParseError {
+        parse(token: Token<TKind>): ParserOutput<TKind, TResult[]> {
             let error: ParseError | undefined;
             const result: ParseResult<TKind, TResult[]>[] = [{ nextToken: token, result: [] }];
 
