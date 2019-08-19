@@ -3,6 +3,11 @@
 import * as assert from 'assert';
 import { alt, buildLexer, opt, opt_sc, rep, rep_sc, repr, seq, str, tok, Token } from '../src/index';
 
+function notUndefined<T>(t: T | undefined): T {
+    assert.notStrictEqual(t, undefined);
+    return <T>t;
+}
+
 enum TokenKind {
     Number,
     Identifier,
@@ -18,7 +23,7 @@ const lexer = buildLexer([
 ]);
 
 test(`Parser: str`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = str('123').parse(firstToken);
         assert.strictEqual(result.length, 1);
@@ -32,7 +37,7 @@ test(`Parser: str`, () => {
 });
 
 test(`Parser: tok`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = tok(TokenKind.Number).parse(firstToken);
         assert.strictEqual(result.length, 1);
@@ -46,7 +51,7 @@ test(`Parser: tok`, () => {
 });
 
 test(`Parser: alt`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = alt(tok(TokenKind.Number), tok(TokenKind.Identifier)).parse(firstToken);
         assert.strictEqual(result.length, 1);
@@ -56,7 +61,7 @@ test(`Parser: alt`, () => {
 });
 
 test(`Parser: seq`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = seq(tok(TokenKind.Number), tok(TokenKind.Identifier)).parse(firstToken);
         assert.strictEqual(result.length, 0);
@@ -70,11 +75,11 @@ test(`Parser: seq`, () => {
 });
 
 test(`Parser: opt`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = opt(tok(TokenKind.Number)).parse(firstToken);
         assert.strictEqual(result.length, 2);
-        assert.strictEqual(result[0].result.text, '123');
+        assert.strictEqual((<Token<TokenKind>>result[0].result).text, '123');
         assert.strictEqual(result[0].nextToken, firstToken.next);
         assert.strictEqual(result[1].result, undefined);
         assert.strictEqual(result[1].nextToken, firstToken);
@@ -82,17 +87,17 @@ test(`Parser: opt`, () => {
 });
 
 test(`Parser: opt_sc`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = opt_sc(tok(TokenKind.Number)).parse(firstToken);
         assert.strictEqual(result.length, 1);
-        assert.strictEqual(result[0].result.text, '123');
+        assert.strictEqual((<Token<TokenKind>>result[0].result).text, '123');
         assert.strictEqual(result[0].nextToken, firstToken.next);
     }
 });
 
 test(`Parser: rep_sc`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = rep_sc(tok(TokenKind.Number)).parse(firstToken);
         assert.strictEqual(result.length, 1);
@@ -102,7 +107,7 @@ test(`Parser: rep_sc`, () => {
 });
 
 test(`Parser: repr`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = repr(tok(TokenKind.Number)).parse(firstToken);
         assert.strictEqual(result.length, 3);
@@ -116,7 +121,7 @@ test(`Parser: repr`, () => {
 });
 
 test(`Parser: rep`, () => {
-    const firstToken = lexer.parse(`123,456`);
+    const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = rep(tok(TokenKind.Number)).parse(firstToken);
         assert.strictEqual(result.length, 3);

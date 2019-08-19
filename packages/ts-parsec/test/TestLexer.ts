@@ -3,6 +3,11 @@
 import * as assert from 'assert';
 import { buildLexer } from '../src/index';
 
+function notUndefined<T>(t: T | undefined): T {
+    assert.notStrictEqual(t, undefined);
+    return <T>t;
+}
+
 test(`Lexer: number with commas (one token)`, () => {
     enum TokenKind {
         Number,
@@ -14,12 +19,14 @@ test(`Lexer: number with commas (one token)`, () => {
         [true, /^,/g, TokenKind.Comma]
     ]);
 
-    const token = lexer.parse(`123`);
+    let token = lexer.parse(`123`);
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '123');
-    assert.strictEqual(token.next, undefined);
+    token = token.next;
+
+    assert.strictEqual(token, undefined);
 });
 
 test(`Lexer: number with commas (multiple token)`, () => {
@@ -35,17 +42,17 @@ test(`Lexer: number with commas (multiple token)`, () => {
 
     let token = lexer.parse(`123,456`);
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '123');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Comma);
     assert.strictEqual(token.text, ',');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '456');
     token = token.next;
@@ -66,17 +73,17 @@ test(`Lexer: number with commas (discard commas)`, () => {
 
     let token = lexer.parse(`123,456,789`);
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '123');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '456');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '789');
     token = token.next;
@@ -101,22 +108,22 @@ test(`Lexer: identifiers and numbers with discardable commas and spaces`, () => 
 
     let token = lexer.parse(`123, abc, 456, def, `);
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '123');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Identifier);
     assert.strictEqual(token.text, 'abc');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Number);
     assert.strictEqual(token.text, '456');
     token = token.next;
 
-    assert.notEqual(token, undefined);
+    token = notUndefined(token);
     assert.strictEqual(token.kind, TokenKind.Identifier);
     assert.strictEqual(token.text, 'def');
     token = token.next;
