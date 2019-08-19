@@ -28,12 +28,20 @@ const lexer = buildLexer([
     [false, /^\s+/g, TokenKind.Space]
 ]);
 
-function applyTerm1(value: Token<TokenKind.Number>): number {
+function applyNumber(value: Token<TokenKind.Number>): number {
     return +value.text;
 }
 
-function applyTerm2(value: [Token<TokenKind>, number, Token<TokenKind>]): number {
+function applyEscape(value: [Token<TokenKind>, number, Token<TokenKind>]): number {
     return value[1];
+}
+
+function applyUnary(value: [Token<TokenKind>, number]): number {
+    switch (value[0].text) {
+        case '+': return +value[1];
+        case '-': return -value[1];
+        default: throw new Error(`Unknown unary operator: ${value[0].text}`);
+    }
 }
 
 function applyBinary(first: number, second: [Token<TokenKind>, number]): number {
@@ -50,17 +58,34 @@ const TERM = rule<TokenKind, number>();
 const FACTOR = rule<TokenKind, number>();
 const EXP = rule<TokenKind, number>();
 
+/*
+TERM
+  = NUMBER
+  = ('+' | '-') TERM
+  = '(' EXP ')'
+*/
 TERM.setPattern(
     alt(
-        apply(tok(TokenKind.Number), applyTerm1),
-        apply(seq(str('('), EXP, str(')')), applyTerm2)
+        apply(tok(TokenKind.Number), applyNumber),
+        apply(seq(alt(str('+'), str('-')), TERM), applyUnary),
+        apply(seq(str('('), EXP, str(')')), applyEscape)
     )
 );
 
+/*
+FACTOR
+  = TERM
+  = FACTOR ('*' | '/') TERM
+*/
 FACTOR.setPattern(
     lrec_sc(TERM, seq(alt(str('*'), str('/')), TERM), applyBinary)
 );
 
+/*
+EXP
+  = FACTOR
+  = EXP ('+' | '-') FACTOR
+*/
 EXP.setPattern(
     lrec_sc(FACTOR, seq(alt(str('+'), str('-')), FACTOR), applyBinary)
 );
@@ -69,6 +94,15 @@ function evaluate(expr: string): number {
     return expectSingleResult(expectEOF(EXP.parse(lexer.parse(expr))));
 }
 
-test(`Parser: str`, () => {
+test(`Parser: calculator`, () => {
     assert.strictEqual(evaluate('1'), 1);
+    assert.strictEqual(evaluate('+1.5'), 1.5);
+    assert.strictEqual(evaluate('-0.5'), -0.5);
+    assert.strictEqual(evaluate('1 + 2'), 3);
+    assert.strictEqual(evaluate('1 - 2'), -1);
+    assert.strictEqual(evaluate('1 * 2'), 2);
+    assert.strictEqual(evaluate('1 / 2'), 0.5);
+    assert.strictEqual(evaluate('1 + 2 * 3 + 4'), 11);
+    assert.strictEqual(evaluate('(1 + 2) * (3 + 4)'), 21);
+    assert.strictEqual(evaluate('1.2--3.4'), 4.6);
 });
