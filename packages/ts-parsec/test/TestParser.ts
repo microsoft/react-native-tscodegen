@@ -41,7 +41,7 @@ test(`Parser: str`, () => {
     }
     {
         const result = str('456').parse(firstToken);
-        assert.strictEqual(result.length, 0);
+        assert.strictEqual(parsec.failed(result), true);
     }
 });
 

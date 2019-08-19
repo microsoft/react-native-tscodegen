@@ -37,3 +37,7 @@ export function betterError(e1: ParseError | undefined, e2: ParseError | undefin
         return e1;
     }
 }
+
+export function resultOrError<TKind, TResult>(result: ParseResult<TKind, TResult>[], error: ParseError | undefined): ParseResult<TKind, TResult>[] | ParseError {
+    return result.length === 0 && error !== undefined ? error : result;
+}
