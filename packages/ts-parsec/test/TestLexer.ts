@@ -103,7 +103,7 @@ test(`Lexer: identifiers and numbers with discardable commas and spaces`, () => 
         [true, /^\d+/g, TokenKind.Number],
         [true, /^[a-zA-Z]\w*/g, TokenKind.Identifier],
         [false, /^,/g, TokenKind.Comma],
-        [false, /^\s+/g, TokenKind.Comma]
+        [false, /^\s+/g, TokenKind.Space]
     ]);
 
     let token = lexer.parse(`123, abc, 456, def, `);

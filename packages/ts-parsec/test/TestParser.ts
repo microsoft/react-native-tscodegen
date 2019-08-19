@@ -28,7 +28,7 @@ const lexer = buildLexer([
     [true, /^\d+/g, TokenKind.Number],
     [true, /^[a-zA-Z]\w*/g, TokenKind.Identifier],
     [false, /^,/g, TokenKind.Comma],
-    [false, /^\s+/g, TokenKind.Comma]
+    [false, /^\s+/g, TokenKind.Space]
 ]);
 
 test(`Parser: str`, () => {
@@ -103,6 +103,12 @@ test(`Parser: opt_sc`, () => {
         assert.strictEqual((<Token<TokenKind>>result[0].result).text, '123');
         assert.strictEqual(result[0].nextToken, firstToken.next);
     }
+    {
+        const result = succeeded(opt_sc(tok(TokenKind.Identifier)).parse(firstToken));
+        assert.strictEqual(result.length, 1);
+        assert.strictEqual(result[0].result, undefined);
+        assert.strictEqual(result[0].nextToken, firstToken.next);
+    }
 });
 
 test(`Parser: rep_sc`, () => {
@@ -111,6 +117,12 @@ test(`Parser: rep_sc`, () => {
         const result = succeeded(rep_sc(tok(TokenKind.Number)).parse(firstToken));
         assert.strictEqual(result.length, 1);
         assert.deepStrictEqual(result[0].result.map((value: Token<TokenKind>) => value.text), ['123', '456']);
+        assert.strictEqual(result[0].nextToken, undefined);
+    }
+    {
+        const result = succeeded(rep_sc(tok(TokenKind.Identifier)).parse(firstToken));
+        assert.strictEqual(result.length, 1);
+        assert.deepStrictEqual(result[0].result.map((value: Token<TokenKind>) => value.text), []);
         assert.strictEqual(result[0].nextToken, undefined);
     }
 });
