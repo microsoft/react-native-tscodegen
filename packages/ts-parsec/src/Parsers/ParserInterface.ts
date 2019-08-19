@@ -14,3 +14,11 @@ export interface ParseError {
 export interface Parser<TKind, TResult> {
     parse(token: Token<TKind> | undefined): ParseResult<TKind, TResult>[] | ParseError;
 }
+
+export function succeeded<TKind, TResult>(r: ParseResult<TKind, TResult>[] | ParseError): r is ParseResult<TKind, TResult>[] {
+    return r instanceof Array;
+}
+
+export function failed<TKind, TResult>(r: ParseResult<TKind, TResult>[] | ParseError): r is ParseError {
+    return !(r instanceof Array);
+}
