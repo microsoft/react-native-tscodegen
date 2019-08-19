@@ -72,8 +72,8 @@ test(`Parser: alt`, () => {
 test(`Parser: seq`, () => {
     const firstToken = notUndefined(lexer.parse(`123,456`));
     {
-        const result = succeeded(seq(tok(TokenKind.Number), tok(TokenKind.Identifier)).parse(firstToken));
-        assert.strictEqual(result.length, 0);
+        const result = seq(tok(TokenKind.Number), tok(TokenKind.Identifier)).parse(firstToken);
+        assert.strictEqual(parsec.failed(result), true);
     }
     {
         const result = succeeded(seq(tok(TokenKind.Number), tok(TokenKind.Number)).parse(firstToken));

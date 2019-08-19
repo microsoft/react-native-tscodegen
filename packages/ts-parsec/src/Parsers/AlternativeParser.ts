@@ -65,7 +65,7 @@ export function alt(...ps: Parser<void, {}>[]): Parser<void, {}> {
             for (const p of ps) {
                 const choices = p.parse(token);
                 if (succeeded(choices)) {
-                    result = result.concat();
+                    result = result.concat(choices);
                 } else {
                     error = betterError(error, choices);
                 }

@@ -64,6 +64,10 @@ export function seq(...ps: Parser<void, {}>[]): Parser<void, {}> {
             let result: ParseResult<void, {}[]>[] = [{ nextToken: token, result: [] }];
 
             for (const p of ps) {
+                if (result.length === 0) {
+                    break;
+                }
+
                 const steps = result;
                 result = [];
                 for (const step of steps) {
