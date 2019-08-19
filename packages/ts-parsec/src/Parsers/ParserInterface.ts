@@ -41,3 +41,11 @@ export function betterError(e1: ParseError | undefined, e2: ParseError | undefin
 export function resultOrError<TKind, TResult>(result: ParseResult<TKind, TResult>[], error: ParseError | undefined): ParseResult<TKind, TResult>[] | ParseError {
     return result.length === 0 && error !== undefined ? error : result;
 }
+
+export function unableToConsumeToken<TKind>(token: Token<TKind> | undefined): ParseError {
+    return {
+        kind: 'Error',
+        pos: token === undefined ? undefined : token.pos,
+        message: `Unable to consume token: ${token === undefined ? '<END-OF-FILE>' : token.text}`
+    };
+}

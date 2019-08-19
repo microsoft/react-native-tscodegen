@@ -21,6 +21,12 @@ export interface Lexer<T> {
     parse(input: string): Token<T> | undefined;
 }
 
+export class TokenError extends Error {
+    constructor(public pos: TokenPosition, errorMessage: string) {
+        super(errorMessage);
+    }
+}
+
 class TokenImpl<T> implements Token<T> {
     private nextToken: Token<T> | undefined | null;
 
@@ -90,7 +96,10 @@ class LexerImpl<T> implements Lexer<T> {
             }
         }
 
-        throw new Error(`Unable to tokenize the rest of the input: ${input.substr(indexStart)}`);
+        throw new TokenError(
+            { index: indexStart, rowBegin, columnBegin, rowEnd: rowBegin, columnEnd: columnBegin },
+            `Unable to tokenize the rest of the input: ${input.substr(indexStart)}`
+        );
     }
 
     public parseNextAvailable(input: string, index: number, rowBegin: number, columnBegin: number): TokenImpl<T> | undefined {

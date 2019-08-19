@@ -11,7 +11,7 @@ function notUndefined<T>(t: T | undefined): T {
 }
 
 function succeeded<TKind, TResult>(r: parsec.ParseResult<TKind, TResult>[] | parsec.ParseError): parsec.ParseResult<TKind, TResult>[] {
-    if (!parsec.succeeded(r)) {
+    if (parsec.failed(r)) {
         assert.fail();
     }
     return <parsec.ParseResult<TKind, TResult>[]>r;
