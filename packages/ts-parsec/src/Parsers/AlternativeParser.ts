@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { Parser, ParseResult } from './ParserInterface';
+import { Parser, ParseError, ParseResult } from './ParserInterface';
 
 export function alt<TKind, T1, T2>(
     p1: Parser<TKind, T1>,
@@ -59,7 +59,7 @@ export function alt<TKind, T1, T2, T3, T4, T5, T6, T7, T8>(
 
 export function alt(...ps: Parser<void, {}>[]): Parser<void, {}> {
     return {
-        parse(token: Token<void> | undefined): ParseResult<void, {}>[] {
+        parse(token: Token<void> | undefined): ParseResult<void, {}>[] | ParseError {
             let result: ParseResult<void, {}>[] = [];
             for (const p of ps) {
                 result = result.concat(p.parse(token));

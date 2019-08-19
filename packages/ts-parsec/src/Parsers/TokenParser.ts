@@ -1,9 +1,9 @@
 import { Token } from '../Lexer';
-import { Parser, ParseResult } from './ParserInterface';
+import { Parser, ParseError, ParseResult } from './ParserInterface';
 
 export function nil<T>(): Parser<T, undefined> {
     return {
-        parse(token: Token<T> | undefined): ParseResult<T, undefined>[] {
+        parse(token: Token<T> | undefined): ParseResult<T, undefined>[] | ParseError {
             return [{
                 nextToken: token,
                 result: undefined
@@ -14,7 +14,7 @@ export function nil<T>(): Parser<T, undefined> {
 
 export function str<T>(toMatch: string): Parser<T, Token<T>> {
     return {
-        parse(token: Token<T> | undefined): ParseResult<T, Token<T>>[] {
+        parse(token: Token<T> | undefined): ParseResult<T, Token<T>>[] | ParseError {
             if (token === undefined || token.text !== toMatch) {
                 return [];
             }
@@ -28,7 +28,7 @@ export function str<T>(toMatch: string): Parser<T, Token<T>> {
 
 export function tok<T>(toMatch: T): Parser<T, Token<T>> {
     return {
-        parse(token: Token<T> | undefined): ParseResult<T, Token<T>>[] {
+        parse(token: Token<T> | undefined): ParseResult<T, Token<T>>[] | ParseError {
             if (token === undefined || token.kind !== toMatch) {
                 return [];
             }

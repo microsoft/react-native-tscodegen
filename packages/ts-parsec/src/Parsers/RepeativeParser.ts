@@ -3,12 +3,12 @@
 // tslint:disable:prefer-for-of
 
 import { Token } from '../Lexer';
-import { Parser, ParseResult } from './ParserInterface';
+import { Parser, ParseError, ParseResult } from './ParserInterface';
 
 export function rep<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     const reprParser = repr(p);
     return {
-        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] {
+        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] | ParseError {
             return reprParser.parse(token).reverse();
         }
     };
@@ -16,7 +16,7 @@ export function rep<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TR
 
 export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     return {
-        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] {
+        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] | ParseError {
             let result: ParseResult<TKind, TResult[]>[] = [{ nextToken: token, result: [] }];
             while (true) {
                 const steps = result;
@@ -43,7 +43,7 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
 
 export function repr<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     return {
-        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] {
+        parse(token: Token<TKind>): ParseResult<TKind, TResult[]>[] | ParseError {
             const result: ParseResult<TKind, TResult[]>[] = [{ nextToken: token, result: [] }];
             for (let i = 0; i < result.length; i++) {
                 const step = result[i];

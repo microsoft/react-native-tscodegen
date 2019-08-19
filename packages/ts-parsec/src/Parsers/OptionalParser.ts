@@ -1,6 +1,6 @@
 import { Token } from '../Lexer';
 import { alt } from './AlternativeParser';
-import { Parser, ParseResult } from './ParserInterface';
+import { Parser, ParseError, ParseResult } from './ParserInterface';
 import { nil } from './TokenParser';
 
 export function opt<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult | undefined> {
@@ -10,7 +10,7 @@ export function opt<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TR
 export function opt_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult | undefined> {
     const nilParser = nil<TKind>();
     return {
-        parse(token: Token<TKind> | undefined): ParseResult<TKind, TResult | undefined>[] {
+        parse(token: Token<TKind> | undefined): ParseResult<TKind, TResult | undefined>[] | ParseError {
             const result = p.parse(token);
             if (result.length === 0) {
                 return nilParser.parse(token);
