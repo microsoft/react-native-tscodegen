@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { Parser, ParseError, ParseResult } from './ParserInterface';
+import { ParseError, Parser, ParseResult } from './ParserInterface';
 
 export function apply<TKind, TFrom, TTo>(p: Parser<TKind, TFrom>, callback: (value: TFrom) => TTo): Parser<TKind, TTo> {
     return {

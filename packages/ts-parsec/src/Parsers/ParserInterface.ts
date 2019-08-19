@@ -7,7 +7,7 @@ export interface ParseResult<TKind, TResult> {
 
 export interface ParseError {
     readonly kind: 'Error';
-    readonly pos: TokenPosition;
+    readonly pos: TokenPosition | undefined;
     readonly message: string;
 }
 

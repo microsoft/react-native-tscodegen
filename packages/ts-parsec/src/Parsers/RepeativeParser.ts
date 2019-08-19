@@ -3,7 +3,7 @@
 // tslint:disable:prefer-for-of
 
 import { Token } from '../Lexer';
-import { Parser, ParseError, ParseResult } from './ParserInterface';
+import { ParseError, Parser, ParseResult } from './ParserInterface';
 
 export function rep<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     const reprParser = repr(p);

@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { Parser, ParseError, ParseResult } from './ParserInterface';
+import { ParseError, Parser, ParseResult } from './ParserInterface';
 
 export function seq<TKind, T1, T2>(
     p1: Parser<TKind, T1>,

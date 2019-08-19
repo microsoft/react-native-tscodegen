@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { Parser, ParseError, ParseResult } from './ParserInterface';
+import { ParseError, Parser, ParseResult } from './ParserInterface';
 
 export function nil<T>(): Parser<T, undefined> {
     return {
@@ -16,7 +16,11 @@ export function str<T>(toMatch: string): Parser<T, Token<T>> {
     return {
         parse(token: Token<T> | undefined): ParseResult<T, Token<T>>[] | ParseError {
             if (token === undefined || token.text !== toMatch) {
-                return [];
+                return {
+                    kind: 'Error',
+                    pos: token === undefined ? undefined : token.pos,
+                    message: `Unable to consume token: ${token === undefined ? '<END-OF-FILE>' : token.text}`
+                };
             }
             return [{
                 nextToken: token.next,
@@ -30,7 +34,11 @@ export function tok<T>(toMatch: T): Parser<T, Token<T>> {
     return {
         parse(token: Token<T> | undefined): ParseResult<T, Token<T>>[] | ParseError {
             if (token === undefined || token.kind !== toMatch) {
-                return [];
+                return {
+                    kind: 'Error',
+                    pos: token === undefined ? undefined : token.pos,
+                    message: `Unable to consume token: ${token === undefined ? '<END-OF-FILE>' : token.text}`
+                };
             }
             return [{
                 nextToken: token.next,

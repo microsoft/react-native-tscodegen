@@ -1,6 +1,6 @@
 import { Token } from '../Lexer';
 import { alt } from './AlternativeParser';
-import { Parser, ParseError, ParseResult } from './ParserInterface';
+import { ParseError, Parser, ParseResult } from './ParserInterface';
 import { nil } from './TokenParser';
 
 export function opt<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult | undefined> {
