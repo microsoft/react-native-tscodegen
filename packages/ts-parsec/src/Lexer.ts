@@ -1,9 +1,19 @@
 // tslint:disable:no-constant-condition
+// tslint:disable:no-increment-decrement
 // tslint:disable:no-null-keyword
+
+export interface TokenPosition {
+    readonly index: number;
+    readonly rowBegin: number;
+    readonly columnBegin: number;
+    readonly rowEnd: number;
+    readonly columnEnd: number;
+}
 
 export interface Token<T> {
     readonly kind: T;
     readonly text: string;
+    readonly pos: TokenPosition;
     readonly next: Token<T> | undefined;
 }
 
@@ -19,14 +29,19 @@ class TokenImpl<T> implements Token<T> {
         private readonly input: string,
         public kind: T,
         public text: string,
-        public index: number,
+        public pos: TokenPosition,
         public keep: boolean
     ) {
     }
 
     public get next(): Token<T> | undefined {
         if (this.nextToken === undefined) {
-            this.nextToken = this.lexer.parseNextAvailable(this.input, this.index + this.text.length);
+            this.nextToken = this.lexer.parseNextAvailable(
+                this.input,
+                this.pos.index + this.text.length,
+                this.pos.rowEnd,
+                this.pos.columnEnd
+            );
             if (this.nextToken === undefined) {
                 this.nextToken = null;
             }
@@ -49,30 +64,44 @@ class LexerImpl<T> implements Lexer<T> {
     }
 
     public parse(input: string): TokenImpl<T> | undefined {
-        return this.parseNextAvailable(input, 0);
+        return this.parseNextAvailable(input, 0, 1, 1);
     }
 
-    public parseNext(input: string, index: number): TokenImpl<T> | undefined {
-        if (index === input.length) {
+    public parseNext(input: string, indexStart: number, rowBegin: number, columnBegin: number): TokenImpl<T> | undefined {
+        if (indexStart === input.length) {
             return undefined;
         }
 
-        const subString = input.substr(index);
+        const subString = input.substr(indexStart);
         for (const [keep, regexp, kind] of this.rules) {
             regexp.lastIndex = 0;
             if (regexp.test(subString)) {
                 const text = subString.substr(0, regexp.lastIndex);
-                return new TokenImpl<T>(this, input, kind, text, index, keep);
+                let rowEnd = rowBegin;
+                let columnEnd = columnBegin;
+                for (const c of text) {
+                    switch (c) {
+                        case '\r': break;
+                        case '\n': rowEnd++; columnEnd = 1; break;
+                        default: columnEnd++;
+                    }
+                }
+                return new TokenImpl<T>(this, input, kind, text, { index: indexStart, rowBegin, columnBegin, rowEnd, columnEnd }, keep);
             }
         }
 
-        throw new Error(`Unable to tokenize the rest of the input: ${input.substr(index)}`);
+        throw new Error(`Unable to tokenize the rest of the input: ${input.substr(indexStart)}`);
     }
 
-    public parseNextAvailable(input: string, index: number): TokenImpl<T> | undefined {
+    public parseNextAvailable(input: string, index: number, rowBegin: number, columnBegin: number): TokenImpl<T> | undefined {
         let token: TokenImpl<T> | undefined;
         while (true) {
-            token = this.parseNext(input, token === undefined ? index : token.index + token.text.length);
+            token = this.parseNext(
+                input,
+                (token === undefined ? index : token.pos.index + token.text.length),
+                (token === undefined ? rowBegin : token.pos.rowEnd),
+                (token === undefined ? columnBegin : token.pos.columnEnd)
+            );
             if (token === undefined) {
                 return undefined;
             } else if (token.keep) {
