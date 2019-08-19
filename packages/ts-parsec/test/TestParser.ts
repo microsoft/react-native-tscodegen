@@ -107,7 +107,7 @@ test(`Parser: opt_sc`, () => {
         const result = succeeded(opt_sc(tok(TokenKind.Identifier)).parse(firstToken));
         assert.strictEqual(result.length, 1);
         assert.strictEqual(result[0].result, undefined);
-        assert.strictEqual(result[0].nextToken, firstToken.next);
+        assert.strictEqual(result[0].nextToken, firstToken);
     }
 });
 
@@ -123,7 +123,7 @@ test(`Parser: rep_sc`, () => {
         const result = succeeded(rep_sc(tok(TokenKind.Identifier)).parse(firstToken));
         assert.strictEqual(result.length, 1);
         assert.deepStrictEqual(result[0].result.map((value: Token<TokenKind>) => value.text), []);
-        assert.strictEqual(result[0].nextToken, undefined);
+        assert.strictEqual(result[0].nextToken, firstToken);
     }
 });
 
