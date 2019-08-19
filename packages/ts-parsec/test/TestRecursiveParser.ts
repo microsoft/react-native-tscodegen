@@ -18,7 +18,7 @@ enum TokenKind {
 }
 
 const lexer = buildLexer([
-    [true, /^\d+(\.\d+)/g, TokenKind.Number],
+    [true, /^\d+(\.\d+)?/g, TokenKind.Number],
     [true, /^\+/g, TokenKind.Add],
     [true, /^\-/g, TokenKind.Sub],
     [true, /^\*/g, TokenKind.Mul],
@@ -62,7 +62,7 @@ FACTOR.setPattern(
 );
 
 EXP.setPattern(
-    lrec_sc(FACTOR, seq(alt(str('*'), str('/')), FACTOR), applyBinary)
+    lrec_sc(FACTOR, seq(alt(str('+'), str('-')), FACTOR), applyBinary)
 );
 
 function evaluate(expr: string): number {
