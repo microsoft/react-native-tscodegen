@@ -23,5 +23,9 @@
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",
     "tslint-shared": "^1.0.0"
+  },
+  "dependencies": {
+    "minimum-flow-parser": "^1.0.0",
+    "ts-parsec": "^1.0.0"
   }
 }

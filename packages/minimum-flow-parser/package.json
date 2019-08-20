@@ -1,8 +1,8 @@
 {
-  "name": "ts-parsec",
+  "name": "minimum-flow-parser",
   "version": "1.0.0",
-  "description": "TypeScript Parser Combinator",
-  "main": "./lib/index.js",
+  "description": "Minimum Flow parser just enough to convert Flow to TypeScript for this project",
+  "main": "lib/index.js",
   "scripts": {
     "build": "tslint --project tsconfig.json & tsc",
     "test": "jest"
@@ -26,6 +26,9 @@
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",
     "tslint-shared": "^1.0.0"
+  },
+  "dependencies": {
+    "ts-parsec": "^1.0.0"
   },
   "jest": {
     "testRegex": "/lib/test/Test.*\\.js",
