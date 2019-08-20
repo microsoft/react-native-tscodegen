@@ -1,9 +1,20 @@
 import * as assert from 'assert';
 import { tokenizer, TokenKind } from '../src/Tokenizer';
 
+function testTokenizer(input: string, expecteds: [TokenKind, string][]): void {
+  let token = tokenizer.parse(input);
+
+  for (const expected of expecteds) {
+    assert.notStrictEqual(token, undefined);
+    assert.strictEqual(token.kind, expected[0]);
+    assert.strictEqual(token.text, expected[1]);
+    token = token.next;
+  }
+  assert.strictEqual(token, undefined);
+}
+
 test(`Test Tokenizer with Normal Tokens`, () => {
   const input = `boolean export null number string type Identifier $Identifier 'StringLiteral' =<>|{};:,`;
-  let token = tokenizer.parse(input);
 
   const expecteds: [TokenKind, string][] = [
     [TokenKind.KEYWORD_boolean, `boolean`],
@@ -26,15 +37,21 @@ test(`Test Tokenizer with Normal Tokens`, () => {
     [TokenKind.Comma, `,`]
   ];
 
-  for (const expected of expecteds) {
-    assert.notStrictEqual(token, undefined);
-    assert.strictEqual(token.kind, expected[0]);
-    assert.strictEqual(token.text, expected[1]);
-    token = token.next;
-  }
-  assert.strictEqual(token, undefined);
+  testTokenizer(input, expecteds);
 });
 
 test(`Test Tokenizer with Comments`, () => {
-  // nothing
+  const input = `
+I // this is a comment
+like /* this is another comment
+John Wick */ movie
+  `;
+
+  const expecteds: [TokenKind, string][] = [
+    [TokenKind.Identifier, `I`],
+    [TokenKind.Identifier, `like`],
+    [TokenKind.Identifier, `movie`]
+  ];
+
+  testTokenizer(input, expecteds);
 });
