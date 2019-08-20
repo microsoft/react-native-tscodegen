@@ -60,6 +60,12 @@ export interface UnionType extends Type {
   elementTypes: Type[];
 }
 
+export interface TypeReference extends Type {
+  kind: 'TypeReference';
+  name: string;
+  typeArguments: Type[];
+}
+
 export interface Statement {
 }
 
