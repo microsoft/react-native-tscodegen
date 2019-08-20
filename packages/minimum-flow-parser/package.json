@@ -2,7 +2,7 @@
   "name": "minimum-flow-parser",
   "version": "1.0.0",
   "description": "Minimum Flow parser just enough to convert Flow to TypeScript for this project",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "scripts": {
     "build": "tslint --project tsconfig.json & tsc",
     "test": "jest"
