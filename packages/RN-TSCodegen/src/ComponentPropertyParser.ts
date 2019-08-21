@@ -47,7 +47,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
     }];
     case 'Object': return [rawType.isNullable, {
       type: 'ObjectTypeAnnotation',
-      properties: rawType.properties.map((value: { name: string, propertyType: RNRawType }) => {
+      properties: rawType.properties.map((value: { name: string; propertyType: RNRawType }) => {
         const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
         return {
           name: value.name,
@@ -111,7 +111,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
           type: 'ArrayTypeAnnotation',
           elementType: {
             type: 'ObjectTypeAnnotation',
-            properties: rawType.elementType.properties.map((value: { name: string, propertyType: RNRawType }) => {
+            properties: rawType.elementType.properties.map((value: { name: string; propertyType: RNRawType }) => {
               const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
               return {
                 name: value.name,

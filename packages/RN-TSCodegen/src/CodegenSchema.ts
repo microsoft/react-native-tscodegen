@@ -1,12 +1,5 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @flow strict
- * @format
- */
+
+// Automatically generated from react-native/packages/react-native-codegen/src/CodegenSchema.js
 
 'use strict';
 
@@ -95,7 +88,9 @@ export type PropTypeTypeAnnotation =
     }>
   | Readonly<{
       type: 'StringTypeAnnotation';
-      default: string | null;
+      default:
+        | string
+        | null;
     }>
   | Readonly<{
       type: 'DoubleTypeAnnotation';
@@ -118,7 +113,10 @@ export type PropTypeTypeAnnotation =
     }>
   | Readonly<{
       type: 'NativePrimitiveTypeAnnotation';
-      name: 'ColorPrimitive' | 'ImageSourcePrimitive' | 'PointPrimitive';
+      name:
+        | 'ColorPrimitive'
+        | 'ImageSourcePrimitive'
+        | 'PointPrimitive';
     }>
   | Readonly<{
       type: 'ObjectTypeAnnotation';
@@ -155,7 +153,10 @@ export type PropTypeTypeAnnotation =
           }>
         | Readonly<{
             type: 'NativePrimitiveTypeAnnotation';
-            name: 'ColorPrimitive' | 'ImageSourcePrimitive' | 'PointPrimitive';
+            name:
+              | 'ColorPrimitive'
+              | 'ImageSourcePrimitive'
+              | 'PointPrimitive';
           }>;
     }>;
 
@@ -183,15 +184,15 @@ export type FunctionTypeAnnotationParamTypeAnnotation =
       type:
         | 'AnyTypeAnnotation'
         | 'FunctionTypeAnnotation'
-        | PrimitiveTypeAnnotationType,
+        | PrimitiveTypeAnnotationType;
     }>
   | Readonly<{
       type: 'ArrayTypeAnnotation';
-      elementType: FunctionTypeAnnotationParamTypeAnnotation;
+      elementType: (undefined | FunctionTypeAnnotationParamTypeAnnotation);
     }>
   | Readonly<{
       type: 'ObjectTypeAnnotation';
-      properties: ReadonlyArray<ObjectParamTypeAnnotation>;
+      properties: (undefined | ReadonlyArray<ObjectParamTypeAnnotation>);
     }>;
 
 export type FunctionTypeAnnotationReturnArrayElementType = FunctionTypeAnnotationParamTypeAnnotation;
@@ -208,17 +209,17 @@ export type FunctionTypeAnnotationReturn =
       type:
         | PrimitiveTypeAnnotationType
         | 'VoidTypeAnnotation'
-        | 'GenericPromiseTypeAnnotation',
+        | 'GenericPromiseTypeAnnotation';
     }>
   | Readonly<{
       nullable: boolean;
       type: 'ArrayTypeAnnotation';
-      elementType: FunctionTypeAnnotationReturnArrayElementType;
+      elementType: (undefined | FunctionTypeAnnotationReturnArrayElementType);
     }>
   | Readonly<{
       nullable: boolean;
       type: 'ObjectTypeAnnotation';
-      properties: ReadonlyArray<ObjectParamTypeAnnotation>;
+      properties: (undefined | ReadonlyArray<ObjectParamTypeAnnotation>);
     }>;
 
 export type FunctionTypeAnnotationParam = Readonly<{
@@ -245,7 +246,9 @@ export type NativeModuleShape = Readonly<{
 
 export type EventTypeShape = Readonly<{
   name: string;
-  bubblingType: 'direct' | 'bubble';
+  bubblingType:
+    | 'direct'
+    | 'bubble';
   optional: boolean;
   paperTopLevelNameDeprecated?: string;
   typeAnnotation: Readonly<{
@@ -265,13 +268,7 @@ export type CommandTypeShape = Readonly<{
 
 export type OptionsShape = Readonly<{
   interfaceOnly?: boolean;
-
-  // Use for components with no current paper rename in progress
-  // Does not check for new name
   paperComponentName?: string;
-
-  // Use for components currently being renamed in paper
-  // Will use new name if it is available and fallback to this name
   paperComponentNameDeprecated?: string;
 }>;
 
@@ -299,3 +296,4 @@ export type SchemaType = Readonly<{
     }>;
   }>;
 }>;
+

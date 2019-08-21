@@ -87,8 +87,9 @@ function convertCodegenSchema(): void {
 ${
     printTypeScript(
       expectSingleResult(expectEOF(flow.PROGRAM.parse(flow.tokenizer.parse(flowSourceCode)))),
-      true)
-    }`;
+      true,
+      { useReactNull: false }
+    )}`;
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }
 
