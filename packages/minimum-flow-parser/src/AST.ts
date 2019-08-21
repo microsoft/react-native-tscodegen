@@ -114,13 +114,13 @@ export interface ExprReference {
 
 export interface TypeCastExpr {
   kind: 'TypeCastExpr';
-  fromExpr: Expression;
+  expr: Expression;
   toType: Type;
 }
 
 export interface CallExpr {
   kind: 'CallExpr';
-  func: Expression;
+  expr: Expression;
   funcArguments: Expression[];
 }
 

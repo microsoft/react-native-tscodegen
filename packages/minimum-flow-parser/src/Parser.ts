@@ -233,6 +233,27 @@ function applyParenExpr(value: [Token, ast.Expression, Token]): ast.Expression {
   };
 }
 
+function applyTypeCastExprLrec(value: [Token, ast.Type]): ast.TypeCastExpr {
+  return {
+    kind: 'TypeCastExpr',
+    expr: <ast.Expression><unknown>undefined,
+    toType: value[1]
+  };
+}
+
+function applyCallExprLrec(value: [Token, ast.Expression[], undefined | Token, Token]): ast.CallExpr {
+  return {
+    kind: 'CallExpr',
+    expr: <ast.Expression><unknown>undefined,
+    funcArguments: value[1]
+  };
+}
+
+function applyExprLrec(first: ast.Expression, second: ast.TypeCastExpr | ast.CallExpr): ast.Expression {
+  second.expr = first;
+  return second;
+}
+
 /*****************************************************************
  * Declarations (apply)
  ****************************************************************/
@@ -309,6 +330,7 @@ export const IDENTIFIER = rule<TokenKind, Token>();
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
 export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
+export const EXPR_TERM = rule<TokenKind, ast.Expression>();
 export const EXPR = rule<TokenKind, ast.Expression>();
 export const DECL = rule<TokenKind, ast.Declaration>();
 export const STAT = rule<TokenKind, ast.Statement>();
@@ -385,13 +407,24 @@ TYPE.setPattern(
   )
 );
 
-EXPR.setPattern(
+EXPR_TERM.setPattern(
   alt(
     apply(
       alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
       applyLiteralExpr),
     apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyExprReference),
     apply(seq(str('('), EXPR, str(')')), applyParenExpr)
+  )
+);
+
+EXPR.setPattern(
+  lrec_sc(
+    EXPR_TERM,
+    alt(
+      apply(seq(str(':'), TYPE), applyTypeCastExprLrec),
+      apply(seq(str('('), list_sc(EXPR, str(',')), opt_sc(str(',')), str(')')), applyCallExprLrec)
+    ),
+    applyExprLrec
   )
 );
 

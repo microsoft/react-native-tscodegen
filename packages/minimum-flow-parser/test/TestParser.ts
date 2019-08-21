@@ -362,6 +362,30 @@ test(`Test Expr Reference`, () => {
   });
 });
 
+test(`Test Call Expression`, () => {
+  assert.deepStrictEqual(parseExpr(`a(123,(456:string)):number`), {
+    kind: 'TypeCastExpr',
+    expr: {
+      kind: 'CallExpr',
+      expr: { kind: 'ExprReference', name: 'a' },
+      funcArguments: [{
+        kind: 'LiteralExpr',
+        text: '123',
+        typeArguments: []
+      },
+      {
+        kind: 'ParenExpr',
+        expr: {
+          kind: 'TypeCastExpr',
+          expr: { kind: 'LiteralExpr', text: '456' },
+          toType: { kind: 'PrimitiveType', name: 'string' }
+        }
+      }]
+    },
+    toType: { kind: 'PrimitiveType', name: 'number' }
+  });
+});
+
 /*****************************************************************
  * Statements
  ****************************************************************/
