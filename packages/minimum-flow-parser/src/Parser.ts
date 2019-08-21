@@ -312,6 +312,13 @@ function applyImportNameStat(value: [Token, undefined | Token, Token, Token[], T
   };
 }
 
+function applyExportDefaultStat(value: [Token, Token, ast.Expression, Token]): ast.Statement {
+  return {
+    kind: 'ExportDefaultStat',
+    expr: value[2]
+  };
+}
+
 /*****************************************************************
  * Flow Program AST (apply)
  ****************************************************************/
@@ -438,10 +445,13 @@ DECL.setPattern(
 STAT.setPattern(
   alt(
     DECL,
-    apply(seq(str('const'), tok(TokenKind.Identifier), str('='), str('require'), str('('), tok(TokenKind.StringLiteral), str(')'), str(';')), applyImportEqualStat),
-    apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
-    apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat),
-    apply(seq(str(`'use strict'`), str(';')), applyUseStrictStat)
+    apply(seq(str(`'use strict'`), str(';')), applyUseStrictStat),
+    alt(
+      apply(seq(str('const'), tok(TokenKind.Identifier), str('='), str('require'), str('('), tok(TokenKind.StringLiteral), str(')'), str(';')), applyImportEqualStat),
+      apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
+      apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat),
+    ),
+    apply(seq(str('export'), str('default'), EXPR, str(';')), applyExportDefaultStat)
   )
 );
 
