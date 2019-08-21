@@ -35,7 +35,7 @@ test(`Test CodegenSchema.js`, () => {
             name: '$ReadOnly',
             elementType: {
               kind: 'ObjectType',
-              isExact: true,
+              isExact: false,
               mixinTypes: [],
               members: [{
                 kind: 'Indexer',
@@ -43,53 +43,57 @@ test(`Test CodegenSchema.js`, () => {
                 keyName: 'module',
                 keyType: { kind: 'PrimitiveType', name: 'string' },
                 valueType: {
-                  kind: 'ObjectType',
-                  isExact: true,
-                  mixinTypes: [],
-                  members: [{
-                    kind: 'Prop',
-                    isReadonly: false,
-                    isOptional: true,
-                    name: 'components',
-                    propType: {
-                      kind: 'DecoratedGenericType',
-                      name: '$ReadOnly',
-                      elementType: {
-                        kind: 'ObjectType',
-                        isExact: false,
-                        mixinTypes: [],
-                        members: [{
-                          kind: 'Indexer',
-                          isReadonly: false,
-                          keyName: 'component',
-                          keyType: { kind: 'PrimitiveType', name: 'string' },
-                          valueType: { kind: 'TypeReference', name: 'ComponentShape', typeArguments: [] }
-                        }]
+                  kind: 'DecoratedGenericType',
+                  name: '$ReadOnly',
+                  elementType: {
+                    kind: 'ObjectType',
+                    isExact: true,
+                    mixinTypes: [],
+                    members: [{
+                      kind: 'Prop',
+                      isReadonly: false,
+                      isOptional: true,
+                      name: 'components',
+                      propType: {
+                        kind: 'DecoratedGenericType',
+                        name: '$ReadOnly',
+                        elementType: {
+                          kind: 'ObjectType',
+                          isExact: false,
+                          mixinTypes: [],
+                          members: [{
+                            kind: 'Indexer',
+                            isReadonly: false,
+                            keyName: 'component',
+                            keyType: { kind: 'PrimitiveType', name: 'string' },
+                            valueType: { kind: 'TypeReference', name: 'ComponentShape', typeArguments: [] }
+                          }]
+                        }
                       }
-                    }
-                  },
-                  {
-                    kind: 'Prop',
-                    isReadonly: false,
-                    isOptional: true,
-                    name: 'nativeModules',
-                    propType: {
-                      kind: 'DecoratedGenericType',
-                      name: '$ReadOnly',
-                      elementType: {
-                        kind: 'ObjectType',
-                        isExact: false,
-                        mixinTypes: [],
-                        members: [{
-                          kind: 'Indexer',
-                          isReadonly: false,
-                          keyName: 'nativeModule',
-                          keyType: { kind: 'PrimitiveType', name: 'string' },
-                          valueType: { kind: 'TypeReference', name: 'NativeModuleShape', typeArguments: [] }
-                        }]
+                    },
+                    {
+                      kind: 'Prop',
+                      isReadonly: false,
+                      isOptional: true,
+                      name: 'nativeModules',
+                      propType: {
+                        kind: 'DecoratedGenericType',
+                        name: '$ReadOnly',
+                        elementType: {
+                          kind: 'ObjectType',
+                          isExact: false,
+                          mixinTypes: [],
+                          members: [{
+                            kind: 'Indexer',
+                            isReadonly: false,
+                            keyName: 'nativeModule',
+                            keyType: { kind: 'PrimitiveType', name: 'string' },
+                            valueType: { kind: 'TypeReference', name: 'NativeModuleShape', typeArguments: [] }
+                          }]
+                        }
                       }
-                    }
-                  }]
+                    }]
+                  }
                 }
               }]
             }
