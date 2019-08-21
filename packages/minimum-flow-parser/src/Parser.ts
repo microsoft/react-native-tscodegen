@@ -60,18 +60,28 @@ function applyDecoratedGenericType(value: [Token, Token, ast.Type, Token]): ast.
   };
 }
 
-function applyTypeReference(value: [Token, undefined | [Token, ast.Type[], Token]]): ast.Type {
-  const [name, typeArguments] = value;
+function applyTypeReference(value: [Token[], undefined | [Token, ast.Type[], Token]]): ast.Type {
+  const [names, typeArguments] = value;
+
+  let entity: ast.EntityName | undefined;
+  for (const name of names) {
+    if (entity === undefined) {
+      entity = name.text;
+    } else {
+      entity = { parent: entity, name: name.text };
+    }
+  }
+
   if (typeArguments === undefined) {
     return {
       kind: 'TypeReference',
-      name: name.text,
+      name: entity,
       typeArguments: []
     };
   } else {
     return {
       kind: 'TypeReference',
-      name: name.text,
+      name: entity,
       typeArguments: typeArguments[1]
     };
   }
@@ -193,7 +203,7 @@ TYPE_TERM.setPattern(
     alt(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
       apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
-      apply(seq(tok(TokenKind.Identifier), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
+      apply(seq(list_sc(tok(TokenKind.Identifier), str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
     ),
     apply(
       seq(

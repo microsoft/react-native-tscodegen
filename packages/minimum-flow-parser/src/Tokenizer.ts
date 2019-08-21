@@ -24,6 +24,7 @@ export enum TokenKind {
   OR,
 
   Ellipsis,
+  Dot,
   OpenBrace,
   CloseBrace,
   OpenSquare,
@@ -62,6 +63,7 @@ export const tokenizer = buildLexer([
   [true, /^\|/g, TokenKind.OR],
 
   [true, /^\.\.\./g, TokenKind.Ellipsis],
+  [true, /^\./g, TokenKind.Dot],
   [true, /^\{/g, TokenKind.OpenBrace],
   [true, /^\}/g, TokenKind.CloseBrace],
   [true, /^\[/g, TokenKind.OpenSquare],

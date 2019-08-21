@@ -156,9 +156,9 @@ test(`Test Type Reference`, () => {
     typeArguments: []
   });
 
-  assert.deepStrictEqual(parseType(`WithDefault<('a' | 'b'), ('a' | 123 | true | false)>`), {
+  assert.deepStrictEqual(parseType(`react.native.WithDefault<('a' | 'b'), ('a' | 123 | true | false)>`), {
     kind: 'TypeReference',
-    name: 'WithDefault',
+    name: { parent: { parent: 'react', name: 'native' }, name: 'WithDefault' },
     typeArguments: [
       {
         kind: 'ParenType',
