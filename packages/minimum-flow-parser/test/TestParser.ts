@@ -218,3 +218,37 @@ test(`Test Empty Object Type`, () => {
     members: []
   });
 });
+
+test(`Test Object Type with Mixins`, () => {
+  assert.deepStrictEqual(parseType(`{...A,...B}`), {
+    kind: 'ObjectType',
+    isExact: false,
+    mixinTypes: [{
+      kind: 'TypeReference',
+      name: 'A',
+      typeArguments: []
+    },
+    {
+      kind: 'TypeReference',
+      name: 'B',
+      typeArguments: []
+    }],
+    members: []
+  });
+
+  assert.deepStrictEqual(parseType(`{|...A,...B,|}`), {
+    kind: 'ObjectType',
+    isExact: true,
+    mixinTypes: [{
+      kind: 'TypeReference',
+      name: 'A',
+      typeArguments: []
+    },
+    {
+      kind: 'TypeReference',
+      name: 'B',
+      typeArguments: []
+    }],
+    members: []
+  });
+});
