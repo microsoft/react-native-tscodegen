@@ -54,7 +54,7 @@ export function expectEOF<TKind, TResult>(r: ParserOutput<TKind, TResult>): Pars
             error = betterError(error, {
                 kind: 'Error',
                 pos: candidate.nextToken === undefined ? undefined : candidate.nextToken.pos,
-                message: 'The parser cannot reach the end of file.'
+                message: `The parser cannot reach the end of file, stops at "${(<Token<TKind>>candidate.nextToken).text}" at position ${JSON.stringify((<Token<TKind>>candidate.nextToken).pos)}.`
             });
         }
         return <ParseError>error;
