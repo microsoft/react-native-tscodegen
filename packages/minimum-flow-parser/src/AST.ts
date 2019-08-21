@@ -175,11 +175,17 @@ export type ImportNameStatement = {
   source: string;
 };
 
+export type ExportDefaultStatement = {
+  kind: 'ExportDefaultStat';
+  expr: Expression;
+};
+
 export type Statement =
   | Declaration
   | UseStrictStatement
   | ImportNamespaceStatement
   | ImportNameStatement
+  | ExportDefaultStatement
   ;
 
 /*****************************************************************

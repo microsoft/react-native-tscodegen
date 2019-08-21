@@ -421,6 +421,8 @@ test(`Test Simple Program`, () => {
   const input = `
 'use strict';
 
+import {func} from 'func';
+
 type Int32 = number;
 type Float = number;
 type Double = number;
@@ -430,11 +432,14 @@ export type Point = $ReadOnly<{|
   y: Double,
   z: Double,
 |}>;
+
+export default (func<string>('abc'):number);
   `;
 
   const output: ast.FlowProgram = {
     statements: [
       { kind: 'UseStrictStat' },
+      { kind: 'ImportNameStat', names: ['func'], source: `'func'` },
       { kind: 'TypeAliasDecl', hasExport: false, name: 'Int32', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
       { kind: 'TypeAliasDecl', hasExport: false, name: 'Float', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
       { kind: 'TypeAliasDecl', hasExport: false, name: 'Double', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
@@ -470,6 +475,25 @@ export type Point = $ReadOnly<{|
               name: 'z',
               propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
             }]
+          }
+        }
+      },
+      {
+        kind: 'ExportDefaultStat',
+        expr: {
+          kind: 'ParenExpr',
+          expr: {
+            kind: 'TypeCastExpr',
+            toType: { kind: 'PrimitiveType', name: 'number' },
+            expr: {
+              kind: 'CallExpr',
+              expr: {
+                kind: 'ExprReference',
+                name: 'func',
+                typeArguments: [{ kind: 'PrimitiveType', name: 'string' }]
+              },
+              funcArguments: [{ kind: 'LiteralExpr', text: `'abc'` }]
+            }
           }
         }
       }
