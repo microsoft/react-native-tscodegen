@@ -93,18 +93,28 @@ export type Type =
   | ParenType
   ;
 
-export interface Statement {
-}
-
-export interface Declaration extends Statement {
+export interface DeclarationBase {
   hasExport: boolean;
   name: string;
 }
 
-export interface TypeAliasDecl extends Declaration {
+export interface TypeAliasDecl extends DeclarationBase {
   kind: 'TypeAliasDecl';
-  alisedType: Type;
+  aliasedType: Type;
 }
+
+export type Declaration =
+  | TypeAliasDecl
+  ;
+
+export type UseStrictStatement = {
+  kind: 'UseStrictStat';
+};
+
+export type Statement =
+  | Declaration
+  | UseStrictStatement
+  ;
 
 export interface FlowProgram {
   statements: Statement[];

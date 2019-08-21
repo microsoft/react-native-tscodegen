@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { expectEOF, expectSingleResult } from 'ts-parsec';
 import * as ast from '../src/AST';
-import { TYPE } from '../src/Parser';
+import { PROGRAM, TYPE } from '../src/Parser';
 import { tokenizer } from '../src/Tokenizer';
 
 function parseType(input: string): ast.Type {
@@ -321,4 +321,66 @@ test(`Test Object Type with Indexers`, () => {
       valueType: { kind: 'PrimitiveType', name: 'number' }
     }]
   });
+});
+
+test(`Test Simple Program`, () => {
+  const input = `
+'use strict';
+
+type Int32 = number;
+type Float = number;
+type Double = number;
+
+export type Point = $ReadOnly<{|
+  x: Double,
+  y: Double,
+  z: Double,
+|}>;
+  `;
+
+  const output: ast.FlowProgram = {
+    statements: [
+      { kind: 'UseStrictStat' },
+      { kind: 'TypeAliasDecl', hasExport: false, name: 'Int32', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
+      { kind: 'TypeAliasDecl', hasExport: false, name: 'Float', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
+      { kind: 'TypeAliasDecl', hasExport: false, name: 'Double', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
+      {
+        kind: 'TypeAliasDecl',
+        hasExport: true,
+        name: 'Point',
+        aliasedType: {
+          kind: 'DecoratedGenericType',
+          name: '$ReadOnly',
+          elementType: {
+            kind: 'ObjectType',
+            isExact: true,
+            mixinTypes: [],
+            members: [{
+              kind: 'Prop',
+              isReadonly: false,
+              isOptional: false,
+              name: 'x',
+              propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
+            },
+            {
+              kind: 'Prop',
+              isReadonly: false,
+              isOptional: false,
+              name: 'y',
+              propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
+            },
+            {
+              kind: 'Prop',
+              isReadonly: false,
+              isOptional: false,
+              name: 'z',
+              propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
+            }]
+          }
+        }
+      }
+    ]
+  };
+
+  assert.deepStrictEqual(expectSingleResult(expectEOF(PROGRAM.parse(tokenizer.parse(input)))), output);
 });

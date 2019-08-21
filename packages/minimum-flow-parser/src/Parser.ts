@@ -1,7 +1,7 @@
 // tslint:disable:no-duplicate-imports
 
 import * as parsec from 'ts-parsec';
-import { rule } from 'ts-parsec';
+import { rep_sc, rule } from 'ts-parsec';
 import { alt, apply, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'ts-parsec';
 import * as ast from './AST';
 import { TokenKind } from './Tokenizer';
@@ -183,9 +183,41 @@ function applyTypeLrec(first: ast.Type, second: ast.ArrayType | ast.UnionType): 
   }
 }
 
+function applyTypeAliasDecl(value: [
+  undefined | Token,
+  Token,
+  Token,
+  Token,
+  ast.Type,
+  Token
+]): ast.Declaration {
+  const [hasExport, , name, , aliasedType] = value;
+  return {
+    kind: 'TypeAliasDecl',
+    hasExport: hasExport !== undefined,
+    name: name.text,
+    aliasedType
+  };
+}
+
+function applyUseStrictStat(value: [Token, Token]): ast.Statement {
+  return {
+    kind: 'UseStrictStat'
+  };
+}
+
+function applyProgram(value: ast.Statement[]): ast.FlowProgram {
+  return {
+    statements: value
+  };
+}
+
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
 export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
+export const DECL = rule<TokenKind, ast.Declaration>();
+export const STAT = rule<TokenKind, ast.Statement>();
+export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
 
 TYPE_TERM.setPattern(
   alt(
@@ -250,3 +282,19 @@ TYPE.setPattern(
     applyTypeLrec
   )
 );
+
+DECL.setPattern(
+  apply(
+    seq(opt_sc(str('export')), str('type'), tok(TokenKind.Identifier), str('='), TYPE, str(';')),
+    applyTypeAliasDecl
+  )
+);
+
+STAT.setPattern(
+  alt(
+    DECL,
+    apply(seq(str(`'use strict'`), str(';')), applyUseStrictStat)
+  )
+);
+
+PROGRAM.setPattern(apply(rep_sc(STAT), applyProgram));
