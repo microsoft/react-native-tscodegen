@@ -294,3 +294,31 @@ test(`Test Object Type with Properties`, () => {
     }]
   });
 });
+
+test(`Test Object Type with Indexers`, () => {
+  assert.deepStrictEqual(parseType(`{[key:string]:number}`), {
+    kind: 'ObjectType',
+    isExact: false,
+    mixinTypes: [],
+    members: [{
+      kind: 'Indexer',
+      isReadonly: false,
+      keyName: 'key',
+      keyType: { kind: 'PrimitiveType', name: 'string' },
+      valueType: { kind: 'PrimitiveType', name: 'number' }
+    }]
+  });
+
+  assert.deepStrictEqual(parseType(`{|+[key:string]:number,|}`), {
+    kind: 'ObjectType',
+    isExact: true,
+    mixinTypes: [],
+    members: [{
+      kind: 'Indexer',
+      isReadonly: true,
+      keyName: 'key',
+      keyType: { kind: 'PrimitiveType', name: 'string' },
+      valueType: { kind: 'PrimitiveType', name: 'number' }
+    }]
+  });
+});
