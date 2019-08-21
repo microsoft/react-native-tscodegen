@@ -5,14 +5,14 @@
   "main": "tslint-export.json",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZihanChen-MSFT/RN-TSCodegen.git"
+    "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
   },
   "author": "Zihan Chen",
   "license": "MIT License",
   "bugs": {
-    "url": "https://github.com/ZihanChen-MSFT/RN-TSCodegen/issues"
+    "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },
-  "homepage": "https://github.com/ZihanChen-MSFT/RN-TSCodegen#readme",
+  "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
     "tslint": "^5.18.0",
     "typescript": "^3.5.3",

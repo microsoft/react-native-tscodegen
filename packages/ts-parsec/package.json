@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZihanChen-MSFT/RN-TSCodegen.git"
+    "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
   },
   "author": "Zihan Chen",
   "license": "MIT License",
   "bugs": {
-    "url": "https://github.com/ZihanChen-MSFT/RN-TSCodegen/issues"
+    "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },
-  "homepage": "https://github.com/ZihanChen-MSFT/RN-TSCodegen#readme",
+  "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.9",
