@@ -32,7 +32,7 @@ function applyLiteralType(value: Token): ast.Type {
   return { kind: 'LiteralType', text: value.text };
 }
 
-function applyOptionalType(value: [Token, ast.Type]): ast.Type {
+function applyOptionalType(value: [{/*?*/ }, ast.Type]): ast.Type {
   const elementType = value[1];
   if (elementType.kind === 'OptionalType') {
     return elementType;
@@ -41,14 +41,23 @@ function applyOptionalType(value: [Token, ast.Type]): ast.Type {
   }
 }
 
-function applyParenType(value: [Token, ast.Type, Token]): ast.Type {
+function applyParenType(value: [
+  {/*(*/ },
+  ast.Type,
+  {/*)*/ }
+]): ast.Type {
   return {
     kind: 'ParenType',
     elementType: value[1]
   };
 }
 
-function applyReadonlyArrayType(value: [Token, Token, ast.Type, Token]): ast.Type {
+function applyReadonlyArrayType(value: [
+  {/*$ReadOnlyArray*/ },
+  {/*<*/ },
+  ast.Type,
+  {/*>*/ }
+]): ast.Type {
   return {
     kind: 'ArrayType',
     isReadonly: true,
@@ -56,7 +65,12 @@ function applyReadonlyArrayType(value: [Token, Token, ast.Type, Token]): ast.Typ
   };
 }
 
-function applyDecoratedGenericType(value: [Token, Token, ast.Type, Token]): ast.Type {
+function applyDecoratedGenericType(value: [
+  {/*$ReadOnly*/ },
+  {/*<*/ },
+  ast.Type,
+  {/*>*/ }
+]): ast.Type {
   return {
     kind: 'DecoratedGenericType',
     elementType: value[2],
@@ -64,7 +78,14 @@ function applyDecoratedGenericType(value: [Token, Token, ast.Type, Token]): ast.
   };
 }
 
-function applyTypeReference(value: [Token[], undefined | [Token, ast.Type[], Token]]): ast.Type {
+function applyTypeReference(value: [
+  Token[],
+  undefined | [
+    {/*<*/ },
+    ast.Type[],
+    {/*>*/ }
+  ]
+]): ast.Type {
   const [names, typeArguments] = value;
 
   let entity: ast.EntityName | undefined;
@@ -91,15 +112,18 @@ function applyTypeReference(value: [Token[], undefined | [Token, ast.Type[], Tok
   }
 }
 
-function applyObjectTypeMixin(value: [Token, ast.Type]): ast.Type {
+function applyObjectTypeMixin(value: [
+  {/*...*/ },
+  ast.Type
+]): ast.Type {
   return value[1];
 }
 
 function applyObjectTypeProp(value: [
-  undefined | Token,
+  undefined | {/*+*/ },
   Token,
-  undefined | Token,
-  Token,
+  undefined | {/*?*/ },
+  {/*:*/ },
   ast.Type
 ]): ast.ObjectProp {
   const [isReadonly, name, isOptional, , propType] = value;
@@ -113,13 +137,13 @@ function applyObjectTypeProp(value: [
 }
 
 function applyObjectIndexer(value: [
-  undefined | Token,
+  undefined | {/*+*/ },
+  {/*[*/ },
   Token,
-  Token,
-  Token,
+  {/*:*/ },
   ast.Type,
-  Token,
-  Token,
+  {/*]*/ },
+  {/*:*/ },
   ast.Type
 ]): ast.ObjectIndexer {
   const [isReadonly, , keyName, , keyType, , , valueType] = value;
@@ -133,12 +157,12 @@ function applyObjectIndexer(value: [
 }
 
 function applyObjectType(value: [
-  Token,
-  undefined | Token,
+  {/*{*/ },
+  undefined | {/*|*/ },
   undefined | (ast.Type | ast.ObjectMember)[],
-  undefined | Token,
-  undefined | Token,
-  Token
+  undefined | {/*,*/ },
+  undefined | {/*|*/ },
+  {/*}*/ }
 ]): ast.Type {
   const [, isExact, members] = value;
   return {
@@ -153,7 +177,10 @@ function applyObjectType(value: [
   };
 }
 
-function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
+function applyArrayTypeLrec(value: [
+  {/*[*/ },
+  {/*]*/ }
+]): ast.ArrayType {
   return {
     kind: 'ArrayType',
     isReadonly: false,
@@ -161,11 +188,17 @@ function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
   };
 }
 
-function applyUnionHead(value: [undefined | Token, ast.Type]): ast.Type {
+function applyUnionHead(value: [
+  undefined | {/*|*/ },
+  ast.Type
+]): ast.Type {
   return value[1];
 }
 
-function applyUnionTypeLrec(value: [Token, ast.Type]): ast.UnionType {
+function applyUnionTypeLrec(value: [
+  {/*|*/ },
+  ast.Type
+]): ast.UnionType {
   return {
     kind: 'UnionType',
     elementTypes: [value[1]]
@@ -199,7 +232,14 @@ function applyLiteralExpr(value: Token): ast.Expression {
   return { kind: 'LiteralExpr', text: value.text };
 }
 
-function applyExprReference(value: [Token[], undefined | [Token, ast.Type[], Token]]): ast.Expression {
+function applyExprReference(value: [
+  Token[],
+  undefined | [
+    {/*<*/ },
+    ast.Type[],
+    {/*>*/ }
+  ]
+]): ast.Expression {
   const [names, typeArguments] = value;
 
   let entity: ast.EntityName | undefined;
@@ -226,14 +266,21 @@ function applyExprReference(value: [Token[], undefined | [Token, ast.Type[], Tok
   }
 }
 
-function applyParenExpr(value: [Token, ast.Expression, Token]): ast.Expression {
+function applyParenExpr(value: [
+  {/*(*/ },
+  ast.Expression,
+  {/*)*/ }
+]): ast.Expression {
   return {
     kind: 'ParenExpr',
     expr: value[1]
   };
 }
 
-function applyTypeCastExprLrec(value: [Token, ast.Type]): ast.TypeCastExpr {
+function applyTypeCastExprLrec(value: [
+  {/*:*/ },
+  ast.Type
+]): ast.TypeCastExpr {
   return {
     kind: 'TypeCastExpr',
     expr: <ast.Expression><unknown>undefined,
@@ -241,7 +288,12 @@ function applyTypeCastExprLrec(value: [Token, ast.Type]): ast.TypeCastExpr {
   };
 }
 
-function applyCallExprLrec(value: [Token, ast.Expression[], undefined | Token, Token]): ast.CallExpr {
+function applyCallExprLrec(value: [
+  {/*(*/ },
+  ast.Expression[],
+  undefined | {/*,*/ },
+  {/*)*/ }
+]): ast.CallExpr {
   return {
     kind: 'CallExpr',
     expr: <ast.Expression><unknown>undefined,
@@ -259,12 +311,12 @@ function applyExprLrec(first: ast.Expression, second: ast.TypeCastExpr | ast.Cal
  ****************************************************************/
 
 function applyTypeAliasDecl(value: [
-  undefined | Token,
+  undefined | {/*export*/ },
+  {/*type*/ },
   Token,
-  Token,
-  Token,
+  {/*=*/ },
   ast.Type,
-  Token
+  undefined | {/*?*/ }
 ]): ast.Declaration {
   const [hasExport, , name, , aliasedType] = value;
   return {
@@ -279,13 +331,25 @@ function applyTypeAliasDecl(value: [
  * Statements (apply)
  ****************************************************************/
 
-function applyUseStrictStat(value: [Token, Token]): ast.Statement {
+function applyUseStrictStat(value: [
+  {/*'use strict'*/ },
+  {/*;*/ }
+]): ast.Statement {
   return {
     kind: 'UseStrictStat'
   };
 }
 
-function applyImportEqualStat(value: [Token, Token, Token, Token, Token, Token, Token, Token]): ast.Statement {
+function applyImportEqualStat(value: [
+  {/*const*/ },
+  Token,
+  {/*=*/ },
+  {/*require*/ },
+  {/*(*/ },
+  Token,
+  {/*)*/ },
+  {/*;*/ }
+]): ast.Statement {
   const [, name, , , , source] = value;
   return {
     kind: 'ImportEqualStat',
@@ -294,7 +358,15 @@ function applyImportEqualStat(value: [Token, Token, Token, Token, Token, Token, 
   };
 }
 
-function applyImportAsStat(value: [Token, Token, Token, Token, Token, Token, Token]): ast.Statement {
+function applyImportAsStat(value: [
+  {/*import*/ },
+  {/* * */ },
+  {/*as*/ },
+  Token,
+  {/*from*/ },
+  Token,
+  {/*;*/ }
+]): ast.Statement {
   const [, , , name, , source] = value;
   return {
     kind: 'ImportAsStat',
@@ -303,7 +375,16 @@ function applyImportAsStat(value: [Token, Token, Token, Token, Token, Token, Tok
   };
 }
 
-function applyImportNameStat(value: [Token, undefined | Token, Token, Token[], Token, Token, Token, Token]): ast.Statement {
+function applyImportNameStat(value: [
+  {/*import*/ },
+  undefined | {/*type*/ },
+  {/*{*/ },
+  Token[],
+  {/*}*/ },
+  {/*from*/ },
+  Token,
+  {/*;*/ }
+]): ast.Statement {
   const [, , , names, , , source] = value;
   return {
     kind: 'ImportNameStat',
@@ -312,7 +393,12 @@ function applyImportNameStat(value: [Token, undefined | Token, Token, Token[], T
   };
 }
 
-function applyExportDefaultStat(value: [Token, Token, ast.Expression, Token]): ast.Statement {
+function applyExportDefaultStat(value: [
+  {/*export*/ },
+  {/*default*/ },
+  ast.Expression,
+  {/*;*/ }
+]): ast.Statement {
   return {
     kind: 'ExportDefaultStat',
     expr: value[2]
@@ -437,7 +523,7 @@ EXPR.setPattern(
 
 DECL.setPattern(
   apply(
-    seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, str(';')),
+    seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, opt_sc(str(';'))),
     applyTypeAliasDecl
   )
 );
@@ -449,7 +535,7 @@ STAT.setPattern(
     alt(
       apply(seq(str('const'), tok(TokenKind.Identifier), str('='), str('require'), str('('), tok(TokenKind.StringLiteral), str(')'), str(';')), applyImportEqualStat),
       apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
-      apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat),
+      apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat)
     ),
     apply(seq(str('export'), str('default'), EXPR, str(';')), applyExportDefaultStat)
   )
