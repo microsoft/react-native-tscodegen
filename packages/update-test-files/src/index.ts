@@ -1,7 +1,10 @@
 // tslint:disable:max-line-length
 
 import * as fs from 'fs';
+import * as flow from 'minimum-flow-parser';
 import * as path from 'path';
+import { expectEOF, expectSingleResult } from 'ts-parsec';
+import { printTypeScript } from './PrintTS';
 
 const importMaps = {
   BubblingEventHandler: `import {BubblingEventHandler} from '../lib/CodegenTypes';`,
@@ -78,7 +81,14 @@ function convertCodegenSchema(): void {
   console.log(`Converting ${inputPath} ...`);
 
   const flowSourceCode = fs.readFileSync(inputPath, { encoding: 'utf-8' });
-  const tsSourceCode = flowToTs(flowSourceCode, false);
+  const tsSourceCode = `
+// Automatically generated from react-native/packages/react-native-codegen/src/CodegenSchema.js
+
+${
+    printTypeScript(
+      expectSingleResult(expectEOF(flow.PROGRAM.parse(flow.tokenizer.parse(flowSourceCode)))),
+      true)
+    }`;
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }
 
@@ -90,10 +100,17 @@ function convertTestInput(inputJsPath: string, outputFolder: string, prefix: str
 
   const testCases = <TestCaseModule>require(inputJsPath);
   Object.keys(testCases).forEach((key: string) => {
-    const outputPath = path.join(outputFolder, `${prefix}${key}.ts`);
-    const flowSourceCode = testCases[key];
-    const tsSourceCode = flowToTs(flowSourceCode, true, key);
-    fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
+    {
+      const outputPath = path.join(outputFolder, `${prefix}${key}.flow.js`);
+      const flowSourceCode = testCases[key];
+      fs.writeFileSync(outputPath, flowSourceCode, { encoding: 'utf-8' });
+    }
+    {
+      const outputPath = path.join(outputFolder, `${prefix}${key}.ts`);
+      const flowSourceCode = testCases[key];
+      const tsSourceCode = flowToTs(flowSourceCode, true, key);
+      fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
+    }
   });
 
   return testCases;

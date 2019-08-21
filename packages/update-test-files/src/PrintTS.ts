@@ -80,6 +80,7 @@ function printType(printer: Printer, flowType: flow.Type): void {
             for (const member of flowType.members) {
                 switch (member.kind) {
                     case 'Prop': {
+                        printer.writeIndent();
                         if (member.isReadonly) {
                             printer.write('readonly ');
                         }
@@ -94,6 +95,7 @@ function printType(printer: Printer, flowType: flow.Type): void {
                         break;
                     }
                     case 'Indexer': {
+                        printer.writeIndent();
                         if (member.isReadonly) {
                             printer.write('readonly ');
                         }
