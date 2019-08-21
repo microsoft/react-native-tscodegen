@@ -27,23 +27,28 @@ export interface ArrayType {
 }
 
 export interface ObjectProp {
-  name: string;
+  kind: 'Prop';
+  isReadonly: boolean;
   isOptional: boolean;
+  name: string;
   propType: Type;
 }
 
 export interface ObjectIndexer {
+  kind: 'Indexer';
+  isReadonly: boolean;
   keyName: string;
   keyType: Type;
   valueType: Type;
 }
 
+export type ObjectMember = ObjectProp | ObjectIndexer;
+
 export interface ObjectType {
   kind: 'ObjectType';
   isExact: boolean;
   mixinTypes: Type[];
-  properties: ObjectProp[];
-  indexers: ObjectIndexer[];
+  members: ObjectMember[];
 }
 
 export interface DecoratedGenericType {
@@ -57,9 +62,14 @@ export interface UnionType {
   elementTypes: Type[];
 }
 
+export type EntityName = string | {
+  parent: EntityName;
+  name: string;
+};
+
 export interface TypeReference {
   kind: 'TypeReference';
-  name: string;
+  name: EntityName;
   typeArguments: Type[];
 }
 

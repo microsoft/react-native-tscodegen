@@ -77,6 +77,68 @@ function applyTypeReference(value: [Token, undefined | [Token, ast.Type[], Token
   }
 }
 
+function applyObjectTypeMixin(value: [Token, ast.Type]): ast.Type {
+  return value[1];
+}
+
+function applyObjectTypeProp(value: [
+  undefined | Token,
+  Token,
+  undefined | Token,
+  Token,
+  ast.Type
+]): ast.ObjectProp {
+  const [isReadonly, name, isOptional, , propType] = value;
+  return {
+    kind: 'Prop',
+    isReadonly: isReadonly !== undefined,
+    name: name.text,
+    isOptional: isOptional !== undefined,
+    propType
+  };
+}
+
+function applyObjectIndexer(value: [
+  undefined | Token,
+  Token,
+  Token,
+  Token,
+  ast.Type,
+  Token,
+  Token,
+  ast.Type
+]): ast.ObjectIndexer {
+  const [isReadonly, , keyName, , keyType, , , valueType] = value;
+  return {
+    kind: 'Indexer',
+    isReadonly: isReadonly !== undefined,
+    keyName: keyName.text,
+    keyType,
+    valueType
+  };
+}
+
+function applyObjectType(value: [
+  Token,
+  undefined | Token,
+  undefined | (ast.Type | ast.ObjectMember)[],
+  undefined | Token,
+  undefined | Token,
+  Token
+]): ast.Type {
+  const [, isExact, members] = value;
+  return {
+    kind: 'ObjectType',
+    isExact: isExact !== undefined,
+    mixinTypes: members === undefined ? [] : <ast.Type[]>members.filter((member: ast.Type | ast.ObjectMember) => {
+      return member.kind !== 'Prop' && member.kind !== 'Indexer';
+    }),
+    members: members === undefined ? [] : <ast.ObjectMember[]>members.filter((member: ast.Type | ast.ObjectMember) => {
+      return member.kind === 'Prop' || member.kind === 'Indexer';
+    })
+  };
+}
+
 function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
   return {
     kind: 'ArrayType',
@@ -132,6 +194,33 @@ TYPE_TERM.setPattern(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
       apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
       apply(seq(tok(TokenKind.Identifier), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
+    ),
+    apply(
+      seq(
+        str('{'),
+        opt_sc(str('|')),
+        opt_sc(list_sc(
+          alt(
+            apply(
+              seq(str('...'), TYPE),
+              applyObjectTypeMixin
+            ),
+            apply(
+              seq(opt_sc(str('+')), tok(TokenKind.Identifier), opt_sc(str('?')), str(':'), TYPE),
+              applyObjectTypeProp
+            ),
+            apply(
+              seq(opt_sc(str('+')), str('['), tok(TokenKind.Identifier), str(':'), TYPE, str(']'), str(':'), TYPE),
+              applyObjectIndexer
+            )
+          ),
+          str(',')
+        )),
+        opt_sc(str(',')),
+        opt_sc(str('|')),
+        str('}')
+      ),
+      applyObjectType
     )
   )
 );

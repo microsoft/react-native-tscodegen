@@ -202,3 +202,19 @@ test(`Test Type Reference`, () => {
     ]
   });
 });
+
+test(`Test Empty Object Type`, () => {
+  assert.deepStrictEqual(parseType(`{}`), {
+    kind: 'ObjectType',
+    isExact: false,
+    mixinTypes: [],
+    members: []
+  });
+
+  assert.deepStrictEqual(parseType(`{||}`), {
+    kind: 'ObjectType',
+    isExact: true,
+    mixinTypes: [],
+    members: []
+  });
+});
