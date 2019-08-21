@@ -367,11 +367,14 @@ test(`Test Call Expression`, () => {
     kind: 'TypeCastExpr',
     expr: {
       kind: 'CallExpr',
-      expr: { kind: 'ExprReference', name: 'a' },
+      expr: {
+        kind: 'ExprReference',
+        name: 'a',
+        typeArguments: []
+      },
       funcArguments: [{
         kind: 'LiteralExpr',
-        text: '123',
-        typeArguments: []
+        text: '123'
       },
       {
         kind: 'ParenExpr',
