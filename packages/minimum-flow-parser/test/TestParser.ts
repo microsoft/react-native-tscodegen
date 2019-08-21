@@ -52,3 +52,49 @@ test(`Test Optional Type`, () => {
     }
   });
 });
+
+test(`Test Array Type`, () => {
+  assert.deepStrictEqual(parseType(`string[]`), {
+    kind: 'ArrayType',
+    isReadonly: false,
+    elementType: {
+      kind: 'PrimitiveType',
+      name: 'string'
+    }
+  });
+
+  assert.deepStrictEqual(parseType(`$ReadOnlyArray<string>`), {
+    kind: 'ArrayType',
+    isReadonly: true,
+    elementType: {
+      kind: 'PrimitiveType',
+      name: 'string'
+    }
+  });
+
+  assert.deepStrictEqual(parseType(`$ReadOnlyArray<string>[]`), {
+    kind: 'ArrayType',
+    isReadonly: false,
+    elementType: {
+      kind: 'ArrayType',
+      isReadonly: true,
+      elementType: {
+        kind: 'PrimitiveType',
+        name: 'string'
+      }
+    }
+  });
+
+  assert.deepStrictEqual(parseType(`$ReadOnlyArray<string[]>`), {
+    kind: 'ArrayType',
+    isReadonly: true,
+    elementType: {
+      kind: 'ArrayType',
+      isReadonly: false,
+      elementType: {
+        kind: 'PrimitiveType',
+        name: 'string'
+      }
+    }
+  });
+});

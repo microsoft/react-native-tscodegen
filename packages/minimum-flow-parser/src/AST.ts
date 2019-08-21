@@ -22,8 +22,8 @@ export interface OptionalType {
 
 export interface ArrayType {
   kind: 'ArrayType';
-  elementType: Type;
   isReadonly: boolean;
+  elementType: Type;
 }
 
 export interface ObjectProp {
