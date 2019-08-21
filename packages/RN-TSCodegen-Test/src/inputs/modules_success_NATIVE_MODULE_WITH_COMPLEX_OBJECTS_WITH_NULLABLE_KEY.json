@@ -1,0 +1,98 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
+              "name": "getConstants",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "properties": [
+                    {
+                      "name": "isTesting",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "reactNativeVersion",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "properties": [
+                          {
+                            "name": "major",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "NumberTypeAnnotation"
+                            }
+                          },
+                          {
+                            "name": "minor",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "NumberTypeAnnotation"
+                            }
+                          },
+                          {
+                            "name": "patch",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "NumberTypeAnnotation"
+                            }
+                          },
+                          {
+                            "name": "prerelease",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "NumberTypeAnnotation"
+                            }
+                          }
+                        ],
+                        "type": "ObjectTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "forceTouchAvailable",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "osVersion",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "systemName",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "interfaceIdiom",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    }
+                  ],
+                  "type": "ObjectTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

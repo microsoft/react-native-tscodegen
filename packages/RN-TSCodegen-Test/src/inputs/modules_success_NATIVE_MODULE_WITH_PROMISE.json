@@ -1,0 +1,48 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
+              "name": "getValueWithPromise",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "type": "GenericPromiseTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            },
+            {
+              "name": "getValueWithPromiseDefinedSomewhereElse",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "type": "GenericPromiseTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            },
+            {
+              "name": "getValueWithPromiseObjDefinedSomewhereElse",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "type": "GenericPromiseTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

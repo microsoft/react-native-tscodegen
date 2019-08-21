@@ -1,0 +1,38 @@
+{
+  "extends": [
+    "tslint-microsoft-contrib"
+  ],
+  "rules": {
+    "completed-docs": false,
+    "cyclomatic-complexity": false,
+    "export-name": false,
+    "interface-name": false,
+    "linebreak-style": false,
+    "max-func-body-length": false,
+    "max-line-length": false,
+    "newline-before-return": false,
+    "newline-per-chained-call": false,
+    "no-bitwise": false,
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-relative-imports": false,
+    "no-parameter-properties": false,
+    "non-literal-fs-path": false,
+    "non-literal-require": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ]
+  }
+}

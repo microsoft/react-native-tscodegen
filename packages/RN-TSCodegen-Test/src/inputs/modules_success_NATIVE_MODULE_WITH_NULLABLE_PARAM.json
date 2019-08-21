@@ -1,0 +1,32 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
+              "name": "voidFunc",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [
+                  {
+                    "name": "arg",
+                    "nullable": true,
+                    "typeAnnotation": {
+                      "type": "StringTypeAnnotation"
+                    }
+                  }
+                ],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "type": "VoidTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

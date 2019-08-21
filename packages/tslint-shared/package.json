@@ -1,0 +1,21 @@
+{
+  "name": "tslint-shared",
+  "version": "1.0.0",
+  "description": "Shared tslint rules",
+  "main": "tslint-export.json",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZihanChen-MSFT/RN-TSCodegen.git"
+  },
+  "author": "Zihan Chen",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/ZihanChen-MSFT/RN-TSCodegen/issues"
+  },
+  "homepage": "https://github.com/ZihanChen-MSFT/RN-TSCodegen#readme",
+  "devDependencies": {
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3",
+    "tslint-microsoft-contrib": "^6.2.0"
+  }
+}

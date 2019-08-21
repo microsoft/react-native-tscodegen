@@ -1,0 +1,32 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
+              "name": "getObject",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [
+                  {
+                    "name": "o",
+                    "nullable": false,
+                    "typeAnnotation": {
+                      "type": "GenericObjectTypeAnnotation"
+                    }
+                  }
+                ],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "type": "GenericObjectTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

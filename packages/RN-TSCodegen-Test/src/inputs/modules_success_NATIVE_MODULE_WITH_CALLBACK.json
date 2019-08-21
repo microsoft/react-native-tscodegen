@@ -1,0 +1,32 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "nativeModules": {
+        "SampleTurboModule": {
+          "properties": [
+            {
+              "name": "getValueWithCallback",
+              "typeAnnotation": {
+                "optional": false,
+                "params": [
+                  {
+                    "name": "callback",
+                    "nullable": false,
+                    "typeAnnotation": {
+                      "type": "FunctionTypeAnnotation"
+                    }
+                  }
+                ],
+                "returnTypeAnnotation": {
+                  "nullable": false,
+                  "type": "VoidTypeAnnotation"
+                },
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

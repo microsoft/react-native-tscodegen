@@ -1,0 +1,74 @@
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [
+            {
+              "name": "hotspotUpdate",
+              "optional": false,
+              "typeAnnotation": {
+                "params": [
+                  {
+                    "name": "x",
+                    "typeAnnotation": {
+                      "type": "Int32TypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "y",
+                    "typeAnnotation": {
+                      "type": "Int32TypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "FunctionTypeAnnotation"
+              }
+            },
+            {
+              "name": "scrollTo",
+              "optional": false,
+              "typeAnnotation": {
+                "params": [
+                  {
+                    "name": "x",
+                    "typeAnnotation": {
+                      "type": "FloatTypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "y",
+                    "typeAnnotation": {
+                      "type": "Int32TypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "z",
+                    "typeAnnotation": {
+                      "type": "DoubleTypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "animated",
+                    "typeAnnotation": {
+                      "type": "BooleanTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "FunctionTypeAnnotation"
+              }
+            }
+          ],
+          "events": [],
+          "extendsProps": [
+            {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType"
+            }
+          ],
+          "props": []
+        }
+      }
+    }
+  }
+}

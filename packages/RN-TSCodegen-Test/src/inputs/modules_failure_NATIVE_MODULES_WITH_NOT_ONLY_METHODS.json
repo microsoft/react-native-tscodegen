@@ -1,0 +1,1 @@
+{"error": "Only methods are supported as module properties. Found BooleanTypeAnnotation in sampleBool"}

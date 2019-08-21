@@ -1,0 +1,33 @@
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "events": [],
+          "extendsProps": [],
+          "props": [
+            {
+              "name": "disable",
+              "optional": false,
+              "typeAnnotation": {
+                "default": null,
+                "type": "StringTypeAnnotation"
+              }
+            },
+            {
+              "name": "array",
+              "optional": false,
+              "typeAnnotation": {
+                "elementType": {
+                  "type": "StringTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

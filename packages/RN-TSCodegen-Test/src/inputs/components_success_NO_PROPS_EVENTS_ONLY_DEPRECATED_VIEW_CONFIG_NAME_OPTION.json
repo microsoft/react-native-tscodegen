@@ -1,0 +1,20 @@
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "deprecatedViewConfigName": "DeprecateModuleName",
+          "events": [],
+          "extendsProps": [
+            {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType"
+            }
+          ],
+          "props": []
+        }
+      }
+    }
+  }
+}

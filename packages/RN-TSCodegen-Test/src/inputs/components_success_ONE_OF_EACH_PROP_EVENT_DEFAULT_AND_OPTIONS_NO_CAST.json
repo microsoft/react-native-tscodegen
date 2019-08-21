@@ -1,0 +1,55 @@
+{
+  "modules": {
+    "Module": {
+      "components": {
+        "Module": {
+          "commands": [],
+          "events": [
+            {
+              "bubblingType": "direct",
+              "name": "onDirectEventDefinedInlineNull",
+              "optional": false,
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [],
+                  "type": "ObjectTypeAnnotation"
+                },
+                "type": "EventTypeAnnotation"
+              }
+            },
+            {
+              "bubblingType": "bubble",
+              "name": "onBubblingEventDefinedInlineNull",
+              "optional": false,
+              "typeAnnotation": {
+                "argument": {
+                  "properties": [],
+                  "type": "ObjectTypeAnnotation"
+                },
+                "type": "EventTypeAnnotation"
+              }
+            }
+          ],
+          "extendsProps": [
+            {
+              "knownTypeName": "ReactNativeCoreViewProps",
+              "type": "ReactNativeBuiltInType"
+            }
+          ],
+          "interfaceOnly": true,
+          "paperComponentName": "RCTModule",
+          "props": [
+            {
+              "name": "boolean_default_true_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "default": true,
+                "type": "BooleanTypeAnnotation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

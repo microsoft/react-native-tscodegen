@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "lib": [
+      "es6"
+    ],
+    "outDir": "./lib",
+  },
+  "exclude": [
+    "node_modules",
+    "src/test",
+    "lib",
+    "lib-amd",
+    "src/inputs/components_failure_*.ts",
+    "src/inputs/modules_failure_*.ts"
+  ]
+}
