@@ -79,6 +79,7 @@ class LexerImpl<T> implements Lexer<T> {
         }
 
         const subString = input.substr(indexStart);
+        let result: TokenImpl<T> | undefined;
         for (const [keep, regexp, kind] of this.rules) {
             regexp.lastIndex = 0;
             if (regexp.test(subString)) {
@@ -92,14 +93,22 @@ class LexerImpl<T> implements Lexer<T> {
                         default: columnEnd++;
                     }
                 }
-                return new TokenImpl<T>(this, input, kind, text, { index: indexStart, rowBegin, columnBegin, rowEnd, columnEnd }, keep);
+
+                const newResult = new TokenImpl<T>(this, input, kind, text, { index: indexStart, rowBegin, columnBegin, rowEnd, columnEnd }, keep);
+                if (result === undefined || result.text.length < newResult.text.length) {
+                    result = newResult;
+                }
             }
         }
 
-        throw new TokenError(
-            { index: indexStart, rowBegin, columnBegin, rowEnd: rowBegin, columnEnd: columnBegin },
-            `Unable to tokenize the rest of the input: ${input.substr(indexStart)}`
-        );
+        if (result === undefined) {
+            throw new TokenError(
+                { index: indexStart, rowBegin, columnBegin, rowEnd: rowBegin, columnEnd: columnBegin },
+                `Unable to tokenize the rest of the input: ${input.substr(indexStart)}`
+            );
+        } else {
+            return result;
+        }
     }
 
     public parseNextAvailable(input: string, index: number, rowBegin: number, columnBegin: number): TokenImpl<T> | undefined {

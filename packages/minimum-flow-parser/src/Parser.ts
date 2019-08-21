@@ -157,6 +157,10 @@ function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
   };
 }
 
+function applyUnionHead(value: [undefined | Token, ast.Type]): ast.Type {
+  return value[1];
+}
+
 function applyUnionTypeLrec(value: [Token, ast.Type]): ast.UnionType {
   return {
     kind: 'UnionType',
@@ -285,7 +289,7 @@ TYPE_ARRAY.setPattern(
 
 TYPE.setPattern(
   lrec_sc(
-    TYPE_ARRAY,
+    apply(seq(opt_sc(str('|')), TYPE_ARRAY), applyUnionHead),
     apply(seq(str('|'), TYPE_ARRAY), applyUnionTypeLrec),
     applyTypeLrec
   )
