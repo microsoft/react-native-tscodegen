@@ -10,8 +10,8 @@ export type NumberType = PrimitiveType<'number'>;
 export type StringType = PrimitiveType<'string'>;
 export type BooleanType = PrimitiveType<'boolean'>;
 
-export interface StringLiteralType {
-  kind: 'StringLiteralType';
+export interface LiteralType {
+  kind: 'LiteralType';
   text: string;
 }
 
@@ -68,7 +68,7 @@ export type Type =
   | NumberType
   | StringType
   | BooleanType
-  | StringLiteralType
+  | LiteralType
   | OptionalType
   | ArrayType
   | ObjectType

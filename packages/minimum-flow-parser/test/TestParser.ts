@@ -30,8 +30,23 @@ test(`Test Primitive Types`, () => {
   });
 
   assert.deepStrictEqual(parseType(`'Something'`), {
-    kind: 'StringLiteralType',
+    kind: 'LiteralType',
     text: `'Something'`
+  });
+
+  assert.deepStrictEqual(parseType(`123`), {
+    kind: 'LiteralType',
+    text: '123'
+  });
+
+  assert.deepStrictEqual(parseType(`true`), {
+    kind: 'LiteralType',
+    text: 'true'
+  });
+
+  assert.deepStrictEqual(parseType(`false`), {
+    kind: 'LiteralType',
+    text: 'false'
   });
 });
 

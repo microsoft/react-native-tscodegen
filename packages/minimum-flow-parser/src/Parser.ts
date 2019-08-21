@@ -24,8 +24,8 @@ function applyBoolean(value: Token): ast.Type {
   return { kind: 'PrimitiveType', name: 'boolean' };
 }
 
-function applyStringLiteral(value: Token): ast.Type {
-  return { kind: 'StringLiteralType', text: value.text };
+function applyLiteralType(value: Token): ast.Type {
+  return { kind: 'LiteralType', text: value.text };
 }
 
 function applyOptionalType(value: [Token, ast.Type]): ast.Type {
@@ -97,7 +97,9 @@ TYPE_TERM.setPattern(
     apply(str('number'), applyNumber),
     apply(str('string'), applyString),
     apply(str('boolean'), applyBoolean),
-    apply(tok(TokenKind.StringLiteral), applyStringLiteral),
+    apply(
+      alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
+      applyLiteralType),
     apply(seq(str('?'), TYPE), applyOptionalType),
     apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
     apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType)
