@@ -27,19 +27,25 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
             throw new Error(`Unable to find command ${commandName} in type ${info.typeNode.getText()}.`);
         }
 
-        let funcDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature;
-        let funcReturnType: ts.Type;
-        let funcParameters: ReadonlyArray<ts.ParameterDeclaration>;
+        let funcDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature | undefined;
+        let funcReturnType: ts.Type | undefined;
+        let funcParameters: ReadonlyArray<ts.ParameterDeclaration> | undefined;
 
         for (const decl of methodSymbol.declarations) {
             if (ts.isMethodSignature(decl) || ts.isCallSignatureDeclaration(decl)) {
                 if (decl.typeParameters !== undefined && decl.typeParameters.length !== 0) {
                     throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should not be generic.`);
                 }
+                if (decl.type === undefined) {
+                    throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should have a return type.`);
+                }
                 funcDecl = decl;
                 funcReturnType = typeChecker.getTypeFromTypeNode(decl.type);
                 funcParameters = decl.parameters;
             } else if (ts.isPropertySignature(decl)) {
+                if (decl.type === undefined) {
+                    throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should have a property type.`);
+                }
                 const propType = typeChecker.getTypeFromTypeNode(decl.type);
                 const signatures = propType.getCallSignatures();
                 if (signatures !== undefined && signatures.length === 1) {
@@ -58,7 +64,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
                 }
             }
         }
-        if (funcDecl === undefined) {
+        if (funcDecl === undefined || funcReturnType === undefined || funcParameters === undefined) {
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should be a function.`);
         }
 
@@ -70,7 +76,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
         }
 
         const viewRefType = funcParameters[0].type;
-        if (!ts.isTypeReferenceNode(viewRefType) || (
+        if (viewRefType === undefined || !ts.isTypeReferenceNode(viewRefType) || (
             viewRefType.typeName.getText() !== 'React.Ref' &&
             viewRefType.typeArguments !== undefined &&
             viewRefType.typeArguments.length === 1 &&
@@ -85,6 +91,9 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
             typeAnnotation: {
                 type: 'FunctionTypeAnnotation',
                 params: funcParameters.slice(1).map((param: ts.ParameterDeclaration): cs.CommandsFunctionTypeParamAnnotation => {
+                    if (param.type === undefined) {
+                        throw new Error(`Parameter ${param.name.getText()} in command ${commandName} in type ${info.typeNode.getText()} should have a parameter type.`);
+                    }
                     return {
                         name: param.name.getText(),
                         typeAnnotation: typeNodeToCommandsTypeAnnotation(param.type, typeChecker)

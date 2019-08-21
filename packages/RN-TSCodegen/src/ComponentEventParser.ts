@@ -5,9 +5,9 @@ import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
 import { isReactNull, RNRawType, typeToRNRawType, WritableObjectType } from './TypeChecker';
 
-function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string] {
+function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string | undefined] | undefined {
   if (eventType.isUnion()) {
-    let result: [boolean, ts.Type, string, string];
+    let result: [boolean, ts.Type, string, string | undefined] | undefined;
     for (const elementType of eventType.types) {
       if (!isReactNull(elementType)) {
         const elementResult = checkEventType(elementType, info, propDecl);
@@ -43,21 +43,22 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
 }
 
 function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.ObjectPropertyType {
+  const namePlaceholder = <string><unknown>undefined;
   switch (rawType.kind) {
-    case 'Boolean': return { type: 'BooleanTypeAnnotation', name: undefined, optional: rawType.isNullable };
-    case 'String': return { type: 'StringTypeAnnotation', name: undefined, optional: rawType.isNullable };
-    case 'Float': return { type: 'FloatTypeAnnotation', name: undefined, optional: rawType.isNullable };
-    case 'Double': return { type: 'DoubleTypeAnnotation', name: undefined, optional: rawType.isNullable };
-    case 'Int32': return { type: 'Int32TypeAnnotation', name: undefined, optional: rawType.isNullable };
+    case 'Boolean': return { type: 'BooleanTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
+    case 'String': return { type: 'StringTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
+    case 'Float': return { type: 'FloatTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
+    case 'Double': return { type: 'DoubleTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
+    case 'Int32': return { type: 'Int32TypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
     case 'StringLiterals': return {
       type: 'StringEnumTypeAnnotation',
-      name: undefined,
+      name: namePlaceholder,
       optional: rawType.isNullable,
       options: rawType.values.map((name: string) => { return { name }; })
     };
     case 'Object': return {
       type: 'ObjectTypeAnnotation',
-      name: undefined,
+      name: namePlaceholder,
       optional: rawType.isNullable,
       properties: rawType.properties.map((rawProp: { name: string; propertyType: RNRawType }) => {
         const prop = <WritableObjectType<cs.ObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
@@ -70,9 +71,10 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
   throw new Error(`Component event type does not support ${typeNode.getText()}.`);
 }
 
-export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape {
+export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape | undefined {
   const typeChecker = info.program.getTypeChecker();
-  const eventTypeTuple = checkEventType(typeChecker.getTypeFromTypeNode(propDecl.type), info, propDecl);
+  const propType = <ts.TypeNode>propDecl.type;
+  const eventTypeTuple = checkEventType(typeChecker.getTypeFromTypeNode(propType), info, propDecl);
   if (eventTypeTuple === undefined) {
     return undefined;
   }
@@ -82,11 +84,11 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
 
   let eventProperties: readonly cs.ObjectPropertyType[] = [];
   if (rawType.kind !== 'Null') {
-    const objectType = rnRawTypeToObjectPropertyType(propDecl.type, rawType);
+    const objectType = rnRawTypeToObjectPropertyType(propType, rawType);
     if (objectType.type === 'ObjectTypeAnnotation') {
       eventProperties = objectType.properties;
     } else {
-      throw new Error(`Component event type does not support ${propDecl.type.getText()}.`);
+      throw new Error(`Component event type does not support ${propType.getText()}.`);
     }
   }
 

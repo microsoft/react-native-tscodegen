@@ -1,4 +1,5 @@
 import * as assert from 'assert';
+import { Token } from 'ts-parsec';
 import { tokenizer, TokenKind } from '../src/Tokenizer';
 
 function testTokenizer(input: string, expecteds: [TokenKind, string][]): void {
@@ -6,6 +7,7 @@ function testTokenizer(input: string, expecteds: [TokenKind, string][]): void {
 
   for (const expected of expecteds) {
     assert.notStrictEqual(token, undefined);
+    token = <Token<TokenKind>>token;
     assert.strictEqual(token.kind, expected[0]);
     assert.strictEqual(token.text, expected[1]);
     token = token.next;

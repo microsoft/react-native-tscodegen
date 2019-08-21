@@ -83,7 +83,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
           elementType: {
             type: 'StringEnumTypeAnnotation',
             options: rawType.elementType.values.map((name: string) => { return { name }; }),
-            default: (rawType.defaultValue === undefined ? rawType.elementType.defaultValue === undefined ? null : `${rawType.elementType.defaultValue}` : `${rawType.defaultValue}`)
+            default: <string>(rawType.defaultValue === undefined ? rawType.elementType.defaultValue === undefined ? null : `${rawType.elementType.defaultValue}` : `${rawType.defaultValue}`)
           }
         }];
         case 'rn:ColorPrimitive': return [rawType.isNullable, {
@@ -131,8 +131,9 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
 
 export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
   const typeChecker = info.program.getTypeChecker();
-  const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propDecl.type), typeChecker, true);
-  const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propDecl.type, info.program.getTypeChecker());
+  const propType = <ts.TypeNode>propDecl.type;
+  const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propType), typeChecker, true);
+  const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propType, info.program.getTypeChecker());
   return {
     name: propDecl.name.getText(),
     optional: propDecl.questionToken !== undefined || optional,

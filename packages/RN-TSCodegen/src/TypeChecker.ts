@@ -112,13 +112,13 @@ export type RNRawType = (
 
 function eventTypeToRNRawType(typeArguments: readonly ts.Type[], kind: 'DirectEventHandler' | 'BubblingEventHandler', typeChecker: ts.TypeChecker): RNRawType {
     if (typeArguments === undefined || typeArguments.length < 1 || typeArguments.length > 2) {
-        throw new Error(`${kind} should have one type argument and anoter optional string literal type argument.`);
+        throw new Error(`${kind} should have one type argument and another optional string literal type argument.`);
     }
 
     const eventType = typeToRNRawType(typeArguments[0], typeChecker, true);
     const nameType = typeArguments.length === 1 ? undefined : typeToRNRawType(typeArguments[1], typeChecker, false);
-    if (nameType !== undefined || nameType.kind !== 'StringLiterals' || nameType.values.length !== 1) {
-        throw new Error(`${kind} should have one type argument and anoter optional string literal type argument.`);
+    if (nameType !== undefined && (nameType.kind !== 'StringLiterals' || nameType.values.length !== 1)) {
+        throw new Error(`${kind} should have one type argument and another optional string literal type argument.`);
     }
 
     return {
@@ -147,21 +147,27 @@ function readSignature(signature: ts.Signature, decl: ts.Declaration): [ts.Type,
 
 function tryReadMemberSignature(propSymbolDecl: ts.Declaration, typeChecker: ts.TypeChecker): [
     ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature,
-    ts.Type,
-    ts.Type,
-    readonly ts.ParameterDeclaration[]
+    ts.Type | undefined,
+    ts.Type | undefined,
+    readonly ts.ParameterDeclaration[] | undefined
 ] {
-    let propDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature;
-    let propType: ts.Type;
-    let funcType: [ts.Type, readonly ts.ParameterDeclaration[]];
+    let propDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature | undefined;
+    let propType: ts.Type | undefined;
+    let funcType: [ts.Type, readonly ts.ParameterDeclaration[]] | undefined;
 
     if (ts.isMethodSignature(propSymbolDecl) || ts.isCallSignatureDeclaration(propSymbolDecl)) {
         if (propSymbolDecl.typeParameters !== undefined && propSymbolDecl.typeParameters.length !== 0) {
             throw new Error(`Generic function is not supported: ${propSymbolDecl.getText()}.`);
         }
+        if (propSymbolDecl.type === undefined) {
+            throw new Error(`Member should have a type: ${propSymbolDecl.getText()}.`);
+        }
         propDecl = propSymbolDecl;
         funcType = [typeChecker.getTypeFromTypeNode(propSymbolDecl.type), propSymbolDecl.parameters];
     } else if (ts.isPropertySignature(propSymbolDecl)) {
+        if (propSymbolDecl.type === undefined) {
+            throw new Error(`Member should have a type: ${propSymbolDecl.getText()}.`);
+        }
         propDecl = propSymbolDecl;
         propType = typeChecker.getTypeFromTypeNode(propSymbolDecl.type);
         const signatures = propType.getCallSignatures();
@@ -174,7 +180,8 @@ function tryReadMemberSignature(propSymbolDecl: ts.Declaration, typeChecker: ts.
     }
 
     return [
-        propDecl,
+        // propDecl will not be undefined if propTYpe or funcType is not undefined. This will be checked outside.
+        <ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature>propDecl,
         propType,
         funcType === undefined ? undefined : funcType[0],
         funcType === undefined ? undefined : funcType[1]
@@ -214,7 +221,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     let itemDoubleRNTag = false;
     let itemInt32RNTag = false;
     let itemString = false;
-    let itemDefaultValue: boolean | number | string;
+    let itemDefaultValue: boolean | number | string | undefined;
     const itemUnknowns: ts.Type[] = [];
     const itemStringLiterals: string[] = [];
     const itemOthers: RNRawType[] = [];
@@ -327,7 +334,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             }
         } else if (elementType.aliasSymbol !== undefined) {
             if (elementType.aliasSymbol.name === 'DirectEventHandler' || elementType.aliasSymbol.name === 'BubblingEventHandler') {
-                itemOthers.push(eventTypeToRNRawType(elementType.aliasTypeArguments, elementType.aliasSymbol.name, typeChecker));
+                itemOthers.push(eventTypeToRNRawType(<ReadonlyArray<ts.Type>>elementType.aliasTypeArguments, elementType.aliasSymbol.name, typeChecker));
             } else if (elementType.aliasSymbol.name === 'WithDefault') {
                 const typeArguments = elementType.aliasTypeArguments;
                 if (typeArguments === undefined || typeArguments.length !== 2) {
@@ -410,16 +417,16 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                                 propRawType.isNullable = true;
                             }
                             objectRawType.properties.push({
-                                name: propDecl.name.getText(),
+                                name: (<ts.Node>propDecl.name).getText(),
                                 propertyType: propRawType
                             });
-                        } else if (funcReturnType !== undefined) {
+                        } else if (funcReturnType !== undefined && funcParameters !== undefined) {
                             const funcRawType = getRawFunctionType(funcReturnType, funcParameters, typeChecker, true);
                             if (propDecl.questionToken !== undefined) {
                                 funcRawType.isNullable = true;
                             }
                             objectRawType.properties.push({
-                                name: propDecl.name.getText(),
+                                name: (<ts.Node>propDecl.name).getText(),
                                 propertyType: funcRawType
                             });
                         } else {

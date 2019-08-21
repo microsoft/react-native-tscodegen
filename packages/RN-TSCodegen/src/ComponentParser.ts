@@ -6,7 +6,7 @@ import { parseProperty } from './ComponentPropertyParser';
 import { ExportCommandInfo, ExportComponentInfo } from './ExportParser';
 
 function importExists(sourceFile: ts.SourceFile, name: string): boolean {
-    return sourceFile.forEachChild((importNode: ts.Node) => {
+    const result = sourceFile.forEachChild((importNode: ts.Node) => {
         if (ts.isImportDeclaration(importNode)) {
             if (importNode.importClause !== undefined) {
                 if (importNode.importClause.name !== undefined) {
@@ -24,7 +24,8 @@ function importExists(sourceFile: ts.SourceFile, name: string): boolean {
             }
             return undefined;
         }
-    }) || false;
+    });
+    return result === undefined ? false : result;
 }
 
 export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo | undefined): cs.ComponentShape {
@@ -60,7 +61,7 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
     });
 
     const result = {
-        extendsProps: [],
+        extendsProps: <cs.ExtendsPropsShape[]>[],
         events,
         props,
         commands

@@ -75,13 +75,13 @@ function applyTypeReference(value: [Token[], undefined | [Token, ast.Type[], Tok
   if (typeArguments === undefined) {
     return {
       kind: 'TypeReference',
-      name: entity,
+      name: <ast.EntityName>entity,
       typeArguments: []
     };
   } else {
     return {
       kind: 'TypeReference',
-      name: entity,
+      name: <ast.EntityName>entity,
       typeArguments: typeArguments[1]
     };
   }
@@ -153,7 +153,7 @@ function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
   return {
     kind: 'ArrayType',
     isReadonly: false,
-    elementType: <ast.Type>undefined
+    elementType: <ast.Type><unknown>undefined
   };
 }
 

@@ -24,7 +24,7 @@ export interface ExportCommandInfo {
 
 type ExportInfo = [ts.TypeNode, ts.Expression, ts.Expression];
 
-export function tryParseExportedCallExpression(callExpression: ts.Expression, functionName: string): ExportInfo {
+export function tryParseExportedCallExpression(callExpression: ts.Expression, functionName: string): ExportInfo | undefined {
     // the export statement may be "export default (CALL-EXPRESSION as Type)"
     while (ts.isParenthesizedExpression(callExpression) || ts.isTypeAssertion(callExpression) || ts.isAsExpression(callExpression)) {
         // tslint:disable-next-line:no-parameter-reassignment
@@ -64,12 +64,12 @@ export function tryParseExportedCallExpression(callExpression: ts.Expression, fu
     return [callExpression.typeArguments[0], callExpression.arguments[0], callExpression.arguments[1]];
 }
 
-export function tryParseExport(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node, functionName: string): ExportInfo {
+export function tryParseExport(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node, functionName: string): ExportInfo | undefined {
     // export default FUNCTION_NAME<TYPE>(ARGUMENT)
     // export something = FUNCTION_NAME<TYPE>(ARGUMENT)
 
     if (ts.isExportAssignment(node)) {
-        if (node.isExportEquals) {
+        if (node.isExportEquals !== undefined && node.isExportEquals) {
             // unexpected: export = something;
             return undefined;
         }
@@ -77,10 +77,10 @@ export function tryParseExport(program: ts.Program, sourceFile: ts.SourceFile, n
     } else if (ts.isVariableStatement(node)) {
         // unexpected: unexported variable declaration
         const typeChecker = program.getTypeChecker();
-        const exportSymbols = typeChecker.getExportsOfModule(typeChecker.getSymbolAtLocation(sourceFile));
+        const exportSymbols = typeChecker.getExportsOfModule(<ts.Symbol>typeChecker.getSymbolAtLocation(sourceFile));
         for (const varDecl of node.declarationList.declarations) {
             if (varDecl.initializer !== undefined) {
-                const exportedSymbol = typeChecker.getSymbolAtLocation(varDecl.name);
+                const exportedSymbol = <ts.Symbol>typeChecker.getSymbolAtLocation(varDecl.name);
                 if (exportSymbols.indexOf(exportedSymbol) !== -1) {
                     const exportInfo = tryParseExportedCallExpression(varDecl.initializer, functionName);
                     if (exportInfo !== undefined) {
@@ -99,7 +99,7 @@ export function tryParseExport(program: ts.Program, sourceFile: ts.SourceFile, n
 
 }
 
-export function tryParseExportNativeModule(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportNativeModuleInfo {
+export function tryParseExportNativeModule(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportNativeModuleInfo | undefined {
     const exportInfo = tryParseExport(program, sourceFile, node, 'TurboModuleRegistry.getEnforcing');
     if (exportInfo === undefined) {
         return undefined;
@@ -117,7 +117,7 @@ export function tryParseExportNativeModule(program: ts.Program, sourceFile: ts.S
     };
 }
 
-export function tryParseExportComponent(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportComponentInfo {
+export function tryParseExportComponent(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportComponentInfo | undefined {
     const exportInfo = tryParseExport(program, sourceFile, node, 'codegenNativeComponent');
     if (exportInfo === undefined) {
         return undefined;
@@ -152,7 +152,7 @@ export function tryParseExportComponent(program: ts.Program, sourceFile: ts.Sour
     return result;
 }
 
-export function tryParseExportCommand(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportCommandInfo {
+export function tryParseExportCommand(program: ts.Program, sourceFile: ts.SourceFile, node: ts.Node): ExportCommandInfo | undefined {
     const exportInfo = tryParseExport(program, sourceFile, node, 'codegenNativeCommands');
     if (exportInfo === undefined) {
         return undefined;
