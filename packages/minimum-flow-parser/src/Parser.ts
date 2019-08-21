@@ -2,7 +2,7 @@
 
 import * as parsec from 'ts-parsec';
 import { rule } from 'ts-parsec';
-import { alt, apply, lrec_sc, seq, str, tok } from 'ts-parsec';
+import { alt, apply, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'ts-parsec';
 import * as ast from './AST';
 import { TokenKind } from './Tokenizer';
 
@@ -37,6 +37,13 @@ function applyOptionalType(value: [Token, ast.Type]): ast.Type {
   }
 }
 
+function applyParenType(value: [Token, ast.Type, Token]): ast.Type {
+  return {
+    kind: 'ParenType',
+    elementType: value[1]
+  };
+}
+
 function applyReadonlyArrayType(value: [Token, Token, ast.Type, Token]): ast.Type {
   return {
     kind: 'ArrayType',
@@ -51,6 +58,23 @@ function applyDecoratedGenericType(value: [Token, Token, ast.Type, Token]): ast.
     elementType: value[2],
     name: '$ReadOnly'
   };
+}
+
+function applyTypeReference(value: [Token, undefined | [Token, ast.Type[], Token]]): ast.Type {
+  const [name, typeArguments] = value;
+  if (typeArguments === undefined) {
+    return {
+      kind: 'TypeReference',
+      name: name.text,
+      typeArguments: []
+    };
+  } else {
+    return {
+      kind: 'TypeReference',
+      name: name.text,
+      typeArguments: typeArguments[1]
+    };
+  }
 }
 
 function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
@@ -93,16 +117,22 @@ export const TYPE = rule<TokenKind, ast.Type>();
 
 TYPE_TERM.setPattern(
   alt(
-    apply(str('null'), applyNull),
-    apply(str('number'), applyNumber),
-    apply(str('string'), applyString),
-    apply(str('boolean'), applyBoolean),
-    apply(
-      alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
-      applyLiteralType),
-    apply(seq(str('?'), TYPE), applyOptionalType),
-    apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
-    apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType)
+    alt(
+      apply(str('null'), applyNull),
+      apply(str('number'), applyNumber),
+      apply(str('string'), applyString),
+      apply(str('boolean'), applyBoolean),
+      apply(
+        alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
+        applyLiteralType),
+      apply(seq(str('?'), TYPE), applyOptionalType),
+      apply(seq(str('('), TYPE, str(')')), applyParenType)
+    ),
+    alt(
+      apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
+      apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
+      apply(seq(tok(TokenKind.Identifier), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
+    )
   )
 );
 

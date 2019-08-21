@@ -148,3 +148,57 @@ test(`Test Union Type`, () => {
     ]
   });
 });
+
+test(`Test Type Reference`, () => {
+  assert.deepStrictEqual(parseType(`Int32`), {
+    kind: 'TypeReference',
+    name: 'Int32',
+    typeArguments: []
+  });
+
+  assert.deepStrictEqual(parseType(`WithDefault<('a' | 'b'), ('a' | 123 | true | false)>`), {
+    kind: 'TypeReference',
+    name: 'WithDefault',
+    typeArguments: [
+      {
+        kind: 'ParenType',
+        elementType: {
+          kind: 'UnionType',
+          elementTypes: [
+            {
+              kind: 'LiteralType',
+              text: `'a'`
+            }, {
+              kind: 'LiteralType',
+              text: `'b'`
+            }
+          ]
+        }
+      },
+      {
+        kind: 'ParenType',
+        elementType: {
+          kind: 'UnionType',
+          elementTypes: [
+            {
+              kind: 'LiteralType',
+              text: `'a'`
+            },
+            {
+              kind: 'LiteralType',
+              text: `123`
+            },
+            {
+              kind: 'LiteralType',
+              text: `true`
+            },
+            {
+              kind: 'LiteralType',
+              text: `false`
+            }
+          ]
+        }
+      }
+    ]
+  });
+});

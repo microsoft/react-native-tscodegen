@@ -63,6 +63,11 @@ export interface TypeReference {
   typeArguments: Type[];
 }
 
+export interface ParenType {
+  kind: 'ParenType';
+  elementType: Type;
+}
+
 export type Type =
   | NullType
   | NumberType
@@ -74,7 +79,9 @@ export type Type =
   | ObjectType
   | DecoratedGenericType
   | UnionType
-  | TypeReference;
+  | TypeReference
+  | ParenType
+  ;
 
 export interface Statement {
 }

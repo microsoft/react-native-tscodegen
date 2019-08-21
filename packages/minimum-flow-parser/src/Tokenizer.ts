@@ -24,6 +24,8 @@ export enum TokenKind {
 
   OpenBrace,
   CloseBrace,
+  OpenParen,
+  CloseParen,
   Semicolon,
   Colon,
   Comma,
@@ -56,6 +58,8 @@ export const tokenizer = buildLexer([
 
   [true, /^\{/g, TokenKind.OpenBrace],
   [true, /^\}/g, TokenKind.CloseBrace],
+  [true, /^\(/g, TokenKind.OpenParen],
+  [true, /^\)/g, TokenKind.CloseParen],
   [true, /^\;/g, TokenKind.Semicolon],
   [true, /^\:/g, TokenKind.Colon],
   [true, /^\,/g, TokenKind.Comma],
