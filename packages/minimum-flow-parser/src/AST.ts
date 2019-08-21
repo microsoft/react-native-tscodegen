@@ -1,5 +1,9 @@
 // tslint:disable:no-empty-interface
 
+/*****************************************************************
+ * Types
+ ****************************************************************/
+
 export interface PrimitiveType<T> {
   kind: 'PrimitiveType';
   name: T;
@@ -93,6 +97,14 @@ export type Type =
   | ParenType
   ;
 
+/*****************************************************************
+ * Expressions
+ ****************************************************************/
+
+/*****************************************************************
+ * Declarations
+ ****************************************************************/
+
 export interface DeclarationBase {
   hasExport: boolean;
   name: string;
@@ -106,6 +118,10 @@ export interface TypeAliasDecl extends DeclarationBase {
 export type Declaration =
   | TypeAliasDecl
   ;
+
+/*****************************************************************
+ * Statements
+ ****************************************************************/
 
 export type UseStrictStatement = {
   kind: 'UseStrictStat';
@@ -129,6 +145,10 @@ export type Statement =
   | ImportNamespaceStatement
   | ImportNameStatement
   ;
+
+/*****************************************************************
+ * Flow Program AST
+ ****************************************************************/
 
 export interface FlowProgram {
   statements: Statement[];

@@ -8,6 +8,10 @@ import { TokenKind } from './Tokenizer';
 
 type Token = parsec.Token<TokenKind>;
 
+/*****************************************************************
+ * Types (apply)
+ ****************************************************************/
+
 function applyNull(value: Token): ast.Type {
   return { kind: 'PrimitiveType', name: 'null' };
 }
@@ -187,6 +191,14 @@ function applyTypeLrec(first: ast.Type, second: ast.ArrayType | ast.UnionType): 
   }
 }
 
+/*****************************************************************
+ * Expressions (apply)
+ ****************************************************************/
+
+/*****************************************************************
+ * Declarations (apply)
+ ****************************************************************/
+
 function applyTypeAliasDecl(value: [
   undefined | Token,
   Token,
@@ -203,6 +215,10 @@ function applyTypeAliasDecl(value: [
     aliasedType
   };
 }
+
+/*****************************************************************
+ * Statements (apply)
+ ****************************************************************/
 
 function applyUseStrictStat(value: [Token, Token]): ast.Statement {
   return {
@@ -237,11 +253,19 @@ function applyImportNameStat(value: [Token, undefined | Token, Token, Token[], T
   };
 }
 
+/*****************************************************************
+ * Flow Program AST (apply)
+ ****************************************************************/
+
 function applyProgram(value: ast.Statement[]): ast.FlowProgram {
   return {
     statements: value
   };
 }
+
+/*****************************************************************
+ * Syntax
+ ****************************************************************/
 
 export const IDENTIFIER = rule<TokenKind, Token>();
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
