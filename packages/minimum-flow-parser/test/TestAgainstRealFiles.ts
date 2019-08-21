@@ -105,3 +105,18 @@ test(`Test CodegenSchema.js`, () => {
 
   assert.deepStrictEqual(schemaTypeAst, expected);
 });
+
+function testAgainstFlowTestCases(snapshotPath: string, category: string): void {
+  const testCases = <{ [key: string]: string }>(require(snapshotPath));
+  Object.keys(testCases).forEach((key: string) => {
+    test(`Test ${category}: ${key}`, () => {
+      expectSingleResult(expectEOF(PROGRAM.parse(tokenizer.parse(testCases[key]))));
+    });
+  });
+}
+
+const testCaseInputFolder = path.join(__dirname, `../../../../react-native/packages/react-native-codegen/src/parsers/flow`);
+testAgainstFlowTestCases(path.join(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`), 'components_success');
+testAgainstFlowTestCases(path.join(testCaseInputFolder, `./components/__test_fixtures__/failures.js`), 'components_failure');
+testAgainstFlowTestCases(path.join(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`), 'modules_success');
+testAgainstFlowTestCases(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), 'modules_failure');
