@@ -98,3 +98,38 @@ test(`Test Array Type`, () => {
     }
   });
 });
+
+test(`Test Union Type`, () => {
+  assert.deepStrictEqual(parseType(`$ReadOnlyArray<null>|string[]|$ReadOnly<number>|boolean`), {
+    kind: 'UnionType',
+    elementTypes: [
+      {
+        kind: 'ArrayType',
+        isReadonly: true,
+        elementType: {
+          kind: 'PrimitiveType',
+          name: 'null'
+        }
+      },
+      {
+        kind: 'ArrayType',
+        isReadonly: false,
+        elementType: {
+          kind: 'PrimitiveType',
+          name: 'string'
+        }
+      },
+      {
+        kind: 'DecoratedGenericType',
+        name: '$ReadOnly',
+        elementType: {
+          kind: 'PrimitiveType',
+          name: 'number'
+        }
+      }, {
+        kind: 'PrimitiveType',
+        name: 'boolean'
+      }
+    ]
+  });
+});

@@ -45,6 +45,14 @@ function applyReadonlyArrayType(value: [Token, Token, ast.Type, Token]): ast.Typ
   };
 }
 
+function applyDecoratedGenericType(value: [Token, Token, ast.Type, Token]): ast.Type {
+  return {
+    kind: 'DecoratedGenericType',
+    elementType: value[2],
+    name: '$ReadOnly'
+  };
+}
+
 function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
   return {
     kind: 'ArrayType',
@@ -53,12 +61,34 @@ function applyArrayTypeLrec(value: [Token, Token]): ast.ArrayType {
   };
 }
 
-function applyTypeLrec(first: ast.Type, seconds: ast.ArrayType): ast.Type {
-  seconds.elementType = first;
-  return seconds;
+function applyUnionTypeLrec(value: [Token, ast.Type]): ast.UnionType {
+  return {
+    kind: 'UnionType',
+    elementTypes: [value[1]]
+  };
+}
+
+function applyTypeLrec(first: ast.Type, second: ast.ArrayType | ast.UnionType): ast.Type {
+  switch (second.kind) {
+    case 'ArrayType': {
+      second.elementType = first;
+      return second;
+    }
+    case 'UnionType': {
+      if (first.kind === 'UnionType') {
+        first.elementTypes.push(...second.elementTypes);
+        return first;
+      } else {
+        second.elementTypes.unshift(first);
+        return second;
+      }
+    }
+    default: throw new Error(`Unrecognized type AST.`);
+  }
 }
 
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
+export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
 
 TYPE_TERM.setPattern(
@@ -69,14 +99,23 @@ TYPE_TERM.setPattern(
     apply(str('boolean'), applyBoolean),
     apply(tok(TokenKind.StringLiteral), applyStringLiteral),
     apply(seq(str('?'), TYPE), applyOptionalType),
-    apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType)
+    apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
+    apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType)
+  )
+);
+
+TYPE_ARRAY.setPattern(
+  lrec_sc(
+    TYPE_TERM,
+    apply(seq(str('['), str(']')), applyArrayTypeLrec),
+    applyTypeLrec
   )
 );
 
 TYPE.setPattern(
   lrec_sc(
-    TYPE_TERM,
-    apply(seq(str('['), str(']')), applyArrayTypeLrec),
+    TYPE_ARRAY,
+    apply(seq(str('|'), TYPE_ARRAY), applyUnionTypeLrec),
     applyTypeLrec
   )
 );
