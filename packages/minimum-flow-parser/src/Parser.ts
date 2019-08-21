@@ -212,12 +212,20 @@ function applyProgram(value: ast.Statement[]): ast.FlowProgram {
   };
 }
 
+export const IDENTIFIER = rule<TokenKind, Token>();
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
 export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
 export const DECL = rule<TokenKind, ast.Declaration>();
 export const STAT = rule<TokenKind, ast.Statement>();
 export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
+
+IDENTIFIER.setPattern(
+  alt(
+    tok(TokenKind.KEYWORD_type),
+    tok(TokenKind.Identifier)
+  )
+);
 
 TYPE_TERM.setPattern(
   alt(
@@ -235,7 +243,7 @@ TYPE_TERM.setPattern(
     alt(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
       apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
-      apply(seq(list_sc(tok(TokenKind.Identifier), str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
+      apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
     ),
     apply(
       seq(
@@ -248,11 +256,11 @@ TYPE_TERM.setPattern(
               applyObjectTypeMixin
             ),
             apply(
-              seq(opt_sc(str('+')), tok(TokenKind.Identifier), opt_sc(str('?')), str(':'), TYPE),
+              seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
               applyObjectTypeProp
             ),
             apply(
-              seq(opt_sc(str('+')), str('['), tok(TokenKind.Identifier), str(':'), TYPE, str(']'), str(':'), TYPE),
+              seq(opt_sc(str('+')), str('['), IDENTIFIER, str(':'), TYPE, str(']'), str(':'), TYPE),
               applyObjectIndexer
             )
           ),
@@ -285,7 +293,7 @@ TYPE.setPattern(
 
 DECL.setPattern(
   apply(
-    seq(opt_sc(str('export')), str('type'), tok(TokenKind.Identifier), str('='), TYPE, str(';')),
+    seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, str(';')),
     applyTypeAliasDecl
   )
 );
