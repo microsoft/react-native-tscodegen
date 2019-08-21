@@ -195,6 +195,44 @@ function applyTypeLrec(first: ast.Type, second: ast.ArrayType | ast.UnionType): 
  * Expressions (apply)
  ****************************************************************/
 
+function applyLiteralExpr(value: Token): ast.Expression {
+  return { kind: 'LiteralExpr', text: value.text };
+}
+
+function applyExprReference(value: [Token[], undefined | [Token, ast.Type[], Token]]): ast.Expression {
+  const [names, typeArguments] = value;
+
+  let entity: ast.EntityName | undefined;
+  for (const name of names) {
+    if (entity === undefined) {
+      entity = name.text;
+    } else {
+      entity = { parent: entity, name: name.text };
+    }
+  }
+
+  if (typeArguments === undefined) {
+    return {
+      kind: 'ExprReference',
+      name: <ast.EntityName>entity,
+      typeArguments: []
+    };
+  } else {
+    return {
+      kind: 'ExprReference',
+      name: <ast.EntityName>entity,
+      typeArguments: typeArguments[1]
+    };
+  }
+}
+
+function applyParenExpr(value: [Token, ast.Expression, Token]): ast.Expression {
+  return {
+    kind: 'ParenExpr',
+    expr: value[1]
+  };
+}
+
 /*****************************************************************
  * Declarations (apply)
  ****************************************************************/
@@ -271,6 +309,7 @@ export const IDENTIFIER = rule<TokenKind, Token>();
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
 export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
+export const EXPR = rule<TokenKind, ast.Expression>();
 export const DECL = rule<TokenKind, ast.Declaration>();
 export const STAT = rule<TokenKind, ast.Statement>();
 export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
@@ -343,6 +382,16 @@ TYPE.setPattern(
     apply(seq(opt_sc(str('|')), TYPE_ARRAY), applyUnionHead),
     apply(seq(str('|'), TYPE_ARRAY), applyUnionTypeLrec),
     applyTypeLrec
+  )
+);
+
+EXPR.setPattern(
+  alt(
+    apply(
+      alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
+      applyLiteralExpr),
+    apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyExprReference),
+    apply(seq(str('('), EXPR, str(')')), applyParenExpr)
   )
 );
 

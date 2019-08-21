@@ -101,6 +101,42 @@ export type Type =
  * Expressions
  ****************************************************************/
 
+export interface LiteralExpr {
+  kind: 'LiteralExpr';
+  text: string;
+}
+
+export interface ExprReference {
+  kind: 'ExprReference';
+  name: EntityName;
+  typeArguments: Type[];
+}
+
+export interface TypeCastExpr {
+  kind: 'TypeCastExpr';
+  fromExpr: Expression;
+  toType: Type;
+}
+
+export interface CallExpr {
+  kind: 'CallExpr';
+  func: Expression;
+  funcArguments: Expression[];
+}
+
+export interface ParenExpr {
+  kind: 'ParenExpr';
+  expr: Expression;
+}
+
+export type Expression =
+  | LiteralExpr
+  | ExprReference
+  | CallExpr
+  | TypeCastExpr
+  | ParenExpr
+  ;
+
 /*****************************************************************
  * Declarations
  ****************************************************************/

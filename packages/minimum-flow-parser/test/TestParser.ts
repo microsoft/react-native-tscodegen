@@ -1,16 +1,24 @@
 import * as assert from 'assert';
 import { expectEOF, expectSingleResult } from 'ts-parsec';
 import * as ast from '../src/AST';
-import { PROGRAM, STAT, TYPE } from '../src/Parser';
+import { EXPR, PROGRAM, STAT, TYPE } from '../src/Parser';
 import { tokenizer } from '../src/Tokenizer';
 
 function parseType(input: string): ast.Type {
   return expectSingleResult(expectEOF(TYPE.parse(tokenizer.parse(input))));
 }
 
+function parseExpr(input: string): ast.Expression {
+  return expectSingleResult(expectEOF(EXPR.parse(tokenizer.parse(input))));
+}
+
 function parseStat(input: string): ast.Statement {
   return expectSingleResult(expectEOF(STAT.parse(tokenizer.parse(input))));
 }
+
+/*****************************************************************
+ * Types
+ ****************************************************************/
 
 test(`Test Primitive Types`, () => {
   assert.deepStrictEqual(parseType(`null`), {
@@ -327,6 +335,37 @@ test(`Test Object Type with Indexers`, () => {
   });
 });
 
+/*****************************************************************
+ * Expressions
+ ****************************************************************/
+
+test(`Test Expr Reference`, () => {
+  assert.deepStrictEqual(parseExpr(`name`), {
+    kind: 'ExprReference',
+    name: 'name',
+    typeArguments: []
+  });
+
+  assert.deepStrictEqual(parseExpr(`react.codegenNativeComponent<ModuleProps,Options<string>>`), {
+    kind: 'ExprReference',
+    name: { parent: 'react', name: 'codegenNativeComponent' },
+    typeArguments: [{
+      kind: 'TypeReference',
+      name: 'ModuleProps',
+      typeArguments: []
+    },
+    {
+      kind: 'TypeReference',
+      name: 'Options',
+      typeArguments: [{ kind: 'PrimitiveType', name: 'string' }]
+    }]
+  });
+});
+
+/*****************************************************************
+ * Statements
+ ****************************************************************/
+
 test(`Test Import`, () => {
   assert.deepStrictEqual(parseStat(`const codegenNativeComponent = require('codegenNativeComponent');`), {
     kind: 'ImportEqualStat',
@@ -346,6 +385,10 @@ test(`Test Import`, () => {
     source: `'CodegenTypes'`
   });
 });
+
+/*****************************************************************
+ * Flow Program AST
+ ****************************************************************/
 
 test(`Test Simple Program`, () => {
   const input = `
