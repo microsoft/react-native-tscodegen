@@ -34,3 +34,21 @@ test(`Test Primitive Types`, () => {
     text: `'Something'`
   });
 });
+
+test(`Test Optional Type`, () => {
+  assert.deepStrictEqual(parseType(`?string`), {
+    kind: 'OptionalType',
+    elementType: {
+      kind: 'PrimitiveType',
+      name: 'string'
+    }
+  });
+
+  assert.deepStrictEqual(parseType(`??string`), {
+    kind: 'OptionalType',
+    elementType: {
+      kind: 'PrimitiveType',
+      name: 'string'
+    }
+  });
+});

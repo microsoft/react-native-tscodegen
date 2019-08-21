@@ -14,7 +14,7 @@ function testTokenizer(input: string, expecteds: [TokenKind, string][]): void {
 }
 
 test(`Test Tokenizer with Normal Tokens`, () => {
-  const input = `boolean export null number string type Identifier $Identifier 'StringLiteral' =<>|{};:,`;
+  const input = `boolean export null number string type Identifier $Identifier 'StringLiteral' =<>|{};:,?`;
 
   const expecteds: [TokenKind, string][] = [
     [TokenKind.KEYWORD_boolean, `boolean`],
@@ -34,7 +34,8 @@ test(`Test Tokenizer with Normal Tokens`, () => {
     [TokenKind.CloseBrace, `}`],
     [TokenKind.Semicolon, `;`],
     [TokenKind.Colon, `:`],
-    [TokenKind.Comma, `,`]
+    [TokenKind.Comma, `,`],
+    [TokenKind.QuestionMark, `?`]
   ];
 
   testTokenizer(input, expecteds);

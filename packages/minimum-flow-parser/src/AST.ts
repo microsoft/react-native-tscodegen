@@ -1,11 +1,8 @@
 // tslint:disable:no-empty-interface
 
-export interface Type {
-}
-
-export interface PrimitiveType<T> extends Type {
+export interface PrimitiveType<T> {
   kind: 'PrimitiveType';
-  typeName: T;
+  name: T;
 }
 
 export type NullType = PrimitiveType<'null'>;
@@ -13,17 +10,17 @@ export type NumberType = PrimitiveType<'number'>;
 export type StringType = PrimitiveType<'string'>;
 export type BooleanType = PrimitiveType<'boolean'>;
 
-export interface StringLiteralType extends Type {
+export interface StringLiteralType {
   kind: 'StringLiteralType';
   text: string;
 }
 
-export interface OptionalType extends Type {
+export interface OptionalType {
   kind: 'OptionalType';
   elementType: Type;
 }
 
-export interface ArrayType extends Type {
+export interface ArrayType {
   kind: 'ArrayType';
   elementType: Type;
   isReadonly: boolean;
@@ -41,7 +38,7 @@ export interface ObjectIndexer {
   valueType: Type;
 }
 
-export interface ObjectType extends Type {
+export interface ObjectType {
   kind: 'ObjectType';
   isExact: boolean;
   mixinTypes: Type[];
@@ -49,22 +46,35 @@ export interface ObjectType extends Type {
   indexers: ObjectIndexer[];
 }
 
-export interface DecoratedGenericType extends Type {
+export interface DecoratedGenericType {
   kind: 'DecoratedGenericType';
   elementType: Type;
   name: '$ReadOnly';
 }
 
-export interface UnionType extends Type {
+export interface UnionType {
   kind: 'UnionType';
   elementTypes: Type[];
 }
 
-export interface TypeReference extends Type {
+export interface TypeReference {
   kind: 'TypeReference';
   name: string;
   typeArguments: Type[];
 }
+
+export type Type =
+  | NullType
+  | NumberType
+  | StringType
+  | BooleanType
+  | StringLiteralType
+  | OptionalType
+  | ArrayType
+  | ObjectType
+  | DecoratedGenericType
+  | UnionType
+  | TypeReference;
 
 export interface Statement {
 }

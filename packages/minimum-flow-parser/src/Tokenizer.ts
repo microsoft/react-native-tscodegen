@@ -24,6 +24,7 @@ export enum TokenKind {
   Semicolon,
   Colon,
   Comma,
+  QuestionMark,
 
   Comment1,
   Comment2,
@@ -52,6 +53,7 @@ export const tokenizer = buildLexer([
   [true, /^\;/g, TokenKind.Semicolon],
   [true, /^\:/g, TokenKind.Colon],
   [true, /^\,/g, TokenKind.Comma],
+  [true, /^\?/g, TokenKind.QuestionMark],
 
   [false, /^[/][/][^\n]*\n/g, TokenKind.Comment1],
   [false, /^[/]\*([^*]|\*+[^/])*\*+[/]/g, TokenKind.Comment2],
