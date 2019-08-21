@@ -111,9 +111,23 @@ export type UseStrictStatement = {
   kind: 'UseStrictStat';
 };
 
+export type ImportNamespaceStatement = {
+  kind: 'ImportEqualStat' | 'ImportAsStat';
+  name: string;
+  source: string;
+};
+
+export type ImportNameStatement = {
+  kind: 'ImportNameStat';
+  names: string[];
+  source: string;
+};
+
 export type Statement =
   | Declaration
   | UseStrictStatement
+  | ImportNamespaceStatement
+  | ImportNameStatement
   ;
 
 export interface FlowProgram {

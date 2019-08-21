@@ -1,11 +1,15 @@
 import * as assert from 'assert';
 import { expectEOF, expectSingleResult } from 'ts-parsec';
 import * as ast from '../src/AST';
-import { PROGRAM, TYPE } from '../src/Parser';
+import { PROGRAM, STAT, TYPE } from '../src/Parser';
 import { tokenizer } from '../src/Tokenizer';
 
 function parseType(input: string): ast.Type {
   return expectSingleResult(expectEOF(TYPE.parse(tokenizer.parse(input))));
+}
+
+function parseStat(input: string): ast.Statement {
+  return expectSingleResult(expectEOF(STAT.parse(tokenizer.parse(input))));
 }
 
 test(`Test Primitive Types`, () => {
@@ -320,6 +324,26 @@ test(`Test Object Type with Indexers`, () => {
       keyType: { kind: 'PrimitiveType', name: 'string' },
       valueType: { kind: 'PrimitiveType', name: 'number' }
     }]
+  });
+});
+
+test(`Test Import`, () => {
+  assert.deepStrictEqual(parseStat(`const codegenNativeComponent = require('codegenNativeComponent');`), {
+    kind: 'ImportEqualStat',
+    name: 'codegenNativeComponent',
+    source: `'codegenNativeComponent'`
+  });
+
+  assert.deepStrictEqual(parseStat(`import * as codegenNativeComponent from 'codegenNativeComponent';`), {
+    kind: 'ImportAsStat',
+    name: 'codegenNativeComponent',
+    source: `'codegenNativeComponent'`
+  });
+
+  assert.deepStrictEqual(parseStat(`import type {Int32, Double, Float, WithDefault} from 'CodegenTypes';`), {
+    kind: 'ImportNameStat',
+    names: ['Int32', 'Double', 'Float', 'WithDefault'],
+    source: `'CodegenTypes'`
   });
 });
 

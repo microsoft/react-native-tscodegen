@@ -16,11 +16,17 @@ function testTokenizer(input: string, expecteds: [TokenKind, string][]): void {
 }
 
 test(`Test Tokenizer with Normal Tokens`, () => {
-  const input = `boolean export null number string type pascalCase CamelCase UPPER_CASE $Identifier 'StringLiteral' 123 123.456 true false =<>+|....{}[]();:,?`;
+  const input = `
+boolean export import null number string type
+pascalCase CamelCase UPPER_CASE $Identifier
+'StringLiteral' 123 123.456 true false
+=<>+-*/|....{}[]();:,?
+`;
 
   const expecteds: [TokenKind, string][] = [
     [TokenKind.KEYWORD_boolean, `boolean`],
     [TokenKind.KEYWORD_export, `export`],
+    [TokenKind.KEYWORD_import, `import`],
     [TokenKind.KEYWORD_null, `null`],
     [TokenKind.KEYWORD_number, `number`],
     [TokenKind.KEYWORD_string, `string`],
@@ -38,6 +44,9 @@ test(`Test Tokenizer with Normal Tokens`, () => {
     [TokenKind.LT, `<`],
     [TokenKind.GT, `>`],
     [TokenKind.PLUS, `+`],
+    [TokenKind.MINUS, `-`],
+    [TokenKind.MUL, `*`],
+    [TokenKind.DIV, `/`],
     [TokenKind.OR, `|`],
     [TokenKind.Ellipsis, `...`],
     [TokenKind.Dot, `.`],

@@ -210,6 +210,33 @@ function applyUseStrictStat(value: [Token, Token]): ast.Statement {
   };
 }
 
+function applyImportEqualStat(value: [Token, Token, Token, Token, Token, Token, Token, Token]): ast.Statement {
+  const [, name, , , , source] = value;
+  return {
+    kind: 'ImportEqualStat',
+    name: name.text,
+    source: source.text
+  };
+}
+
+function applyImportAsStat(value: [Token, Token, Token, Token, Token, Token, Token]): ast.Statement {
+  const [, , , name, , source] = value;
+  return {
+    kind: 'ImportAsStat',
+    name: name.text,
+    source: source.text
+  };
+}
+
+function applyImportNameStat(value: [Token, undefined | Token, Token, Token[], Token, Token, Token, Token]): ast.Statement {
+  const [, , , names, , , source] = value;
+  return {
+    kind: 'ImportNameStat',
+    names: names.map((item: Token) => { return item.text; }),
+    source: source.text
+  };
+}
+
 function applyProgram(value: ast.Statement[]): ast.FlowProgram {
   return {
     statements: value
@@ -305,6 +332,9 @@ DECL.setPattern(
 STAT.setPattern(
   alt(
     DECL,
+    apply(seq(str('const'), tok(TokenKind.Identifier), str('='), str('require'), str('('), tok(TokenKind.StringLiteral), str(')'), str(';')), applyImportEqualStat),
+    apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
+    apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat),
     apply(seq(str(`'use strict'`), str(';')), applyUseStrictStat)
   )
 );
