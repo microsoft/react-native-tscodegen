@@ -252,3 +252,45 @@ test(`Test Object Type with Mixins`, () => {
     members: []
   });
 });
+
+test(`Test Object Type with Properties`, () => {
+  assert.deepStrictEqual(parseType(`{a:number,+b?:?string}`), {
+    kind: 'ObjectType',
+    isExact: false,
+    mixinTypes: [],
+    members: [{
+      kind: 'Prop',
+      isReadonly: false,
+      isOptional: false,
+      name: 'a',
+      propType: { kind: 'PrimitiveType', name: 'number' }
+    },
+    {
+      kind: 'Prop',
+      isReadonly: true,
+      isOptional: true,
+      name: 'b',
+      propType: { kind: 'OptionalType', elementType: { kind: 'PrimitiveType', name: 'string' } }
+    }]
+  });
+
+  assert.deepStrictEqual(parseType(`{|a:number,+b?:?string,|}`), {
+    kind: 'ObjectType',
+    isExact: true,
+    mixinTypes: [],
+    members: [{
+      kind: 'Prop',
+      isReadonly: false,
+      isOptional: false,
+      name: 'a',
+      propType: { kind: 'PrimitiveType', name: 'number' }
+    },
+    {
+      kind: 'Prop',
+      isReadonly: true,
+      isOptional: true,
+      name: 'b',
+      propType: { kind: 'OptionalType', elementType: { kind: 'PrimitiveType', name: 'string' } }
+    }]
+  });
+});

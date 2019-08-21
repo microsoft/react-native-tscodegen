@@ -20,6 +20,7 @@ export enum TokenKind {
   EQ,
   LT,
   GT,
+  PLUS,
   OR,
 
   Ellipsis,
@@ -55,6 +56,7 @@ export const tokenizer = buildLexer([
   [true, /^\=/g, TokenKind.EQ],
   [true, /^\</g, TokenKind.LT],
   [true, /^\>/g, TokenKind.GT],
+  [true, /^\+/g, TokenKind.PLUS],
   [true, /^\|/g, TokenKind.OR],
 
   [true, /^\.\.\./g, TokenKind.Ellipsis],
