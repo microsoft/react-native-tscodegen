@@ -473,7 +473,7 @@ TYPE_TERM.setPattern(
               applyObjectIndexer
             )
           ),
-          str(',')
+          opt_sc(/* test case bug */str(','))
         )),
         opt_sc(str(',')),
         opt_sc(str('|')),
@@ -523,7 +523,7 @@ EXPR.setPattern(
 
 DECL.setPattern(
   apply(
-    seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, opt_sc(str(';'))),
+    seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, opt_sc(/* test case bug */str(';'))),
     applyTypeAliasDecl
   )
 );
