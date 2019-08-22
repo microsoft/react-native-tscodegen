@@ -83,6 +83,7 @@ function applyTypeReference(value: [
   undefined | [
     {/*<*/ },
     ast.Type[],
+    undefined | {/*,*/ },
     {/*>*/ }
   ]
 ]): ast.Type {
@@ -380,12 +381,13 @@ function applyImportNameStat(value: [
   undefined | {/*type*/ },
   {/*{*/ },
   Token[],
+  undefined | {/*,*/ },
   {/*}*/ },
   {/*from*/ },
   Token,
   {/*;*/ }
 ]): ast.Statement {
-  const [, , , names, , , source] = value;
+  const [, , , names, , , , source] = value;
   return {
     kind: 'ImportNameStat',
     names: names.map((item: Token) => { return item.text; }),
@@ -452,8 +454,7 @@ TYPE_TERM.setPattern(
     alt(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
       apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
-      apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyTypeReference)
-    ),
+      apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(/* test case bug */str(',')), str('>')))), applyTypeReference)),
     apply(
       seq(
         str('{'),
@@ -475,7 +476,7 @@ TYPE_TERM.setPattern(
           ),
           opt_sc(/* test case bug */str(','))
         )),
-        opt_sc(str(',')),
+        opt_sc(/* test case bug */str(',')),
         opt_sc(str('|')),
         str('}')
       ),
@@ -515,7 +516,7 @@ EXPR.setPattern(
     EXPR_TERM,
     alt(
       apply(seq(str(':'), TYPE), applyTypeCastExprLrec),
-      apply(seq(str('('), list_sc(EXPR, str(',')), opt_sc(str(',')), str(')')), applyCallExprLrec)
+      apply(seq(str('('), list_sc(EXPR, str(',')), opt_sc(/* test case bug */str(',')), str(')')), applyCallExprLrec)
     ),
     applyExprLrec
   )
@@ -535,7 +536,7 @@ STAT.setPattern(
     alt(
       apply(seq(str('const'), tok(TokenKind.Identifier), str('='), str('require'), str('('), tok(TokenKind.StringLiteral), str(')'), str(';')), applyImportEqualStat),
       apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
-      apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat)
+      apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), opt_sc(/* test case bug */str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat)
     ),
     apply(seq(str('export'), str('default'), EXPR, str(';')), applyExportDefaultStat)
   )
