@@ -43,27 +43,38 @@ function applyOptionalType(value: [{/*?*/ }, ast.Type]): ast.Type {
 
 function applyFunctionType(value: [
   {/*(*/ },
-  [
-    Token,
-    {/*:*/ },
-    ast.Type
-  ][],
+  undefined | [
+    [
+      Token,
+      {/*:*/ },
+      ast.Type
+    ][],
+    undefined | {/*,*/ }
+  ],
   {/*)*/ },
   {/*=*/ },
   {/*>*/ },
   ast.Type
 ]): ast.Type {
-  const [, parameters, , , , returnType] = value;
-  return {
-    kind: 'FunctionType',
-    returnType,
-    parameters: parameters.map((prop: [Token, {/*:*/ }, ast.Type]) => {
-      return {
-        name: prop[0].text,
-        parameterType: prop[2]
-      };
-    })
-  };
+  const [, optionalParameters, , , , returnType] = value;
+  if (optionalParameters === undefined) {
+    return {
+      kind: 'FunctionType',
+      returnType,
+      parameters: []
+    };
+  } else {
+    return {
+      kind: 'FunctionType',
+      returnType,
+      parameters: optionalParameters[0].map((prop: [Token, {/*:*/ }, ast.Type]) => {
+        return {
+          name: prop[0].text,
+          parameterType: prop[2]
+        };
+      })
+    };
+  }
 }
 
 function applyParenType(value: [
@@ -344,15 +355,25 @@ function applyTypeCastExprLrec(value: [
 
 function applyCallExprLrec(value: [
   {/*(*/ },
-  ast.Expression[],
-  undefined | {/*,*/ },
+  undefined | [
+    ast.Expression[],
+    undefined | {/*,*/ }
+  ],
   {/*)*/ }
 ]): ast.CallExpr {
-  return {
-    kind: 'CallExpr',
-    expr: <ast.Expression><unknown>undefined,
-    funcArguments: value[1]
-  };
+  if (value[1] === undefined) {
+    return {
+      kind: 'CallExpr',
+      expr: <ast.Expression><unknown>undefined,
+      funcArguments: []
+    };
+  } else {
+    return {
+      kind: 'CallExpr',
+      expr: <ast.Expression><unknown>undefined,
+      funcArguments: value[1][0]
+    };
+  }
 }
 
 function applyExprLrec(first: ast.Expression, second: ast.TypeCastExpr | ast.CallExpr): ast.Expression {
@@ -565,7 +586,19 @@ TYPE_TERM.setPattern(
       ),
       apply(seq(str('?'), TYPE), applyOptionalType),
       apply(
-        seq(str('('), list_sc(seq(tok(TokenKind.Identifier), str(':'), TYPE), str(',')), str(')'), str('='), str('>'), TYPE),
+        seq(
+          str('('),
+          opt_sc(
+            seq(
+              list_sc(seq(tok(TokenKind.Identifier), str(':'), TYPE), alt(/* test case bug */str(';'), str(','))),
+              opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
+            )
+          ),
+          str(')'),
+          str('='),
+          str('>'),
+          TYPE
+        ),
         applyFunctionType
       ),
       apply(seq(str('('), TYPE, str(')')), applyParenType)
@@ -573,7 +606,14 @@ TYPE_TERM.setPattern(
     alt(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
       apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
-      apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(/* test case bug */str(',')), str('>')))), applyTypeReference)),
+      apply(
+        seq(
+          list_sc(IDENTIFIER, str('.')),
+          opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(/* test case bug */str(',')), str('>')))
+        ),
+        applyTypeReference
+      )
+    ),
     createObjectSyntax(',')
   )
 );
@@ -599,9 +639,28 @@ EXPR_TERM.setPattern(
     apply(
       alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), str('true'), str('false'), str('undefined'), str('null')),
       applyLiteralExpr),
-    apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyExprReference),
-    apply(seq(str('{'), list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')), str('}')), applyObjectLiteralExpr),
-    apply(seq(str('['), list_sc(EXPR, str(',')), str(']')), applyArrayLiteralExpr),
+    apply(
+      seq(
+        list_sc(IDENTIFIER, str('.')),
+        opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))
+      ),
+      applyExprReference
+    ),
+    apply(
+      seq(
+        str('{'),
+        list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')),
+        str('}')),
+      applyObjectLiteralExpr
+    ),
+    apply(
+      seq(
+        str('['),
+        list_sc(EXPR, str(',')),
+        str(']')
+      ),
+      applyArrayLiteralExpr
+    ),
     apply(seq(str('('), EXPR, str(')')), applyParenExpr)
   )
 );
@@ -611,7 +670,7 @@ EXPR.setPattern(
     EXPR_TERM,
     alt(
       apply(seq(str(':'), TYPE), applyTypeCastExprLrec),
-      apply(seq(str('('), list_sc(EXPR, str(',')), opt_sc(/* test case bug */str(',')), str(')')), applyCallExprLrec)
+      apply(seq(str('('), opt_sc(seq(list_sc(EXPR, str(',')), opt_sc(/* test case bug */str(',')))), str(')')), applyCallExprLrec)
     ),
     applyExprLrec
   )
@@ -635,9 +694,44 @@ STAT.setPattern(
     DECL,
     apply(seq(str(`'use strict'`), str(';')), applyUseStrictStat),
     alt(
-      apply(seq(str('const'), tok(TokenKind.Identifier), str('='), str('require'), str('('), tok(TokenKind.StringLiteral), str(')'), str(';')), applyImportEqualStat),
-      apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
-      apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), opt_sc(/* test case bug */str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat)
+      apply(
+        seq(
+          str('const'),
+          tok(TokenKind.Identifier),
+          str('='),
+          str('require'),
+          str('('),
+          tok(TokenKind.StringLiteral),
+          str(')'),
+          str(';')
+        ),
+        applyImportEqualStat
+      ),
+      apply(
+        seq(
+          str('import'),
+          str('*'),
+          str('as'),
+          tok(TokenKind.Identifier),
+          str('from'),
+          tok(TokenKind.StringLiteral),
+          str(';')
+        ),
+        applyImportAsStat
+      ),
+      apply(
+        seq(
+          str('import'),
+          opt_sc(str('type')),
+          str('{'),
+          list_sc(tok(TokenKind.Identifier), str(',')),
+          opt_sc(/* test case bug */str(',')),
+          str('}'),
+          str('from'),
+          tok(TokenKind.StringLiteral),
+          str(';')
+        ),
+        applyImportNameStat)
     ),
     apply(seq(str('export'), str('const'), tok(TokenKind.Identifier), str('='), EXPR, str(';')), applyExportEqualStat),
     apply(seq(str('export'), str('default'), EXPR, str(';')), applyExportDefaultStat)
