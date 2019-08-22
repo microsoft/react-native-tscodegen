@@ -45,8 +45,10 @@ function applyFunctionType(value: [
   {/*(*/ },
   undefined | [
     [
-      Token,
-      {/*:*/ },
+      undefined | [
+        Token,
+        {/*:*/ }
+      ],
       ast.Type
     ][],
     undefined | {/*,*/ }
@@ -67,10 +69,10 @@ function applyFunctionType(value: [
     return {
       kind: 'FunctionType',
       returnType,
-      parameters: optionalParameters[0].map((prop: [Token, {/*:*/ }, ast.Type]) => {
+      parameters: optionalParameters[0].map((prop: [undefined | [Token, {/*:*/ }], ast.Type]) => {
         return {
-          name: prop[0].text,
-          parameterType: prop[2]
+          name: prop[0] === undefined ? '' : prop[0][0].text,
+          parameterType: prop[1]
         };
       })
     };
@@ -104,12 +106,12 @@ function applyReadonlyArrayType(value: [
 function applyDecoratedGenericType(value: [
   {/*$ReadOnly*/ },
   {/*<*/ },
-  ast.Type,
+  undefined | ast.Type,
   {/*>*/ }
 ]): ast.Type {
   return {
     kind: 'DecoratedGenericType',
-    elementType: value[2],
+    elementType: (value[2] === undefined ? { kind: 'LiteralType', text: 'undefined' } : value[2]),
     name: '$ReadOnly'
   };
 }
@@ -171,7 +173,7 @@ function applyObjectTypeProp(value: [
   undefined | {/*+*/ },
   Token,
   undefined | {/*?*/ },
-  {/*:*/ },
+  undefined | {/*:*/ },
   ast.Type
 ]): ast.ObjectProp {
   const [isReadonly, name, isOptional, , propType] = value;
@@ -552,7 +554,7 @@ export const DECL = rule<TokenKind, ast.Declaration>();
 export const STAT = rule<TokenKind, ast.Statement>();
 export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
 
-function createObjectSyntax(delimiter: string): Parser<TokenKind, ast.ObjectType> {
+function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
   return apply(
     seq(
       str('{'),
@@ -564,7 +566,7 @@ function createObjectSyntax(delimiter: string): Parser<TokenKind, ast.ObjectType
             applyObjectTypeMixin
           ),
           apply(
-            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
+            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), opt_sc(/* test case bug */str(':')), TYPE),
             applyObjectTypeProp
           ),
           apply(
@@ -572,9 +574,9 @@ function createObjectSyntax(delimiter: string): Parser<TokenKind, ast.ObjectType
             applyObjectIndexer
           )
         ),
-        opt_sc(/* test case bug */str(delimiter))
+        opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
       )),
-      opt_sc(/* test case bug */str(delimiter)),
+      opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(','))),
       opt_sc(str('|')),
       str('}')
     ),
@@ -606,7 +608,12 @@ TYPE_TERM.setPattern(
           str('('),
           opt_sc(
             seq(
-              list_sc(seq(tok(TokenKind.Identifier), str(':'), TYPE), alt(/* test case bug */str(';'), str(','))),
+              list_sc(
+                seq(
+                  opt_sc(/* test case bug */seq(tok(TokenKind.Identifier), str(':'))),
+                  TYPE),
+                alt(/* test case bug */str(';'), str(','))
+              ),
               opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
             )
           ),
@@ -621,7 +628,7 @@ TYPE_TERM.setPattern(
     ),
     alt(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
-      apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
+      apply(seq(str('$ReadOnly'), str('<'), opt_sc(/* test case bug */TYPE), str('>')), applyDecoratedGenericType),
       apply(
         seq(
           list_sc(IDENTIFIER, str('.')),
@@ -638,7 +645,7 @@ TYPE_TERM.setPattern(
       ),
       applyTupleType
     ),
-    createObjectSyntax(',')
+    createObjectSyntax()
   )
 );
 
@@ -721,7 +728,7 @@ DECL.setPattern(
         opt_sc(
           seq(str('extends'), list_sc(TYPE, str(',')))
         ),
-        createObjectSyntax(';')
+        createObjectSyntax()
       ),
       applyInterfaceDecl
     )
