@@ -136,6 +136,11 @@ export interface ObjectLiteralExpr {
   properties: { key: string; value: Expression }[];
 }
 
+export interface ArrayLiteralExpr {
+  kind: 'ArrayLiteralExpr';
+  values: Expression[];
+}
+
 export interface ParenExpr {
   kind: 'ParenExpr';
   expr: Expression;
@@ -147,6 +152,7 @@ export type Expression =
   | TypeCastExpr
   | CallExpr
   | ObjectLiteralExpr
+  | ArrayLiteralExpr
   | ParenExpr
   ;
 

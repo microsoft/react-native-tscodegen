@@ -439,6 +439,17 @@ test(`Test Object Literal Expression`, () => {
     });
 });
 
+test(`Test Array Literal Expression`, () => {
+  assert.deepStrictEqual(parseExpr(`[1,2,3]`), {
+    kind: 'ArrayLiteralExpr',
+    values: [
+      { kind: 'LiteralExpr', text: '1' },
+      { kind: 'LiteralExpr', text: '2' },
+      { kind: 'LiteralExpr', text: '3' }
+    ]
+  });
+});
+
 /*****************************************************************
  * Statements
  ****************************************************************/

@@ -309,6 +309,17 @@ function applyObjectLiteralExpr(value: [
   };
 }
 
+function applyArrayLiteralExpr(value: [
+  {/*[*/ },
+  ast.Expression[],
+  {/*]*/ }
+]): ast.Expression {
+  return {
+    kind: 'ArrayLiteralExpr',
+    values: value[1]
+  };
+}
+
 function applyParenExpr(value: [
   {/*(*/ },
   ast.Expression,
@@ -590,6 +601,7 @@ EXPR_TERM.setPattern(
       applyLiteralExpr),
     apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyExprReference),
     apply(seq(str('{'), list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')), str('}')), applyObjectLiteralExpr),
+    apply(seq(str('['), list_sc(EXPR, str(',')), str(']')), applyArrayLiteralExpr),
     apply(seq(str('('), EXPR, str(')')), applyParenExpr)
   )
 );
