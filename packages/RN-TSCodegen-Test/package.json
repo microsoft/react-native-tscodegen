@@ -1,6 +1,7 @@
 {
   "name": "rn-tscodegen-test",
   "version": "1.0.0",
+  "private": true,
   "description": "Test files for RN-TSCodegen",
   "main": "./lib/index.js",
   "scripts": {
@@ -10,8 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
   },
-  "author": "Zihan Chen",
-  "license": "MIT License",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },

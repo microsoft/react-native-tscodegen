@@ -1,0 +1,24 @@
+{
+  "name": "react-native-tscodegen-repo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "lerna run build --stream",
+    "test": "lerna run test --stream",
+    "change": "node ./node_modules/beachball/bin/beachball.js change"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:microsoft/react-native-tscodegen.git"
+  },
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "beachball": "^1.11.5",
+    "lerna": "^3.16.1"
+  }
+}

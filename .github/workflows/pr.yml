@@ -6,5 +6,9 @@ jobs:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
+        with:
+          submodules: true
 
-      - run: init.bat
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test

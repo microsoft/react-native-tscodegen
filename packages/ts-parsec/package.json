@@ -2,6 +2,7 @@
   "name": "ts-parsec",
   "version": "1.0.0",
   "description": "TypeScript Parser Combinator",
+  "private": true,
   "main": "./lib/src/index.js",
   "scripts": {
     "build": "tslint --project tsconfig.json & tsc",
@@ -11,8 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
   },
-  "author": "Zihan Chen",
-  "license": "MIT License",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },
