@@ -59,6 +59,73 @@ function printUnionTypeWithHeader(printer: Printer, unionType: flow.UnionType, c
     printer.popIndent();
 }
 
+function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, config: PrintTypeConfig): void {
+    printer.write('{');
+    printer.writeLn();
+    printer.pushIndent();
+    for (const member of objectType.members) {
+        switch (member.kind) {
+            case 'Prop': {
+                printer.writeIndent();
+                if (member.isReadonly) {
+                    printer.write('readonly ');
+                }
+                printer.write(member.name);
+                if (member.isOptional) {
+                    printer.write('?');
+                }
+                if (member.propType.kind === 'UnionType') {
+                    printer.write(':');
+                    printUnionTypeWithHeader(printer, member.propType, config);
+                } else {
+                    printer.write(': ');
+                    printType(printer, member.propType, config);
+                }
+                printer.write(';');
+                printer.writeLn();
+                break;
+            }
+            case 'Indexer': {
+                printer.writeIndent();
+                if (member.isReadonly) {
+                    printer.write('readonly ');
+                }
+                printer.write('[');
+                printer.write(member.keyName);
+                printer.write(': ');
+                printType(printer, member.keyType, config);
+                printer.write(']: ');
+                printType(printer, member.valueType, config);
+                printer.write(';');
+                printer.writeLn();
+                break;
+            }
+            default: throw new Error(`Unrecognized Flow type: ${(<flow.ObjectMember>member).kind}`);
+        }
+    }
+    printer.popIndent();
+    printer.writeIndent();
+    printer.write('}');
+}
+
+function printTypeArray(printer: Printer, types: flow.Type[], delimiter: string, config: PrintTypeConfig): void {
+    for (let i = 0; i < types.length; i++) {
+        if (i !== 0) {
+            printer.write(delimiter);
+        }
+        printType(printer, types[i], config);
+    }
+}
+
+function printExpressionArray(printer: Printer, exprs: flow.Expression[], delimiter: string, config: PrintTypeConfig): void {
+    for (let i = 0; i < exprs.length; i++) {
+        if (i !== 0) {
+            printer.write(delimiter);
+        }
+        printExpression(printer, exprs[i], config);
+    }
+}
+
 function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfig): void {
     switch (flowType.kind) {
         case 'PrimitiveType': {
@@ -90,57 +157,18 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             }
             break;
         }
+        case 'TupleType': {
+            printer.write('[');
+            printTypeArray(printer, flowType.types, ', ', config);
+            printer.write(']');
+            break;
+        }
         case 'ObjectType': {
             for (const mixinType of flowType.mixinTypes) {
                 printType(printer, mixinType, config);
                 printer.write(' & ');
             }
-            printer.write('{');
-            printer.writeLn();
-            printer.pushIndent();
-            for (const member of flowType.members) {
-                switch (member.kind) {
-                    case 'Prop': {
-                        printer.writeIndent();
-                        if (member.isReadonly) {
-                            printer.write('readonly ');
-                        }
-                        printer.write(member.name);
-                        if (member.isOptional) {
-                            printer.write('?');
-                        }
-                        if (member.propType.kind === 'UnionType') {
-                            printer.write(':');
-                            printUnionTypeWithHeader(printer, member.propType, config);
-                        } else {
-                            printer.write(': ');
-                            printType(printer, member.propType, config);
-                        }
-                        printer.write(';');
-                        printer.writeLn();
-                        break;
-                    }
-                    case 'Indexer': {
-                        printer.writeIndent();
-                        if (member.isReadonly) {
-                            printer.write('readonly ');
-                        }
-                        printer.write('[');
-                        printer.write(member.keyName);
-                        printer.write(': ');
-                        printType(printer, member.keyType, config);
-                        printer.write(']: ');
-                        printType(printer, member.valueType, config);
-                        printer.write(';');
-                        printer.writeLn();
-                        break;
-                    }
-                    default: throw new Error(`Unrecognized Flow type: ${(<flow.ObjectMember>member).kind}`);
-                }
-            }
-            printer.popIndent();
-            printer.writeIndent();
-            printer.write('}');
+            printObjectTypeWithoutMixins(printer, flowType, config);
             break;
         }
         case 'DecoratedGenericType': {
@@ -150,26 +178,29 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             break;
         }
         case 'UnionType': {
-            for (let i = 0; i < flowType.elementTypes.length; i++) {
-                if (i !== 0) {
-                    printer.write(' | ');
-                }
-                printType(printer, flowType.elementTypes[i], config);
-            }
+            printTypeArray(printer, flowType.elementTypes, ' | ', config);
             break;
         }
         case 'TypeReference': {
             printEntity(printer, flowType.name);
             if (flowType.typeArguments.length > 0) {
                 printer.write('<');
-                for (let i = 0; i < flowType.typeArguments.length; i++) {
-                    if (i !== 0) {
-                        printer.write(', ');
-                    }
-                    printType(printer, flowType.typeArguments[i], config);
-                }
+                printTypeArray(printer, flowType.typeArguments, ', ', config);
                 printer.write('>');
             }
+            break;
+        }
+        case 'FunctionType': {
+            printer.write('(');
+            for (let i = 0; i < flowType.parameters.length; i++) {
+                if (i !== 0) {
+                    printer.write(', ');
+                }
+                printer.write(`${flowType.parameters[i].name}: `);
+                printType(printer, flowType.parameters[i].parameterType, config);
+            }
+            printer.write(') => ');
+            printType(printer, flowType.returnType, config);
             break;
         }
         case 'ParenType': {
@@ -179,6 +210,69 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             break;
         }
         default: throw new Error(`Unrecognized Flow type: ${(<flow.Type>flowType).kind}`);
+    }
+}
+
+function printExpression(printer: Printer, expr: flow.Expression, config: PrintTypeConfig): void {
+    switch (expr.kind) {
+        case 'LiteralExpr': {
+            printer.write(expr.text);
+            break;
+        }
+        case 'ExprReference': {
+            printEntity(printer, expr.name);
+            if (expr.typeArguments.length > 0) {
+                printer.write('<');
+                printTypeArray(printer, expr.typeArguments, ', ', config);
+                printer.write('>');
+            }
+            break;
+        }
+        case 'TypeCastExpr': {
+            printExpression(printer, expr.expr, config);
+            printer.write(' as ');
+            printType(printer, expr.toType, config);
+            break;
+        }
+        case 'CallExpr': {
+            printExpression(printer, expr.expr, config);
+            printer.write('(');
+            printExpressionArray(printer, expr.funcArguments, ', ', config);
+            printer.write(')');
+            break;
+        }
+        case 'ObjectLiteralExpr': {
+            printer.write('{');
+            printer.writeLn();
+            printer.pushIndent();
+            for (let i = 0; i < expr.properties.length; i++) {
+                const prop = expr.properties[i];
+                printer.write(prop.key);
+                printer.write(': ');
+                printExpression(printer, prop.value, config);
+                if (i < expr.properties.length - 1) {
+                    printer.write(';');
+                }
+                printer.writeLn();
+            }
+            printer.popIndent();
+            printer.writeIndent();
+            printer.write('}');
+            break;
+        }
+        case 'ArrayLiteralExpr': {
+            printer.write('[');
+            printExpressionArray(printer, expr.values, ', ', config);
+            printer.write(']');
+            break;
+        }
+        case 'ParenExpr': {
+            printer.write('(');
+            printExpression(printer, expr.expr, config);
+            printer.write(')');
+            break;
+        }
+        default: throw new Error(`Unrecognized Flow expression: ${(<flow.Expression>expr).kind}`);
     }
 }
 
@@ -202,7 +296,46 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
             }
             break;
         }
-        default: throw new Error(`Unrecognized Flow type: ${(<flow.Statement>stat).kind}`);
+        case 'InterfaceDecl': {
+            if (forceExport || stat.hasExport) {
+                printer.write(`export `);
+            }
+            printer.write(`interface ${stat.name}`);
+
+            if (stat.baseTypes.length > 0) {
+                printer.write(' extends ');
+                printTypeArray(printer, stat.baseTypes.concat(stat.interfaceType.mixinTypes), ', ', typeConfig);
+            }
+
+            printer.write(' ');
+            printObjectTypeWithoutMixins(printer, stat.interfaceType, typeConfig);
+            break;
+        }
+        case 'ImportEqualStat': {
+            printer.write(`import ${stat.name} = require(${stat.source});`);
+            break;
+        }
+        case 'ImportAsStat': {
+            printer.write(`import * as ${stat.name} from ${stat.source};`);
+            break;
+        }
+        case 'ImportNameStat': {
+            printer.write(`import {${stat.names.join(', ')}} from ${stat.source};`);
+            break;
+        }
+        case 'ExportEqualStat': {
+            printer.write(`export const ${stat.name} = `);
+            printExpression(printer, stat.expr, typeConfig);
+            printer.write(';');
+            break;
+        }
+        case 'ExportDefaultStat': {
+            printer.write(`export default `);
+            printExpression(printer, stat.expr, typeConfig);
+            printer.write(';');
+            break;
+        }
+        default: throw new Error(`Unrecognized Flow statement: ${(<flow.Statement>stat).kind}`);
     }
 }
 
