@@ -452,6 +452,22 @@ function applyImportNameStat(value: [
   };
 }
 
+function applyExportEqualStat(value: [
+  {/*export*/ },
+  {/*const*/ },
+  Token,
+  {/*=*/ },
+  ast.Expression,
+  {/*;*/ }
+]): ast.Statement {
+  const [, , name, , expr] = value;
+  return {
+    kind: 'ExportEqualStat',
+    name: name.text,
+    expr
+  };
+}
+
 function applyExportDefaultStat(value: [
   {/*export*/ },
   {/*default*/ },
@@ -611,6 +627,7 @@ STAT.setPattern(
       apply(seq(str('import'), str('*'), str('as'), tok(TokenKind.Identifier), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportAsStat),
       apply(seq(str('import'), opt_sc(str('type')), str('{'), list_sc(tok(TokenKind.Identifier), str(',')), opt_sc(/* test case bug */str(',')), str('}'), str('from'), tok(TokenKind.StringLiteral), str(';')), applyImportNameStat)
     ),
+    apply(seq(str('export'), str('const'), tok(TokenKind.Identifier), str('='), EXPR, str(';')), applyExportEqualStat),
     apply(seq(str('export'), str('default'), EXPR, str(';')), applyExportDefaultStat)
   )
 );

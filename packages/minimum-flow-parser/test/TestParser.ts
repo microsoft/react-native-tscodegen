@@ -489,6 +489,7 @@ export type Point = $ReadOnly<{|
   z: Double,
 |}>;
 
+export const Zero = 0;
 export default (func<string>('abc'):number);
   `;
 
@@ -564,6 +565,11 @@ export default (func<string>('abc'):number);
             }]
           }
         }
+      },
+      {
+        kind: 'ExportEqualStat',
+        name: 'Zero',
+        expr: { kind: 'LiteralExpr', text: '0' }
       },
       {
         kind: 'ExportDefaultStat',

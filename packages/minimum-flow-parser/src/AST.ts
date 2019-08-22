@@ -178,32 +178,39 @@ export type Declaration =
  * Statements
  ****************************************************************/
 
-export type UseStrictStatement = {
+export interface UseStrictStatement {
   kind: 'UseStrictStat';
-};
+}
 
-export type ImportNamespaceStatement = {
+export interface ImportNamespaceStatement {
   kind: 'ImportEqualStat' | 'ImportAsStat';
   name: string;
   source: string;
-};
+}
 
-export type ImportNameStatement = {
+export interface ImportNameStatement {
   kind: 'ImportNameStat';
   names: string[];
   source: string;
-};
+}
 
-export type ExportDefaultStatement = {
+export interface ExportEqualStatement {
+  kind: 'ExportEqualStat';
+  name: string;
+  expr: Expression;
+}
+
+export interface ExportDefaultStatement {
   kind: 'ExportDefaultStat';
   expr: Expression;
-};
+}
 
 export type Statement =
   | Declaration
   | UseStrictStatement
   | ImportNamespaceStatement
   | ImportNameStatement
+  | ExportEqualStatement
   | ExportDefaultStatement
   ;
 
