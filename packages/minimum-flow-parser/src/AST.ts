@@ -30,6 +30,11 @@ export interface ArrayType {
   elementType: Type;
 }
 
+export interface TupleType {
+  kind: 'TupleType';
+  types: Type[];
+}
+
 export interface ObjectProp {
   kind: 'Prop';
   isReadonly: boolean;
@@ -96,6 +101,7 @@ export type Type =
   | LiteralType
   | OptionalType
   | ArrayType
+  | TupleType
   | ObjectType
   | DecoratedGenericType
   | UnionType

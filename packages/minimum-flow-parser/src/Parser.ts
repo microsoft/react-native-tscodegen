@@ -149,6 +149,17 @@ function applyTypeReference(value: [
   }
 }
 
+function applyTupleType(value: [
+  {/*[*/ },
+  ast.Type[],
+  {/*]*/ }
+]): ast.Type {
+  return {
+    kind: 'TupleType',
+    types: value[1]
+  };
+}
+
 function applyObjectTypeMixin(value: [
   {/*...*/ },
   ast.Type
@@ -618,6 +629,14 @@ TYPE_TERM.setPattern(
         ),
         applyTypeReference
       )
+    ),
+    apply(
+      seq(
+        str('['),
+        list_sc(TYPE, str(',')),
+        str(']')
+      ),
+      applyTupleType
     ),
     createObjectSyntax(',')
   )

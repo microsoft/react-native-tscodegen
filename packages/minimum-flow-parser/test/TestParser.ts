@@ -126,6 +126,17 @@ test(`Test Array Type`, () => {
   });
 });
 
+test(`Test Tuple Type`, () => {
+  assert.deepStrictEqual(parseType(`[1,2,3]`), {
+    kind: 'TupleType',
+    types: [
+      { kind: 'LiteralType', text: '1' },
+      { kind: 'LiteralType', text: '2' },
+      { kind: 'LiteralType', text: '3' }
+    ]
+  });
+});
+
 test(`Test Union Type`, () => {
   assert.deepStrictEqual(parseType(`$ReadOnlyArray<void>|string[]|$ReadOnly<number>|boolean`), {
     kind: 'UnionType',
