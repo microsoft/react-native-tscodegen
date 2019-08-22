@@ -21,9 +21,9 @@ function parseStat(input: string): ast.Statement {
  ****************************************************************/
 
 test(`Test Primitive Types`, () => {
-  assert.deepStrictEqual(parseType(`null`), {
+  assert.deepStrictEqual(parseType(`void`), {
     kind: 'PrimitiveType',
-    name: 'null'
+    name: 'void'
   });
 
   assert.deepStrictEqual(parseType(`number`), {
@@ -127,7 +127,7 @@ test(`Test Array Type`, () => {
 });
 
 test(`Test Union Type`, () => {
-  assert.deepStrictEqual(parseType(`$ReadOnlyArray<null>|string[]|$ReadOnly<number>|boolean`), {
+  assert.deepStrictEqual(parseType(`$ReadOnlyArray<void>|string[]|$ReadOnly<number>|boolean`), {
     kind: 'UnionType',
     elementTypes: [
       {
@@ -135,7 +135,7 @@ test(`Test Union Type`, () => {
         isReadonly: true,
         elementType: {
           kind: 'PrimitiveType',
-          name: 'null'
+          name: 'void'
         }
       },
       {
@@ -168,7 +168,7 @@ test(`Test Type Reference`, () => {
     typeArguments: []
   });
 
-  assert.deepStrictEqual(parseType(`react.native.WithDefault<('a' | 'b'), ('a' | 123 | true | false)>`), {
+  assert.deepStrictEqual(parseType(`react.native.WithDefault<('a' | 'b'), ('a' | 123 | true | false | undefined | null)>`), {
     kind: 'TypeReference',
     name: { parent: { parent: 'react', name: 'native' }, name: 'WithDefault' },
     typeArguments: [
@@ -207,6 +207,14 @@ test(`Test Type Reference`, () => {
             {
               kind: 'LiteralType',
               text: `false`
+            },
+            {
+              kind: 'LiteralType',
+              text: `undefined`
+            },
+            {
+              kind: 'LiteralType',
+              text: `null`
             }
           ]
         }
@@ -335,6 +343,21 @@ test(`Test Object Type with Indexers`, () => {
   });
 });
 
+test(`Test Function Type`, () => {
+  assert.deepStrictEqual(parseType(`(a:string, b:number)=>void`), {
+    kind: 'FunctionType',
+    returnType: { kind: 'PrimitiveType', name: 'void' },
+    parameters: [{
+      name: 'a',
+      parameterType: { kind: 'PrimitiveType', name: 'string' }
+    },
+    {
+      name: 'b',
+      parameterType: { kind: 'PrimitiveType', name: 'number' }
+    }]
+  });
+});
+
 /*****************************************************************
  * Expressions
  ****************************************************************/
@@ -363,7 +386,7 @@ test(`Test Expr Reference`, () => {
 });
 
 test(`Test Call Expression`, () => {
-  assert.deepStrictEqual(parseExpr(`a(123,(456:string)):number`), {
+  assert.deepStrictEqual(parseExpr(`a(123,(456:string),undefined,null):number`), {
     kind: 'TypeCastExpr',
     expr: {
       kind: 'CallExpr',
@@ -383,6 +406,14 @@ test(`Test Call Expression`, () => {
           expr: { kind: 'LiteralExpr', text: '456' },
           toType: { kind: 'PrimitiveType', name: 'string' }
         }
+      },
+      {
+        kind: 'LiteralExpr',
+        text: 'undefined'
+      },
+      {
+        kind: 'LiteralExpr',
+        text: 'null'
       }]
     },
     toType: { kind: 'PrimitiveType', name: 'number' }

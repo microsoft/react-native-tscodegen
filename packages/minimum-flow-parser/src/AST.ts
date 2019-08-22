@@ -9,7 +9,7 @@ export interface PrimitiveType<T> {
   name: T;
 }
 
-export type NullType = PrimitiveType<'null'>;
+export type VoidType = PrimitiveType<'void'>;
 export type NumberType = PrimitiveType<'number'>;
 export type StringType = PrimitiveType<'string'>;
 export type BooleanType = PrimitiveType<'boolean'>;
@@ -77,13 +77,19 @@ export interface TypeReference {
   typeArguments: Type[];
 }
 
+export interface FunctionType {
+  kind: 'FunctionType';
+  returnType: Type;
+  parameters: { name: string; parameterType: Type }[];
+}
+
 export interface ParenType {
   kind: 'ParenType';
   elementType: Type;
 }
 
 export type Type =
-  | NullType
+  | VoidType
   | NumberType
   | StringType
   | BooleanType
@@ -94,6 +100,7 @@ export type Type =
   | DecoratedGenericType
   | UnionType
   | TypeReference
+  | FunctionType
   | ParenType
   ;
 

@@ -12,8 +12,8 @@ type Token = parsec.Token<TokenKind>;
  * Types (apply)
  ****************************************************************/
 
-function applyNull(value: Token): ast.Type {
-  return { kind: 'PrimitiveType', name: 'null' };
+function applyVoid(value: Token): ast.Type {
+  return { kind: 'PrimitiveType', name: 'void' };
 }
 
 function applyNumber(value: Token): ast.Type {
@@ -39,6 +39,31 @@ function applyOptionalType(value: [{/*?*/ }, ast.Type]): ast.Type {
   } else {
     return { kind: 'OptionalType', elementType };
   }
+}
+
+function applyFunctionType(value: [
+  {/*(*/ },
+  [
+    Token,
+    {/*:*/ },
+    ast.Type
+  ][],
+  {/*)*/ },
+  {/*=*/ },
+  {/*>*/ },
+  ast.Type
+]): ast.Type {
+  const [, parameters, , , , returnType] = value;
+  return {
+    kind: 'FunctionType',
+    returnType,
+    parameters: parameters.map((prop: [Token, {/*:*/ }, ast.Type]) => {
+      return {
+        name: prop[0].text,
+        parameterType: prop[2]
+      };
+    })
+  };
 }
 
 function applyParenType(value: [
@@ -458,14 +483,19 @@ IDENTIFIER.setPattern(
 TYPE_TERM.setPattern(
   alt(
     alt(
-      apply(str('null'), applyNull),
+      apply(str('void'), applyVoid),
       apply(str('number'), applyNumber),
       apply(str('string'), applyString),
       apply(str('boolean'), applyBoolean),
       apply(
-        alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
-        applyLiteralType),
+        alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), str('true'), str('false'), str('undefined'), str('null')),
+        applyLiteralType
+      ),
       apply(seq(str('?'), TYPE), applyOptionalType),
+      apply(
+        seq(str('('), list_sc(seq(tok(TokenKind.Identifier), str(':'), TYPE), str(',')), str(')'), str('='), str('>'), TYPE),
+        applyFunctionType
+      ),
       apply(seq(str('('), TYPE, str(')')), applyParenType)
     ),
     alt(
@@ -521,7 +551,7 @@ TYPE.setPattern(
 EXPR_TERM.setPattern(
   alt(
     apply(
-      alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
+      alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), str('true'), str('false'), str('undefined'), str('null')),
       applyLiteralExpr),
     apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyExprReference),
     apply(seq(str('{'), list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')), str('}')), applyObjectLiteralExpr),
