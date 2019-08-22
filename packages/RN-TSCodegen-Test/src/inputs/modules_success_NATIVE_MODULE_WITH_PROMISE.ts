@@ -1,26 +1,23 @@
-import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @flow
- * @format
- */
 
+// Automatically generated from modules_success_NATIVE_MODULE_WITH_PROMISE.flow.js
+// (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/fixtures.js)
+
+import {TurboModule} from '../lib/RCTExport'
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 'use strict';
 
+export type String = string;
 
-
-
-export type String = string
-export type SomeObj = { a: string };
+export type SomeObj = {
+  a: string;
+};
 
 export interface Spec extends TurboModule {
-  getValueWithPromise () : Promise<string>;
-  getValueWithPromiseDefinedSomewhereElse () : Promise<String>;
-  getValueWithPromiseObjDefinedSomewhereElse () : Promise<SomeObj>;
+  getValueWithPromise(): Promise<string>;
+  getValueWithPromiseDefinedSomewhereElse(): Promise<String>;
+  getValueWithPromiseObjDefinedSomewhereElse(): Promise<SomeObj>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');
+
 

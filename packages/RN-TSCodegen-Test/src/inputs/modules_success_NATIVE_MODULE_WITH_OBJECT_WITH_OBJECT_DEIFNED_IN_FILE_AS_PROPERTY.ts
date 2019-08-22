@@ -1,35 +1,28 @@
-import {TurboModule} from '../lib/RCTExport'import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @flow
- * @format
- */
 
+// Automatically generated from modules_success_NATIVE_MODULE_WITH_OBJECT_WITH_OBJECT_DEIFNED_IN_FILE_AS_PROPERTY.flow.js
+// (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/fixtures.js)
+
+import {TurboModule} from '../lib/RCTExport'
+import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';
 'use strict';
 
-
-
-
 type DisplayMetricsAndroid = {
- width: number;
+  width: number;
 };
 
 export interface Spec extends TurboModule {
-  getConstants () : {
-    Dimensions: {
+  getConstants(): {
+    readonly Dimensions: {
       windowPhysicalPixels: DisplayMetricsAndroid;
-    },
+    };
   };
-  getConstants2 () : Readonly<{
-    Dimensions: {
+  getConstants2(): Readonly<{
+    readonly Dimensions: {
       windowPhysicalPixels: DisplayMetricsAndroid;
-    },
+    };
   }>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');
+
 

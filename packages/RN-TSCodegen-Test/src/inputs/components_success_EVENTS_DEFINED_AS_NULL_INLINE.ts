@@ -1,46 +1,29 @@
-import {BubblingEventHandler} from '../lib/CodegenTypes';import {DirectEventHandler} from '../lib/CodegenTypes';import {ReactNull} from '../lib/CodegenTypes';import {NativeComponent} from '../lib/codegenNativeComponent';import codegenNativeComponent from '../lib/codegenNativeComponent';
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- * @flow
- */
 
+// Automatically generated from components_success_EVENTS_DEFINED_AS_NULL_INLINE.flow.js
+// (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
+
+import {BubblingEventHandler} from '../lib/CodegenTypes';
+import {DirectEventHandler} from '../lib/CodegenTypes';
+import {ReactNull} from '../lib/CodegenTypes';
+import {NativeComponent} from '../lib/codegenNativeComponent';
+import codegenNativeComponent from '../lib/codegenNativeComponent';
 'use strict';
-
-
-
 
 import {ViewProps} from '../lib/ViewPropTypes';
 
-
 type ModuleProps = Readonly<ViewProps & {
-
-  // No props
-
-  // Events defined inline
   onDirectEventDefinedInlineNull: DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullOptionalValue: ReactNull | DirectEventHandler<null>;
+  onDirectEventDefinedInlineNullOptionalValue: (ReactNull | DirectEventHandler<null>);
   onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullWithPaperName?: ReactNull | DirectEventHandler<
-    null,
-    'paperDirectEventDefinedInlineNullWithPaperName'
-  >;
-
+  onDirectEventDefinedInlineNullWithPaperName?: (ReactNull | DirectEventHandler<null, 'paperDirectEventDefinedInlineNullWithPaperName'>);
   onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
   onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalValue: ReactNull | BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalBoth?: ReactNull | BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullWithPaperName?: ReactNull | BubblingEventHandler<
-    null,
-    'paperBubblingEventDefinedInlineNullWithPaperName'
-  >;
+  onBubblingEventDefinedInlineNullOptionalValue: (ReactNull | BubblingEventHandler<null>);
+  onBubblingEventDefinedInlineNullOptionalBoth?: (ReactNull | BubblingEventHandler<null>);
+  onBubblingEventDefinedInlineNullWithPaperName?: (ReactNull | BubblingEventHandler<null, 'paperBubblingEventDefinedInlineNullWithPaperName'>);
 }>;
 
-export default (codegenNativeComponent<ModuleProps>(
-  'Module',
-) as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+
+

@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as flow from 'minimum-flow-parser';
 import * as path from 'path';
 import { expectEOF, expectSingleResult } from 'ts-parsec';
+import { fixTestCase } from './FixTestCase';
 import { printTypeScript } from './PrintTS';
 
 const importMaps = {
@@ -24,53 +25,16 @@ const importMaps = {
   TurboModuleRegistry: `import * as TurboModuleRegistry from '../lib/TurboModuleRegistry';`
 };
 
-function flowToTs(flowSourceCode: string, importCodegenTypes: boolean, keyName?: string): string {
-  let tsSourceCode = flowSourceCode
-    .replace(/\$ReadOnly</g, `Readonly<`)                                                           // $ReadOnly<T> -> Readonly<T>
-    .replace(/\$ReadOnlyArray</g, `ReadonlyArray<`)                                                 // $ReadOnlyArray<T> -> ReadonlyArray<T>
-    .replace(/\{\|/g, `{`)                                                                          // {| ... |} -> { ... }
-    .replace(/\|\}/g, `}`)                                                                          //
-    .replace(/: \?/g, (importCodegenTypes ? `: ReactNull | ` : `: `))                               // ?T -> ReactNull | T
-    .replace(/\+?([a-zA-Z_0-9$]+\??): ([^=]*?)(,|;)$/gm, '$1: $2;')                                 // {+a,b,c} -> {a; b; c;}
-    .replace(/(\}?)>,$/gm, `$1>;`)                                                                  //
-    .replace(/^(\s*)\+([a-zA-Z_0-9$]+\??):?(.*?)=>(.*?((void)|,|;|\{))/gm, '$1$2$3:$4')             //
-    .replace(/\{(\s+)\.\.\.(\w+),/g, '$2 & {')                                                      // {...a, b; c;} -> a & {b; c;}
-    .replace('): NativeComponent<ModuleProps>);', ') as NativeComponent<ModuleProps>);')            // export default ((...):NativeCoponent<T>); -> export default ((...) as NativeCoponent<T>);
-    .replace(/const (\w+) = require\('(\.\.\/)?([^']+)'\);/g, `import $1 = require('../lib/$3');`)  // const NAME = require('MODULE'); -> import NAME = require('../lib/MODULE');
-    .replace(/import type \{/g, 'import {')                                                         // import type {x} from 'MODULE'; -> import {x} from '../lib/MODULE';
-    .replace(/from '(\.\.\/)?([^']+)';/g, `from '../lib/$2';`)                                      //
-    .replace(/import [^']*?'.*?CodegenTypese?';/g, '')                                              // replace unnecessary imports
-    .replace(/import [^']*?'.*?RCTExport?';/g, '')                                                  //
-    .replace(/import [^']*?'.*?TurboModuleRegistry?';/g, '')                                        //
-    .replace(/import [^']*?'.*?codegenNativeComponent?';/g, '')                                     //
-    .replace(/import [^']*?'.*?codegenNativeComponent'\);/g, '')                                    //
-    .replace(/import [^']*?'.*?codegenNativeCommands'\);/g, '')                                     //
-    .replace(/<ModuleProps, Options>/g, '<ModuleProps>')                                            // ad-hoc fix mistakes in test cases
-    .replace(/interfaceOnly: ([^;]+);/g, 'interfaceOnly: $1,')                                      //
-    .replace(/paperComponentName: ([^;]+);/g, 'paperComponentName: $1,')                            //
-    .replace(/paperComponentNameDeprecated: ([^;]+);/g, 'paperComponentNameDeprecated: $1,')        //
-    .replace(/deprecatedViewConfigName: ([^;]+);/g, 'deprecatedViewConfigName: $1,')                //
-    .replace(/\+getValueWithCallback: \(/g, 'getValueWithCallback: (')                              //
-    .replace(/null;(\s+)'paper(\w+)EventDefinedInlineNullWithPaperName',/g, `null,$1'paper$2EventDefinedInlineNullWithPaperName'`)
-    ;
-
-  if (keyName === 'EVENTS_DEFINED_INLINE_WITH_ALL_TYPES') {
-    tsSourceCode = tsSourceCode
-      .replace(/^(\s+)\}>;$/gm, `$1}>`)
-      .replace(/'paperDirectEventDefinedInlineWithPaperName',/g, `'paperDirectEventDefinedInlineWithPaperName'`)
-      .replace(/\}>(\s+)'paperDirectEventDefinedInlineWithPaperName'/g, `}>,$1'paperDirectEventDefinedInlineWithPaperName'`)
-      .replace(/\}>(\s+)'paperBubblingEventDefinedInlineWithPaperName'/g, `}>,$1'paperBubblingEventDefinedInlineWithPaperName'`)
-      ;
-  }
+function flowTestCaseToTypeScript(program: flow.FlowProgram, keyName?: string): string {
+  fixTestCase(program);
+  const tsSourceCode = printTypeScript(program, false, { useReactNull: true });
 
   let header = '';
-  if (importCodegenTypes) {
-    Object.keys(importMaps).forEach((key: string) => {
-      if (tsSourceCode.match(new RegExp(`\\W${key}\\W`)) !== null) {
-        header += `${importMaps[key]}\r`;
-      }
-    });
-  }
+  Object.keys(importMaps).forEach((key: string) => {
+    if (tsSourceCode.match(new RegExp(`\\W${key}\\W`)) !== null) {
+      header += `${importMaps[key]}\r\n`;
+    }
+  });
 
   return header + tsSourceCode;
 }
@@ -96,20 +60,26 @@ ${
 type TestCaseModule = { [key: string]: string };
 type TestCaseSnapshot = { [key: string]: string };
 
-function convertTestInput(inputJsPath: string, outputFolder: string, prefix: string): TestCaseModule {
+function convertTestInput(inputFolder: string, inputPath: string, outputFolder: string, prefix: string): TestCaseModule {
+  const inputJsPath = path.join(inputFolder, inputPath);
   console.log(`Converting ${inputJsPath} ...`);
 
   const testCases = <TestCaseModule>require(inputJsPath);
   Object.keys(testCases).forEach((key: string) => {
+    const flowSourceCode = testCases[key];
     {
       const outputPath = path.join(outputFolder, `${prefix}${key}.flow.js`);
-      const flowSourceCode = testCases[key];
       fs.writeFileSync(outputPath, flowSourceCode, { encoding: 'utf-8' });
     }
     {
       const outputPath = path.join(outputFolder, `${prefix}${key}.ts`);
-      const flowSourceCode = testCases[key];
-      const tsSourceCode = flowToTs(flowSourceCode, true, key);
+      const flowAst = expectSingleResult(expectEOF(flow.PROGRAM.parse(flow.tokenizer.parse(flowSourceCode))));
+      const tsSourceCode = `
+// Automatically generated from ${prefix}${key}.flow.js
+// (/react-native/packages/react-native-codegen/src/parsers/flow${inputPath.substr(1)})
+
+${flowTestCaseToTypeScript(flowAst, key)}
+`;
       fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
     }
   });
@@ -169,10 +139,10 @@ convertCodegenSchema();
 
 const testCaseInputFolder = path.join(__dirname, `../../../react-native/packages/react-native-codegen/src/parsers/flow`);
 const testCaseOutputFolder = path.join(__dirname, `../../RN-TSCodegen-Test/src/inputs`);
-const csCases = convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'components_success_');
-const cfCases = convertTestInput(path.join(testCaseInputFolder, `./components/__test_fixtures__/failures.js`), testCaseOutputFolder, 'components_failure_');
-const msCases = convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`), testCaseOutputFolder, 'modules_success_');
-const mfCases = convertTestInput(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), testCaseOutputFolder, 'modules_failure_');
+const csCases = convertTestInput(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`, testCaseOutputFolder, 'components_success_');
+const cfCases = convertTestInput(testCaseInputFolder, `./components/__test_fixtures__/failures.js`, testCaseOutputFolder, 'components_failure_');
+const msCases = convertTestInput(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`, testCaseOutputFolder, 'modules_success_');
+const mfCases = convertTestInput(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`, testCaseOutputFolder, 'modules_failure_');
 convertTestOutput(path.join(testCaseInputFolder, `./components/__tests__/__snapshots__/component-parser-test.js.snap`), testCaseOutputFolder, 'components', csCases, cfCases);
 convertTestOutput(path.join(testCaseInputFolder, `./modules/__tests__/__snapshots__/module-parser-test.js.snap`), testCaseOutputFolder, 'modules', msCases, mfCases);
 

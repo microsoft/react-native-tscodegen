@@ -38,6 +38,7 @@ function printEntity(printer: Printer, entity: flow.EntityName): void {
         printer.write(entity);
     } else {
         printEntity(printer, entity.parent);
+        printer.write('.');
         printer.write(entity.name);
     }
 }
@@ -59,7 +60,24 @@ function printUnionTypeWithHeader(printer: Printer, unionType: flow.UnionType, c
     printer.popIndent();
 }
 
-function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, config: PrintTypeConfig): void {
+function printFunctionType(printer: Printer, functionType: flow.FunctionType, interfaceMember: boolean, config: PrintTypeConfig): void {
+    printer.write('(');
+    for (let i = 0; i < functionType.parameters.length; i++) {
+        if (i !== 0) {
+            printer.write(', ');
+        }
+        printer.write(`${functionType.parameters[i].name}: `);
+        printType(printer, functionType.parameters[i].parameterType, config);
+    }
+    if (interfaceMember) {
+        printer.write('): ');
+    } else {
+        printer.write(') => ');
+    }
+    printType(printer, functionType.returnType, config);
+}
+
+function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, forInterface: boolean, config: PrintTypeConfig): void {
     printer.write('{');
     printer.writeLn();
     printer.pushIndent();
@@ -67,19 +85,27 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
         switch (member.kind) {
             case 'Prop': {
                 printer.writeIndent();
-                if (member.isReadonly) {
-                    printer.write('readonly ');
-                }
-                printer.write(member.name);
-                if (member.isOptional) {
-                    printer.write('?');
-                }
-                if (member.propType.kind === 'UnionType') {
-                    printer.write(':');
-                    printUnionTypeWithHeader(printer, member.propType, config);
+                if (forInterface && member.propType.kind === 'FunctionType') {
+                    printer.write(member.name);
+                    if (member.isOptional) {
+                        printer.write('?');
+                    }
+                    printFunctionType(printer, member.propType, true, config);
                 } else {
-                    printer.write(': ');
-                    printType(printer, member.propType, config);
+                    if (member.isReadonly) {
+                        printer.write('readonly ');
+                    }
+                    printer.write(member.name);
+                    if (member.isOptional) {
+                        printer.write('?');
+                    }
+                    if (member.propType.kind === 'UnionType') {
+                        printer.write(':');
+                        printUnionTypeWithHeader(printer, member.propType, config);
+                    } else {
+                        printer.write(': ');
+                        printType(printer, member.propType, config);
+                    }
                 }
                 printer.write(';');
                 printer.writeLn();
@@ -168,7 +194,7 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
                 printType(printer, mixinType, config);
                 printer.write(' & ');
             }
-            printObjectTypeWithoutMixins(printer, flowType, config);
+            printObjectTypeWithoutMixins(printer, flowType, false, config);
             break;
         }
         case 'DecoratedGenericType': {
@@ -191,16 +217,7 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             break;
         }
         case 'FunctionType': {
-            printer.write('(');
-            for (let i = 0; i < flowType.parameters.length; i++) {
-                if (i !== 0) {
-                    printer.write(', ');
-                }
-                printer.write(`${flowType.parameters[i].name}: `);
-                printType(printer, flowType.parameters[i].parameterType, config);
-            }
-            printer.write(') => ');
-            printType(printer, flowType.returnType, config);
+            printFunctionType(printer, flowType, false, config);
             break;
         }
         case 'ParenType': {
@@ -247,11 +264,12 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
             printer.pushIndent();
             for (let i = 0; i < expr.properties.length; i++) {
                 const prop = expr.properties[i];
+                printer.writeIndent();
                 printer.write(prop.key);
                 printer.write(': ');
                 printExpression(printer, prop.value, config);
                 if (i < expr.properties.length - 1) {
-                    printer.write(';');
+                    printer.write(',');
                 }
                 printer.writeLn();
             }
@@ -308,7 +326,7 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
             }
 
             printer.write(' ');
-            printObjectTypeWithoutMixins(printer, stat.interfaceType, typeConfig);
+            printObjectTypeWithoutMixins(printer, stat.interfaceType, true, typeConfig);
             break;
         }
         case 'ImportEqualStat': {

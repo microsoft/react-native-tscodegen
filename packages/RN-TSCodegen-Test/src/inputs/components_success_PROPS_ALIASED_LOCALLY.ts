@@ -1,25 +1,16 @@
+
+// Automatically generated from components_success_PROPS_ALIASED_LOCALLY.flow.js
+// (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
+
 import {NativeComponent} from '../lib/codegenNativeComponent';
 import codegenNativeComponent from '../lib/codegenNativeComponent';
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- * @flow
- */
-
 'use strict';
 
 import {ViewProps} from '../lib/ViewPropTypes';
 
-
-
-
 type DeepSpread = Readonly<{
   otherStringProp: string;
-}>
+}>;
 
 export type PropsInFile = Readonly<DeepSpread & {
   isEnabled: boolean;
@@ -28,11 +19,10 @@ export type PropsInFile = Readonly<DeepSpread & {
 
 export type ModuleProps = Readonly<ViewProps & PropsInFile & {
   localType: Readonly<PropsInFile & {
-  }>
-
-  localArr: ReadonlyArray<PropsInFile>
+  }>;
+  localArr: ReadonlyArray<PropsInFile>;
 }>;
 
-export default (codegenNativeComponent<ModuleProps>(
-  'Module',
-) as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+
+
