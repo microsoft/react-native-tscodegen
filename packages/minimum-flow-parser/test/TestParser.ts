@@ -477,6 +477,12 @@ type Int32 = number;
 type Float = number;
 type Double = number;
 
+interface Point {
+  x: Double;
+  y: Double;
+  z: Double;
+}
+
 export type Point = $ReadOnly<{|
   x: Double,
   y: Double,
@@ -493,6 +499,37 @@ export default (func<string>('abc'):number);
       { kind: 'TypeAliasDecl', hasExport: false, name: 'Int32', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
       { kind: 'TypeAliasDecl', hasExport: false, name: 'Float', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
       { kind: 'TypeAliasDecl', hasExport: false, name: 'Double', aliasedType: { kind: 'PrimitiveType', name: 'number' } },
+      {
+        kind: 'InterfaceDecl',
+        hasExport: false,
+        name: 'Point',
+        interfaceType: {
+          kind: 'ObjectType',
+          isExact: false,
+          mixinTypes: [],
+          members: [{
+            kind: 'Prop',
+            isReadonly: false,
+            isOptional: false,
+            name: 'x',
+            propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
+          },
+          {
+            kind: 'Prop',
+            isReadonly: false,
+            isOptional: false,
+            name: 'y',
+            propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
+          },
+          {
+            kind: 'Prop',
+            isReadonly: false,
+            isOptional: false,
+            name: 'z',
+            propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
+          }]
+        }
+      },
       {
         kind: 'TypeAliasDecl',
         hasExport: true,

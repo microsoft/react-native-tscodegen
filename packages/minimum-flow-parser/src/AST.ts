@@ -164,8 +164,14 @@ export interface TypeAliasDecl extends DeclarationBase {
   aliasedType: Type;
 }
 
+export interface InterfaceDecl extends DeclarationBase {
+  kind: 'InterfaceDecl';
+  interfaceType: ObjectType;
+}
+
 export type Declaration =
   | TypeAliasDecl
+  | InterfaceDecl
   ;
 
 /*****************************************************************

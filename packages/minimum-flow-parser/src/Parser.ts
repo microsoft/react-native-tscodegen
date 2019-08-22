@@ -1,7 +1,7 @@
 // tslint:disable:no-duplicate-imports
 
 import * as parsec from 'ts-parsec';
-import { rep_sc, rule } from 'ts-parsec';
+import { Parser, rep_sc, rule } from 'ts-parsec';
 import { alt, apply, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'ts-parsec';
 import * as ast from './AST';
 import { TokenKind } from './Tokenizer';
@@ -189,7 +189,7 @@ function applyObjectType(value: [
   undefined | {/*,*/ },
   undefined | {/*|*/ },
   {/*}*/ }
-]): ast.Type {
+]): ast.ObjectType {
   const [, isExact, members] = value;
   return {
     kind: 'ObjectType',
@@ -370,6 +370,21 @@ function applyTypeAliasDecl(value: [
   };
 }
 
+function applyInterfaceDecl(value: [
+  undefined | {/*export*/ },
+  {/*interface*/ },
+  Token,
+  ast.ObjectType
+]): ast.Declaration {
+  const [hasExport, , name, interfaceType] = value;
+  return {
+    kind: 'InterfaceDecl',
+    hasExport: hasExport !== undefined,
+    name: name.text,
+    interfaceType
+  };
+}
+
 /*****************************************************************
  * Statements (apply)
  ****************************************************************/
@@ -473,6 +488,36 @@ export const DECL = rule<TokenKind, ast.Declaration>();
 export const STAT = rule<TokenKind, ast.Statement>();
 export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
 
+function createObjectSyntax(delimiter: string): Parser<TokenKind, ast.ObjectType> {
+  return apply(
+    seq(
+      str('{'),
+      opt_sc(str('|')),
+      opt_sc(list_sc(
+        alt(
+          apply(
+            seq(str('...'), TYPE),
+            applyObjectTypeMixin
+          ),
+          apply(
+            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
+            applyObjectTypeProp
+          ),
+          apply(
+            seq(opt_sc(str('+')), str('['), IDENTIFIER, str(':'), TYPE, str(']'), str(':'), TYPE),
+            applyObjectIndexer
+          )
+        ),
+        opt_sc(/* test case bug */str(delimiter))
+      )),
+      opt_sc(/* test case bug */str(delimiter)),
+      opt_sc(str('|')),
+      str('}')
+    ),
+    applyObjectType
+  );
+}
+
 IDENTIFIER.setPattern(
   alt(
     tok(TokenKind.KEYWORD_type),
@@ -502,33 +547,7 @@ TYPE_TERM.setPattern(
       apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
       apply(seq(str('$ReadOnly'), str('<'), TYPE, str('>')), applyDecoratedGenericType),
       apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(/* test case bug */str(',')), str('>')))), applyTypeReference)),
-    apply(
-      seq(
-        str('{'),
-        opt_sc(str('|')),
-        opt_sc(list_sc(
-          alt(
-            apply(
-              seq(str('...'), TYPE),
-              applyObjectTypeMixin
-            ),
-            apply(
-              seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
-              applyObjectTypeProp
-            ),
-            apply(
-              seq(opt_sc(str('+')), str('['), IDENTIFIER, str(':'), TYPE, str(']'), str(':'), TYPE),
-              applyObjectIndexer
-            )
-          ),
-          opt_sc(/* test case bug */str(','))
-        )),
-        opt_sc(/* test case bug */str(',')),
-        opt_sc(str('|')),
-        str('}')
-      ),
-      applyObjectType
-    )
+    createObjectSyntax(',')
   )
 );
 
@@ -571,9 +590,15 @@ EXPR.setPattern(
 );
 
 DECL.setPattern(
-  apply(
-    seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, opt_sc(/* test case bug */str(';'))),
-    applyTypeAliasDecl
+  alt(
+    apply(
+      seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, opt_sc(/* test case bug */str(';'))),
+      applyTypeAliasDecl
+    ),
+    apply(
+      seq(opt_sc(str('export')), str('interface'), IDENTIFIER, createObjectSyntax(';')),
+      applyInterfaceDecl
+    )
   )
 );
 
