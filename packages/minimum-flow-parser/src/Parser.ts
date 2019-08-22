@@ -267,6 +267,23 @@ function applyExprReference(value: [
   }
 }
 
+function applyObjectLiteralExpr(value: [
+  {/*{*/ },
+  [Token, {/*:*/ }, ast.Expression][],
+  undefined | {/*,*/ },
+  {/*}*/ }
+]): ast.Expression {
+  return {
+    kind: 'ObjectLiteralExpr',
+    properties: value[1].map((prop: [Token, {/*:*/ }, ast.Expression]) => {
+      return {
+        key: prop[0].text,
+        value: prop[2]
+      };
+    })
+  };
+}
+
 function applyParenExpr(value: [
   {/*(*/ },
   ast.Expression,
@@ -507,6 +524,7 @@ EXPR_TERM.setPattern(
       alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), tok(TokenKind.KEYWORD_true), tok(TokenKind.KEYWORD_false)),
       applyLiteralExpr),
     apply(seq(list_sc(IDENTIFIER, str('.')), opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))), applyExprReference),
+    apply(seq(str('{'), list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')), str('}')), applyObjectLiteralExpr),
     apply(seq(str('('), EXPR, str(')')), applyParenExpr)
   )
 );

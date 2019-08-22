@@ -124,6 +124,11 @@ export interface CallExpr {
   funcArguments: Expression[];
 }
 
+export interface ObjectLiteralExpr {
+  kind: 'ObjectLiteralExpr';
+  properties: { key: string; value: Expression }[];
+}
+
 export interface ParenExpr {
   kind: 'ParenExpr';
   expr: Expression;
@@ -132,8 +137,9 @@ export interface ParenExpr {
 export type Expression =
   | LiteralExpr
   | ExprReference
-  | CallExpr
   | TypeCastExpr
+  | CallExpr
+  | ObjectLiteralExpr
   | ParenExpr
   ;
 

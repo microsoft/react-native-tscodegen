@@ -389,6 +389,25 @@ test(`Test Call Expression`, () => {
   });
 });
 
+test(`Test Object Literal Expression`, () => {
+  assert.deepStrictEqual(
+    parseExpr(`{
+      interfaceOnly: true,
+      paperComponentName: 'RCTModule',
+    }`),
+    {
+      kind: 'ObjectLiteralExpr',
+      properties: [{
+        key: 'interfaceOnly',
+        value: { kind: 'LiteralExpr', text: 'true' }
+      },
+      {
+        key: 'paperComponentName',
+        value: { kind: 'LiteralExpr', text: `'RCTModule'` }
+      }]
+    });
+});
+
 /*****************************************************************
  * Statements
  ****************************************************************/
