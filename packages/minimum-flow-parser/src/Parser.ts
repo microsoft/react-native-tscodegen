@@ -406,13 +406,18 @@ function applyInterfaceDecl(value: [
   undefined | {/*export*/ },
   {/*interface*/ },
   Token,
+  undefined | [
+    {/*extends*/ },
+    ast.Type[]
+  ],
   ast.ObjectType
 ]): ast.Declaration {
-  const [hasExport, , name, interfaceType] = value;
+  const [hasExport, , name, baseTypes, interfaceType] = value;
   return {
     kind: 'InterfaceDecl',
     hasExport: hasExport !== undefined,
     name: name.text,
+    baseTypes: baseTypes === undefined ? [] : baseTypes[1],
     interfaceType
   };
 }
@@ -679,11 +684,26 @@ EXPR.setPattern(
 DECL.setPattern(
   alt(
     apply(
-      seq(opt_sc(str('export')), str('type'), IDENTIFIER, str('='), TYPE, opt_sc(/* test case bug */str(';'))),
+      seq(
+        opt_sc(str('export')),
+        str('type'),
+        IDENTIFIER,
+        str('='),
+        TYPE,
+        opt_sc(/* test case bug */str(';'))
+      ),
       applyTypeAliasDecl
     ),
     apply(
-      seq(opt_sc(str('export')), str('interface'), IDENTIFIER, createObjectSyntax(';')),
+      seq(
+        opt_sc(str('export')),
+        str('interface'),
+        IDENTIFIER,
+        opt_sc(
+          seq(str('extends'), list_sc(TYPE, str(',')))
+        ),
+        createObjectSyntax(';')
+      ),
       applyInterfaceDecl
     )
   )

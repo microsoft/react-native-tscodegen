@@ -494,6 +494,9 @@ interface Point {
   z: Double;
 }
 
+export interface Inheritance extends a, b, c {
+}
+
 export type Point = $ReadOnly<{|
   x: Double,
   y: Double,
@@ -515,6 +518,7 @@ export default (func<string>('abc'):number);
         kind: 'InterfaceDecl',
         hasExport: false,
         name: 'Point',
+        baseTypes: [],
         interfaceType: {
           kind: 'ObjectType',
           isExact: false,
@@ -540,6 +544,22 @@ export default (func<string>('abc'):number);
             name: 'z',
             propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
           }]
+        }
+      },
+      {
+        kind: 'InterfaceDecl',
+        hasExport: true,
+        name: 'Inheritance',
+        baseTypes: [
+          { kind: 'TypeReference', name: 'a', typeArguments: [] },
+          { kind: 'TypeReference', name: 'b', typeArguments: [] },
+          { kind: 'TypeReference', name: 'c', typeArguments: [] }
+        ],
+        interfaceType: {
+          kind: 'ObjectType',
+          isExact: false,
+          mixinTypes: [],
+          members: []
         }
       },
       {

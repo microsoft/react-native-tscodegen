@@ -172,6 +172,7 @@ export interface TypeAliasDecl extends DeclarationBase {
 
 export interface InterfaceDecl extends DeclarationBase {
   kind: 'InterfaceDecl';
+  baseTypes: Type[];
   interfaceType: ObjectType;
 }
 
