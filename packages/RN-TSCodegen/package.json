@@ -11,8 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
   },
-  "author": "Zihan Chen",
-  "license": "MIT License",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },

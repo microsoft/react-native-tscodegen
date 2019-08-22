@@ -1,6 +1,7 @@
 {
   "name": "minimum-flow-parser",
   "version": "1.0.0",
+  "private": true,
   "description": "Minimum Flow parser just enough to convert Flow to TypeScript for this project",
   "main": "lib/src/index.js",
   "scripts": {
@@ -11,8 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
   },
-  "author": "Zihan Chen",
-  "license": "MIT License",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },

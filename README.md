@@ -18,7 +18,11 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Building this repo
 
-CI has not been setup, so for now please run init.bat .
+```cmd
+yarn
+yarn build
+yarn test
+```
 
 ## Packages
 
