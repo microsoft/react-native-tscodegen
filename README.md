@@ -34,13 +34,15 @@ This is the shared tslint configuration for all other packages.
 
 This is the TypeScript code generation for TurboModule in react native.
 
-In `facebook/react-native`, you are able to find following files in `packages/react-native-codegen/src`:
+In [facebook/react-native](https://github.com/facebook/react-native/), you are able to find following files in `packages/react-native-codegen/src`:
 
-- `cli/parser/parser-cli.js`: It calls `parseFiles` from
-- `cli/parser/parser.js`: It calls `parseFile` from
-- `parsers/flow/index.js`: It parse a Flow source file to `SchemaType`, which is defined in `CodegenSchema.js`
+- [cli/parser/parser-cli.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/cli/parser/parser-cli.js): It calls `parseFiles` from
+- [cli/parser/parser.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/cli/parser/parser.js): It calls `parseFile` from
+- [parsers/flow/index.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/parsers/flow/index.js): It parse a Flow source file to `SchemaType`, which is defined in `CodegenSchema.js`
 
-RN-TSCodegen also provides `typeScriptToCodeSchema` for the same purpose, but instead of consuming Flow source file, it consumes TypeScript source file.
+RN-TSCodegen provides [typeScriptToCodeSchema](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/src/index.ts) for the TypeScript version of `parseFile`.
+
+At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made. You need to do it by yourself following the hint above.
 
 ### RN-TSCodegen-Test
 
@@ -50,8 +52,8 @@ This package contains all test cases for RN-TSCodegen.
 
 This is a parser combinator written in TypeScript. It allows you to create parsers very quickly. Please take a look at:
 
-- `packages/ts-parsec/test/TestRecursiveParser.ts`
-- `packages/minimum-flow-parser/src/Parser.ts`
+- [packages/ts-parsec/test/TestRecursiveParser.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/ts-parsec/test/TestRecursiveParser.ts)
+- [packages/minimum-flow-parser/src/Parser.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/minimum-flow-parser/src/Parser.ts)
 
 for deeper understanding of this library.
 
