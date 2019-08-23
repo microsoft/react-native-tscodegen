@@ -10,10 +10,6 @@ export type WritableObjectType<T> = {
     - readonly [P in keyof T]: WritablePropType<T[P]>
 };
 
-export function isReactNull(tsType: ts.Type): boolean {
-    return tsType.symbol !== undefined && tsType.symbol.name === 'ReactNull';
-}
-
 function isAny(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
@@ -57,6 +53,7 @@ function isNumber(tsType: ts.Type): boolean {
 }
 
 function isRNTag(tsType: ts.Type, tag:
+    | 'Null'
     | 'Int32'
     | 'Float'
     | 'Double'
@@ -86,6 +83,10 @@ function isRNTag(tsType: ts.Type, tag:
     }
 
     return tagType.value === tag;
+}
+
+export function isReactNull(tsType: ts.Type): boolean {
+    return isRNTag(tsType, 'Null');
 }
 
 export type RNRawType = (

@@ -5,6 +5,7 @@ import { SyntheticEvent } from './CoreEventTypes';
 // because it has a private constructor, so the only possible value it could be assigned to outside of this module is T
 // if I don't write the code in this way, the TypeScript type checker won't give me the alias information
 export class RNTag<T extends
+    | 'Null'
     | 'Int32'
     | 'Float'
     | 'Double'
@@ -27,5 +28,5 @@ export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: 
 export type NotString = {};
 export type Stringish = string;
 
-export class ReactNull { private constructor() { } }
+export type ReactNull = RNTag<'Null'> | null | undefined;
 export type WithDefault<T, V> = ReactNull | T | WithDefaultRNTag<V>;

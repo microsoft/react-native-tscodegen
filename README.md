@@ -84,12 +84,12 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 
 At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made. You need to do it by yourself following the hint above. There is several things that need to do before running this code generation:
 
-- Make react native toolchain calls `typeScriptToCodeSchema` instead of `parseFile` for Flow.
+- Make react native toolchain call `typeScriptToCodeSchema` instead of `parseFile` for Flow.
 - In [this folder](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
   - [CodegenTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
   - [ImageSource.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
   - [StyleSheetTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/StyleSheetTypes.ts)
-- `RNTag<T>` and `WithDefaultRNTag` are very important classes that help RN-TSCodegen recognize react native required features that TypeScript does not have. This approach may change in the future.
+- `RNTag<T>` and `WithDefaultRNTag` that are used in above files are very important classes that help RN-TSCodegen recognize react native required features that TypeScript does not have. This approach may change in the future.
 - `ReactNull | T` is used to represent nullable types. This approach may change in the future.
   - When `--strictNullChecks` is off (by default), TypeScript compiler will ignore `null` and `undefined` in a union type, because they are subtype of all other types. The currently implementation uses `typeChecker` in TypeScript Compiler API to do type inference, necessary information will be lost when `--strictNullChecks` is off.
 
