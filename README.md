@@ -2,6 +2,13 @@
 
 Type Script Code Generation for React Native Turbo Module
 
+- Index
+  - Contributing
+  - Building this repo
+  - Packages
+  - Deploying
+  - Development
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
@@ -42,8 +49,6 @@ In [facebook/react-native](https://github.com/facebook/react-native/), you are a
 
 RN-TSCodegen provides [typeScriptToCodeSchema](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/src/index.ts) for the TypeScript version of `parseFile`.
 
-At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made. You need to do it by yourself following the hint above.
-
 ### RN-TSCodegen-Test
 
 This package contains all test cases for RN-TSCodegen.
@@ -74,3 +79,20 @@ So I started update-test files. Whenever I need to know what is changed in their
 - Get the diff of generated files. In this way I can know how many features are added or removed. This is a very important guidance for the development of this project.
 
 Since minimum-flow-parser is built just for converting test cases, so it is possible that it fails to parse a Flow program because Facebook uses more Flow features in their test cases then the last time. It will be updated then.
+
+## Deploying
+
+At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made. You need to do it by yourself following the hint above. There is several things that need to do before running this code generation:
+
+- Make react native toolchain calls `typeScriptToCodeSchema` instead of `parseFile` for Flow.
+- In [this folder](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
+  - [CodegenTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
+  - [ImageSource.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
+  - [StyleSheetTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/StyleSheetTypes.ts)
+- `RNTag<T>` and `WithDefaultRNTag` are very important classes that help RN-TSCodegen recognize react native required features that TypeScript does not have. This approach may change in the future.
+- `ReactNull | T` is used to represent nullable types. This approach may change in the future.
+  - When `--strictNullChecks` is off (by default), TypeScript compiler will ignore `null` and `undefined` in a union type, because they are subtype of all other types. The currently implementation uses `typeChecker` in TypeScript Compiler API to do type inference, necessary information will be lost when `--strictNullChecks` is off.
+
+## Development
+
+(editing)
