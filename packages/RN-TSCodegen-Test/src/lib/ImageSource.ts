@@ -1,5 +1,5 @@
 // \react-native\Libraries\Image\ImageSource.js
 
-export class ImageSourceRNTag { private constructor() { } };
+import { RNTag } from './CodegenTypes';
 
-export type ImageSource = {} | ImageSourceRNTag;
+export type ImageSource = {} | RNTag<'ImageSource'>;

@@ -56,16 +56,36 @@ function isNumber(tsType: ts.Type): boolean {
     return (tsType.flags & ts.TypeFlags.NumberLike) !== 0;
 }
 
-function isInt32RNTag(tsType: ts.Type): boolean {
-    return tsType.symbol !== undefined && tsType.symbol.name === 'Int32RNTag';
-}
+function isRNTag(tsType: ts.Type, tag:
+    | 'Int32'
+    | 'Float'
+    | 'Double'
+    | 'ImageSource'
+    | 'ColorValue'
+): boolean {
+    if (tsType.flags !== ts.TypeFlags.Object) {
+        return false;
+    }
 
-function isFloatRNTag(tsType: ts.Type): boolean {
-    return tsType.symbol !== undefined && tsType.symbol.name === 'FloatRNTag';
-}
+    const objectType = <ts.ObjectType>tsType;
+    if (objectType.objectFlags !== ts.ObjectFlags.Reference) {
+        return false;
+    }
 
-function isDoubleRNTag(tsType: ts.Type): boolean {
-    return tsType.symbol !== undefined && tsType.symbol.name === 'DoubleRNTag';
+    const typeRef = <ts.TypeReference>objectType;
+    if (typeRef.target.symbol === undefined || typeRef.target.symbol.name !== 'RNTag') {
+        return false;
+    }
+    if (typeRef.typeArguments === undefined || typeRef.typeArguments.length !== 1) {
+        return false;
+    }
+
+    const tagType = typeRef.typeArguments[0];
+    if (!tagType.isStringLiteral()) {
+        return false;
+    }
+
+    return tagType.value === tag;
 }
 
 export type RNRawType = (
@@ -295,22 +315,22 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemOthers.push({ kind: 'NumberLiteral', value: elementType.value, isNullable: false });
         } else if (isNumber(elementType)) {
             itemNumber = true;
-        } else if (isFloatRNTag(elementType)) {
-            itemFloatRNTag = true;
-        } else if (isDoubleRNTag(elementType)) {
-            itemDoubleRNTag = true;
-        } else if (isInt32RNTag(elementType)) {
-            itemInt32RNTag = true;
         } else if (elementType.isStringLiteral()) {
             itemStringLiterals.push(elementType.value);
         } else if (isString(elementType)) {
             itemString = true;
+        } else if (isRNTag(elementType, 'Float')) {
+            itemFloatRNTag = true;
+        } else if (isRNTag(elementType, 'Double')) {
+            itemDoubleRNTag = true;
+        } else if (isRNTag(elementType, 'Int32')) {
+            itemInt32RNTag = true;
+        } else if (isRNTag(elementType, 'ImageSource')) {
+            itemOthers.push({ kind: 'rn:ImageSourcePrimitive', isNullable: false });
+        } else if (isRNTag(elementType, 'ColorValue')) {
+            itemOthers.push({ kind: 'rn:ColorPrimitive', isNullable: false });
         } else if (elementType.symbol !== undefined) {
-            if (elementType.symbol.name === 'ColorValueRNTag') {
-                itemOthers.push({ kind: 'rn:ColorPrimitive', isNullable: false });
-            } else if (elementType.symbol.name === 'ImageSourceRNTag') {
-                itemOthers.push({ kind: 'rn:ImageSourcePrimitive', isNullable: false });
-            } else if (elementType.symbol.name === 'PointValue') {
+            if (elementType.symbol.name === 'PointValue') {
                 itemOthers.push({ kind: 'rn:PointPrimitive', isNullable: false });
             } else if (elementType.symbol.name === 'Object') {
                 itemOthers.push({ kind: 'js:Object', isNullable: false });

@@ -1,8 +1,8 @@
 // \react-native\Libraries\StyleSheet\StyleSheetTypes.js
 
-export class ColorValueRNTag { private constructor() { } };
+import { RNTag } from './CodegenTypes';
 
-export type ColorValue = null | string | ColorValueRNTag;
+export type ColorValue = null | string | RNTag<'ColorValue'>;
 export type ColorArrayValue = null | ReadonlyArray<ColorValue>;
 export interface PointValue {
   x: number;
