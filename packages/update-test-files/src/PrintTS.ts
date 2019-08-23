@@ -1,5 +1,3 @@
-// tslint:disable:no-increment-decrement
-
 import * as flow from 'minimum-flow-parser';
 
 class Printer {

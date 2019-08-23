@@ -1,5 +1,4 @@
 // tslint:disable:no-constant-condition
-// tslint:disable:no-increment-decrement
 // tslint:disable:no-null-keyword
 
 export interface TokenPosition {

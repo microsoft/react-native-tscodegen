@@ -1,5 +1,3 @@
-// tslint:disable:no-reserved-keywords
-
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';

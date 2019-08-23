@@ -1,5 +1,4 @@
 // tslint:disable:no-null-keyword
-// tslint:disable:no-reserved-keywords
 
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
