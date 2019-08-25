@@ -75,7 +75,7 @@ After calling `expectSingleResult(expectEOF(x))`, you choose the best result amo
 Don't forget to import all of these symbols!
 
 ```typescript
-import {apply, buildLexer, expectEOF, expectSingleResult, list_sc, str, tok, Token} from 'ts-parsec`;
+import {apply, buildLexer, expectEOF, expectSingleResult, list_sc, str, tok, Token} from 'ts-parsec';
 ```
 
 ## Tokenizer
