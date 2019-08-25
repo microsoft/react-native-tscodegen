@@ -4,15 +4,23 @@
 
 import { Token } from '../Lexer';
 import { apply } from './ApplyParser';
-import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError, succeeded } from './ParserInterface';
+import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError } from './ParserInterface';
 import { seq } from './SequencialParser';
 
 export function rep<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, TResult[]> {
     const reprParser = repr(p);
     return {
         parse(token: Token<TKind>): ParserOutput<TKind, TResult[]> {
-            const result = reprParser.parse(token);
-            return succeeded(result) ? result.reverse() : result;
+            const output = reprParser.parse(token);
+            if (output.successful) {
+                return {
+                    candidates: output.candidates.reverse(),
+                    successful: true,
+                    error: output.error
+                };
+            } else {
+                return output;
+            }
         }
     };
 }
@@ -27,17 +35,16 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
                 const steps = result;
                 result = [];
                 for (const step of steps) {
-                    const followings = p.parse(step.nextToken);
-                    if (succeeded(followings)) {
-                        for (const following of followings) {
+                    const output = p.parse(step.nextToken);
+                    if (output.successful) {
+                        for (const candidate of output.candidates) {
                             result.push({
-                                nextToken: following.nextToken,
-                                result: step.result.concat([following.result])
+                                nextToken: candidate.nextToken,
+                                result: step.result.concat([candidate.result])
                             });
                         }
-                    } else {
-                        error = betterError(error, followings);
                     }
+                    error = betterError(error, output.error);
                 }
 
                 if (result.length === 0) {
@@ -45,7 +52,7 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
                     break;
                 }
             }
-            return resultOrError(result, error);
+            return resultOrError(result, error, true);
         }
     };
 }
@@ -58,19 +65,18 @@ export function repr<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, T
 
             for (let i = 0; i < result.length; i++) {
                 const step = result[i];
-                const followings = p.parse(step.nextToken);
-                if (succeeded(followings)) {
-                    for (const following of followings) {
+                const output = p.parse(step.nextToken);
+                if (output.successful) {
+                    for (const candidate of output.candidates) {
                         result.push({
-                            nextToken: following.nextToken,
-                            result: step.result.concat([following.result])
+                            nextToken: candidate.nextToken,
+                            result: step.result.concat([candidate.result])
                         });
                     }
-                } else {
-                    error = betterError(error, followings);
                 }
+                error = betterError(error, output.error);
             }
-            return resultOrError(result, error);
+            return resultOrError(result, error, true);
         }
     };
 }

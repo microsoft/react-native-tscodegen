@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError, succeeded } from './ParserInterface';
+import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError } from './ParserInterface';
 
 export function seq<TKind, T1, T2>(
     p1: Parser<TKind, T1>,
@@ -125,20 +125,19 @@ export function seq(...ps: Parser<void, {}>[]): Parser<void, {}> {
                 const steps = result;
                 result = [];
                 for (const step of steps) {
-                    const followings = p.parse(step.nextToken);
-                    if (succeeded(followings)) {
-                        for (const following of followings) {
+                    const output = p.parse(step.nextToken);
+                    if (output.successful) {
+                        for (const candidate of output.candidates) {
                             result.push({
-                                nextToken: following.nextToken,
-                                result: step.result.concat([following.result])
+                                nextToken: candidate.nextToken,
+                                result: step.result.concat([candidate.result])
                             });
                         }
-                    } else {
-                        error = betterError(error, followings);
                     }
+                    error = betterError(error, output.error);
                 }
             }
-            return resultOrError(result, error);
+            return resultOrError(result, error, result.length !== 0);
         }
     };
 }

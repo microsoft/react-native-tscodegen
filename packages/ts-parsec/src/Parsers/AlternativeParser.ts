@@ -1,5 +1,5 @@
 import { Token } from '../Lexer';
-import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError, succeeded } from './ParserInterface';
+import { betterError, ParseError, Parser, ParseResult, ParserOutput, resultOrError } from './ParserInterface';
 
 export function alt<TKind, T1, T2>(
     p1: Parser<TKind, T1>,
@@ -116,15 +116,16 @@ export function alt(...ps: Parser<void, {}>[]): Parser<void, {}> {
         parse(token: Token<void> | undefined): ParserOutput<void, {}> {
             let error: ParseError | undefined;
             let result: ParseResult<void, {}>[] = [];
+            let successful = false;
             for (const p of ps) {
-                const choices = p.parse(token);
-                if (succeeded(choices)) {
-                    result = result.concat(choices);
-                } else {
-                    error = betterError(error, choices);
+                const output = p.parse(token);
+                if (output.successful) {
+                    result = result.concat(output.candidates);
+                    successful = true;
                 }
+                error = betterError(error, output.error);
             }
-            return resultOrError(result, error);
+            return resultOrError(result, error, successful);
         }
     };
 }

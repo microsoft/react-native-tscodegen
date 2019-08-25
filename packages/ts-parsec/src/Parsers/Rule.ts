@@ -1,5 +1,5 @@
 import { Token, TokenError } from '../Lexer';
-import { betterError, failed, ParseError, Parser, ParseResult, ParserOutput } from './ParserInterface';
+import { betterError, Parser, ParseResult, ParserOutput, resultOrError } from './ParserInterface';
 
 export interface Rule<TKind, TResult> extends Parser<TKind, TResult> {
     setPattern(parser: Parser<TKind, TResult>): void;
@@ -28,52 +28,52 @@ export function rule<TKind, TResult>(): Rule<TKind, TResult> {
     return new RuleImpl<TKind, TResult>();
 }
 
-export function expectEOF<TKind, TResult>(r: ParserOutput<TKind, TResult>): ParserOutput<TKind, TResult> {
-    if (failed(r)) {
-        return r;
+export function expectEOF<TKind, TResult>(output: ParserOutput<TKind, TResult>): ParserOutput<TKind, TResult> {
+    if (!output.successful) {
+        return output;
     }
 
-    if (r.length === 0) {
+    if (output.candidates.length === 0) {
         return {
-            kind: 'Error',
-            pos: undefined,
-            message: 'No result is returned.'
+            successful: false,
+            error: {
+                kind: 'Error',
+                pos: undefined,
+                message: 'No result is returned.'
+            }
         };
     }
 
     const filtered: ParseResult<TKind, TResult>[] = [];
-    for (const candidate of r) {
+    let error = output.error;
+
+    for (const candidate of output.candidates) {
         if (candidate.nextToken === undefined) {
             filtered.push(candidate);
-        }
-    }
-
-    if (filtered.length === 0) {
-        let error: ParseError | undefined;
-        for (const candidate of r) {
+        } else {
             error = betterError(error, {
                 kind: 'Error',
                 pos: candidate.nextToken === undefined ? undefined : candidate.nextToken.pos,
-                message: `The parser cannot reach the end of file, stops at "${(<Token<TKind>>candidate.nextToken).text}" at position ${JSON.stringify((<Token<TKind>>candidate.nextToken).pos)}.`
+                message: `The parser cannot reach the end of file, stops at "${candidate.nextToken.text}" at position ${JSON.stringify(candidate.nextToken.pos)}.`
             });
         }
-        return <ParseError>error;
     }
-    return filtered;
+
+    return resultOrError(filtered, error, filtered.length !== 0);
 }
 
-export function expectSingleResult<TKind, TResult>(r: ParserOutput<TKind, TResult>): TResult {
-    if (failed(r)) {
-        throw new TokenError(r.pos, r.message);
+export function expectSingleResult<TKind, TResult>(output: ParserOutput<TKind, TResult>): TResult {
+    if (!output.successful) {
+        throw new TokenError(output.error.pos, output.error.message);
     }
 
-    if (r.length === 0) {
+    if (output.candidates.length === 0) {
         throw new TokenError(undefined, 'No result is returned.');
     }
 
-    if (r.length !== 1) {
+    if (output.candidates.length !== 1) {
         throw new TokenError(undefined, 'Multiple results are returned.');
     }
 
-    return r[0].result;
+    return output.candidates[0].result;
 }

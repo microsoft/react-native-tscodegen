@@ -10,11 +10,11 @@ function notUndefined<T>(t: T | undefined): T {
     return <T>t;
 }
 
-function failToParse<TKind, TResult>(r: parsec.ParseResult<TKind, TResult>[] | parsec.ParseError): parsec.ParseError {
-    if (parsec.succeeded(r)) {
-        assert.fail();
+function failToParse<TKind, TResult>(r: parsec.ParserOutput<TKind, TResult>): parsec.ParseError {
+    if (!r.successful) {
+        return r.error;
     }
-    return <parsec.ParseError>r;
+    throw new Error(`The parsing does not fail.`);
 }
 
 enum TokenKind {

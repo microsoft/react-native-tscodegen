@@ -10,11 +10,11 @@ function notUndefined<T>(t: T | undefined): T {
     return <T>t;
 }
 
-function succeeded<TKind, TResult>(r: parsec.ParseResult<TKind, TResult>[] | parsec.ParseError): parsec.ParseResult<TKind, TResult>[] {
-    if (parsec.failed(r)) {
-        assert.fail();
+function succeeded<TKind, TResult>(r: parsec.ParserOutput<TKind, TResult>): parsec.ParseResult<TKind, TResult>[] {
+    if (r.successful) {
+        return r.candidates;
     }
-    return <parsec.ParseResult<TKind, TResult>[]>r;
+    throw new Error(`The parsing does not succeed.`);
 }
 
 enum TokenKind {
@@ -41,7 +41,7 @@ test(`Parser: str`, () => {
     }
     {
         const result = str('456').parse(firstToken);
-        assert.strictEqual(parsec.failed(result), true);
+        assert.strictEqual(result.successful, false);
     }
 });
 
@@ -55,7 +55,7 @@ test(`Parser: tok`, () => {
     }
     {
         const result = str('456').parse(firstToken);
-        assert.strictEqual(parsec.failed(result), true);
+        assert.strictEqual(result.successful, false);
     }
 });
 
@@ -73,7 +73,7 @@ test(`Parser: seq`, () => {
     const firstToken = notUndefined(lexer.parse(`123,456`));
     {
         const result = seq(tok(TokenKind.Number), tok(TokenKind.Identifier)).parse(firstToken);
-        assert.strictEqual(parsec.failed(result), true);
+        assert.strictEqual(result.successful, false);
     }
     {
         const result = succeeded(seq(tok(TokenKind.Number), tok(TokenKind.Number)).parse(firstToken));

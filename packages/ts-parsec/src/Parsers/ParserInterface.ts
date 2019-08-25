@@ -1,5 +1,10 @@
 import { Token, TokenPosition } from './../Lexer';
 
+/**
+ * A ParseResult has to parts:
+ *   result: The result object of this try.
+ *   nextToken: The first unconsumed token.
+ */
 export interface ParseResult<TKind, TResult> {
     readonly nextToken: Token<TKind> | undefined;
     readonly result: TResult;
@@ -11,18 +16,23 @@ export interface ParseError {
     readonly message: string;
 }
 
-export type ParserOutput<TKind, TResult> = ParseResult<TKind, TResult>[] | ParseError;
+/**
+ * A ParserOutput always has candidates and an error.
+ * If successful===true, it means that the candidates field is valid, even when it is empty.
+ * If successful===false, error will be not null
+ * The error field stores the farest error that has even been seen, even when tokens are successfully parsed.
+ */
+export type ParserOutput<TKind, TResult> = {
+    candidates: ParseResult<TKind, TResult>[];
+    successful: true;
+    error: ParseError | undefined;
+} | {
+    successful: false;
+    error: ParseError;
+};
 
 export interface Parser<TKind, TResult> {
     parse(token: Token<TKind> | undefined): ParserOutput<TKind, TResult>;
-}
-
-export function succeeded<TKind, TResult>(r: ParserOutput<TKind, TResult>): r is ParseResult<TKind, TResult>[] {
-    return r instanceof Array;
-}
-
-export function failed<TKind, TResult>(r: ParserOutput<TKind, TResult>): r is ParseError {
-    return !(r instanceof Array);
 }
 
 export function betterError(e1: ParseError | undefined, e2: ParseError | undefined): ParseError | undefined {
@@ -40,8 +50,19 @@ export function betterError(e1: ParseError | undefined, e2: ParseError | undefin
     }
 }
 
-export function resultOrError<TKind, TResult>(result: ParseResult<TKind, TResult>[], error: ParseError | undefined): ParserOutput<TKind, TResult> {
-    return result.length === 0 && error !== undefined ? error : result;
+export function resultOrError<TKind, TResult>(result: ParseResult<TKind, TResult>[], error: ParseError | undefined, successful: boolean): ParserOutput<TKind, TResult> {
+    if (successful) {
+        return {
+            candidates: result,
+            successful: true,
+            error
+        };
+    } else {
+        return {
+            successful: false,
+            error: <ParseError>error
+        };
+    }
 }
 
 export function unableToConsumeToken<TKind>(token: Token<TKind> | undefined): ParseError {
