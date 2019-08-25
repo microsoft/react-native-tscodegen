@@ -4,7 +4,7 @@
 import * as assert from 'assert';
 import * as parsec from '../src/index';
 import { buildLexer, expectEOF, unableToConsumeToken } from '../src/index';
-import { alt, apply, rep, rep_sc, seq, tok } from '../src/index';
+import { alt, apply, opt_sc, rep, rep_sc, seq, tok } from '../src/index';
 
 function notUndefined<T>(t: T | undefined): T {
     assert.notStrictEqual(t, undefined);
@@ -117,6 +117,27 @@ test(`Failure: rep_sc + alt`, () => {
 
         assert.strictEqual(output.successful && output.candidates[0].result.length === 3, true);
         const expectedError = unableToConsumeToken(walkToken(firstToken, 5));
+        assertError(output, expectedError);
+    }
+});
+
+test(`Failure: rep_sc + opt`, () => {
+    {
+        const firstToken = notUndefined(lexer.parse(`a b c d e f g 3`));
+        const output = rep_sc(opt_sc(seq(tok(TokenKind.Identifier), tok(TokenKind.Identifier))))
+            .parse(firstToken);
+
+        assert.strictEqual(output.successful && output.candidates[0].result.length === 3, true);
+        const expectedError = unableToConsumeToken(walkToken(firstToken, 7));
+        assertError(output, expectedError);
+    }
+    {
+        const firstToken = notUndefined(lexer.parse(`a b c d e f g 3`));
+        const output = rep(opt_sc(seq(tok(TokenKind.Identifier), tok(TokenKind.Identifier))))
+            .parse(firstToken);
+
+        assert.strictEqual(output.successful && output.candidates[0].result.length === 3, true);
+        const expectedError = unableToConsumeToken(walkToken(firstToken, 7));
         assertError(output, expectedError);
     }
 });

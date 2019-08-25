@@ -40,10 +40,12 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
 
                     if (output.successful) {
                         for (const candidate of output.candidates) {
-                            result.push({
-                                nextToken: candidate.nextToken,
-                                result: step.result.concat([candidate.result])
-                            });
+                            if (candidate.nextToken !== step.nextToken) {
+                                result.push({
+                                    nextToken: candidate.nextToken,
+                                    result: step.result.concat([candidate.result])
+                                });
+                            }
                         }
                     }
                 }
@@ -71,10 +73,12 @@ export function repr<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, T
 
                 if (output.successful) {
                     for (const candidate of output.candidates) {
-                        result.push({
-                            nextToken: candidate.nextToken,
-                            result: step.result.concat([candidate.result])
-                        });
+                        if (candidate.nextToken !== step.nextToken) {
+                            result.push({
+                                nextToken: candidate.nextToken,
+                                result: step.result.concat([candidate.result])
+                            });
+                        }
                     }
                 }
             }
