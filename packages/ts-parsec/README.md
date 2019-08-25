@@ -190,6 +190,14 @@ There is no need to have a right recursive parser function, because you could ju
 
 #### EXP
 
+Splitting `+`, `-` and `*`, `/` to `EXP` and `FACTOR` and letting `EXP` call `FACTOR` is a common trick to specify operator precedence. If you need to parse C++, which has about 20 levels of operator precedence, you will need to have 20 `EXP`s calling each other.
+
 ### Recursive
 
+`EXP` calls `FACTOR`, `FACTOR` calls `TERM`, and `TERM` finally calls `EXP` again. This is recursive. You are not able to do this in one parser combinator expression. This is why you need `rule`. `rule` returns a parser, you can set another parser to it later by calling the `setPattern` member function.
+When defining `TERM`, `EXP` is not yet defined, there is no problem!. After `EXP.setPattern` is called, `TERM` will know.
+
 ## Utilities
+
+- `expectEOF` looks into all results that returned at the same time, and pick all that consumes all tokens. If there is any result that fail to consume all tokens, an error will be generated as a hint.
+- `expectSingleResult` will see if there is only one result in the result list. If not, a `TokenError` is thrown.
