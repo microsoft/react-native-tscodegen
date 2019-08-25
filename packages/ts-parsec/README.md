@@ -128,6 +128,10 @@ For some languages, like VB.NET, it has context sensitive tokenizers. You could 
 - Tell me and I add more features to the library for you.
 - Make a pull request!
 
+### NOTE
+
+A regular expression should be in this form: `/^xxx/g`.
+
 ## Parser Combinators
 
 You define a `LL parser` by `EBNF`, and then translate it using parser combinators. All parser combinators could return multiple results, except those ends with `_sc`, which means `short cut`.
