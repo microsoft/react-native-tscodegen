@@ -119,10 +119,10 @@ const tokenizer = buildLexer([
 ]);
 ```
 
-If you gives `true trueLies`, 1st and 2nd both match `true`. But the 1st one appears eariler than then 2nd one in the array passing to `buildLexer`, so 1st wins.
+If you gives `true trueLies`, 1st and 2nd both match `true`. But the 1st one appears eariler than the 2nd one in the array passing to `buildLexer`, so 1st wins.
 And then you get to `trueLies` after skipping a space, 1st and 2nd both match the prefix of the input again. But 1st matches `true`, 2nd matches `trueLies`, 2nd is longer, so 2nd wins.
 
-For some languages, like VB.NET, it has context sensitive tokenizers. You could embed an XML in the code, and definitely XML and VB.NET has two different set of token definitions. `buildLexer` could not handle this case. If you have such need, you could:
+For some languages, like VB.NET, it has a context sensitive tokenizer. You could embed an XML in the code, while XML and VB.NET have two different sets of token definitions. `buildLexer` could not handle this case. If you have such need, you could:
 
 - Write a manual tokenizer.
 - Tell me and I add more features to the library for you.
@@ -130,7 +130,7 @@ For some languages, like VB.NET, it has context sensitive tokenizers. You could 
 
 ### NOTE
 
-A regular expression should be in this form: `/^xxx/g`.
+`buildLexer` accepts regular expressions that in this form: `/^xxx/g`.
 
 ## Parser Combinators
 
@@ -140,18 +140,18 @@ You need to choose them wisely.
 
 At this moment, ts-parsec provides the following combinators:
 
-- `nil`: Consumes no token and return `undefined`. When I say "it returns `undefined`", it doesn't mean the function return undefined, it means that `returnValue.candidates[something].result` is `undefined`. In most of the cases, you don't need to deal with multiple results by yourself, this is why you want to call `exceptSingleResult` and `expectEOF`. They will be explained later.
+- `nil`: Consumes no token and returns `undefined`. When I say "it returns `undefined`", it doesn't mean the function returns undefined, it means that `returnValue.candidates[something].result === undefined`. In most of the cases, you don't need to deal with multiple results by yourself, this is why you want to call `exceptSingleResult` and `expectEOF`. They will be explained later.
 - `str('x')`: Consumes a token that is `'x'`.
-- `tok(x)`: Consumes a token whose `kind` is `x`. If you use `buildLexer`, these values of `x` is put in the 3rd place of each line.
-- `seq(a,b,c)`: Consumes tokens that matches `a`, `b` and then `c`. It returns a tuple, containing results from `a`, `b` and `c` in order. You could put 2-12 arguments in `seq`.
-- `alt(a,b,c)`: Consumes tokens that matches `a`, `b` or `c`. It returns a union type, which could be the result of `a`, `b` or `c`. If multiple parsers in `alt` matches, they are all returned. You could put 2-12 arguments in `alt`.
-- `apply(x, f)`: Consumes tokens that matches `x`, and if it succeeds, passs all result to `f`, and returns what `f` returns.
+- `tok(x)`: Consumes a token whose `kind` is `x`. If you use `buildLexer`, these values of `x` is put in the 3rd place in each line.
+- `seq(a,b,c)`: Consumes tokens that matches `a`, `b` and then `c` in order. It returns a tuple, containing results from `a`, `b` and `c` in order. You could put 2-12 arguments in `seq`.
+- `alt(a,b,c)`: Consumes tokens that matches `a`, `b` or `c`. It returns a union type, which could be the result of `a`, `b` or `c`. If multiple parsers in `alt` matches, they are all returned. If non of them match, it fails. You could put 2-12 arguments in `alt`.
+- `apply(x, f)`: Consumes tokens that matches `x`, and if it succeeds, passs each result to `f`, and returns what `f` returns.
 - `opt_sc(x)`: Consumes tokens that matches `x`, and if it fails, returns `undefined`.
 - `opt(x)`: Consumes tokens that matches `x`. If it succeeds, returns the result and `undefined`. If it fails, returns `undefined`.
 - `rep_sc(x)`: Consumes tokens that matches `x`. It will try multiple times, until it fails. It returns an array of all results from `x` in order. If `x` fails in the first try, it returns `[]`.
-- `rep(x)` and `repr(x)`: Just like `rep_sc`, but it returns all possible arrays. For example, if `x` succeeds 3 times, rep returns `[[x1, x2, x3], [x1, x2], [x1], []]`. `repr` returns the same array in a reverse order.
-- `list(x,d)` and `list_sc(x,d)`: It works like `rep(x)` and `rep_sc(x)`, but you can specify a delimiter between `x`.
-- `lrec(a,b,f)` and `lrec_sc(a,b,f)`: It works like `apply(seq(a, rep(b)), F(f))` and `apply(seq(a, rep_sc(b), F(f))`. This parser requires `a` succeed. If `b` succeeds multiple times, `f(a,b)` will be called for multiple times. Details will be explained in **Recursive Syntax**.
+- `rep(x)` and `repr(x)`: Just like `rep_sc`, but it returns all possible arrays. For example, if `x` succeeds 3 times, rep returns `[x1, x2, x3]`, `[x1, x2]`, `[x1]` and `[]`. `repr` returns the same set of results in a reverse order.
+- `list(x,d)` and `list_sc(x,d)`: It works like `rep(x)` and `rep_sc(x)`, but you can specify a delimiter between `x`s.
+- `lrec(a,b,f)` and `lrec_sc(a,b,f)`: It works like `apply(seq(a, rep(b)), F(f))` and `apply(seq(a, rep_sc(b), F(f))`. This parser requires `a` to succeed. If `b` succeeds multiple times, `f(a,b)` will be called for multiple times. Details will be explained later.
 
 ## Recursive Syntax
 
@@ -161,7 +161,7 @@ You are recommended to read `test/TestRecursiveParser.ts` if you have never lear
 
 ### Left Recursive
 
-`lrec` and `lrec_sc` means **Left Recursive (with Short Cut)**. They work in the same way, except that `lrec_sc` returns a single result which consumes tokens as much as possible, `lrec` returns multiple results just like `rep`.
+`lrec` and `lrec_sc` means **Left Recursive (with Short Cut)**. They work in the same way, except that `lrec_sc` returns a single result which consumes tokens as much as possible, `lrec` returns multiple possible results.
 
 Left recursive is a special kind of recursive, usually it appears in left-associated binary operator. In `test/TestRecursiveParser.ts`, there are `TERM`, `FACTOR` and `EXP`.
 
@@ -171,7 +171,7 @@ Left recursive is a special kind of recursive, usually it appears in left-associ
 
 #### FACTOR
 
-`FACTOR` is a left recursive parser. It consumes `1`, `1*2` or `1*2*3`. For `1*2*3...`, tt is very clear that the structure is `1`, `*2`, `*3`... . And let's look at how `FACTOR` is implemented:
+`FACTOR` is a left recursive parser. It consumes `1`, `1*2` or `1*2*3`. For `1*2*3...`, it is very clear that the structure is `1`, `*2`, `*3`... . And let's look at how `FACTOR` is implemented:
 
 ```typescript
 lrec_sc(
@@ -199,9 +199,14 @@ Splitting `+`, `-` and `*`, `/` to `EXP` and `FACTOR` and letting `EXP` call `FA
 ### Recursive
 
 `EXP` calls `FACTOR`, `FACTOR` calls `TERM`, and `TERM` finally calls `EXP` again. This is recursive. You are not able to do this in one parser combinator expression. This is why you need `rule`. `rule` returns a parser, you can set another parser to it later by calling the `setPattern` member function.
-When defining `TERM`, `EXP` is not yet defined, there is no problem!. After `EXP.setPattern` is called, `TERM` will know.
+When defining `TERM`, `EXP` is not yet defined, no problem! When `EXP.setPattern` is called, `TERM` will know `EXP`` is updated immediately.
 
 ## Utilities
 
 - `expectEOF` looks into all results that returned at the same time, and pick all that consumes all tokens. If there is any result that fail to consume all tokens, an error will be generated as a hint.
 - `expectSingleResult` will see if there is only one result in the result list. If not, a `TokenError` is thrown.
+
+## More Examples
+
+- [A simple calculator](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/ts-parsec/test/TestRecursiveParser.ts)
+- [A minimum Flow parser](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/minimum-flow-parser/src/Parser.ts)
