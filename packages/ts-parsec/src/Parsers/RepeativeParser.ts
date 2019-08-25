@@ -36,6 +36,8 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
                 result = [];
                 for (const step of steps) {
                     const output = p.parse(step.nextToken);
+                    error = betterError(error, output.error);
+
                     if (output.successful) {
                         for (const candidate of output.candidates) {
                             result.push({
@@ -44,7 +46,6 @@ export function rep_sc<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind,
                             });
                         }
                     }
-                    error = betterError(error, output.error);
                 }
 
                 if (result.length === 0) {
@@ -66,6 +67,8 @@ export function repr<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, T
             for (let i = 0; i < result.length; i++) {
                 const step = result[i];
                 const output = p.parse(step.nextToken);
+                error = betterError(error, output.error);
+
                 if (output.successful) {
                     for (const candidate of output.candidates) {
                         result.push({
@@ -74,7 +77,6 @@ export function repr<TKind, TResult>(p: Parser<TKind, TResult>): Parser<TKind, T
                         });
                     }
                 }
-                error = betterError(error, output.error);
             }
             return resultOrError(result, error, true);
         }

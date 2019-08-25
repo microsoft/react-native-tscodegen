@@ -126,6 +126,8 @@ export function seq(...ps: Parser<void, {}>[]): Parser<void, {}> {
                 result = [];
                 for (const step of steps) {
                     const output = p.parse(step.nextToken);
+                    error = betterError(error, output.error);
+
                     if (output.successful) {
                         for (const candidate of output.candidates) {
                             result.push({
@@ -134,7 +136,6 @@ export function seq(...ps: Parser<void, {}>[]): Parser<void, {}> {
                             });
                         }
                     }
-                    error = betterError(error, output.error);
                 }
             }
             return resultOrError(result, error, result.length !== 0);

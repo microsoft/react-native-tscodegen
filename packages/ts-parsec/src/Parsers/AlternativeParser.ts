@@ -119,11 +119,12 @@ export function alt(...ps: Parser<void, {}>[]): Parser<void, {}> {
             let successful = false;
             for (const p of ps) {
                 const output = p.parse(token);
+                error = betterError(error, output.error);
+
                 if (output.successful) {
                     result = result.concat(output.candidates);
                     successful = true;
                 }
-                error = betterError(error, output.error);
             }
             return resultOrError(result, error, successful);
         }
