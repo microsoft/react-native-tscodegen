@@ -4,7 +4,7 @@
 import * as assert from 'assert';
 import * as parsec from '../src/index';
 import { buildLexer, expectEOF, unableToConsumeToken } from '../src/index';
-import { alt, apply, rep_sc, seq, tok } from '../src/index';
+import { alt, apply, rep_sc, rep, seq, tok } from '../src/index';
 
 function notUndefined<T>(t: T | undefined): T {
     assert.notStrictEqual(t, undefined);
@@ -20,10 +20,16 @@ function failToParse<TKind, TResult>(r: parsec.ParserOutput<TKind, TResult>): pa
 
 function walkToken<T>(t: parsec.Token<T> | undefined, index: number): parsec.Token<T> | undefined {
     let current = t;
-    for (let i = 1; i < index; i++) {
+    for (let i = 0; i < index; i++) {
         current = notUndefined(current).next;
     }
     return current;
+}
+
+function assertError<TKind, TResult>(r: parsec.ParserOutput<TKind, TResult>, expectedError: parsec.ParseError): void {
+    const actualError = failToParse(expectEOF(r));
+    assert.deepStrictEqual(r.error, expectedError);
+    assert.deepStrictEqual(actualError, expectedError);
 }
 
 enum TokenKind {
@@ -43,41 +49,33 @@ const lexer = buildLexer([
 test(`Failure: alt`, () => {
     {
         const firstToken = notUndefined(lexer.parse(`123,456`));
-        const error = failToParse(
-            alt(tok(TokenKind.Comma), tok(TokenKind.Space))
-                .parse(firstToken)
-        );
-        assert.deepStrictEqual(error, unableToConsumeToken(firstToken));
+        const output = alt(tok(TokenKind.Comma), tok(TokenKind.Space))
+            .parse(firstToken);
+        assertError(output, unableToConsumeToken(walkToken(firstToken, 0)));
     }
 });
 
 test(`Failure: seq`, () => {
     {
         const firstToken = notUndefined(lexer.parse(`123,456`));
-        const error = failToParse(
-            seq(tok(TokenKind.Identifier), tok(TokenKind.Number))
-                .parse(firstToken)
-        );
-        assert.deepStrictEqual(error, unableToConsumeToken(firstToken));
+        const output = seq(tok(TokenKind.Identifier), tok(TokenKind.Number))
+            .parse(firstToken);
+        assertError(output, unableToConsumeToken(walkToken(firstToken, 0)));
     }
     {
         const firstToken = notUndefined(lexer.parse(`123,456`));
-        const error = failToParse(
-            seq(tok(TokenKind.Number), tok(TokenKind.Identifier))
-                .parse(firstToken)
-        );
-        assert.deepStrictEqual(error, unableToConsumeToken(firstToken.next));
+        const output = seq(tok(TokenKind.Number), tok(TokenKind.Identifier))
+            .parse(firstToken);
+        assertError(output, unableToConsumeToken(walkToken(firstToken, 1)));
     }
 });
 
 test(`Failure: apply`, () => {
     {
         const firstToken = notUndefined(lexer.parse(`123,456`));
-        const error = failToParse(
-            apply(tok(TokenKind.Comma), (value: parsec.Token<TokenKind.Comma>) => { return undefined; })
-                .parse(firstToken)
-        );
-        assert.deepStrictEqual(error, unableToConsumeToken(firstToken));
+        const output = apply(tok(TokenKind.Comma), (value: parsec.Token<TokenKind.Comma>) => { return undefined; })
+            .parse(firstToken);
+        assertError(output, unableToConsumeToken(walkToken(firstToken, 0)));
     }
 });
 
@@ -87,12 +85,17 @@ test(`Failure: rep_sc + seq`, () => {
         const output = rep_sc(seq(tok(TokenKind.Number), tok(TokenKind.Identifier)))
             .parse(firstToken);
 
-        assert.strictEqual(output.successful, true);
         assert.strictEqual(output.successful && output.candidates[0].result.length === 3, true);
-        const expectError = unableToConsumeToken(walkToken(firstToken, 7));
+        const expectedError = unableToConsumeToken(walkToken(firstToken, 6));
+        assertError(output, expectedError);
+    }
+    {
+        const firstToken = notUndefined(lexer.parse(`1a 2b 3c d e`));
+        const output = rep(seq(tok(TokenKind.Number), tok(TokenKind.Identifier)))
+            .parse(firstToken);
 
-        const actualError = failToParse(expectEOF(output));
-        assert.deepStrictEqual(output.error, expectError);
-        assert.deepStrictEqual(actualError, expectError);
+        assert.strictEqual(output.successful && output.candidates[0].result.length === 3, true);
+        const expectedError = unableToConsumeToken(walkToken(firstToken, 6));
+        assertError(output, expectedError);
     }
 });
