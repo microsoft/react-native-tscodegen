@@ -210,3 +210,32 @@ When defining `TERM`, `EXP` is not yet defined, no problem! When `EXP.setPattern
 
 - [A simple calculator](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/ts-parsec/test/TestRecursiveParser.ts)
 - [A minimum Flow parser](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/minimum-flow-parser/src/Parser.ts)
+
+## In the Future
+
+This project could be open sourced in a separate repo. And I am going to add more features to this library, like:
+
+- context sensitive tokenizer.
+- context sensitive `apply` handler.
+- localized ambiguity recognizing.
+- customizable error reporting.
+- etc .
+
+Localized ambiguity recognizing is also very useful. For example, you try to parse C programs and get this:
+
+```C
+typedef int X;
+int Y;
+
+int main()
+{
+    X * a;
+    Y * a;
+    return 0;
+}
+```
+
+Both `X * a;` and `Y * a;` could be interpreted as variable definition or expression. This is ambiguity, and it could be solved using context sensitive information. Usually you will have two choices:
+
+- Resolve ambiguity using context sensitive information. This requires you to maintain a symbol table while parsing `typedef int X;` and `int Y;`. In the future, when the handler passing to `apply` is given more API to maintain a data structure that could be passing along parsing, you are able to know that `X * a;` is a variable definition and `Y * a` is an expression. Since ts-parsec handles ambiguity by running parsers parallelly (not threading related), **you cannot just maintain a global variable**, because you don't know when the data created by an `apply` handler need to be discarded when this branch of the parser fails later.
+- Resolve ambiguity locally. At this moment, since both `X * a;` and `Y * a;` have two different ways to interpret, the parser will give you 2*2=4 results. If you have 10 statements like this, you will get up to 1024 results! This is not acceptable! If you don't want to resolve ambiguity immediately, another choice could be that, the parser tells you ambiguity happens during a local area of the code, and you could store this information in your well-designed [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree). In this case, you will get a tree, when you iterate into the function body, you find there are 3 statements, first two of which are ambiguous, and all possible results are listed. Then instead of having 4 results, you have just 1.
