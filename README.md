@@ -46,8 +46,7 @@ In [facebook/react-native](https://github.com/facebook/react-native/), you are a
 - [cli/parser/parser-cli.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/cli/parser/parser-cli.js): It calls `parseFiles` from
 - [cli/parser/parser.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/cli/parser/parser.js): It calls `parseFile` from
 - [parsers/flow/index.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/parsers/flow/index.js): It parse a Flow source file to `SchemaType`, which is defined in `CodegenSchema.js`
-- [GenerateModuleH.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/generators/modules/GenerateModuleH.js): It converts `parseFile` result to header files.
-- [GenerateModuleCpp.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/generators/modules/GenerateModuleCpp.js): It converts `parseFile` result to cpp files.
+- [RNCodegen.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/generators/RNCodegen.js): It converts `parseFile` result to header files.
 
 RN-TSCodegen provides [typeScriptToCodeSchema](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/src/index.ts) for the TypeScript version of `parseFile`.
 
@@ -86,7 +85,7 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 
 At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made. You need to do it by yourself following the hint above. There is several things that need to do before running this code generation:
 
-- Call `typeScriptToCodeSchema` followed by `generate` function from `GenerateModuleH.js` and `GenerateModuleCpp.js`.
+- Call `typeScriptToCodeSchema` followed by `generate` function from `RNCodegen.js`.
 - In [this folder](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
   - [CodegenTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
   - [ImageSource.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
