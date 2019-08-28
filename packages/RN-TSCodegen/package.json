@@ -29,7 +29,7 @@
     "typescript": "^3.5.3"
   },
   "jest": {
-    "testRegex": "/lib/test/Test.*\\.js",
+    "testRegex": "/lib/test/Test.*Cases\\.js",
     "verbose": true
   }
 }
