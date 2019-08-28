@@ -21,8 +21,8 @@ const testCaseIndex = <TestCaseIndex>JSON.parse(readFileSync(
 
 testCaseIndex.components.success.forEach((key: string) => {
     test(`component codegen: ${key}`, () => {
-        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.ts`);
-        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success_${key}.json`);
+        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success/${key}.ts`);
+        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/components_success/${key}.json`);
         const schema = typeScriptToCodeSchema(inputFile, 'Module');
         const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
         assert.deepEqual(schema, snapshot);
@@ -31,8 +31,8 @@ testCaseIndex.components.success.forEach((key: string) => {
 
 testCaseIndex.modules.success.forEach((key: string) => {
     test(`module codegen: ${key}`, () => {
-        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success_${key}.ts`);
-        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success_${key}.json`);
+        const inputFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success/${key}.ts`);
+        const snapshotFile = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/modules_success/${key}.json`);
         const schema = typeScriptToCodeSchema(inputFile, 'NativeSampleTurboModule', 'SampleTurboModule');
         const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
         assert.deepEqual(schema, snapshot);

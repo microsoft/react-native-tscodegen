@@ -69,7 +69,7 @@ export function fixTestCase(program: flow.FlowProgram): void {
                 ) {
                     return false;
                 } else {
-                    value.source = `'../lib/${value.source.substr(1)}`;
+                    value.source = `'../../lib/${value.source.substr(1)}`;
                     return true;
                 }
             }
