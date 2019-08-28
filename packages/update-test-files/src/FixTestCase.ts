@@ -58,6 +58,7 @@ export function fixTestCase(program: flow.FlowProgram): void {
         switch (value.kind) {
             case 'ImportEqualStat':
             case 'ImportAsStat':
+            case 'ImportSingleStat':
             case 'ImportNameStat': {
                 if (
                     value.source.indexOf(`CodegenTypese'`) !== -1 ||
@@ -65,7 +66,10 @@ export function fixTestCase(program: flow.FlowProgram): void {
                     value.source.indexOf(`RCTExport'`) !== -1 ||
                     value.source.indexOf(`TurboModuleRegistry'`) !== -1 ||
                     value.source.indexOf(`codegenNativeComponent'`) !== -1 ||
-                    value.source.indexOf(`codegenNativeCommands'`) !== -1
+                    value.source.indexOf(`codegenNativeCommands'`) !== -1 ||
+                    value.source.indexOf(`ImageSource'`) !== -1 ||
+                    value.source.indexOf(`StyleSheetTypes'`) !== -1 ||
+                    value.source.indexOf(`ViewPropTypes'`) !== -1
                 ) {
                     return false;
                 } else {

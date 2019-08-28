@@ -335,6 +335,10 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
             printer.write(`import * as ${stat.name} from ${stat.source};`);
             break;
         }
+        case 'ImportSingleStat': {
+            printer.write(`import ${stat.name} from ${stat.source};`);
+            break;
+        }
         case 'ImportNameStat': {
             printer.write(`import {${stat.names.join(', ')}} from ${stat.source};`);
             break;

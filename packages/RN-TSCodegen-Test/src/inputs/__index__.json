@@ -59,5 +59,40 @@
       "NATIVE_MODULES_WITH_NOT_ONLY_METHODS",
       "TWO_NATIVE_EXTENDING_TURBO_MODULE"
     ]
+  },
+  "e2e_components": {
+    "success": [
+      "ArrayPropsNativeComponent",
+      "BooleanPropNativeComponent",
+      "ColorPropNativeComponent",
+      "EnumPropNativeComponent",
+      "EventNestedObjectPropsNativeComponent",
+      "EventPropsNativeComponent",
+      "FloatPropsNativeComponent",
+      "ImagePropNativeComponent",
+      "IntegerPropNativeComponent",
+      "InterfaceOnlyNativeComponent",
+      "MultiNativePropNativeComponent",
+      "NoPropsNoEventsNativeComponent",
+      "ObjectPropsNativeComponent",
+      "PointPropNativeComponent",
+      "StringPropNativeComponent"
+    ],
+    "failure": []
+  },
+  "e2e_modules": {
+    "success": [
+      "NativeArrayTurboModule",
+      "NativeBooleanTurboModule",
+      "NativeCallbackTurboModule",
+      "NativeNullableTurboModule",
+      "NativeNumberTurboModule",
+      "NativeObjectTurboModule",
+      "NativeOptionalObjectTurboModule",
+      "NativePromiseTurboModule",
+      "NativeSampleTurboModule",
+      "NativeStringTurboModule"
+    ],
+    "failure": []
   }
 }
