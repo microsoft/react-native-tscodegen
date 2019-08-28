@@ -17,7 +17,7 @@
     "src/test",
     "lib",
     "lib-amd",
-    "src/inputs/components_failure_*.ts",
-    "src/inputs/modules_failure_*.ts"
+    "src/inputs/components_failure/*.ts",
+    "src/inputs/modules_failure/*.ts"
   ]
 }
