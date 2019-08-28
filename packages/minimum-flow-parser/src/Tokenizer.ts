@@ -63,7 +63,7 @@ export const tokenizer = buildLexer([
   [true, /^\$[a-zA-Z_][a-zA-Z0-9_]*/g, TokenKind.$Identifier],
 
   [true, /^'([^']|\\.)*'/g, TokenKind.StringLiteral],
-  [true, /^\d+(\.\d+)?/g, TokenKind.NumberLiteral],
+  [true, /^[\+\-]?\d+(\.\d+)?/g, TokenKind.NumberLiteral],
 
   [true, /^\=/g, TokenKind.EQ],
   [true, /^\</g, TokenKind.LT],

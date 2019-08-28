@@ -483,11 +483,29 @@ function applyImportAsStat(value: [
   };
 }
 
+function applyImportSingleStat(value: [
+  {/*import*/ },
+  Token,
+  {/*from*/ },
+  Token,
+  {/*;*/ }
+]): ast.Statement {
+  const [, name, , source] = value;
+  return {
+    kind: 'ImportSingleStat',
+    name: name.text,
+    source: source.text
+  };
+}
+
 function applyImportNameStat(value: [
   {/*import*/ },
   undefined | {/*type*/ },
   {/*{*/ },
-  Token[],
+  [
+    undefined | {/*type*/ },
+    Token
+  ][],
   undefined | {/*,*/ },
   {/*}*/ },
   {/*from*/ },
@@ -497,7 +515,7 @@ function applyImportNameStat(value: [
   const [, , , names, , , , source] = value;
   return {
     kind: 'ImportNameStat',
-    names: names.map((item: Token) => { return item.text; }),
+    names: names.map((item: [undefined | {}, Token]) => { return item[1].text; }),
     source: source.text
   };
 }
@@ -768,9 +786,19 @@ STAT.setPattern(
       apply(
         seq(
           str('import'),
+          tok(TokenKind.Identifier),
+          str('from'),
+          tok(TokenKind.StringLiteral),
+          str(';')
+        ),
+        applyImportSingleStat
+      ),
+      apply(
+        seq(
+          str('import'),
           opt_sc(str('type')),
           str('{'),
-          list_sc(tok(TokenKind.Identifier), str(',')),
+          list_sc(seq(opt_sc(str('type')), tok(TokenKind.Identifier)), str(',')),
           opt_sc(/* test case bug */str(',')),
           str('}'),
           str('from'),

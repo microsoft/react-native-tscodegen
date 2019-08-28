@@ -196,7 +196,7 @@ export interface UseStrictStatement {
 }
 
 export interface ImportNamespaceStatement {
-  kind: 'ImportEqualStat' | 'ImportAsStat';
+  kind: 'ImportEqualStat' | 'ImportAsStat' | 'ImportSingleStat';
   name: string;
   source: string;
 }
