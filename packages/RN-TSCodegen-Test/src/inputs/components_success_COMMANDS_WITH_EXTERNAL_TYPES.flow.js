@@ -22,8 +22,15 @@ export type Boolean = boolean;
 export type Int = Int32;
 export type Void = void;
 
+export type ModuleProps = $ReadOnly<{|
+  ...ViewProps,
+  // No props or events
+|}>;
+
+type NativeType = NativeComponent<ModuleProps>;
+
 export type ScrollTo = (
-  viewRef: React.Ref<'RCTView'>,
+  viewRef: React.ElementRef<NativeType>,
   y: Int,
   animated: Boolean,
 ) => Void;
@@ -32,15 +39,10 @@ interface NativeCommands {
   +scrollTo: ScrollTo;
 }
 
-export type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
-  // No props or events
-|}>;
-
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['scrollTo'],
 });
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): NativeType);

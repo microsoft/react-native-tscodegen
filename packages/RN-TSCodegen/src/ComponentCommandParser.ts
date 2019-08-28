@@ -78,11 +78,13 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
         const viewRefType = funcParameters[0].type;
         if (viewRefType === undefined || !ts.isTypeReferenceNode(viewRefType) || (
             viewRefType.typeName.getText() !== 'React.Ref' &&
-            viewRefType.typeArguments !== undefined &&
-            viewRefType.typeArguments.length === 1 &&
-            ts.isStringLiteral(viewRefType.typeArguments[0])
+            viewRefType.typeName.getText() !== 'React.ElementRef' &&
+            (
+                viewRefType.typeArguments === undefined ||
+                viewRefType.typeArguments.length !== 1
+            )
         )) {
-            throw new Error(`The first parameter in command ${commandName} in type ${info.typeNode.getText()} should be React.Ref<'NAME'>.`);
+            throw new Error(`The first parameter in command ${commandName} in type ${info.typeNode.getText()} should be React.Ref<'NAME'> or React.ElementRef<TYPE>.`);
         }
 
         commands.push({

@@ -13,18 +13,20 @@ import codegenNativeCommands from '../lib/codegenNativeCommands';
 
 import {ViewProps} from '../lib/ViewPropTypes';
 
-interface NativeCommands {
-  hotspotUpdate(viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32): void;
-  scrollTo(viewRef: React.Ref<'RCTView'>, x: Float, y: Int32, z: Double, animated: boolean): void;
-}
-
 export type ModuleProps = Readonly<ViewProps & {
 }>;
+
+type NativeType = NativeComponent<ModuleProps>;
+
+interface NativeCommands {
+  hotspotUpdate(viewRef: React.ElementRef<NativeType>, x: Int32, y: Int32): void;
+  scrollTo(viewRef: React.ElementRef<NativeType>, x: Float, y: Int32, z: Double, animated: boolean): void;
+}
 
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['hotspotUpdate', 'scrollTo']
 });
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as NativeType);
 
 
