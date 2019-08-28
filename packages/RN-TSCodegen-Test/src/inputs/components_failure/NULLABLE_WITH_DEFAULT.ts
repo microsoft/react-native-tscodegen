@@ -7,9 +7,8 @@ import {ReactNull} from '../../lib/CodegenTypes';
 import {WithDefault} from '../../lib/CodegenTypes';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-'use strict';
-
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 export type ModuleProps = Readonly<ViewProps & {
   nullable_with_default: (ReactNull | WithDefault<Float, 1.0>);

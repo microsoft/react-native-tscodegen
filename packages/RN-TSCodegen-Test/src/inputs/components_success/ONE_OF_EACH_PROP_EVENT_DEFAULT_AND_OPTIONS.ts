@@ -7,9 +7,8 @@ import {DirectEventHandler} from '../../lib/CodegenTypes';
 import {WithDefault} from '../../lib/CodegenTypes';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-'use strict';
-
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 type ModuleProps = Readonly<ViewProps & {
   boolean_default_true_optional_both?: WithDefault<boolean, true>;

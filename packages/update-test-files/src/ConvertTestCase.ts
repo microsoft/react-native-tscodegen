@@ -14,6 +14,7 @@ const importMaps = {
   WithDefault: `import {WithDefault} from '../../lib/CodegenTypes';`,
   React: `import * as React from '../../lib/React';`,
   NativeComponent: `import {NativeComponent} from '../../lib/codegenNativeComponent';`,
+  NativeComponentType: `import {NativeComponentType} from '../../lib/codegenNativeComponent';`,
   codegenNativeComponent: `import codegenNativeComponent from '../../lib/codegenNativeComponent';`,
   codegenNativeCommands: `import codegenNativeCommands from '../../lib/codegenNativeCommands';`,
   TurboModule: `import {TurboModule} from '../../lib/RCTExport'`,

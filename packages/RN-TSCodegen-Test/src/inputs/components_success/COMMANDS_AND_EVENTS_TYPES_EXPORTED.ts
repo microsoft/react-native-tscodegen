@@ -12,9 +12,8 @@ import * as React from '../../lib/React';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import codegenNativeCommands from '../../lib/codegenNativeCommands';
-'use strict';
-
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 export type EventInFile = Readonly<{
   boolean_required: boolean;

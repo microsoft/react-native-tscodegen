@@ -4,9 +4,8 @@
 
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-'use strict';
-
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 export type ModuleProps = Readonly<ViewProps & {
   isEnabled: string;

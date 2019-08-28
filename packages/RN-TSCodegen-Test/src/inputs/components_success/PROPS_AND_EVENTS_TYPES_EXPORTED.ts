@@ -10,9 +10,8 @@ import {Int32} from '../../lib/CodegenTypes';
 import {ReactNull} from '../../lib/CodegenTypes';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-'use strict';
-
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 export type EventInFile = Readonly<{
   boolean_required: boolean;

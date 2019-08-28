@@ -4,12 +4,10 @@
 
 import {Int32} from '../../lib/CodegenTypes';
 import {WithDefault} from '../../lib/CodegenTypes';
+import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
-
-import {ViewProps} from '../../lib/../../../../../Libraries/Components/View/ViewPropTypes';
-
-import codegenNativeComponent from '../../../../../Libraries/Utilities/codegenNativeComponent';
 
 type NativeProps = Readonly<ViewProps & {
   progress1?: WithDefault<Int32, 0>;

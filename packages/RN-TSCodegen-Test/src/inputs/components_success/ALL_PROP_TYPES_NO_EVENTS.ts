@@ -10,13 +10,12 @@ import {ReactNull} from '../../lib/CodegenTypes';
 import {WithDefault} from '../../lib/CodegenTypes';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-'use strict';
-
 import {ImageSource} from '../../lib/ImageSource';
-
-import {ColorValue, ColorArrayValue, PointValue} from '../../lib/StyleSheetTypes';
-
+import {ColorValue} from '../../lib/StyleSheetTypes';
+import {ColorArrayValue} from '../../lib/StyleSheetTypes';
+import {PointValue} from '../../lib/StyleSheetTypes';
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 type ModuleProps = Readonly<ViewProps & {
   boolean_required: boolean;

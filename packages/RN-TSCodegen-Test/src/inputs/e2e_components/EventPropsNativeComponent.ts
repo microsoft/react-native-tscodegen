@@ -8,12 +8,10 @@ import {Float} from '../../lib/CodegenTypes';
 import {Int32} from '../../lib/CodegenTypes';
 import {ReactNull} from '../../lib/CodegenTypes';
 import {WithDefault} from '../../lib/CodegenTypes';
+import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
-
-import {ViewProps} from '../../lib/../../../../../Libraries/Components/View/ViewPropTypes';
-
-import codegenNativeComponent from '../../../../../Libraries/Utilities/codegenNativeComponent';
 
 type OnChangeEvent = Readonly<{
   value: boolean;

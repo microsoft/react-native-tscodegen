@@ -7,9 +7,8 @@ import * as React from '../../lib/React';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import codegenNativeCommands from '../../lib/codegenNativeCommands';
-'use strict';
-
 import {ViewProps} from '../../lib/ViewPropTypes';
+'use strict';
 
 interface NativeCommands {
   hotspotUpdate(viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32): void;

@@ -5,16 +5,13 @@
 import {Float} from '../../lib/CodegenTypes';
 import {Int32} from '../../lib/CodegenTypes';
 import {WithDefault} from '../../lib/CodegenTypes';
+import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {ImageSource} from '../../lib/ImageSource';
+import {ColorValue} from '../../lib/StyleSheetTypes';
+import {PointValue} from '../../lib/StyleSheetTypes';
+import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
-
-import {PointValue, ColorValue} from '../../lib/../../../../../Libraries/StyleSheet/StyleSheetTypes';
-
-import {ImageSource} from '../../lib/../../../../../Libraries/Image/ImageSource';
-
-import {ViewProps} from '../../lib/../../../../../Libraries/Components/View/ViewPropTypes';
-
-import codegenNativeComponent from '../../../../../Libraries/Utilities/codegenNativeComponent';
 
 type NativeProps = Readonly<ViewProps & {
   names?: ReadonlyArray<string>;
