@@ -52,7 +52,7 @@ RN-TSCodegen provides [typeScriptToCodeSchema](https://github.com/microsoft/reac
 
 ### RN-Codegen-Backend
 
-Compile Facebook's code and export generate from `RNCodegen.js`
+Compile Facebook's code and export `generate` from `RNCodegen.js`
 
 ### RN-TSCodegen-Test
 
@@ -89,7 +89,7 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 
 At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made.
 But I've got facebook's native code generator run successfully in RN-TSCodegen's [test cases](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/test/TestE2ECases.ts).
-You can follow  There is several things that need to do before running this code generation:
+You can follow these test cases to make it run in your repo. There is several things that need to do before running this code generation:
 
 - Call `typeScriptToCodeSchema` from `RN-TSCodegen` followed by `generate` function from `RN-Codegen-Backend`.
 - In [this folder](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
