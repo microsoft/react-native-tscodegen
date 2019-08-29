@@ -50,6 +50,10 @@ In [facebook/react-native](https://github.com/facebook/react-native/), you are a
 
 RN-TSCodegen provides [typeScriptToCodeSchema](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/src/index.ts) for the TypeScript version of `parseFile`.
 
+### RN-Codegen-Backend
+
+Compile Facebook's code and export generate from `RNCodegen.js`
+
 ### RN-TSCodegen-Test
 
 This package contains all test cases for RN-TSCodegen.
@@ -83,9 +87,11 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 
 ## Deploying
 
-At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made. You need to do it by yourself following the hint above. There is several things that need to do before running this code generation:
+At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made.
+But I've got facebook's native code generator run successfully in RN-TSCodegen's [test cases](https://github.com/microsoft/react-native-tscodegen/blob/run-rncodegen/packages/RN-TSCodegen/test/TestE2ECases.ts).
+You can follow  There is several things that need to do before running this code generation:
 
-- Call `typeScriptToCodeSchema` followed by `generate` function from `RNCodegen.js`.
+- Call `typeScriptToCodeSchema` from `RN-TSCodegen` followed by `generate` function from `RN-Codegen-Backend`.
 - In [this folder](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
   - [CodegenTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
   - [ImageSource.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
@@ -93,6 +99,11 @@ At this moment, no effort of integrating RN-TSCodegen to facebook/react-native h
 - `RNTag<T>` and `WithDefaultRNTag` that are used in above files are very important classes that help RN-TSCodegen recognize react native required features that TypeScript does not have. This approach may change in the future.
 - `ReactNull | T` is used to represent nullable types. This approach may change in the future.
   - When `--strictNullChecks` is off (by default), TypeScript compiler will ignore `null` and `undefined` in a union type, because they are subtype of all other types. The currently implementation uses `typeChecker` in TypeScript Compiler API to do type inference, necessary information will be lost when `--strictNullChecks` is off.
+
+Today there is no npm package created for this repo. to use this source code, it is recommended to submodule and build this repo, and then import from the following packages directly:
+
+- `RN-TSCodegen`
+- `RN-Codegen-Backend`
 
 ## Development
 
