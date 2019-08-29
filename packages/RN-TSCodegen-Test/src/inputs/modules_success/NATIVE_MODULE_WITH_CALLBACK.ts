@@ -1,4 +1,6 @@
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from modules_success/NATIVE_MODULE_WITH_CALLBACK.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/fixtures.js)
 

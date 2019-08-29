@@ -1,4 +1,6 @@
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from components_success/ONE_OF_EACH_PROP_EVENT_DEFAULT_AND_OPTIONS.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 

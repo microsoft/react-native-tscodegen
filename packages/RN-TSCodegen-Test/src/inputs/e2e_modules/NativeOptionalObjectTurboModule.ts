@@ -1,4 +1,6 @@
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from NativeOptionalObjectTurboModule.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 

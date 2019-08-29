@@ -1,4 +1,7 @@
 
+// Automatically copied from components/__test_fixtures__/failures.js
+// (/react-native/packages/react-native-codegen/src/parsers/flow)
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

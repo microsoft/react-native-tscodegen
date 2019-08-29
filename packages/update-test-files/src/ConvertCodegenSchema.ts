@@ -15,6 +15,8 @@ export function convertCodegenSchema(): void {
 
   const flowSourceCode = fs.readFileSync(inputPath, { encoding: 'utf-8' });
   const tsSourceCode = `
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from react-native/packages/react-native-codegen/src/CodegenSchema.js
 
 ${

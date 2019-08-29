@@ -19,12 +19,21 @@ export function convertTestInput(inputFolder: string, inputPath: string, outputF
     const flowSourceCode = testCases[key];
     {
       const outputPath = path.join(outputFolder, `${category}/${key}.flow.js`);
-      writeFileSync(outputPath, flowSourceCode, { encoding: 'utf-8' });
+      writeFileSync(
+          outputPath,
+          `
+// Automatically copied from ${inputPath.substr(2)}
+// (/react-native/packages/react-native-codegen/src/parsers/flow)
+${flowSourceCode}`,
+          { encoding: 'utf-8' }
+      );
     }
     {
       const outputPath = path.join(outputFolder, `${category}/${key}.ts`);
       const flowAst = expectSingleResult(expectEOF(flow.PROGRAM.parse(flow.tokenizer.parse(flowSourceCode))));
       const tsSourceCode = `
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from ${category}/${key}.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow${inputPath.substr(1)})
 

@@ -1,4 +1,6 @@
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from react-native/packages/react-native-codegen/src/CodegenSchema.js
 
 'use strict';

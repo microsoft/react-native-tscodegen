@@ -1,3 +1,6 @@
+
+// Automatically copied from ColorPropNativeComponent.js
+// (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

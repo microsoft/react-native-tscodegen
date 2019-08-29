@@ -1,4 +1,6 @@
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from components_failure/COMMANDS_DEFINED_WITHOUT_METHOD_NAMES.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/failures.js)
 

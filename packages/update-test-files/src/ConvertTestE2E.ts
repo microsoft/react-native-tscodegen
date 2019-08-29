@@ -17,12 +17,21 @@ export function convertE2E(inputFolder: string, outputFolder: string): string[] 
         const flowSourceCode = readFileSync(inputFilePath, { encoding: 'utf-8' });
         {
             const outputPath = path.join(outputFolder, inputFile);
-            writeFileSync(outputPath, flowSourceCode, { encoding: 'utf-8' });
+            writeFileSync(
+                outputPath,
+                `
+// Automatically copied from ${inputFile}
+// (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
+${flowSourceCode}`,
+                { encoding: 'utf-8' }
+            );
         }
         {
             const outputPath = path.join(outputFolder, `${key}.ts`);
             const flowAst = expectSingleResult(expectEOF(flow.PROGRAM.parse(flow.tokenizer.parse(flowSourceCode))));
             const tsSourceCode = `
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
 // Automatically generated from ${inputFile}
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
