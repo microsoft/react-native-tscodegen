@@ -26,7 +26,8 @@
     "tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "rn-codegen-backend": "^1.0.0"
   },
   "jest": {
     "testRegex": "/lib/test/Test.*Cases\\.js",

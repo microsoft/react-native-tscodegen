@@ -2,7 +2,7 @@
   "name": "rn-codegen-backend",
   "version": "1.0.0",
   "description": "React Native Turbo Module Code Generation Backend",
-  "main": "./lib/RN-Codegen-Backend/index.js",
+  "main": "./lib/RN-Codegen-Backend/src/index.js",
   "scripts": {
     "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
   },
@@ -19,6 +19,8 @@
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.9",
     "flow-remove-types": "^2.106.2",
+    "jscodeshift": "0.6.4",
+    "nullthrows": "1.1.1",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",

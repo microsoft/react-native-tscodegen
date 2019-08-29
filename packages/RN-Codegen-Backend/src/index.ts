@@ -28,4 +28,4 @@ export type Config = Readonly<{
 
 type GeneratePrototype = (options: Options, config: Config) => boolean;
 
-export const generate = <GeneratePrototype>(require('./lib/rncodegen/src/generators/RNCodegen.js').generate);
+export const generate = <GeneratePrototype>(require('../../rncodegen/src/generators/RNCodegen.js').generate);
