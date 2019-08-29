@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "lib": ["es6"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+    
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+  },
+  "exclude": ["node_modules", "src/test", "lib", "lib-amd"]
+}
