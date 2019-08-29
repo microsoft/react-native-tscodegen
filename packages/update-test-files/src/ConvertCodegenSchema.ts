@@ -6,7 +6,8 @@ import { printTypeScript } from './PrintTS';
 
 export function convertCodegenSchema(): void {
   const inputPath = path.join(__dirname, `../../../react-native/packages/react-native-codegen/src/CodegenSchema.js`);
-  const outputPath = path.join(__dirname, `../../RN-TSCodegen/src/CodegenSchema.ts`);
+  const outputPath1 = path.join(__dirname, `../../RN-TSCodegen/src/CodegenSchema.ts`);
+  const outputPath2 = path.join(__dirname, `../../RN-Codegen-Backend/src/CodegenSchema.ts`);
   console.log(`Converting ${inputPath} ...`);
 
   const flowSourceCode = fs.readFileSync(inputPath, { encoding: 'utf-8' });
@@ -19,5 +20,6 @@ ${
       true,
       { useReactNull: false }
     )}`;
-  fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
+  fs.writeFileSync(outputPath1, tsSourceCode, { encoding: 'utf-8' });
+  fs.writeFileSync(outputPath2, tsSourceCode, { encoding: 'utf-8' });
 }

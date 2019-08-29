@@ -1,7 +1,7 @@
 // tslint:disable:no-unsafe-any
 // tslint:disable:no-require-imports
 
-import { SchemaType } from '../../RN-TSCodegen/src/CodegenSchema';
+import { SchemaType } from './CodegenSchema';
 
 // Manually strong-typed from \react-native\packages\react-native-codegen\src\generators\RNCodegen.js
 
@@ -28,4 +28,4 @@ export type Config = Readonly<{
 
 type GeneratePrototype = (options: Options, config: Config) => boolean;
 
-export const generate = <GeneratePrototype>(require('../../rncodegen/src/generators/RNCodegen.js').generate);
+export const generate = <GeneratePrototype>(require('./rncodegen/src/generators/RNCodegen.js').generate);
