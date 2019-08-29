@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import * as assert from 'assert';
 import { expectEOF, expectSingleResult } from 'ts-parsec';
 import * as ast from '../src/AST';

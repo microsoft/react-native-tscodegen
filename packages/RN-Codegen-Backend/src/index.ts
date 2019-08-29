@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 // tslint:disable:no-unsafe-any
 // tslint:disable:no-require-imports
 

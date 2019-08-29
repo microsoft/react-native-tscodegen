@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import { Token, TokenError } from '../Lexer';
 import { betterError, Parser, ParseResult, ParserOutput, resultOrError } from './ParserInterface';
 

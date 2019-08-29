@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import { readFileSync } from 'fs';
 import * as path from 'path';
 

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import * as assert from 'assert';
 import { Token } from 'ts-parsec';
 import { tokenizer, TokenKind } from '../src/Tokenizer';

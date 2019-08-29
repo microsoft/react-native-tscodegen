@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import * as fs from 'fs';
 import * as flow from 'minimum-flow-parser';
 import * as path from 'path';

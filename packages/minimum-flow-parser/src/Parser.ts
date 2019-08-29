@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 // tslint:disable:no-duplicate-imports
 
 import * as parsec from 'ts-parsec';

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 export * from './Lexer';
 export * from './Parsers/ParserInterface';
 export * from './Parsers/TokenParser';

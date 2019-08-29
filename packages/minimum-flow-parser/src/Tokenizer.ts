@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 // tslint:disable:trailing-comma
 
 import { buildLexer } from 'ts-parsec';

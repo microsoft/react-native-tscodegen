@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 // tslint:disable:no-conditional-assignment
 
 import * as ts from 'typescript';

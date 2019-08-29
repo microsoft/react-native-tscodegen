@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 // tslint:disable:no-constant-condition
 // tslint:disable:no-null-keyword
 
