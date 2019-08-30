@@ -1,6 +1,6 @@
 # react-native-tscodegen
 
-Type Script Code Generation for React Native Turbo Module
+TypeScript Code Generation for React Native Turbo Module
 
 - Index
   - Contributing
