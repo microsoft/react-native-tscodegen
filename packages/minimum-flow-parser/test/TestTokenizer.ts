@@ -22,7 +22,7 @@ test(`Test Tokenizer with Normal Tokens`, () => {
   const input = `
 boolean export import null number string type undefined void
 pascalCase CamelCase UPPER_CASE $Identifier
-'StringLiteral' 123 123.456 true false
+'StringLiteral' 123 123.456 NaN true false
 =<>+-*/|....{}[]();:,?
 `;
 
@@ -43,6 +43,7 @@ pascalCase CamelCase UPPER_CASE $Identifier
     [TokenKind.StringLiteral, `'StringLiteral'`],
     [TokenKind.NumberLiteral, `123`],
     [TokenKind.NumberLiteral, `123.456`],
+    [TokenKind.NumberLiteral, `NaN`],
     [TokenKind.KEYWORD_true, `true`],
     [TokenKind.KEYWORD_false, `false`],
     [TokenKind.EQ, `=`],
