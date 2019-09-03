@@ -47,10 +47,8 @@ function applyOptionalType(value: [{/*?*/ }, ast.Type]): ast.Type {
 function applyFunctionType(value: [
   {/*(*/ },
   undefined | [
-    undefined | [
-      Token,
-      {/*:*/ }
-    ],
+    Token,
+    {/*:*/ },
     ast.Type
   ][],
   {/*)*/ },
@@ -69,10 +67,10 @@ function applyFunctionType(value: [
     return {
       kind: 'FunctionType',
       returnType,
-      parameters: optionalParameters.map((prop: [undefined | [Token, {/*:*/ }], ast.Type]) => {
+      parameters: optionalParameters.map((prop: [Token, {/*:*/ }, ast.Type]) => {
         return {
-          name: prop[0] === undefined ? '' : prop[0][0].text,
-          parameterType: prop[1]
+          name: prop[0].text,
+          parameterType: prop[2]
         };
       })
     };
@@ -209,7 +207,7 @@ function applyObjectType(value: [
   {/*{*/ },
   undefined | {/*|*/ },
   undefined | (ast.Type | ast.ObjectMember)[],
-  undefined | {/*; ,*/ },
+  undefined | {/*;*/ },
   undefined | {/*|*/ },
   {/*}*/ }
 ]): ast.ObjectType {
@@ -318,7 +316,6 @@ function applyExprReference(value: [
 function applyObjectLiteralExpr(value: [
   {/*{*/ },
   [Token, {/*:*/ }, ast.Expression][],
-  undefined | {/*,*/ },
   {/*}*/ }
 ]): ast.Expression {
   return {
@@ -589,7 +586,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
         ),
         alt(str(';'), str(','))
       )),
-      opt_sc(alt(str(';'), str(','))),
+      opt_sc(str(';')),
       opt_sc(str('|')),
       str('}')
     ),
@@ -622,7 +619,8 @@ TYPE_TERM.setPattern(
           opt_sc(
             list_sc(
               seq(
-                opt_sc(seq(tok(TokenKind.Identifier), str(':'))),
+                tok(TokenKind.Identifier),
+                str(':'),
                 TYPE),
               str(',')
             )
@@ -691,7 +689,6 @@ EXPR_TERM.setPattern(
       seq(
         str('{'),
         list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')),
-        opt_sc(str(',')),
         str('}')),
       applyObjectLiteralExpr
     ),
