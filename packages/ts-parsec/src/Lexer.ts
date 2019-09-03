@@ -24,8 +24,8 @@ export interface Lexer<T> {
 }
 
 export class TokenError extends Error {
-    constructor(public pos: TokenPosition | undefined, errorMessage: string) {
-        super(errorMessage);
+    constructor(public pos: TokenPosition | undefined, public errorMessage: string) {
+        super(`${JSON.stringify(pos)}: ${errorMessage}`);
     }
 }
 

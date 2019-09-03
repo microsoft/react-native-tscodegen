@@ -176,7 +176,7 @@ function applyObjectTypeProp(value: [
   undefined | {/*+*/ },
   Token,
   undefined | {/*?*/ },
-  undefined | {/*:*/ },
+  {/*:*/ },
   ast.Type
 ]): ast.ObjectProp {
   const [isReadonly, name, isOptional, , propType] = value;
@@ -407,7 +407,7 @@ function applyTypeAliasDecl(value: [
   Token,
   {/*=*/ },
   ast.Type,
-  undefined | {/*?*/ }
+  {/*;*/ }
 ]): ast.Declaration {
   const [hasExport, , name, , aliasedType] = value;
   return {
@@ -587,7 +587,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             applyObjectTypeMixin
           ),
           apply(
-            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), opt_sc(/* test case bug */str(':')), TYPE),
+            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
             applyObjectTypeProp
           ),
           apply(
@@ -595,9 +595,9 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             applyObjectIndexer
           )
         ),
-        opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
+        alt(str(';'), str(','))
       )),
-      opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(','))),
+      opt_sc(alt(str(';'), str(','))),
       opt_sc(str('|')),
       str('}')
     ),
@@ -631,11 +631,11 @@ TYPE_TERM.setPattern(
             seq(
               list_sc(
                 seq(
-                  opt_sc(/* test case bug */seq(tok(TokenKind.Identifier), str(':'))),
+                  opt_sc(seq(tok(TokenKind.Identifier), str(':'))),
                   TYPE),
-                alt(/* test case bug */str(';'), str(','))
+                alt(str(';'), str(','))
               ),
-              opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
+              opt_sc(alt(str(';'), str(',')))
             )
           ),
           str(')'),
@@ -653,7 +653,7 @@ TYPE_TERM.setPattern(
       apply(
         seq(
           list_sc(IDENTIFIER, str('.')),
-          opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(/* test case bug */str(',')), str('>')))
+          opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(str(',')), str('>')))
         ),
         applyTypeReference
       )
@@ -701,7 +701,7 @@ EXPR_TERM.setPattern(
     apply(
       seq(
         str('{'),
-        list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')),
+        list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(str(',')),
         str('}')),
       applyObjectLiteralExpr
     ),
@@ -722,7 +722,7 @@ EXPR.setPattern(
     EXPR_TERM,
     alt(
       apply(seq(str(':'), TYPE), applyTypeCastExprLrec),
-      apply(seq(str('('), opt_sc(seq(list_sc(EXPR, str(',')), opt_sc(/* test case bug */str(',')))), str(')')), applyCallExprLrec)
+      apply(seq(str('('), opt_sc(seq(list_sc(EXPR, str(',')), opt_sc(str(',')))), str(')')), applyCallExprLrec)
     ),
     applyExprLrec
   )
@@ -737,7 +737,7 @@ DECL.setPattern(
         IDENTIFIER,
         str('='),
         TYPE,
-        opt_sc(/* test case bug */str(';'))
+        str(';')
       ),
       applyTypeAliasDecl
     ),
@@ -802,7 +802,7 @@ STAT.setPattern(
           opt_sc(str('type')),
           str('{'),
           list_sc(seq(opt_sc(str('type')), tok(TokenKind.Identifier)), str(',')),
-          opt_sc(/* test case bug */str(',')),
+          opt_sc(str(',')),
           str('}'),
           str('from'),
           tok(TokenKind.StringLiteral),
