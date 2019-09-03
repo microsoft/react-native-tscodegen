@@ -47,10 +47,15 @@ function applyOptionalType(value: [{/*?*/ }, ast.Type]): ast.Type {
 function applyFunctionType(value: [
   {/*(*/ },
   undefined | [
-    Token,
-    {/*:*/ },
-    ast.Type
-  ][],
+    [
+      undefined | [
+        Token,
+        {/*:*/ }
+      ],
+      ast.Type
+    ][],
+    undefined | {/*,*/ }
+  ],
   {/*)*/ },
   {/*=*/ },
   {/*>*/ },
@@ -67,10 +72,10 @@ function applyFunctionType(value: [
     return {
       kind: 'FunctionType',
       returnType,
-      parameters: optionalParameters.map((prop: [Token, {/*:*/ }, ast.Type]) => {
+      parameters: optionalParameters[0].map((prop: [undefined | [Token, {/*:*/ }], ast.Type]) => {
         return {
-          name: prop[0].text,
-          parameterType: prop[2]
+          name: prop[0] === undefined ? '' : prop[0][0].text,
+          parameterType: prop[1]
         };
       })
     };
@@ -119,6 +124,7 @@ function applyTypeReference(value: [
   undefined | [
     {/*<*/ },
     ast.Type[],
+    undefined | {/*,*/ },
     {/*>*/ }
   ]
 ]): ast.Type {
@@ -207,7 +213,7 @@ function applyObjectType(value: [
   {/*{*/ },
   undefined | {/*|*/ },
   undefined | (ast.Type | ast.ObjectMember)[],
-  undefined | {/*;*/ },
+  undefined | {/*,*/ },
   undefined | {/*|*/ },
   {/*}*/ }
 ]): ast.ObjectType {
@@ -316,6 +322,7 @@ function applyExprReference(value: [
 function applyObjectLiteralExpr(value: [
   {/*{*/ },
   [Token, {/*:*/ }, ast.Expression][],
+  undefined | {/*,*/ },
   {/*}*/ }
 ]): ast.Expression {
   return {
@@ -364,7 +371,10 @@ function applyTypeCastExprLrec(value: [
 
 function applyCallExprLrec(value: [
   {/*(*/ },
-  undefined | ast.Expression[],
+  undefined | [
+    ast.Expression[],
+    undefined | {/*,*/ }
+  ],
   {/*)*/ }
 ]): ast.CallExpr {
   if (value[1] === undefined) {
@@ -377,7 +387,7 @@ function applyCallExprLrec(value: [
     return {
       kind: 'CallExpr',
       expr: <ast.Expression><unknown>undefined,
-      funcArguments: value[1]
+      funcArguments: value[1][0]
     };
   }
 }
@@ -499,12 +509,13 @@ function applyImportNameStat(value: [
     undefined | {/*type*/ },
     Token
   ][],
+  undefined | {/*,*/ },
   {/*}*/ },
   {/*from*/ },
   Token,
   {/*;*/ }
 ]): ast.Statement {
-  const [, , , names, , , source] = value;
+  const [, , , names, , , , source] = value;
   return {
     kind: 'ImportNameStat',
     names: names.map((item: [undefined | {}, Token]) => { return item[1].text; }),
@@ -576,7 +587,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             applyObjectTypeMixin
           ),
           apply(
-            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
+            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), opt_sc(/* test case bug */str(':')), TYPE),
             applyObjectTypeProp
           ),
           apply(
@@ -584,9 +595,9 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             applyObjectIndexer
           )
         ),
-        alt(str(';'), str(','))
+        opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
       )),
-      opt_sc(str(';')),
+      opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(','))),
       opt_sc(str('|')),
       str('}')
     ),
@@ -617,12 +628,14 @@ TYPE_TERM.setPattern(
         seq(
           str('('),
           opt_sc(
-            list_sc(
-              seq(
-                tok(TokenKind.Identifier),
-                str(':'),
-                TYPE),
-              str(',')
+            seq(
+              list_sc(
+                seq(
+                  opt_sc(/* test case bug */seq(tok(TokenKind.Identifier), str(':'))),
+                  TYPE),
+                alt(/* test case bug */str(';'), str(','))
+              ),
+              opt_sc(/* test case bug */alt(/* test case bug */str(';'), str(',')))
             )
           ),
           str(')'),
@@ -640,7 +653,7 @@ TYPE_TERM.setPattern(
       apply(
         seq(
           list_sc(IDENTIFIER, str('.')),
-          opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))
+          opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(/* test case bug */str(',')), str('>')))
         ),
         applyTypeReference
       )
@@ -688,7 +701,7 @@ EXPR_TERM.setPattern(
     apply(
       seq(
         str('{'),
-        list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')),
+        list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(/* test case bug */str(',')),
         str('}')),
       applyObjectLiteralExpr
     ),
@@ -709,7 +722,7 @@ EXPR.setPattern(
     EXPR_TERM,
     alt(
       apply(seq(str(':'), TYPE), applyTypeCastExprLrec),
-      apply(seq(str('('), opt_sc(list_sc(EXPR, str(','))), str(')')), applyCallExprLrec)
+      apply(seq(str('('), opt_sc(seq(list_sc(EXPR, str(',')), opt_sc(/* test case bug */str(',')))), str(')')), applyCallExprLrec)
     ),
     applyExprLrec
   )
@@ -724,7 +737,7 @@ DECL.setPattern(
         IDENTIFIER,
         str('='),
         TYPE,
-        str(';')
+        opt_sc(/* test case bug */str(';'))
       ),
       applyTypeAliasDecl
     ),
@@ -789,6 +802,7 @@ STAT.setPattern(
           opt_sc(str('type')),
           str('{'),
           list_sc(seq(opt_sc(str('type')), tok(TokenKind.Identifier)), str(',')),
+          opt_sc(/* test case bug */str(',')),
           str('}'),
           str('from'),
           tok(TokenKind.StringLiteral),

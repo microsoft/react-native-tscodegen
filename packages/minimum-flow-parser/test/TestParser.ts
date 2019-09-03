@@ -270,7 +270,7 @@ test(`Test Object Type with Mixins`, () => {
     members: []
   });
 
-  assert.deepStrictEqual(parseType(`{|...A,...B|}`), {
+  assert.deepStrictEqual(parseType(`{|...A,...B,|}`), {
     kind: 'ObjectType',
     isExact: true,
     mixinTypes: [{
@@ -308,7 +308,7 @@ test(`Test Object Type with Properties`, () => {
     }]
   });
 
-  assert.deepStrictEqual(parseType(`{|a:number,+b?:?string|}`), {
+  assert.deepStrictEqual(parseType(`{|a:number,+b?:?string,|}`), {
     kind: 'ObjectType',
     isExact: true,
     mixinTypes: [],
@@ -343,7 +343,7 @@ test(`Test Object Type with Indexers`, () => {
     }]
   });
 
-  assert.deepStrictEqual(parseType(`{|+[key:string]:number|}`), {
+  assert.deepStrictEqual(parseType(`{|+[key:string]:number,|}`), {
     kind: 'ObjectType',
     isExact: true,
     mixinTypes: [],
@@ -438,7 +438,7 @@ test(`Test Object Literal Expression`, () => {
   assert.deepStrictEqual(
     parseExpr(`{
       interfaceOnly: true,
-      paperComponentName: 'RCTModule'
+      paperComponentName: 'RCTModule',
     }`),
     {
       kind: 'ObjectLiteralExpr',
@@ -514,7 +514,7 @@ export interface Inheritance extends a, b, c {
 export type Point = $ReadOnly<{|
   x: Double,
   y: Double,
-  z: Double
+  z: Double,
 |}>;
 
 export const Zero = 0;
