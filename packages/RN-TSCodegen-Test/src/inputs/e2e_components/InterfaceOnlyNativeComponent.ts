@@ -13,7 +13,7 @@ import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 type NativeProps = Readonly<ViewProps & {
-  accessibilityHint?: WithDefault<string, ''>;
+  title?: WithDefault<string, ''>;
   onChange?: (ReactNull | BubblingEventHandler<Readonly<{
     value: boolean;
   }>>);

@@ -11,8 +11,8 @@ import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 type NativeProps = Readonly<ViewProps & {
-  accessibilityHint?: WithDefault<string, ''>;
-  accessibilityRole?: string;
+  placeholder?: WithDefault<string, ''>;
+  defaultValue?: string;
 }>;
 
 export default (codegenNativeComponent<NativeProps>('StringPropNativeComponentView') as NativeComponentType<NativeProps>);
