@@ -5,7 +5,7 @@
 
 import * as parsec from 'ts-parsec';
 import { Parser, rep_sc, rule } from 'ts-parsec';
-import { alt, apply, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'ts-parsec';
+import { alt, apply, kleft, kmid, kright, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'ts-parsec';
 import * as ast from './AST';
 import { TokenKind } from './Tokenizer';
 
@@ -35,33 +35,22 @@ function applyLiteralType(value: Token): ast.Type {
   return { kind: 'LiteralType', text: value.text };
 }
 
-function applyOptionalType(value: [{/*?*/ }, ast.Type]): ast.Type {
-  const elementType = value[1];
-  if (elementType.kind === 'OptionalType') {
-    return elementType;
+function applyOptionalType(value: ast.Type): ast.Type {
+  if (value.kind === 'OptionalType') {
+    return value;
   } else {
-    return { kind: 'OptionalType', elementType };
+    return { kind: 'OptionalType', elementType: value };
   }
 }
 
 function applyFunctionType(value: [
-  {/*(*/ },
   undefined | [
-    [
-      undefined | [
-        Token,
-        {/*:*/ }
-      ],
-      ast.Type
-    ][],
-    undefined | {/*,*/ }
-  ],
-  {/*)*/ },
-  {/*=*/ },
-  {/*>*/ },
+    undefined | Token,
+    ast.Type
+  ][],
   ast.Type
 ]): ast.Type {
-  const [, optionalParameters, , , , returnType] = value;
+  const [optionalParameters, returnType] = value;
   if (optionalParameters === undefined) {
     return {
       kind: 'FunctionType',
@@ -72,9 +61,10 @@ function applyFunctionType(value: [
     return {
       kind: 'FunctionType',
       returnType,
-      parameters: optionalParameters[0].map((prop: [undefined | [Token, {/*:*/ }], ast.Type]) => {
+      parameters: optionalParameters.map((prop: [undefined | Token, ast.Type]) => {
+        const nameColon = prop[0];
         return {
-          name: prop[0] === undefined ? '' : prop[0][0].text,
+          name: nameColon === undefined ? '' : nameColon.text,
           parameterType: prop[1]
         };
       })
@@ -82,51 +72,32 @@ function applyFunctionType(value: [
   }
 }
 
-function applyParenType(value: [
-  {/*(*/ },
-  ast.Type,
-  {/*)*/ }
-]): ast.Type {
+function applyParenType(value: ast.Type): ast.Type {
   return {
     kind: 'ParenType',
-    elementType: value[1]
+    elementType: value
   };
 }
 
-function applyReadonlyArrayType(value: [
-  {/*$ReadOnlyArray*/ },
-  {/*<*/ },
-  ast.Type,
-  {/*>*/ }
-]): ast.Type {
+function applyReadonlyArrayType(value: ast.Type): ast.Type {
   return {
     kind: 'ArrayType',
     isReadonly: true,
-    elementType: value[2]
+    elementType: value
   };
 }
 
-function applyDecoratedGenericType(value: [
-  {/*$ReadOnly*/ },
-  {/*<*/ },
-  undefined | ast.Type,
-  {/*>*/ }
-]): ast.Type {
+function applyDecoratedGenericType(value: undefined | ast.Type): ast.Type {
   return {
     kind: 'DecoratedGenericType',
-    elementType: (value[2] === undefined ? { kind: 'LiteralType', text: 'undefined' } : value[2]),
+    elementType: (value === undefined ? { kind: 'LiteralType', text: 'undefined' } : value),
     name: '$ReadOnly'
   };
 }
 
 function applyTypeReference(value: [
   Token[],
-  undefined | [
-    {/*<*/ },
-    ast.Type[],
-    undefined | {/*,*/ },
-    {/*>*/ }
-  ]
+  undefined | ast.Type[]
 ]): ast.Type {
   const [names, typeArguments] = value;
 
@@ -149,37 +120,25 @@ function applyTypeReference(value: [
     return {
       kind: 'TypeReference',
       name: <ast.EntityName>entity,
-      typeArguments: typeArguments[1]
+      typeArguments
     };
   }
 }
 
-function applyTupleType(value: [
-  {/*[*/ },
-  ast.Type[],
-  {/*]*/ }
-]): ast.Type {
+function applyTupleType(value: ast.Type[]): ast.Type {
   return {
     kind: 'TupleType',
-    types: value[1]
+    types: value
   };
-}
-
-function applyObjectTypeMixin(value: [
-  {/*...*/ },
-  ast.Type
-]): ast.Type {
-  return value[1];
 }
 
 function applyObjectTypeProp(value: [
   undefined | {/*+*/ },
   Token,
   undefined | {/*?*/ },
-  {/*:*/ },
   ast.Type
 ]): ast.ObjectProp {
-  const [isReadonly, name, isOptional, , propType] = value;
+  const [isReadonly, name, isOptional, propType] = value;
   return {
     kind: 'Prop',
     isReadonly: isReadonly !== undefined,
@@ -191,15 +150,11 @@ function applyObjectTypeProp(value: [
 
 function applyObjectIndexer(value: [
   undefined | {/*+*/ },
-  {/*[*/ },
   Token,
-  {/*:*/ },
   ast.Type,
-  {/*]*/ },
-  {/*:*/ },
   ast.Type
 ]): ast.ObjectIndexer {
-  const [isReadonly, , keyName, , keyType, , , valueType] = value;
+  const [isReadonly, keyName, keyType, valueType] = value;
   return {
     kind: 'Indexer',
     isReadonly: isReadonly !== undefined,
@@ -210,14 +165,10 @@ function applyObjectIndexer(value: [
 }
 
 function applyObjectType(value: [
-  {/*{*/ },
   undefined | {/*|*/ },
-  undefined | (ast.Type | ast.ObjectMember)[],
-  undefined | {/*,*/ },
-  undefined | {/*|*/ },
-  {/*}*/ }
+  undefined | (ast.Type | ast.ObjectMember)[]
 ]): ast.ObjectType {
-  const [, isExact, members] = value;
+  const [isExact, members] = value;
   return {
     kind: 'ObjectType',
     isExact: isExact !== undefined,
@@ -241,20 +192,14 @@ function applyArrayTypeLrec(value: [
   };
 }
 
-function applyUnionHead(value: [
-  undefined | {/*|*/ },
-  ast.Type
-]): ast.Type {
-  return value[1];
+function applyUnionHead(value: ast.Type): ast.Type {
+  return value;
 }
 
-function applyUnionTypeLrec(value: [
-  {/*|*/ },
-  ast.Type
-]): ast.UnionType {
+function applyUnionTypeLrec(value: ast.Type): ast.UnionType {
   return {
     kind: 'UnionType',
-    elementTypes: [value[1]]
+    elementTypes: [value]
   };
 }
 
@@ -287,11 +232,7 @@ function applyLiteralExpr(value: Token): ast.Expression {
 
 function applyExprReference(value: [
   Token[],
-  undefined | [
-    {/*<*/ },
-    ast.Type[],
-    {/*>*/ }
-  ]
+  undefined | ast.Type[]
 ]): ast.Expression {
   const [names, typeArguments] = value;
 
@@ -314,70 +255,50 @@ function applyExprReference(value: [
     return {
       kind: 'ExprReference',
       name: <ast.EntityName>entity,
-      typeArguments: typeArguments[1]
+      typeArguments
     };
   }
 }
 
 function applyObjectLiteralExpr(value: [
-  {/*{*/ },
-  [Token, {/*:*/ }, ast.Expression][],
-  undefined | {/*,*/ },
-  {/*}*/ }
-]): ast.Expression {
+  Token,
+  ast.Expression
+][]): ast.Expression {
   return {
     kind: 'ObjectLiteralExpr',
-    properties: value[1].map((prop: [Token, {/*:*/ }, ast.Expression]) => {
+    properties: value.map((prop: [Token, ast.Expression]) => {
       return {
         key: prop[0].text,
-        value: prop[2]
+        value: prop[1]
       };
     })
   };
 }
 
-function applyArrayLiteralExpr(value: [
-  {/*[*/ },
-  ast.Expression[],
-  {/*]*/ }
-]): ast.Expression {
+function applyArrayLiteralExpr(value: ast.Expression[]): ast.Expression {
   return {
     kind: 'ArrayLiteralExpr',
-    values: value[1]
+    values: value
   };
 }
 
-function applyParenExpr(value: [
-  {/*(*/ },
-  ast.Expression,
-  {/*)*/ }
-]): ast.Expression {
+function applyParenExpr(value: ast.Expression): ast.Expression {
   return {
     kind: 'ParenExpr',
-    expr: value[1]
+    expr: value
   };
 }
 
-function applyTypeCastExprLrec(value: [
-  {/*:*/ },
-  ast.Type
-]): ast.TypeCastExpr {
+function applyTypeCastExprLrec(value: ast.Type): ast.TypeCastExpr {
   return {
     kind: 'TypeCastExpr',
     expr: <ast.Expression><unknown>undefined,
-    toType: value[1]
+    toType: value
   };
 }
 
-function applyCallExprLrec(value: [
-  {/*(*/ },
-  undefined | [
-    ast.Expression[],
-    undefined | {/*,*/ }
-  ],
-  {/*)*/ }
-]): ast.CallExpr {
-  if (value[1] === undefined) {
+function applyCallExprLrec(value: undefined | ast.Expression[]): ast.CallExpr {
+  if (value === undefined) {
     return {
       kind: 'CallExpr',
       expr: <ast.Expression><unknown>undefined,
@@ -387,7 +308,7 @@ function applyCallExprLrec(value: [
     return {
       kind: 'CallExpr',
       expr: <ast.Expression><unknown>undefined,
-      funcArguments: value[1][0]
+      funcArguments: value
     };
   }
 }
@@ -403,13 +324,10 @@ function applyExprLrec(first: ast.Expression, second: ast.TypeCastExpr | ast.Cal
 
 function applyTypeAliasDecl(value: [
   undefined | {/*export*/ },
-  {/*type*/ },
   Token,
-  {/*=*/ },
-  ast.Type,
-  {/*;*/ }
+  ast.Type
 ]): ast.Declaration {
-  const [hasExport, , name, , aliasedType] = value;
+  const [hasExport, name, aliasedType] = value;
   return {
     kind: 'TypeAliasDecl',
     hasExport: hasExport !== undefined,
@@ -420,20 +338,16 @@ function applyTypeAliasDecl(value: [
 
 function applyInterfaceDecl(value: [
   undefined | {/*export*/ },
-  {/*interface*/ },
   Token,
-  undefined | [
-    {/*extends*/ },
-    ast.Type[]
-  ],
+  undefined | ast.Type[],
   ast.ObjectType
 ]): ast.Declaration {
-  const [hasExport, , name, baseTypes, interfaceType] = value;
+  const [hasExport, name, baseTypes, interfaceType] = value;
   return {
     kind: 'InterfaceDecl',
     hasExport: hasExport !== undefined,
     name: name.text,
-    baseTypes: baseTypes === undefined ? [] : baseTypes[1],
+    baseTypes: baseTypes === undefined ? [] : baseTypes,
     interfaceType
   };
 }
@@ -452,16 +366,10 @@ function applyUseStrictStat(value: [
 }
 
 function applyImportEqualStat(value: [
-  {/*const*/ },
   Token,
-  {/*=*/ },
-  {/*require*/ },
-  {/*(*/ },
-  Token,
-  {/*)*/ },
-  {/*;*/ }
+  Token
 ]): ast.Statement {
-  const [, name, , , , source] = value;
+  const [name, source] = value;
   return {
     kind: 'ImportEqualStat',
     name: name.text,
@@ -470,15 +378,10 @@ function applyImportEqualStat(value: [
 }
 
 function applyImportAsStat(value: [
-  {/*import*/ },
-  {/* * */ },
-  {/*as*/ },
   Token,
-  {/*from*/ },
-  Token,
-  {/*;*/ }
+  Token
 ]): ast.Statement {
-  const [, , , name, , source] = value;
+  const [name, source] = value;
   return {
     kind: 'ImportAsStat',
     name: name.text,
@@ -487,13 +390,10 @@ function applyImportAsStat(value: [
 }
 
 function applyImportSingleStat(value: [
-  {/*import*/ },
   Token,
-  {/*from*/ },
-  Token,
-  {/*;*/ }
+  Token
 ]): ast.Statement {
-  const [, name, , source] = value;
+  const [name, source] = value;
   return {
     kind: 'ImportSingleStat',
     name: name.text,
@@ -502,36 +402,22 @@ function applyImportSingleStat(value: [
 }
 
 function applyImportNameStat(value: [
-  {/*import*/ },
-  undefined | {/*type*/ },
-  {/*{*/ },
-  [
-    undefined | {/*type*/ },
-    Token
-  ][],
-  undefined | {/*,*/ },
-  {/*}*/ },
-  {/*from*/ },
-  Token,
-  {/*;*/ }
+  Token[],
+  Token
 ]): ast.Statement {
-  const [, , , names, , , , source] = value;
+  const [names, source] = value;
   return {
     kind: 'ImportNameStat',
-    names: names.map((item: [undefined | {}, Token]) => { return item[1].text; }),
+    names: names.map((item: Token) => { return item.text; }),
     source: source.text
   };
 }
 
 function applyExportEqualStat(value: [
-  {/*export*/ },
-  {/*const*/ },
   Token,
-  {/*=*/ },
-  ast.Expression,
-  {/*;*/ }
+  ast.Expression
 ]): ast.Statement {
-  const [, , name, , expr] = value;
+  const [name, expr] = value;
   return {
     kind: 'ExportEqualStat',
     name: name.text,
@@ -539,15 +425,10 @@ function applyExportEqualStat(value: [
   };
 }
 
-function applyExportDefaultStat(value: [
-  {/*export*/ },
-  {/*default*/ },
-  ast.Expression,
-  {/*;*/ }
-]): ast.Statement {
+function applyExportDefaultStat(value: ast.Expression): ast.Statement {
   return {
     kind: 'ExportDefaultStat',
-    expr: value[2]
+    expr: value
   };
 }
 
@@ -577,29 +458,43 @@ export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
 
 function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
   return apply(
-    seq(
+    kmid(
       str('{'),
-      opt_sc(str('|')),
-      opt_sc(list_sc(
-        alt(
-          apply(
-            seq(str('...'), TYPE),
-            applyObjectTypeMixin
+      seq(
+        opt_sc(str('|')),
+        opt_sc(list_sc(
+          alt(
+            kright(str('...'), TYPE),
+            apply(
+              seq(
+                opt_sc(str('+')),
+                IDENTIFIER,
+                opt_sc(str('?')),
+                kright(str(':'), TYPE)
+              ),
+              applyObjectTypeProp
+            ),
+            apply(
+              seq(
+                kleft(opt_sc(str('+')), str('[')),
+                kleft(IDENTIFIER, str(':')),
+                TYPE,
+                kright(
+                  seq(str(']'), str(':')),
+                  TYPE
+                )
+              ),
+              applyObjectIndexer
+            )
           ),
-          apply(
-            seq(opt_sc(str('+')), IDENTIFIER, opt_sc(str('?')), str(':'), TYPE),
-            applyObjectTypeProp
-          ),
-          apply(
-            seq(opt_sc(str('+')), str('['), IDENTIFIER, str(':'), TYPE, str(']'), str(':'), TYPE),
-            applyObjectIndexer
-          )
-        ),
-        alt(str(';'), str(','))
-      )),
-      opt_sc(alt(str(';'), str(','))),
-      opt_sc(str('|')),
-      str('}')
+          alt(str(';'), str(','))
+        ))
+      ),
+      seq(
+        opt_sc(alt(str(';'), str(','))),
+        opt_sc(str('|')),
+        str('}')
+      )
     ),
     applyObjectType
   );
@@ -623,43 +518,70 @@ TYPE_TERM.setPattern(
         alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), str('true'), str('false'), str('undefined'), str('null')),
         applyLiteralType
       ),
-      apply(seq(str('?'), TYPE), applyOptionalType),
+      apply(kright(str('?'), TYPE), applyOptionalType),
       apply(
         seq(
-          str('('),
-          opt_sc(
-            seq(
-              list_sc(
-                seq(
-                  opt_sc(seq(tok(TokenKind.Identifier), str(':'))),
-                  TYPE),
-                alt(str(';'), str(','))
-              ),
-              opt_sc(alt(str(';'), str(',')))
+          kright(
+            str('('),
+            opt_sc(
+              kleft(
+                list_sc(
+                  seq(
+                    opt_sc(kleft(tok(TokenKind.Identifier), str(':'))),
+                    TYPE
+                  ),
+                  alt(str(';'), str(','))
+                ),
+                opt_sc(alt(str(';'), str(',')))
+              )
             )
           ),
-          str(')'),
-          str('='),
-          str('>'),
-          TYPE
+          kright(
+            seq(
+              str(')'),
+              str('='),
+              str('>')
+            ),
+            TYPE
+          )
         ),
         applyFunctionType
       ),
-      apply(seq(str('('), TYPE, str(')')), applyParenType)
+      apply(kmid(str('('), TYPE, str(')')), applyParenType)
     ),
     alt(
-      apply(seq(str('$ReadOnlyArray'), str('<'), TYPE, str('>')), applyReadonlyArrayType),
-      apply(seq(str('$ReadOnly'), str('<'), opt_sc(/* test case bug */TYPE), str('>')), applyDecoratedGenericType),
+      apply(
+        kmid(
+          seq(str('$ReadOnlyArray'), str('<')),
+          TYPE,
+          str('>')
+        ),
+        applyReadonlyArrayType
+      ),
+      apply(
+        kmid(
+          seq(str('$ReadOnly'), str('<')),
+          opt_sc(/* test case bug */TYPE),
+          str('>')
+        ),
+        applyDecoratedGenericType
+      ),
       apply(
         seq(
           list_sc(IDENTIFIER, str('.')),
-          opt_sc(seq(str('<'), list_sc(TYPE, str(',')), opt_sc(str(',')), str('>')))
+          opt_sc(
+            kmid(
+              str('<'),
+              list_sc(TYPE, str(',')),
+              seq(opt_sc(str(',')), str('>'))
+            )
+          )
         ),
         applyTypeReference
       )
     ),
     apply(
-      seq(
+      kmid(
         str('['),
         list_sc(TYPE, str(',')),
         str(']')
@@ -680,8 +602,8 @@ TYPE_ARRAY.setPattern(
 
 TYPE.setPattern(
   lrec_sc(
-    apply(seq(opt_sc(str('|')), TYPE_ARRAY), applyUnionHead),
-    apply(seq(str('|'), TYPE_ARRAY), applyUnionTypeLrec),
+    apply(kright(opt_sc(str('|')), TYPE_ARRAY), applyUnionHead),
+    apply(kright(str('|'), TYPE_ARRAY), applyUnionTypeLrec),
     applyTypeLrec
   )
 );
@@ -694,26 +616,30 @@ EXPR_TERM.setPattern(
     apply(
       seq(
         list_sc(IDENTIFIER, str('.')),
-        opt_sc(seq(str('<'), list_sc(TYPE, str(',')), str('>')))
+        opt_sc(kmid(str('<'), list_sc(TYPE, str(',')), str('>')))
       ),
       applyExprReference
     ),
     apply(
-      seq(
+      kmid(
         str('{'),
-        list_sc(seq(tok(TokenKind.Identifier), str(':'), EXPR), str(',')), opt_sc(str(',')),
-        str('}')),
+        list_sc(
+          seq(kleft(tok(TokenKind.Identifier), str(':')), EXPR),
+          str(',')
+        ),
+        seq(opt_sc(str(',')), str('}'))
+      ),
       applyObjectLiteralExpr
     ),
     apply(
-      seq(
+      kmid(
         str('['),
         list_sc(EXPR, str(',')),
         str(']')
       ),
       applyArrayLiteralExpr
     ),
-    apply(seq(str('('), EXPR, str(')')), applyParenExpr)
+    apply(kmid(str('('), EXPR, str(')')), applyParenExpr)
   )
 );
 
@@ -721,8 +647,20 @@ EXPR.setPattern(
   lrec_sc(
     EXPR_TERM,
     alt(
-      apply(seq(str(':'), TYPE), applyTypeCastExprLrec),
-      apply(seq(str('('), opt_sc(seq(list_sc(EXPR, str(',')), opt_sc(str(',')))), str(')')), applyCallExprLrec)
+      apply(kright(str(':'), TYPE), applyTypeCastExprLrec),
+      apply(
+        kmid(
+          str('('),
+          opt_sc(
+            kleft(
+              list_sc(EXPR, str(',')),
+              opt_sc(str(','))
+            )
+          ),
+          str(')')
+        ),
+        applyCallExprLrec
+      )
     ),
     applyExprLrec
   )
@@ -732,22 +670,28 @@ DECL.setPattern(
   alt(
     apply(
       seq(
-        opt_sc(str('export')),
-        str('type'),
+        kleft(
+          opt_sc(str('export')),
+          str('type')
+        ),
         IDENTIFIER,
-        str('='),
-        TYPE,
-        str(';')
+        kmid(
+          str('='),
+          TYPE,
+          str(';')
+        )
       ),
       applyTypeAliasDecl
     ),
     apply(
       seq(
-        opt_sc(str('export')),
-        str('interface'),
+        kleft(
+          opt_sc(str('export')),
+          str('interface')
+        ),
         IDENTIFIER,
         opt_sc(
-          seq(str('extends'), list_sc(TYPE, str(',')))
+          kright(str('extends'), list_sc(TYPE, str(',')))
         ),
         createObjectSyntax()
       ),
@@ -763,55 +707,97 @@ STAT.setPattern(
     alt(
       apply(
         seq(
-          str('const'),
-          tok(TokenKind.Identifier),
-          str('='),
-          str('require'),
-          str('('),
-          tok(TokenKind.StringLiteral),
-          str(')'),
-          str(';')
+          kright(
+            str('const'),
+            tok(TokenKind.Identifier)
+          ),
+          kmid(
+            seq(
+              str('='),
+              str('require'),
+              str('(')
+            ),
+            tok(TokenKind.StringLiteral),
+            seq(
+              str(')'),
+              str(';')
+            )
+          )
         ),
         applyImportEqualStat
       ),
       apply(
         seq(
-          str('import'),
-          str('*'),
-          str('as'),
-          tok(TokenKind.Identifier),
-          str('from'),
-          tok(TokenKind.StringLiteral),
-          str(';')
+          kright(
+            seq(
+              str('import'),
+              str('*'),
+              str('as')
+            ),
+            tok(TokenKind.Identifier)
+          ),
+          kmid(
+            str('from'),
+            tok(TokenKind.StringLiteral),
+            str(';')
+          )
         ),
         applyImportAsStat
       ),
       apply(
         seq(
-          str('import'),
-          tok(TokenKind.Identifier),
-          str('from'),
-          tok(TokenKind.StringLiteral),
-          str(';')
+          kright(
+            str('import'),
+            tok(TokenKind.Identifier)
+          ),
+          kmid(
+            str('from'),
+            tok(TokenKind.StringLiteral),
+            str(';')
+          )
         ),
         applyImportSingleStat
       ),
       apply(
         seq(
-          str('import'),
-          opt_sc(str('type')),
-          str('{'),
-          list_sc(seq(opt_sc(str('type')), tok(TokenKind.Identifier)), str(',')),
-          opt_sc(str(',')),
-          str('}'),
-          str('from'),
-          tok(TokenKind.StringLiteral),
-          str(';')
+          kright(
+            seq(
+              str('import'),
+              opt_sc(str('type')),
+              str('{')
+            ),
+            list_sc(
+              kright(opt_sc(str('type')), tok(TokenKind.Identifier)),
+              str(',')
+            )
+          ),
+          kmid(
+            seq(
+              opt_sc(str(',')),
+              str('}'),
+              str('from')
+            ),
+            tok(TokenKind.StringLiteral),
+            str(';')
+          )
         ),
         applyImportNameStat)
     ),
-    apply(seq(str('export'), str('const'), tok(TokenKind.Identifier), str('='), EXPR, str(';')), applyExportEqualStat),
-    apply(seq(str('export'), str('default'), EXPR, str(';')), applyExportDefaultStat)
+    apply(
+      seq(
+        kright(seq(str('export'), str('const')), tok(TokenKind.Identifier)),
+        kmid(str('='), EXPR, str(';'))
+      ),
+      applyExportEqualStat
+    ),
+    apply(
+      kmid(
+        seq(str('export'), str('default')),
+        EXPR,
+        str(';')
+      ),
+      applyExportDefaultStat
+    )
   )
 );
 
