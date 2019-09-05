@@ -17,7 +17,7 @@
 import type {TurboModule} from '../RCTExport';
 import * as TurboModuleRegistry from '../TurboModuleRegistry';
 
-export type String = string
+export type String = string;
 
 export interface Spec extends TurboModule {
   // Exported methods.

@@ -21,7 +21,7 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 type DeepSpread = $ReadOnly<{|
   otherStringProp: string,
-|}>
+|}>;
 
 export type PropsInFile = $ReadOnly<{|
   ...DeepSpread,
@@ -32,11 +32,11 @@ export type PropsInFile = $ReadOnly<{|
 export type ModuleProps = $ReadOnly<{|
   ...ViewProps,
 
-  ...PropsInFile
+  ...PropsInFile,
 
   localType: $ReadOnly<{|
     ...PropsInFile
-  |}>
+  |}>,
 
   localArr: $ReadOnlyArray<PropsInFile>
 |}>;
