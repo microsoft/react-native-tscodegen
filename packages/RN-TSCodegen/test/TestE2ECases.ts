@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { mkdirSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 import * as path from 'path';
 import { generate } from 'rn-codegen-backend';
 import { typeScriptToCodeSchema } from '../src';
@@ -10,7 +10,9 @@ import { testCaseIndex } from './TestCaseIndex';
 
 function generateFiles(libraryName: string, schema: SchemaType, category: string): void {
     const outputDirectory = path.join(__dirname, `../../../RN-TSCodegen-Test/src/inputs/${category}/output/${libraryName}/`);
-    mkdirSync(outputDirectory, { recursive: true });
+    if (!existsSync(outputDirectory)) {
+        mkdirSync(outputDirectory, { recursive: true });
+    }
 
     generate(
         {
