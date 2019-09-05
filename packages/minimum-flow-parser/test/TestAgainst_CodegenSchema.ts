@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 import * as assert from 'assert';
-import { readdirSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import * as path from 'path';
 import { expectEOF, expectSingleResult } from 'ts-parsec';
 import { PROGRAM, Statement, tokenizer } from '../src/index';
@@ -108,31 +108,3 @@ test(`Test CodegenSchema.js`, () => {
 
   assert.deepStrictEqual(schemaTypeAst, codegenSchemaLastStatement);
 });
-
-function testAgainstFlowTestCases(snapshotPath: string, category: string): void {
-  const testCases = <{ [key: string]: string }>(require(snapshotPath));
-  Object.keys(testCases).forEach((key: string) => {
-    test(`Test ${category}: ${key}`, () => {
-      expectSingleResult(expectEOF(PROGRAM.parse(tokenizer.parse(testCases[key]))));
-    });
-  });
-}
-
-const testCaseInputFolder = path.join(__dirname, `../../../../react-native/packages/react-native-codegen/src/parsers/flow`);
-testAgainstFlowTestCases(path.join(testCaseInputFolder, `./components/__test_fixtures__/fixtures.js`), 'components_success');
-testAgainstFlowTestCases(path.join(testCaseInputFolder, `./components/__test_fixtures__/failures.js`), 'components_failure');
-testAgainstFlowTestCases(path.join(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`), 'modules_success');
-testAgainstFlowTestCases(path.join(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`), 'modules_failure');
-
-function testAgainE2ETestCases(inputFolder: string): void {
-  for (const file of readdirSync(inputFolder)) {
-    test(`Test e2e ${path.basename(inputFolder)}: ${file}`, () => {
-      const flowSourceCode = readFileSync(path.join(inputFolder, file), { encoding: 'utf-8' });
-      expectSingleResult(expectEOF(PROGRAM.parse(tokenizer.parse(flowSourceCode))));
-    });
-  }
-}
-
-const testE2EInputFolder = path.join(__dirname, `../../../../react-native/packages/react-native-codegen/e2e/__test_fixtures__`);
-testAgainE2ETestCases(path.join(testE2EInputFolder, `./components`));
-testAgainE2ETestCases(path.join(testE2EInputFolder, `./modules`));
