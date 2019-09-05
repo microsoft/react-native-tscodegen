@@ -7,7 +7,7 @@
 import * as assert from 'assert';
 import { Token } from '../src/index';
 import { buildLexer, expectEOF, expectSingleResult, rule } from '../src/index';
-import { alt, apply, lrec_sc, seq, str, tok } from '../src/index';
+import { alt, apply, kmid, lrec_sc, seq, str, tok } from '../src/index';
 
 enum TokenKind {
     Number,
@@ -33,10 +33,6 @@ const lexer = buildLexer([
 
 function applyNumber(value: Token<TokenKind.Number>): number {
     return +value.text;
-}
-
-function applyEscape(value: [Token<TokenKind>, number, Token<TokenKind>]): number {
-    return value[1];
 }
 
 function applyUnary(value: [Token<TokenKind>, number]): number {
@@ -71,7 +67,7 @@ TERM.setPattern(
     alt(
         apply(tok(TokenKind.Number), applyNumber),
         apply(seq(alt(str('+'), str('-')), TERM), applyUnary),
-        apply(seq(str('('), EXP, str(')')), applyEscape)
+        kmid(str('('), EXP, str(')'))
     )
 );
 

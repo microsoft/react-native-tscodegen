@@ -144,6 +144,9 @@ At this moment, ts-parsec provides the following combinators:
 - `str('x')`: Consumes a token that is `'x'`.
 - `tok(x)`: Consumes a token whose `kind` is `x`. If you use `buildLexer`, these values of `x` is put in the 3rd place in each line.
 - `seq(a,b,c)`: Consumes tokens that matches `a`, `b` and then `c` in order. It returns a tuple, containing results from `a`, `b` and `c` in order. You could put 2-12 arguments in `seq`.
+- `kleft(a, b)`: Just like `seq(a, b)` but only result of `a` is returned.
+- `kmid(a, b, c)`: Just like `seq(a, b, c)` but only result of `b` is returned.
+- `kright(a, b)`: Just like `seq(a, b)` but only result of `b` is returned.
 - `alt(a,b,c)`: Consumes tokens that matches `a`, `b` or `c`. It returns a union type, which could be the result of `a`, `b` or `c`. If multiple parsers in `alt` matches, they are all returned. If non of them match, it fails. You could put 2-12 arguments in `alt`.
 - `apply(x, f)`: Consumes tokens that matches `x`, and if it succeeds, passs each result to `f`, and returns what `f` returns.
 - `opt_sc(x)`: Consumes tokens that matches `x`, and if it fails, returns `undefined`.
