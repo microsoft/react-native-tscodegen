@@ -6,7 +6,8 @@
   "main": "./lib/src/index.js",
   "scripts": {
     "build": "tslint --project tsconfig.json & tsc",
-    "test": "jest"
+    "test": "jest",
+    "update": "node ./lib/utilities/CodegenOverloadings.js 16"
   },
   "repository": {
     "type": "git",
