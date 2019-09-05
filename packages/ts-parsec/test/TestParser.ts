@@ -6,7 +6,8 @@
 
 import * as assert from 'assert';
 import * as parsec from '../src/index';
-import { alt, apply, buildLexer, opt, opt_sc, rep, rep_sc, repr, seq, str, tok, Token } from '../src/index';
+import { buildLexer, Token } from '../src/index';
+import { alt, apply, kleft, kmid, kright, opt, opt_sc, rep, rep_sc, repr, seq, str, tok } from '../src/index';
 
 function notUndefined<T>(t: T | undefined): T {
     assert.notStrictEqual(t, undefined);
@@ -82,6 +83,28 @@ test(`Parser: seq`, () => {
         const result = succeeded(seq(tok(TokenKind.Number), tok(TokenKind.Number)).parse(firstToken));
         assert.strictEqual(result.length, 1);
         assert.deepStrictEqual(result[0].result.map((value: Token<TokenKind>) => value.text), ['123', '456']);
+        assert.strictEqual(result[0].nextToken, undefined);
+    }
+});
+
+test(`Parser: kleft, kmid, kright`, () => {
+    const firstToken = notUndefined(lexer.parse(`123,456,789`));
+    {
+        const result = succeeded(kleft(tok(TokenKind.Number), seq(tok(TokenKind.Number), tok(TokenKind.Number))).parse(firstToken));
+        assert.strictEqual(result.length, 1);
+        assert.strictEqual(result[0].result.text, '123');
+        assert.strictEqual(result[0].nextToken, undefined);
+    }
+    {
+        const result = succeeded(kmid(tok(TokenKind.Number), tok(TokenKind.Number), tok(TokenKind.Number)).parse(firstToken));
+        assert.strictEqual(result.length, 1);
+        assert.strictEqual(result[0].result.text, '456');
+        assert.strictEqual(result[0].nextToken, undefined);
+    }
+    {
+        const result = succeeded(kright(tok(TokenKind.Number), seq(tok(TokenKind.Number), tok(TokenKind.Number))).parse(firstToken));
+        assert.strictEqual(result.length, 1);
+        assert.deepStrictEqual(result[0].result.map((value: Token<TokenKind>) => value.text), ['456', '789']);
         assert.strictEqual(result[0].nextToken, undefined);
     }
 });
