@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 import * as flow from 'minimum-flow-parser';
+import * as os from 'os';
 import { fixTestCase } from './FixTestCase';
 import { printTypeScript } from './PrintTS';
 
@@ -36,7 +37,7 @@ export function flowTestCaseToTypeScript(program: flow.FlowProgram, keyName?: st
   let header = '';
   Object.keys(importMaps).forEach((key: string) => {
     if (tsSourceCode.match(new RegExp(`\\W${key}\\W`)) !== null) {
-      header += `${importMaps[key]}\r\n`;
+      header += `${importMaps[key]}${os.EOL}`;
     }
   });
 

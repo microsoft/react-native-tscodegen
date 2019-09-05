@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 import * as flow from 'minimum-flow-parser';
+import * as os from 'os';
 
 class Printer {
     private indentation: number = 0;
@@ -20,7 +21,7 @@ class Printer {
     }
 
     public writeLn(): void {
-        this.text += '\r\n';
+        this.text += os.EOL;
     }
 
     public writeIndent(): void {
