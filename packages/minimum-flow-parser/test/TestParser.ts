@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 import * as assert from 'assert';
-import { expectEOF, expectSingleResult } from 'ts-parsec';
+import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import * as ast from '../src/AST';
 import { EXPR, PROGRAM, STAT, TYPE } from '../src/Parser';
 import { tokenizer } from '../src/Tokenizer';

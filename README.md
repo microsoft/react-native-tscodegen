@@ -58,15 +58,6 @@ Compile Facebook's code and export `generate` from `RNCodegen.js`
 
 This package contains all test cases for RN-TSCodegen.
 
-### ts-parsec
-
-This is a [parser combinator](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/ts-parsec) written in TypeScript. It allows you to create parsers very quickly. Please take a look at:
-
-- [packages/ts-parsec/test/TestRecursiveParser.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/ts-parsec/test/TestRecursiveParser.ts)
-- [packages/minimum-flow-parser/src/Parser.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/minimum-flow-parser/src/Parser.ts)
-
-for deeper understanding of this library.
-
 ### minimum-flow-parser
 
 This is a Flow parser, just enough to convert necessary files to TypeScript for this repo.

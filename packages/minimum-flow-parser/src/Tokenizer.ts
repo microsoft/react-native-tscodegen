@@ -3,7 +3,7 @@
 
 // tslint:disable:trailing-comma
 
-import { buildLexer } from 'ts-parsec';
+import { buildLexer } from 'typescript-parsec';
 
 export enum TokenKind {
   KEYWORD_boolean,

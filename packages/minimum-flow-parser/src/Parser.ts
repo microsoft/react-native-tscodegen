@@ -3,9 +3,9 @@
 
 // tslint:disable:no-duplicate-imports
 
-import * as parsec from 'ts-parsec';
-import { Parser, rep_sc, rule } from 'ts-parsec';
-import { alt, apply, kleft, kmid, kright, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'ts-parsec';
+import * as parsec from 'typescript-parsec';
+import { Parser, rep_sc, rule } from 'typescript-parsec';
+import { alt, apply, kleft, kmid, kright, list_sc, lrec_sc, opt_sc, seq, str, tok } from 'typescript-parsec';
 import * as ast from './AST';
 import { TokenKind } from './Tokenizer';
 

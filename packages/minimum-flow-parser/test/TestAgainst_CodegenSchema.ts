@@ -4,7 +4,7 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import { expectEOF, expectSingleResult } from 'ts-parsec';
+import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import { PROGRAM, Statement, tokenizer } from '../src/index';
 
 const codegenSchemaLastStatement: Statement = {

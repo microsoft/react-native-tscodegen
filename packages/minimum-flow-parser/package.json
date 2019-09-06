@@ -28,7 +28,7 @@
     "tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "ts-parsec": "^1.0.0"
+    "typescript-parsec": "^0.1.0"
   },
   "jest": {
     "testRegex": "/lib/test/Test.*\\.js",

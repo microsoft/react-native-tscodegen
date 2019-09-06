@@ -3,7 +3,7 @@
 
 import { readdirSync, readFileSync } from 'fs';
 import * as path from 'path';
-import { expectEOF, expectSingleResult } from 'ts-parsec';
+import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import { PROGRAM, tokenizer } from '../src/index';
 
 const testE2EInputFolder = path.join(__dirname, `../../../../react-native/packages/react-native-codegen/e2e/__test_fixtures__`);
