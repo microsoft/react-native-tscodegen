@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import * as flow from 'minimum-flow-parser';
 import * as path from 'path';
-import { expectEOF, expectSingleResult } from 'ts-parsec';
+import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import { flowTestCaseToTypeScript } from './ConvertTestCase';
 
 export function convertE2E(inputFolder: string, outputFolder: string): string[] {

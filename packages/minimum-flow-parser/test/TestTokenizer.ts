@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 import * as assert from 'assert';
-import { Token } from 'ts-parsec';
+import { Token } from 'typescript-parsec';
 import { tokenizer, TokenKind } from '../src/Tokenizer';
 
 function testTokenizer(input: string, expecteds: [TokenKind, string][]): void {

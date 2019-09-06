@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "minimum-flow-parser": "^1.0.0",
-    "ts-parsec": "^1.0.0"
+    "typescript-parsec": "^0.1.1"
   }
 }
