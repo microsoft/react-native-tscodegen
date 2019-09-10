@@ -41,22 +41,25 @@ This is the shared tslint configuration for all other packages.
 
 This is the TypeScript code generation for TurboModule in react native.
 
-In [facebook/react-native](https://github.com/facebook/react-native/), you are able to find following files in `packages/react-native-codegen/src`:
+There are two import exported functions:
 
-- [cli/parser/parser-cli.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/cli/parser/parser-cli.js): It calls `parseFiles` from
-- [cli/parser/parser.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/cli/parser/parser.js): It calls `parseFile` from
-- [parsers/flow/index.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/parsers/flow/index.js): It parse a Flow source file to `SchemaType`, which is defined in `CodegenSchema.js`
-- [RNCodegen.js](https://github.com/facebook/react-native/blob/master/packages/react-native-codegen/src/generators/RNCodegen.js): It converts `parseFile` result to header files.
-
-RN-TSCodegen provides [typeScriptToCodeSchema](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/src/index.ts) for the TypeScript version of `parseFile`.
-
-### RN-Codegen-Backend
-
-Compile Facebook's code and export `generate` from `RNCodegen.js`
+- **typeScriptToCodeSchema** function:
+  - **fileName** argument: Full path to a TypeScript source file, a module name.
+  - **moduleName** argument: The module name. It is not reflected in generated files.
+  - **targetName** argument (optional): It will be used in **the entry header file**, if this TypeScript source file registers a native module.
+  - Output: A `SchemaType` data structure.
+- **generateNativeFiles** function
+  - **options** argument:
+    - **libraryName** property: A string that becomes part of type names in generated files.
+    - **schema** property: Result from `typeScriptToCodeSchema`
+    - **outputDirectory** property: Full path to a folder to write files. Multiple files will be generated and most of the file names are hard-coded.
+    - **moduleSpecName** property: Name of **the entry header file**, no file extension.
+  - **config** arguments:
+    - **generators** property: An array that is or a subset of `['descriptors', 'events', 'props', 'tests', 'shadow-nodes', 'modules']` to control what files are generated.
 
 ### RN-TSCodegen-Test
 
-This package contains all test cases for RN-TSCodegen.
+This package contains all test cases for RN-TSCodegen, with unit test code.
 
 ### minimum-flow-parser
 
@@ -78,23 +81,24 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 
 ## Deploying
 
-At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made.
-But I've got facebook's native code generator run successfully in RN-TSCodegen's [test cases](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen/test/TestE2ECases.ts).
-You can follow these test cases to make it run in your repo. There is several things that need to do before running this code generation:
+- Import `typeScriptToCodeSchema` and `generateNativeFiles` from **RN-TSCodegen** package. This package is not published to any external or internal source yet. You need to make your code accessible to this package manually.
+- Call these two functions on your TypeScript files. You can learn the details by reading this [simple test case](./packages/RN-TSCodegen/test/TestE2ECases.ts).
 
-- Call `typeScriptToCodeSchema` from `RN-TSCodegen` followed by `generate` function from `RN-Codegen-Backend`.
-- In [this folder](https://github.com/microsoft/react-native-tscodegen/tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
-  - [CodegenTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
-  - [ImageSource.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
-  - [StyleSheetTypes.ts](https://github.com/microsoft/react-native-tscodegen/blob/master/packages/RN-TSCodegen-Test/src/lib/StyleSheetTypes.ts)
+## Notice
+
+At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made.
+There is also no official TypeScript description files for react-native.
+In order to make RN-TSCodegen run, I authored a few of them to get input TypeScript source files compile.
+**You need to merge important things from my description files to one that you are using**.
+There is several things that need to do before doing this:
+
+- In [this folder](../../tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
+  - [CodegenTypes.ts](/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
+  - [ImageSource.ts](/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
+  - [StyleSheetTypes.ts](/packages/RN-TSCodegen-Test/src/lib/StyleSheetTypes.ts)
 - `RNTag<T>` and `WithDefaultRNTag` that are used in above files are very important classes that help RN-TSCodegen recognize react native required features that TypeScript does not have. This approach may change in the future.
 - `ReactNull | T` is used to represent nullable types. This approach may change in the future.
   - When `--strictNullChecks` is off (by default), TypeScript compiler will ignore `null` and `undefined` in a union type, because they are subtype of all other types. The currently implementation uses `typeChecker` in TypeScript Compiler API to do type inference, necessary information will be lost when `--strictNullChecks` is off.
-
-Today there is no npm package created for this repo. to use this source code, it is recommended to submodule and build this repo, and then import from the following packages directly:
-
-- `RN-TSCodegen`
-- `RN-Codegen-Backend`
 
 ## Development
 

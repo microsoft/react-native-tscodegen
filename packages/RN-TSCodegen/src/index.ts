@@ -68,3 +68,6 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
         return result;
     }
 }
+
+export * from './CodegenSchema';
+export { generate as generateNativeFiles } from './ExportRNCodegen';

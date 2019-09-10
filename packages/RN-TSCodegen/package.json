@@ -2,10 +2,9 @@
   "name": "rn-tscodegen",
   "version": "1.0.0",
   "description": "TypeScript Code Generation for React Native Turbo Module",
-  "main": "./lib/src/index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "tslint --project tsconfig.json & tsc",
-    "test": "jest"
+    "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
   },
   "repository": {
     "type": "git",
@@ -17,20 +16,12 @@
   },
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.17",
     "@types/node": "^12.6.9",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "typescript": "^3.5.3",
-    "rn-codegen-backend": "^1.0.0"
-  },
-  "jest": {
-    "testRegex": "/lib/test/Test.*Cases\\.js",
-    "verbose": true
+    "typescript": "^3.5.3"
   }
 }
