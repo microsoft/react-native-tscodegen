@@ -5,7 +5,7 @@
   "description": "Test files for RN-TSCodegen",
   "main": "./lib/index.js",
   "scripts": {
-    "build": "tslint --project tsconfig.json & tsc",
+    "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc",
     "test": "jest"
   },
   "repository": {
@@ -28,7 +28,6 @@
     "tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "rn-codegen-backend": "^1.0.0",
     "rn-tscodegen": "^1.0.0"
   },
   "jest": {

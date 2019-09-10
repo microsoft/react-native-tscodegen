@@ -70,3 +70,4 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
 }
 
 export * from './CodegenSchema';
+export { generate as generateNativeFiles } from './ExportRNCodegen';

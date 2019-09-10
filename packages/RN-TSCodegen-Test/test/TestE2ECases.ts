@@ -3,8 +3,7 @@
 
 import { existsSync, mkdirSync } from 'fs';
 import * as path from 'path';
-import { generate } from 'rn-codegen-backend';
-import { SchemaType, typeScriptToCodeSchema } from 'rn-tscodegen';
+import { generateNativeFiles, SchemaType, typeScriptToCodeSchema } from 'rn-tscodegen';
 import { testCaseIndex } from './TestCaseIndex';
 
 function generateFiles(libraryName: string, schema: SchemaType, category: string): void {
@@ -13,7 +12,7 @@ function generateFiles(libraryName: string, schema: SchemaType, category: string
         mkdirSync(outputDirectory, { recursive: true });
     }
 
-    generate(
+    generateNativeFiles(
         {
             libraryName,
             schema,
