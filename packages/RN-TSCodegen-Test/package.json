@@ -5,7 +5,8 @@
   "description": "Test files for RN-TSCodegen",
   "main": "./lib/index.js",
   "scripts": {
-    "build": "tslint --project tsconfig.json & tsc"
+    "build": "tslint --project tsconfig.json & tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,10 @@
   },
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.17",
     "@types/node": "^12.6.9",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",
@@ -26,5 +30,9 @@
   "dependencies": {
     "rn-codegen-backend": "^1.0.0",
     "rn-tscodegen": "^1.0.0"
+  },
+  "jest": {
+    "testRegex": "/lib/test/Test.*Cases\\.js",
+    "verbose": true
   }
 }

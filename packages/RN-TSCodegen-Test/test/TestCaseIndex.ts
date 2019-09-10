@@ -17,6 +17,6 @@ interface TestCaseIndex {
 }
 
 export const testCaseIndex = <TestCaseIndex>JSON.parse(readFileSync(
-    path.join(__dirname, '../../../RN-TSCodegen-Test/src/inputs/__index__.json'),
+    path.join(__dirname, '../../src/inputs/__index__.json'),
     { encoding: 'utf-8' }
 ));

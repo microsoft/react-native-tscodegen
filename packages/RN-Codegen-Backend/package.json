@@ -16,7 +16,6 @@
   },
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.17",
     "@types/node": "^12.6.9",
     "flow-remove-types": "^2.106.2",
     "jscodeshift": "0.6.4",
