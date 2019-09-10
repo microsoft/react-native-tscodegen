@@ -4,7 +4,7 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import { typeScriptToCodeSchema } from '../src';
+import { typeScriptToCodeSchema } from 'rn-tscodegen';
 import { testCaseIndex } from './TestCaseIndex';
 
 testCaseIndex.components.success.forEach((key: string) => {

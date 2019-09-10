@@ -22,5 +22,9 @@
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",
     "tslint-shared": "^1.0.0"
+  },
+  "dependencies": {
+    "rn-codegen-backend": "^1.0.0",
+    "rn-tscodegen": "^1.0.0"
   }
 }

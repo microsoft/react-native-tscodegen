@@ -4,8 +4,7 @@
 import { existsSync, mkdirSync } from 'fs';
 import * as path from 'path';
 import { generate } from 'rn-codegen-backend';
-import { typeScriptToCodeSchema } from '../src';
-import { SchemaType } from '../src/CodegenSchema';
+import { SchemaType, typeScriptToCodeSchema } from 'rn-tscodegen';
 import { testCaseIndex } from './TestCaseIndex';
 
 function generateFiles(libraryName: string, schema: SchemaType, category: string): void {

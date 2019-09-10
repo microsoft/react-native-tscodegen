@@ -2,7 +2,7 @@
   "name": "rn-tscodegen",
   "version": "1.0.0",
   "description": "TypeScript Code Generation for React Native Turbo Module",
-  "main": "./lib/src/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "tslint --project tsconfig.json & tsc",
     "test": "jest"
@@ -26,8 +26,7 @@
     "tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "typescript": "^3.5.3",
-    "rn-codegen-backend": "^1.0.0"
+    "typescript": "^3.5.3"
   },
   "jest": {
     "testRegex": "/lib/test/Test.*Cases\\.js",
