@@ -89,7 +89,7 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made.
 There is also no official TypeScript description files for react-native.
 In order to make RN-TSCodegen run, I authored a few of them to get input TypeScript source files compile.
-You need to merge important things from my description files to one that you are using.
+**You need to merge important things from my description files to one that you are using**.
 There is several things that need to do before doing this:
 
 - In [this folder](../../tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
