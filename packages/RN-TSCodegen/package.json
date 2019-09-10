@@ -17,6 +17,9 @@
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
     "@types/node": "^12.6.9",
+    "flow-remove-types": "^2.106.2",
+    "jscodeshift": "0.6.4",
+    "nullthrows": "1.1.1",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "tslint-shared": "^1.0.0"
