@@ -4,7 +4,7 @@
   "description": "TypeScript Code Generation for React Native Turbo Module",
   "main": "./lib/index.js",
   "scripts": {
-    "build": "tslint --project tsconfig.json & tsc"
+    "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
   },
   "repository": {
     "type": "git",
