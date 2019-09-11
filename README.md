@@ -41,7 +41,7 @@ This is the shared tslint configuration for all other packages.
 
 This is the TypeScript code generation for TurboModule in react native.
 
-There are two import exported functions:
+There are two important exported functions:
 
 - **typeScriptToCodeSchema** function:
   - **fileName** argument: Full path to a TypeScript source file, a module name.
@@ -82,7 +82,7 @@ Since minimum-flow-parser is built just for converting test cases, so it is poss
 ## Deploying
 
 - Import `typeScriptToCodeSchema` and `generateNativeFiles` from **RN-TSCodegen** package. This package is not published to any external or internal source yet. You need to make your code accessible to this package manually.
-- Call these two functions on your TypeScript files. You can learn the details by reading this [simple test case](./packages/RN-TSCodegen/test/TestE2ECases.ts).
+- Call these two functions on your TypeScript files. You can learn the details by reading this [simple test case](./packages/RN-TSCodegen-Test/test/TestE2ECases.ts).
 
 ## Notice
 
