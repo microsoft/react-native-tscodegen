@@ -67,17 +67,7 @@ This is a Flow parser, just enough to convert necessary files to TypeScript for 
 
 ### update-test-files
 
-I started this repo in the days when Facebook is actively updating their react native code generation for Flow. There is no document or specification at this moment.
-
-I need to develop a TypeScript version working exactly as their Flow code generation, and to track and catch up their progress when they are changing their code generation parallelly.
-
-So I started update-test files. Whenever I need to know what is changed in their code, I run this package, and then I can:
-
-- Get the latest `CodegenSchema.js` converted to TypeScript automatically. RN-TSCodegen is written in TypeScript, so the definition of the intermediate format should be recognizable by TypeScript.
-- Get latest test cases. Facebook has prepared a set of Flow source files, along with snapshots showing how a `SchemaType` object should be created for each file. All test cases are automatically converted to TypeScript to be my test cases. At the early stage of the development, if RN-TSCodegen produces exactly the same output as theirs, I consider my code generation is correct.
-- Get the diff of generated files. In this way I can know how many features are added or removed. This is a very important guidance for the development of this project.
-
-Since minimum-flow-parser is built just for converting test cases, so it is possible that it fails to parse a Flow program because Facebook uses more Flow features in their test cases then the last time. It will be updated then.
+Get generated files sync to `facebook/react-native`
 
 ## Deploying
 
@@ -102,4 +92,29 @@ There is several things that need to do before doing this:
 
 ## Development
 
-(editing)
+### Sync react-native after pull
+
+```
+git submodule update
+```
+
+### Sync react-native to a new version
+
+```
+pushd react-native
+git fetch
+git pull origin master
+popd
+git status
+```
+
+### Works to do after updating react-native
+
+```
+yarn
+yarn build
+pushd update-test-files
+npm run start
+popd
+git status
+```
