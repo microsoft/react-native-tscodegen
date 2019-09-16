@@ -22,3 +22,9 @@
 
 - `\react-native\Libraries\Image\ImageSource.js`: there is `ImageURISource`, but no `ImageSource`
 - `\react-native\Libraries\Components\View\ViewPropTypes.js`: `ViewProps` used in test cases
+
+## Note
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-native/index.d.ts
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts
+https://github.com/facebook/react-native/blob/master/index.js
