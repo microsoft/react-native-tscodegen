@@ -8,6 +8,8 @@
 - [ ] `\react-native\Libraries\Utilities\codegenNativeComponent.js`
 - [ ] `\react-native\Libraries\Utilities\codegenNativeCommands.js`
 
+This could be exported from RN-TSCodegen-Type by `require('react-native/Libraries/Utilities/codegenNativeComponent')`
+
 ## Does not exist in @types/react-native
 
 - [x] `\react-native\Libraries\Types\CodegenTypes.js`
@@ -17,6 +19,8 @@
 - [x] `\react-native\Libraries\StyleSheet\StyleSheetTypes.js`: `ColorValue`, `ColorArrayValue`, `PointValue`
 - [ ] `Ref<T>`: in @types/react
 - [ ] `ElementRef<T>`: does not exist in @types/react
+  - https://flow.org/en/docs/react/types/#reactelementreftypeof-component-
+  - For now just rename ElementRef to Ref
 
 ## Somehow in @types/react-native
 
