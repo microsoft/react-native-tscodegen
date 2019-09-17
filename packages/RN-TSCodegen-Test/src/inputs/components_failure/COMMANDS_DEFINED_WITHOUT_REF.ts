@@ -5,10 +5,10 @@
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/failures.js)
 
 import {Int32} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import codegenNativeCommands from '../../lib/codegenNativeCommands';
-import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 interface NativeCommands {

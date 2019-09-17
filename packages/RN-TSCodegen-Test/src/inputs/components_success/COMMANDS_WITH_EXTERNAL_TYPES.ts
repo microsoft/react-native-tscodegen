@@ -6,10 +6,10 @@
 
 import {Int32} from 'react-native-tscodegen-types';
 import {React} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import codegenNativeCommands from '../../lib/codegenNativeCommands';
-import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 export type Boolean = boolean;

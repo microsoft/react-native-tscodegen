@@ -66,15 +66,17 @@ declare module 'react-native-tscodegen-types' {
   export type ImageSource = ImageURISource | number | Array<ImageURISource> | RNTag<'ImageSource'>;
 }
 
-// This is just for compiling auto-translated test cases
-// Do not use React namespace from here
-// React.ElementRef is a Flow predefined type, do not use ElementRef
-
 declare module 'react-native-tscodegen-types' {
+  // This is just for compiling auto-translated test cases
+  // Do not import anything from here
+  // React.ElementRef is a Flow predefined type, use React.Ref instead
+
   import React from 'react';
 
   export namespace React {
     export type Ref<T> = React.Ref<T>;
     export type ElementRef<T> = React.Ref<T>;
   }
+  // export { ViewProps } from 'react-native';
+  export type ViewProps = {};
 }

@@ -23,14 +23,14 @@ const importMaps = {
   PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,
 
   React: `import {React} from 'react-native-tscodegen-types';`,
+  ViewProps: `import {ViewProps} from 'react-native-tscodegen-types';`,
 
   NativeComponent: `import {NativeComponent} from '../../lib/codegenNativeComponent';`,
   NativeComponentType: `import {NativeComponentType} from '../../lib/codegenNativeComponent';`,
   codegenNativeComponent: `import codegenNativeComponent from '../../lib/codegenNativeComponent';`,
   codegenNativeCommands: `import codegenNativeCommands from '../../lib/codegenNativeCommands';`,
   TurboModule: `import {TurboModule} from '../../lib/RCTExport'`,
-  TurboModuleRegistry: `import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';`,
-  ViewProps: `import {ViewProps} from '../../lib/ViewPropTypes';`
+  TurboModuleRegistry: `import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';`
 };
 
 export function flowTestCaseToTypeScript(program: flow.FlowProgram, keyName?: string): string {

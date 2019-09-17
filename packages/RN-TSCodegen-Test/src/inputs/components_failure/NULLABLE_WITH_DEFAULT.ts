@@ -7,9 +7,9 @@
 import {Float} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 export type ModuleProps = Readonly<ViewProps & {

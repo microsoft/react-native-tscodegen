@@ -7,8 +7,8 @@
 import {BubblingEventHandler} from 'react-native-tscodegen-types';
 import {DirectEventHandler} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native-tscodegen-types';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 type ModuleProps = Readonly<ViewProps & {

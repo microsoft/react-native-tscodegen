@@ -12,9 +12,9 @@ import {WithDefault} from 'react-native-tscodegen-types';
 import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
 type ObjectType = Readonly<{
