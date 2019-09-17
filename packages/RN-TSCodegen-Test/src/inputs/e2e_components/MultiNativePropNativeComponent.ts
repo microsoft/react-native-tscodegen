@@ -4,11 +4,11 @@
 // Automatically generated from MultiNativePropNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
+import {ImageSource} from 'react-native-tscodegen-types';
+import {ColorValue} from 'react-native-tscodegen-types';
+import {PointValue} from 'react-native-tscodegen-types';
 import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ImageSource} from '../../lib/ImageSource';
-import {ColorValue} from '../../lib/StyleSheetTypes';
-import {PointValue} from '../../lib/StyleSheetTypes';
 import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 

@@ -4,8 +4,8 @@
 // Automatically generated from FloatPropsNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {Float} from '../../lib/CodegenTypes';
-import {WithDefault} from '../../lib/CodegenTypes';
+import {Float} from 'react-native-tscodegen-types';
+import {WithDefault} from 'react-native-tscodegen-types';
 import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import {ViewProps} from '../../lib/ViewPropTypes';

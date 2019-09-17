@@ -4,7 +4,7 @@
 // Automatically generated from modules_success/NATIVE_MODULE_WITH_BASIC_PARAM_TYPES.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/fixtures.js)
 
-import {Stringish} from '../../lib/CodegenTypes';
+import {Stringish} from 'react-native-tscodegen-types';
 import {TurboModule} from '../../lib/RCTExport'
 import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';
 'use strict';

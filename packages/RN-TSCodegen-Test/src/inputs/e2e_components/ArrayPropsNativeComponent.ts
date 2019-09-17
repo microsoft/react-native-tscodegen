@@ -4,14 +4,14 @@
 // Automatically generated from ArrayPropsNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {Float} from '../../lib/CodegenTypes';
-import {Int32} from '../../lib/CodegenTypes';
-import {WithDefault} from '../../lib/CodegenTypes';
+import {Float} from 'react-native-tscodegen-types';
+import {Int32} from 'react-native-tscodegen-types';
+import {WithDefault} from 'react-native-tscodegen-types';
+import {ImageSource} from 'react-native-tscodegen-types';
+import {ColorValue} from 'react-native-tscodegen-types';
+import {PointValue} from 'react-native-tscodegen-types';
 import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ImageSource} from '../../lib/ImageSource';
-import {ColorValue} from '../../lib/StyleSheetTypes';
-import {PointValue} from '../../lib/StyleSheetTypes';
 import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 

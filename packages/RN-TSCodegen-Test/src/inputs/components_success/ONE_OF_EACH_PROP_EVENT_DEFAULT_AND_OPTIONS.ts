@@ -4,9 +4,9 @@
 // Automatically generated from components_success/ONE_OF_EACH_PROP_EVENT_DEFAULT_AND_OPTIONS.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {BubblingEventHandler} from '../../lib/CodegenTypes';
-import {DirectEventHandler} from '../../lib/CodegenTypes';
-import {WithDefault} from '../../lib/CodegenTypes';
+import {BubblingEventHandler} from 'react-native-tscodegen-types';
+import {DirectEventHandler} from 'react-native-tscodegen-types';
+import {WithDefault} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import {ViewProps} from '../../lib/ViewPropTypes';

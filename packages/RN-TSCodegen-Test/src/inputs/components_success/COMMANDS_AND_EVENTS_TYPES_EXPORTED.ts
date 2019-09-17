@@ -4,12 +4,12 @@
 // Automatically generated from components_success/COMMANDS_AND_EVENTS_TYPES_EXPORTED.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {BubblingEventHandler} from '../../lib/CodegenTypes';
-import {DirectEventHandler} from '../../lib/CodegenTypes';
-import {Float} from '../../lib/CodegenTypes';
-import {Double} from '../../lib/CodegenTypes';
-import {Int32} from '../../lib/CodegenTypes';
-import {ReactNull} from '../../lib/CodegenTypes';
+import {BubblingEventHandler} from 'react-native-tscodegen-types';
+import {DirectEventHandler} from 'react-native-tscodegen-types';
+import {Float} from 'react-native-tscodegen-types';
+import {Double} from 'react-native-tscodegen-types';
+import {Int32} from 'react-native-tscodegen-types';
+import {ReactNull} from 'react-native-tscodegen-types';
 import * as React from '../../lib/React';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';

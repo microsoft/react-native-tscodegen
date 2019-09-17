@@ -4,7 +4,7 @@
 // Automatically generated from components_failure/COMMANDS_DEFINED_WITHOUT_REF.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/failures.js)
 
-import {Int32} from '../../lib/CodegenTypes';
+import {Int32} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import codegenNativeCommands from '../../lib/codegenNativeCommands';

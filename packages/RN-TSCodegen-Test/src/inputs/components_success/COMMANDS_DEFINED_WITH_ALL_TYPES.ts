@@ -4,9 +4,9 @@
 // Automatically generated from components_success/COMMANDS_DEFINED_WITH_ALL_TYPES.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {Float} from '../../lib/CodegenTypes';
-import {Double} from '../../lib/CodegenTypes';
-import {Int32} from '../../lib/CodegenTypes';
+import {Float} from 'react-native-tscodegen-types';
+import {Double} from 'react-native-tscodegen-types';
+import {Int32} from 'react-native-tscodegen-types';
 import * as React from '../../lib/React';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';

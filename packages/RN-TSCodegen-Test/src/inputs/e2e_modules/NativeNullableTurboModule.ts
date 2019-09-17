@@ -4,7 +4,7 @@
 // Automatically generated from NativeNullableTurboModule.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {ReactNull} from '../../lib/CodegenTypes';
+import {ReactNull} from 'react-native-tscodegen-types';
 import {TurboModule} from '../../lib/RCTExport'
 import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';
 'use strict';

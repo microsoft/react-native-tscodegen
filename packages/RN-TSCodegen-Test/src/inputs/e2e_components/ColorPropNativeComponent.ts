@@ -4,9 +4,9 @@
 // Automatically generated from ColorPropNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
+import {ColorValue} from 'react-native-tscodegen-types';
 import {NativeComponentType} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ColorValue} from '../../lib/StyleSheetTypes';
 import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 

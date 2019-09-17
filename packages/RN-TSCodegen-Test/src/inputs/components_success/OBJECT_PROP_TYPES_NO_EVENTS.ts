@@ -4,16 +4,16 @@
 // Automatically generated from components_success/OBJECT_PROP_TYPES_NO_EVENTS.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {Float} from '../../lib/CodegenTypes';
-import {Double} from '../../lib/CodegenTypes';
-import {Int32} from '../../lib/CodegenTypes';
-import {ReactNull} from '../../lib/CodegenTypes';
-import {WithDefault} from '../../lib/CodegenTypes';
+import {Float} from 'react-native-tscodegen-types';
+import {Double} from 'react-native-tscodegen-types';
+import {Int32} from 'react-native-tscodegen-types';
+import {ReactNull} from 'react-native-tscodegen-types';
+import {WithDefault} from 'react-native-tscodegen-types';
+import {ImageSource} from 'react-native-tscodegen-types';
+import {ColorValue} from 'react-native-tscodegen-types';
+import {PointValue} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
-import {ImageSource} from '../../lib/ImageSource';
-import {ColorValue} from '../../lib/StyleSheetTypes';
-import {PointValue} from '../../lib/StyleSheetTypes';
 import {ViewProps} from '../../lib/ViewPropTypes';
 'use strict';
 
