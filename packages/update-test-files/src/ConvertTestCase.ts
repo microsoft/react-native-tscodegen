@@ -24,9 +24,9 @@ const importMaps = {
   TurboModule: `import {TurboModule} from '../../lib/RCTExport'`,
   TurboModuleRegistry: `import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';`,
   ImageSource: `import {ImageSource} from '../../lib/ImageSource';`,
-  ColorValue: `import {ColorValue} from '../../lib/StyleSheetTypes';`,
-  ColorArrayValue: `import {ColorArrayValue} from '../../lib/StyleSheetTypes';`,
-  PointValue: `import {PointValue} from '../../lib/StyleSheetTypes';`,
+  ColorValue: `import {ColorValue} from 'react-native-tscodegen-types';`,
+  ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
+  PointValue: `import {PointValue} from 'react-native-tscodegen-typess';`,
   ViewProps: `import {ViewProps} from '../../lib/ViewPropTypes';`
 };
 
