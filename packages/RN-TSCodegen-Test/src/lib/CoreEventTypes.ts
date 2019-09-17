@@ -1,3 +1,1 @@
-// \react-native\Libraries\Types\CoreEventTypes.js
-
-export type SyntheticEvent<T> = {};
+export {SyntheticEvent} from 'react-native-tscodegen-types';

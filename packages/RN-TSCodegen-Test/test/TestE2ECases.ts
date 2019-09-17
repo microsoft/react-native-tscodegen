@@ -3,7 +3,7 @@
 
 import { existsSync, mkdirSync } from 'fs';
 import * as path from 'path';
-import { generateNativeFiles, SchemaType, typeScriptToCodeSchema } from 'rn-tscodegen';
+import { generateNativeFiles, SchemaType, typeScriptToCodeSchema } from 'react-native-tscodegen';
 import { testCaseIndex } from './TestCaseIndex';
 
 function generateFiles(libraryName: string, schema: SchemaType, category: string): void {
