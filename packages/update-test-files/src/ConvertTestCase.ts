@@ -29,8 +29,8 @@ const importMaps = {
   NativeComponentType: `import {NativeComponentType} from '../../lib/codegenNativeComponent';`,
   codegenNativeComponent: `import codegenNativeComponent from '../../lib/codegenNativeComponent';`,
   codegenNativeCommands: `import codegenNativeCommands from '../../lib/codegenNativeCommands';`,
-  TurboModule: `import {TurboModule} from '../../lib/RCTExport'`,
-  TurboModuleRegistry: `import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';`
+  TurboModule: `import {TurboModule} from 'react-native-tscodegen-types'`,
+  TurboModuleRegistry: `import {TurboModuleRegistry} from 'react-native-tscodegen-types';`
 };
 
 export function flowTestCaseToTypeScript(program: flow.FlowProgram, keyName?: string): string {

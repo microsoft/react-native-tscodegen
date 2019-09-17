@@ -5,8 +5,8 @@
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
 import {ReactNull} from 'react-native-tscodegen-types';
-import {TurboModule} from '../../lib/RCTExport'
-import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';
+import {TurboModule} from 'react-native-tscodegen-types'
+import {TurboModuleRegistry} from 'react-native-tscodegen-types';
 'use strict';
 
 export interface Spec extends TurboModule {

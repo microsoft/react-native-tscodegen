@@ -64,6 +64,21 @@ declare module 'react-native-tscodegen-types' {
 
   import { ImageURISource } from 'react-native';
   export type ImageSource = ImageURISource | number | Array<ImageURISource> | RNTag<'ImageSource'>;
+
+  // \react-native\Libraries\TurboModule\RCTExport.js
+
+  export interface DEPRECATED_RCTEXPORT<T extends void = void> {
+    getConstants?: () => {};
+  }
+
+  export interface TurboModule extends DEPRECATED_RCTEXPORT<void> {
+  }
+
+  // \react-native\Libraries\TurboModule\TurboModuleRegistry.js
+
+  export namespace TurboModuleRegistry {
+    export function getEnforcing<T extends TurboModule>(name: string): FlowOptional<T>;
+  }
 }
 
 declare module 'react-native-tscodegen-types' {

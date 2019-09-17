@@ -1,0 +1,1 @@
+export const TurboModuleRegistry = require('react-native').TurboModuleRegistry;

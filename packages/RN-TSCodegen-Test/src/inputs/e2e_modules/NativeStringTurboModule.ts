@@ -4,8 +4,8 @@
 // Automatically generated from NativeStringTurboModule.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {TurboModule} from '../../lib/RCTExport'
-import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';
+import {TurboModule} from 'react-native-tscodegen-types'
+import {TurboModuleRegistry} from 'react-native-tscodegen-types';
 'use strict';
 
 export type String = string;
