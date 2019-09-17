@@ -22,7 +22,8 @@ const importMaps = {
   ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
   PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,
 
-  React: `import * as React from '../../lib/React';`,
+  React: `import {React} from 'react-native-tscodegen-types';`,
+
   NativeComponent: `import {NativeComponent} from '../../lib/codegenNativeComponent';`,
   NativeComponentType: `import {NativeComponentType} from '../../lib/codegenNativeComponent';`,
   codegenNativeComponent: `import codegenNativeComponent from '../../lib/codegenNativeComponent';`,

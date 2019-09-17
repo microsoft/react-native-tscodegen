@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
-    "@types/react-native": "^0.60.14"
+    "@types/react-native": "^0.60.14",
+    "@types/react": "^16.9.2"
   }
 }

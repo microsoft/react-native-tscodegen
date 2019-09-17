@@ -17,8 +17,8 @@ This could be exported from RN-TSCodegen-Type by `require('react-native/Librarie
 - [ ] `\react-native\Libraries\TurboModule\RCTExport.js`
 - [ ] `\react-native\Libraries\TurboModule\TurboModuleRegistry.js`
 - [x] `\react-native\Libraries\StyleSheet\StyleSheetTypes.js`: `ColorValue`, `ColorArrayValue`, `PointValue`
-- [ ] `Ref<T>`: in @types/react
-- [ ] `ElementRef<T>`: does not exist in @types/react
+- [x] `Ref<T>`: in @types/react
+- [x] `ElementRef<T>`: does not exist in @types/react
   - https://flow.org/en/docs/react/types/#reactelementreftypeof-component-
   - For now just rename ElementRef to Ref
 

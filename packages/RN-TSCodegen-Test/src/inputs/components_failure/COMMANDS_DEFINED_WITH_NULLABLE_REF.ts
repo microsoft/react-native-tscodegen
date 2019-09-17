@@ -6,7 +6,7 @@
 
 import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
-import * as React from '../../lib/React';
+import {React} from 'react-native-tscodegen-types';
 import {NativeComponent} from '../../lib/codegenNativeComponent';
 import codegenNativeComponent from '../../lib/codegenNativeComponent';
 import codegenNativeCommands from '../../lib/codegenNativeCommands';
