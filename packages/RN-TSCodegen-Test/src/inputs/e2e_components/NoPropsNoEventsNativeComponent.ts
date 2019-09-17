@@ -5,8 +5,8 @@
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from '../../lib/codegenNativeComponent';
-import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {NativeComponentType} from 'react-native-tscodegen-types';
+import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 type NativeProps = Readonly<ViewProps & {

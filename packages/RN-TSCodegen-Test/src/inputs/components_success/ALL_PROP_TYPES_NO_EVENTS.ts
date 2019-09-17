@@ -15,8 +15,8 @@ import {ColorValue} from 'react-native-tscodegen-types';
 import {ColorArrayValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from '../../lib/codegenNativeComponent';
-import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {NativeComponent} from 'react-native-tscodegen-types';
+import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 type ModuleProps = Readonly<ViewProps & {

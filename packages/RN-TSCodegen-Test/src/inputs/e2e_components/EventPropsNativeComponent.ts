@@ -11,8 +11,8 @@ import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from '../../lib/codegenNativeComponent';
-import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {NativeComponentType} from 'react-native-tscodegen-types';
+import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 type OnChangeEvent = Readonly<{

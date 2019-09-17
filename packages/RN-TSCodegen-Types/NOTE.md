@@ -5,8 +5,8 @@
 
 ## Does not exist in react-native/index.js
 
-- [ ] `\react-native\Libraries\Utilities\codegenNativeComponent.js`
-- [ ] `\react-native\Libraries\Utilities\codegenNativeCommands.js`
+- [x] `\react-native\Libraries\Utilities\codegenNativeComponent.js`
+- [x] `\react-native\Libraries\Utilities\codegenNativeCommands.js`
 
 This could be exported from RN-TSCodegen-Type by `require('react-native/Libraries/Utilities/codegenNativeComponent')`
 

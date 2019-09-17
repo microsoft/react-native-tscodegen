@@ -25,10 +25,10 @@ const importMaps = {
   React: `import {React} from 'react-native-tscodegen-types';`,
   ViewProps: `import {ViewProps} from 'react-native-tscodegen-types';`,
 
-  NativeComponent: `import {NativeComponent} from '../../lib/codegenNativeComponent';`,
-  NativeComponentType: `import {NativeComponentType} from '../../lib/codegenNativeComponent';`,
-  codegenNativeComponent: `import codegenNativeComponent from '../../lib/codegenNativeComponent';`,
-  codegenNativeCommands: `import codegenNativeCommands from '../../lib/codegenNativeCommands';`,
+  NativeComponent: `import {NativeComponent} from 'react-native-tscodegen-types';`,
+  NativeComponentType: `import {NativeComponentType} from 'react-native-tscodegen-types';`,
+  codegenNativeComponent: `import {codegenNativeComponent} from 'react-native-tscodegen-types';`,
+  codegenNativeCommands: `import {codegenNativeCommands} from 'react-native-tscodegen-types';`,
   TurboModule: `import {TurboModule} from 'react-native-tscodegen-types'`,
   TurboModuleRegistry: `import {TurboModuleRegistry} from 'react-native-tscodegen-types';`
 };

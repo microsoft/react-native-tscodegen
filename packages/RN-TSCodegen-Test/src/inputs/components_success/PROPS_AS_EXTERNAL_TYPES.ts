@@ -4,8 +4,8 @@
 // Automatically generated from components_success/PROPS_AS_EXTERNAL_TYPES.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {NativeComponent} from '../../lib/codegenNativeComponent';
-import codegenNativeComponent from '../../lib/codegenNativeComponent';
+import {NativeComponent} from 'react-native-tscodegen-types';
+import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 export type String = string;

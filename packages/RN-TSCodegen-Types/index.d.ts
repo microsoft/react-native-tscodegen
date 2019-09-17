@@ -79,6 +79,27 @@ declare module 'react-native-tscodegen-types' {
   export namespace TurboModuleRegistry {
     export function getEnforcing<T extends TurboModule>(name: string): FlowOptional<T>;
   }
+
+  // \react-native\Libraries\Utilities\codegenNativeComponent.js
+
+  type Options = Readonly<{
+    interfaceOnly?: boolean;
+    paperComponentName?: string;
+    paperComponentNameDeprecated?: string;
+    deprecatedViewConfigName?: string;
+  }>;
+
+  export type NativeComponent<T> = {};
+  export type NativeComponentType<T> = {};
+  export function codegenNativeComponent<Props>(componentName: string, options?: Options): NativeComponentType<Props>;
+
+  // \react-native\Libraries\Utilities\codegenNativeCommands.js
+
+  type Options<T = string> = Readonly<{
+    supportedCommands: ReadonlyArray<T>;
+  }>;
+
+  export function codegenNativeCommands<T extends {}>(options?: Options<keyof T>): T;
 }
 
 declare module 'react-native-tscodegen-types' {
