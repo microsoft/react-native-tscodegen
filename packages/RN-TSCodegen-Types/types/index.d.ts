@@ -59,4 +59,9 @@ declare module 'react-native-tscodegen-types' {
     x: number;
     y: number;
   }
+
+  // \react-native\Libraries\Image\ImageSource.js
+
+  import { ImageURISource } from 'react-native';
+  export type ImageSource = ImageURISource | number | Array<ImageURISource> | RNTag<'ImageSource'>;
 }

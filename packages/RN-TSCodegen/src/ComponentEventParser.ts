@@ -69,7 +69,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
     };
     default:
   }
-  throw new Error(`Component event type does not support ${typeNode.getText()}.`);
+  throw new Error(`Component event type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
 export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape | undefined {
@@ -89,7 +89,7 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
     if (objectType.type === 'ObjectTypeAnnotation') {
       eventProperties = objectType.properties;
     } else {
-      throw new Error(`Component event type does not support ${propType.getText()}.`);
+      throw new Error(`Component event type does not support ${propType.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
     }
   }
 

@@ -20,7 +20,7 @@
 
 ## Somehow in @types/react-native
 
-- [ ] `\react-native\Libraries\Image\ImageSource.js`: there is `ImageURISource`, but no `ImageSource`
+- [x] `\react-native\Libraries\Image\ImageSource.js`: there is `ImageURISource`, but no `ImageSource`
 - [ ] `\react-native\Libraries\Components\View\ViewPropTypes.js`: `ViewProps` used in test cases
 
 ## Note

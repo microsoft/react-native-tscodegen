@@ -9,11 +9,43 @@ import * as ep from './ExportParser';
 import { processNativeModule } from './NativeModuleParser';
 import { WritableObjectType } from './TypeChecker';
 
+function errorToString(error: ts.Diagnostic): string {
+    let message = `${ts.DiagnosticCategory[error.category]}:`;
+    if (error.source !== undefined) {
+        message += `\r\n    source  : ${error.source}`;
+    }
+    if (error.file !== undefined) {
+        message += `\r\n    file    : ${error.file.fileName}`;
+    }
+    if (typeof error.messageText === 'string') {
+        message += `\r\n    message : ${error.messageText}`;
+    } else {
+        let current: ts.DiagnosticMessageChain | undefined = error.messageText;
+        while (current !== undefined) {
+            if (current === error.messageText) {
+                message += `\r\n    message : ${current.messageText}`;
+            } else {
+                message += `\r\n            : ${current.messageText}`;
+            }
+            current = current.next;
+        }
+    }
+    return message;
+}
+
 export function typeScriptToCodeSchema(fileName: string, moduleName: string, targetName?: string): cs.SchemaType {
-    const program = ts.createProgram([fileName], {});
+    const program = ts.createProgram(
+        [fileName],
+        {
+            skipLibCheck: true
+        });
     const errors = ts.getPreEmitDiagnostics(program).filter((value: ts.Diagnostic) => value.category === ts.DiagnosticCategory.Error);
     if (errors.length > 0) {
-        throw new Error('Please ensure that the input TypeScript source file compiles.');
+        let errorMessage = 'Please ensure that the input TypeScript source file compiles.';
+        for (const error of errors) {
+            errorMessage += `\r\n${errorToString(error)}`;
+        }
+        throw new Error(errorMessage);
     }
 
     const nativeModuleInfos: ep.ExportNativeModuleInfo[] = [];

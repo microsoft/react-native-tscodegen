@@ -248,7 +248,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     let itemDefaultValue: boolean | number | string | undefined;
     const itemUnknowns: ts.Type[] = [];
     const itemStringLiterals: string[] = [];
-    const itemOthers: RNRawType[] = [];
+    let itemOthers: RNRawType[] = [];
 
     function setDefaultValue(elementType: ts.Type, defaultValueType: ts.Type): void {
         const currentDefaultValue = typeToRNRawType(defaultValueType, typeChecker, allowObject);
@@ -461,6 +461,17 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             }
         } else if (itemUnknowns.length > 1) {
             throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
+        }
+    }
+
+    {
+        const imageSources = itemOthers.filter((value: RNRawType) => { return value.kind === 'rn:ImageSourcePrimitive'; });
+        if (imageSources.length !== 0) {
+            itemOthers = itemOthers.filter((value: RNRawType) => {
+                // export type ImageSource = ImageURISource | number | Array<ImageURISource> | RNTag<'ImageSource'>;
+                // ImageURISource is ignored in the if statement above
+                return value.kind !== 'Number' && value.kind !== 'rn:ImageSourcePrimitive' && (value.kind !== 'Array' || value.elementType.kind !== 'Object');
+            }).concat([imageSources[0]]);
         }
     }
 

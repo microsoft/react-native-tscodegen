@@ -16,7 +16,7 @@ function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         default:
     }
-    throw new Error(`Component command argument type does not support ${typeNode.getText()}.`);
+    throw new Error(`Component command argument type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
 export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {

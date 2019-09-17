@@ -16,6 +16,12 @@ const importMaps = {
   Stringish: `import {Stringish} from 'react-native-tscodegen-types';`,
   ReactNull: `import {ReactNull} from 'react-native-tscodegen-types';`,
   WithDefault: `import {WithDefault} from 'react-native-tscodegen-types';`,
+
+  ImageSource: `import {ImageSource} from 'react-native-tscodegen-types';`,
+  ColorValue: `import {ColorValue} from 'react-native-tscodegen-types';`,
+  ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
+  PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,
+
   React: `import * as React from '../../lib/React';`,
   NativeComponent: `import {NativeComponent} from '../../lib/codegenNativeComponent';`,
   NativeComponentType: `import {NativeComponentType} from '../../lib/codegenNativeComponent';`,
@@ -23,10 +29,6 @@ const importMaps = {
   codegenNativeCommands: `import codegenNativeCommands from '../../lib/codegenNativeCommands';`,
   TurboModule: `import {TurboModule} from '../../lib/RCTExport'`,
   TurboModuleRegistry: `import * as TurboModuleRegistry from '../../lib/TurboModuleRegistry';`,
-  ImageSource: `import {ImageSource} from '../../lib/ImageSource';`,
-  ColorValue: `import {ColorValue} from 'react-native-tscodegen-types';`,
-  ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
-  PointValue: `import {PointValue} from 'react-native-tscodegen-typess';`,
   ViewProps: `import {ViewProps} from '../../lib/ViewPropTypes';`
 };
 
