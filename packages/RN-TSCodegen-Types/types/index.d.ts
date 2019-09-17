@@ -77,6 +77,5 @@ declare module 'react-native-tscodegen-types' {
     export type Ref<T> = React.Ref<T>;
     export type ElementRef<T> = React.Ref<T>;
   }
-  // export { ViewProps } from 'react-native';
-  export type ViewProps = {};
+  export { ViewProps } from 'react-native';
 }

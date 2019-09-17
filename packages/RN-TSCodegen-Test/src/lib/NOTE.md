@@ -25,7 +25,7 @@ This could be exported from RN-TSCodegen-Type by `require('react-native/Librarie
 ## Somehow in @types/react-native
 
 - [x] `\react-native\Libraries\Image\ImageSource.js`: there is `ImageURISource`, but no `ImageSource`
-- [ ] `\react-native\Libraries\Components\View\ViewPropTypes.js`: `ViewProps` used in test cases
+- [x] `\react-native\Libraries\Components\View\ViewPropTypes.js`: `ViewProps` used in test cases
 
 ## Note
 

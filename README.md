@@ -94,23 +94,23 @@ There is several things that need to do before doing this:
 
 ### Sync react-native after pull
 
-```
+```cmd
 git submodule update
 ```
 
 ### Sync react-native to a new version
 
-```
+```cmd
 pushd react-native
 git fetch
-git pull origin master
+git merge origin/master
 popd
 git status
 ```
 
 ### Works to do after updating react-native
 
-```
+```cmd
 yarn
 yarn build
 pushd update-test-files
@@ -118,3 +118,8 @@ npm run start
 popd
 git status
 ```
+
+### Improvements
+
+- Remove `RNTag<T>`
+- Remove `ignoredProperties` from `ComponentParser.ts`

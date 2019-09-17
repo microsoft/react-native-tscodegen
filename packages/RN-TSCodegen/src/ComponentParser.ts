@@ -31,6 +31,28 @@ function importExists(sourceFile: ts.SourceFile, name: string): boolean {
     return result === undefined ? false : result;
 }
 
+// node_modules\@types\react-native\index.d.ts
+const ignoredProperties = [
+    // ViewProps
+    'hitSlop', 'onLayout', 'pointerEvents', 'removeClippedSubviews', 'style', 'testID', 'nativeID',
+    // ViewPropsAndroid
+    'collapsable', 'needsOffscreenAlphaCompositing', 'renderToHardwareTextureAndroid',
+    // ViewPropsIOS
+    'shouldRasterizeIOS',
+    // TVViewPropsIOS
+    'isTVSelectable', 'hasTVPreferredFocus', 'tvParallaxProperties', 'tvParallaxShiftDistanceX', 'tvParallaxShiftDistanceY', 'tvParallaxTiltAngle', 'tvParallaxMagnification',
+    // GestureResponderHandlers
+    'onStartShouldSetResponder', 'onMoveShouldSetResponder', 'onResponderEnd', 'onResponderGrant', 'onResponderReject', 'onResponderMove', 'onResponderRelease', 'onResponderStart', 'onResponderTerminationRequest', 'onResponderTerminate', 'onStartShouldSetResponderCapture', 'onMoveShouldSetResponderCapture',
+    // Touchable
+    'onTouchStart', 'onTouchStart', 'onTouchEnd', 'onTouchCancel', 'onTouchEndCapture',
+    // AccessibilityProps
+    'accessible', 'accessibilityActions', 'accessibilityLabel', 'accessibilityRole', 'accessibilityStates', 'accessibilityState', 'accessibilityHint', 'onAccessibilityAction',
+    // AccessibilityPropsAndroid
+    'accessibilityComponentType', 'accessibilityLiveRegion', 'importantForAccessibility',
+    // AccessibilityPropsIOS
+    'accessibilityElementsHidden', 'accessibilityTraits', 'accessibilityViewIsModal', 'onAccessibilityTap', 'onMagicTap', 'accessibilityIgnoresInvertColors'
+];
+
 export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo | undefined): cs.ComponentShape {
     const events: cs.EventTypeShape[] = [];
     const props: cs.PropTypeShape[] = [];
@@ -44,6 +66,10 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
     const mappedType = typeChecker.getTypeFromTypeNode(info.typeNode);
 
     mappedType.getProperties().forEach((propSymbol: ts.Symbol) => {
+        if (ignoredProperties.includes(propSymbol.name)) {
+            return;
+        }
+
         if (propSymbol.declarations.length !== 1) {
             throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} is expected to be a property.`);
         }
@@ -55,11 +81,19 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
             throw new Error(`Member ${propSymbol.name} in type ${info.typeNode.getText()} is expected to be a property.`);
         }
 
-        const eventShape = tryParseEvent(info, propDecl);
-        if (eventShape !== undefined) {
-            events.push(eventShape);
-        } else {
-            props.push(parseProperty(info, propDecl));
+        try {
+            const eventShape = tryParseEvent(info, propDecl);
+            if (eventShape !== undefined) {
+                events.push(eventShape);
+            } else {
+                props.push(parseProperty(info, propDecl));
+            }
+        } catch (err) {
+            if (err instanceof Error) {
+                err.message = `${propSymbol.name}: ${err.message}`;
+            } else {
+                throw err;
+            }
         }
     });
 
