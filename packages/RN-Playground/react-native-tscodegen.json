@@ -1,6 +1,6 @@
 {
     "libraryName": "PlaygroundModule",
-    "outputDirectory": "./bin/cpp-generated",
+    "outputDirectory": "./lib/cpp-generated",
     "moduleSpecName": "PlaygroundModuleSpec",
     "generators": [
         "descriptors",

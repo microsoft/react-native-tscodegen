@@ -5,12 +5,12 @@ import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { generator, typeScriptToCodeSchema } from './index';
 
 try {
-    if (process.argv.length !== 2) {
-        throw new Error('Usage: react-native-tscodegen <INPUT-JSON-PATH>');
+    if (process.argv.length !== 3) {
+        throw new Error(`Incorrect arguments:${JSON.stringify(process.argv)}\nUsage: react-native-tscodegen <INPUT-JSON-PATH>`);
     }
 
-    if (!existsSync(process.argv[1])) {
-        throw new Error(`Configuration file not exist: ${process.argv[1]}.`);
+    if (!existsSync(process.argv[2])) {
+        throw new Error(`Configuration file not exist: ${process.argv[2]}.`);
     }
 
     interface ConfigJson {
@@ -30,7 +30,7 @@ try {
         'modules'
     ];
 
-    const config = <ConfigJson>JSON.parse(readFileSync(process.argv[1], { encoding: 'utf-8' }));
+    const config = <ConfigJson>JSON.parse(readFileSync(process.argv[2], { encoding: 'utf-8' }));
     if (typeof config.libraryName !== 'string') {
         throw new Error('Property "libraryName" does not exist or is not a string.');
     }
@@ -50,7 +50,7 @@ try {
             if (typeof value !== 'string') {
                 throw new Error('Property "generators" does not exist or is not a string array.');
             }
-            if (!(value in allGenerators)) {
+            if (!allGenerators.includes(value)) {
                 throw new Error(`Value ${value} found in property "generators" is not one of ${JSON.stringify(allGenerators)}.`);
             }
         }
