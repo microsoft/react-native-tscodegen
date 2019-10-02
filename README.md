@@ -79,24 +79,9 @@ Get generated files sync to `facebook/react-native`
 
 ## Deploying
 
-- Import `typeScriptToCodeSchema` and `generateNativeFiles` from **RN-TSCodegen** package. This package is not published to any external or internal source yet. You need to make your code accessible to this package manually.
-- Call these two functions on your TypeScript files. You can learn the details by reading this [simple test case](./packages/RN-TSCodegen-Test/test/TestE2ECases.ts).
-
-## Notice
-
-At this moment, no effort of integrating RN-TSCodegen to facebook/react-native has been made.
-There is also no official TypeScript description files for react-native.
-In order to make RN-TSCodegen run, I authored a few of them to get input TypeScript source files compile.
-**You need to merge important things from my description files to one that you are using**.
-There is several things that need to do before doing this:
-
-- In [this folder](../../tree/master/packages/RN-TSCodegen-Test/src/lib) you will see 3 files. You either use them directly, or merge them into third-party description files.
-  - [CodegenTypes.ts](/packages/RN-TSCodegen-Test/src/lib/CodegenTypes.ts)
-  - [ImageSource.ts](/packages/RN-TSCodegen-Test/src/lib/ImageSource.ts)
-  - [StyleSheetTypes.ts](/packages/RN-TSCodegen-Test/src/lib/StyleSheetTypes.ts)
-- `RNTag<T>` and `WithDefaultRNTag` that are used in above files are very important classes that help RN-TSCodegen recognize react native required features that TypeScript does not have. This approach may change in the future.
-- `ReactNull | T` is used to represent nullable types. This approach may change in the future.
-  - When `--strictNullChecks` is off (by default), TypeScript compiler will ignore `null` and `undefined` in a union type, because they are subtype of all other types. The currently implementation uses `typeChecker` in TypeScript Compiler API to do type inference, necessary information will be lost when `--strictNullChecks` is off.
+- [npm install react-native-tscodegen-types](https://www.npmjs.com/package/react-native-tscodegen-types)
+- [npm install react-native-tscodegen](https://www.npmjs.com/package/react-native-tscodegen)
+  - Follow the description to build your first Turbo Module program!
 
 ## Development
 
