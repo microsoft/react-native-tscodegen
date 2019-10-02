@@ -61,6 +61,14 @@ There are two important exported functions:
 
 This package contains all test cases for RN-TSCodegen, with unit test code.
 
+### RN-Playground (not ready)
+
+A demo from TypeScript turbo module to C++ program.
+
+- `npm run build`: Build the test project and build script
+  - build script will be deleted after `RN-TSCodegen` becomes a cli project
+- `npm run codegen`: Generate C++ files and copy necessary files to `./cpp/playgroundModules/`
+
 ### minimum-flow-parser
 
 This is a Flow parser, just enough to convert necessary files to TypeScript for this repo.

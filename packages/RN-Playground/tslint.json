@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "tslint-shared"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "src/inputs/**/*.ts",
+      "src/lib/*.ts"
+    ]
+  }
+}
