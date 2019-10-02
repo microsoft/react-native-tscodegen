@@ -1,5 +1,5 @@
 lib/**/*.d.ts
-lib/**/*.d.map
+lib/**/*.js.map
 lib/rncodegen/buck_tests/
 lib/rncodegen/e2e/
 lib/rncodegen/src/__tests__/
