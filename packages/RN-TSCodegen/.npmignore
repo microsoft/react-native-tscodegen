@@ -1,0 +1,15 @@
+lib/**/*.d.ts
+lib/**/*.d.map
+lib/rncodegen/buck_tests/
+lib/rncodegen/e2e/
+lib/rncodegen/src/__tests__/
+lib/rncodegen/src/cli/
+lib/rncodegen/src/generators/components/__test_fixtures__/
+lib/rncodegen/src/generators/components/__tests__/
+lib/rncodegen/src/generators/modules/__test_fixtures__/
+lib/rncodegen/src/generators/modules/__tests__/
+lib/rncodegen/src/parsers/
+node_modules/
+src/
+tsconfig.json
+tslint.json
