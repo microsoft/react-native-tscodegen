@@ -6,7 +6,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "build": "tslint --project tsconfig.json & tsc",
-    "codegen": "node ./lib/build/build.js & copyfiles -u 2 ./lib/cpp-generated/NativeModules.* ./cpp/playgroundModule/"
+    "codegen": "react-native-tscodegen ./react-native-tscodegen.json & copyfiles -u 2 ./lib/cpp-generated/NativeModules.* ./cpp/react/modules/PlaygroundModule/"
   },
   "repository": {
     "type": "git",

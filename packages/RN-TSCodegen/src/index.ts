@@ -102,4 +102,12 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
 }
 
 export * from './CodegenSchema';
-export { generate as generateNativeFiles } from './ExportRNCodegen';
+
+import * as rncodegen from './ExportRNCodegen';
+
+export namespace generator {
+    export import generate = rncodegen.generate;
+    export import Config = rncodegen.Config;
+    export import Generators = rncodegen.Generators;
+    export import Options = rncodegen.Options;
+}

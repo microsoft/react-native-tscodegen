@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "TypeScript Code Generation for React Native Turbo Module",
   "main": "./lib/index.js",
+  "bin": "./lib/cli.js",
   "scripts": {
     "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
   },

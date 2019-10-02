@@ -48,7 +48,7 @@ There are two important exported functions:
   - **moduleName** argument: The module name. It is not reflected in generated files.
   - **targetName** argument (optional): It will be used in **the entry header file**, if this TypeScript source file registers a native module.
   - Output: A `SchemaType` data structure.
-- **generateNativeFiles** function
+- **generator.generate** function
   - **options** argument:
     - **libraryName** property: A string that becomes part of type names in generated files.
     - **schema** property: Result from `typeScriptToCodeSchema`
