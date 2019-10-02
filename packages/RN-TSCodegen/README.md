@@ -5,7 +5,7 @@ This library enable people to write react-native Turbo Module in TypeScript, and
 ## Authoring a Turbo Module
 
 At this moment, the new Turbo Module API is not published by Facebook,
-you need npm package `RN-TSCodegen-Types` to access these new APIs.
+you need npm package `react-native-tscodegen-types` to access these new APIs.
 Here is an example of a very simple Turbo Module TypeScript file:
 
 ```typescript
