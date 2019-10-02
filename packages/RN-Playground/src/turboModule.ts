@@ -9,3 +9,9 @@ export interface Spec extends TurboModule {
 
 // tslint:disable-next-line
 export default (TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule') as Spec);
+
+/*
+C++ Code Generation Configuration:
+  SampleTurboModule (turboModule.ts) -> NativeSampleTurboModuleCxxSpecJSI
+  PlaygroundModule  (build.ts)       -> #include <react/modules/PlaygroundModule/NativeModules.h> in NativeModules.cpp
+*/
