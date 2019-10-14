@@ -61,7 +61,7 @@ There are two important exported functions:
 
 This package contains all test cases for RN-TSCodegen, with unit test code.
 
-### Playground (not ready)
+### playground/Playground (not ready)
 
 This project template is created following [the react-native-windows document](https://github.com/microsoft/react-native-windows/blob/master/vnext/docs/ConsumingRNW.md).
 
