@@ -5,13 +5,17 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "tslint --project tsconfig.json & tsc",
+    "codegen": "react-native-tscodegen ./react-native-tscodegen.json & copyfiles -u 2 ./lib/cpp-generated/NativeModules.* ./cpp/react/modules/PlaygroundModule/"
   },
   "dependencies": {
     "react": "16.8.6",
     "react-native": "^0.60.0",
     "react-native-windows": "0.60.0-vnext.28",
-    "rnpm-plugin-windows": "^0.3.5"
+    "rnpm-plugin-windows": "^0.3.5",
+    "react-native-tscodegen": "0.0.1",
+    "react-native-tscodegen-types": "0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -21,7 +25,14 @@
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
-    "react-test-renderer": "16.8.6"
+    "react-test-renderer": "16.8.6",
+    "@types/node": "^12.6.9",
+    "@types/react-native": "^0.60.14",
+    "copyfiles": "2.1.1",
+    "tslint": "^5.18.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "typescript": "^3.5.3",
+    "tslint-shared": "^1.0.0"
   },
   "jest": {
     "preset": "react-native"
