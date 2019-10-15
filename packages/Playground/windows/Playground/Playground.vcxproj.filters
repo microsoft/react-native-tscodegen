@@ -15,11 +15,17 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="MainPage.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="..\..\cpp\react\modules\PlaygroundModule\NativeModules.cpp">
+      <Filter>TurboModule</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="MainPage.h" />
+    <ClInclude Include="..\..\cpp\react\modules\PlaygroundModule\NativeModules.h">
+      <Filter>TurboModule</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -50,6 +56,9 @@
   <ItemGroup>
     <Filter Include="Assets">
       <UniqueIdentifier>{e48dc53e-40b1-40cb-970a-f89935452892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TurboModule">
+      <UniqueIdentifier>{79d7b446-b365-4c05-9a8c-acb4783127a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

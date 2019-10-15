@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#include "pch.h"
 #include <react/modules/PlaygroundModule/NativeModules.h>
 
 namespace facebook {

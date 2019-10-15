@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <ReactCommon/TurboModule.h>
+#include <ReactCommon/turbomodule/core/TurboModule.h>
 
 namespace facebook {
 namespace react {
