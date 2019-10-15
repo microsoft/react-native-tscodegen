@@ -69,3 +69,4 @@ package-lock.json
 # Unnecessary generated files
 packages/RN-TSCodegen-Test/src/inputs/e2e_components/output/
 packages/RN-TSCodegen-Test/src/inputs/e2e_modules/output/
+packages/Playground/windows/Playground/Generated Files/

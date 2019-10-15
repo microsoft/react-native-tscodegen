@@ -64,12 +64,8 @@ This package contains all test cases for RN-TSCodegen, with unit test code.
 ### playground/Playground (not ready)
 
 This project template is created following [the react-native-windows document](https://github.com/microsoft/react-native-windows/blob/master/vnext/docs/ConsumingRNW.md).
-
-The following files is for building turbo module, they are not generated automatically:
-- `src\turboModule.ts`: The API description of the turbo module
-- `react-native-tscodegen.json`: C++ Codegen Configuration
-- `tslint.json` and `tsconfig.json`: TypeScript configuration
-- `cpp\react\modules\PlaygroundModule\*`: Generated C++ code
+In order to create a TYpeScript turbo module, some files is added from `packages\Playtround-AddedFiles`.
+You don't need to perform this step.
 
 Building this package
 
