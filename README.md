@@ -61,18 +61,6 @@ There are two important exported functions:
 
 This package contains all test cases for RN-TSCodegen, with unit test code.
 
-### playground/Playground (not ready)
-
-This project template is created following [the react-native-windows document](https://github.com/microsoft/react-native-windows/blob/master/vnext/docs/ConsumingRNW.md).
-In order to create a TYpeScript turbo module, some files is added from `packages\Playtround-AddedFiles`.
-You don't need to perform this step.
-
-Building this package
-
-- `npm run build`: Build the TypeScript turbo module
-- `npm run codegen`: Generate C++ code from the TypeScript turbo module
-- Open `windows\Playground.sln` in Visual Studio 2019 [with these installed](https://github.com/microsoft/react-native-windows/blob/master/vnext/docs/GettingStarted.md#dependencies).
-
 ### minimum-flow-parser
 
 This is a Flow parser, just enough to convert necessary files to TypeScript for this repo.
@@ -86,6 +74,7 @@ Get generated files sync to `facebook/react-native`
 - [npm install react-native-tscodegen-types](https://www.npmjs.com/package/react-native-tscodegen-types)
 - [npm install react-native-tscodegen](https://www.npmjs.com/package/react-native-tscodegen)
   - Follow the description to build your first Turbo Module program!
+- [Demo project](https://github.com/ZihanChen-MSFT/react-native-tscodegen-demo) (not ready)
 
 ## Development
 
