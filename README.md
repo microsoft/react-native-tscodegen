@@ -77,7 +77,7 @@ Get generated files sync to `facebook/react-native`
 - [Demo project](https://github.com/ZihanChen-MSFT/react-native-tscodegen-demo) (not ready)
 
 You are welcome to use cli tool `react-native-tscodegen` instead of calling functions in build scripts by yourself if possible.
-Basically, just add `react-native-tscodegen ./react-native-tscodegen.json`, after get `react-native-tscodegen.json` prepared.
+Basically, just add `react-native-tscodegen ./react-native-tscodegen.json` to npm scripts, after getting `react-native-tscodegen.json` prepared.
 The file name is not important.
 
 ```json
