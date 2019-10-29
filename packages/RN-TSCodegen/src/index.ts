@@ -9,6 +9,20 @@ import * as ep from './ExportParser';
 import { processNativeModule } from './NativeModuleParser';
 import { WritableObjectType } from './TypeChecker';
 
+function messageChainToString(chain: ts.DiagnosticMessageChain, indent: string): string {
+    let message = '';
+    message += `${indent}${chain.messageText}`;
+    if (chain.next !== undefined) {
+        message += ` {`;
+        const newIndent = `${indent}  `;
+        for (const subChain of chain.next) {
+            message += `\r\n${messageChainToString(subChain, newIndent)}`;
+        }
+        message += `${indent}\r\n}`;
+    }
+    return message;
+}
+
 function errorToString(error: ts.Diagnostic): string {
     let message = `${ts.DiagnosticCategory[error.category]}:`;
     if (error.source !== undefined) {
@@ -20,15 +34,9 @@ function errorToString(error: ts.Diagnostic): string {
     if (typeof error.messageText === 'string') {
         message += `\r\n    message : ${error.messageText}`;
     } else {
-        let current: ts.DiagnosticMessageChain | undefined = error.messageText;
-        while (current !== undefined) {
-            if (current === error.messageText) {
-                message += `\r\n    message : ${current.messageText}`;
-            } else {
-                message += `\r\n            : ${current.messageText}`;
-            }
-            current = current.next;
-        }
+        message += `\r\n    message {`;
+        message += `\r\n${messageChainToString(error.messageText, '  ')}`;
+        message += `\r\n}`;
     }
     return message;
 }
