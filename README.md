@@ -76,6 +76,32 @@ Get generated files sync to `facebook/react-native`
   - Follow the description to build your first Turbo Module program!
 - [Demo project](https://github.com/ZihanChen-MSFT/react-native-tscodegen-demo) (not ready)
 
+You are welcome to use cli tool `react-native-tscodegen` instead of calling functions in build scripts by yourself if possible.
+Basically, just add `react-native-tscodegen ./react-native-tscodegen.json`, after get `react-native-tscodegen.json` prepared.
+The file name is not important.
+
+```json
+{
+    "libraryName": "PlaygroundModule",
+    "outputDirectory": "./lib/cpp-generated",
+    "moduleSpecName": "PlaygroundModuleSpec",
+    "generators": [
+        "descriptors",
+        "events",
+        "props",
+        "tests",
+        "shadow-nodes",
+        "modules"
+    ],
+    "inputFile": "./src/turboModule.ts"
+}
+```
+
+`libraryName` and `moduleSpecName` control file names and some generated C++ class names.
+`generators` controls what files get generated.
+After the cli tool is successfully executed,
+files will be created under `outputDirectory`.
+
 ## Development
 
 ### Sync react-native after pull
