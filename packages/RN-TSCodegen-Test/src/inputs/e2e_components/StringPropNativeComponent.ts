@@ -11,8 +11,8 @@ import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 type NativeProps = Readonly<ViewProps & {
-  placeholder?: WithDefault<string, ''>;
-  defaultValue?: string;
+  accessibilityHint?: WithDefault<string, ''>;
+  accessibilityRole?: string;
 }>;
 
 export default (codegenNativeComponent<NativeProps>('StringPropNativeComponentView') as NativeComponentType<NativeProps>);

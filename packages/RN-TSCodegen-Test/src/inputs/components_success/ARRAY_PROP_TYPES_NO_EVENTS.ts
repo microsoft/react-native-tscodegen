@@ -68,26 +68,6 @@ type ModuleProps = Readonly<ViewProps & {
   }>>;
   array_object_optional_value: (ReactNull | ArrayObjectType);
   array_object_optional_both?: (ReactNull | ReadonlyArray<ObjectType>);
-  array_of_array_object_required: ReadonlyArray<Readonly<{
-    array_object_required: ReadonlyArray<Readonly<{
-      prop: string;
-    }>>;
-  }>>;
-  array_of_array_object_optional_key?: ReadonlyArray<Readonly<{
-    array_object_optional_key: ReadonlyArray<Readonly<{
-      prop?: string;
-    }>>;
-  }>>;
-  array_of_array_object_optional_value: (ReactNull | ReadonlyArray<Readonly<{
-    array_object_optional_value: ReadonlyArray<Readonly<{
-      prop: (ReactNull | string);
-    }>>;
-  }>>);
-  array_of_array_object_optional_both?: (ReactNull | ReadonlyArray<Readonly<{
-    array_object_optional_both: ReadonlyArray<Readonly<{
-      prop?: (ReactNull | string);
-    }>>;
-  }>>);
 }>;
 
 export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);

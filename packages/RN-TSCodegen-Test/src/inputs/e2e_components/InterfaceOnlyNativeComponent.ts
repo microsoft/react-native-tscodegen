@@ -13,7 +13,7 @@ import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 type NativeProps = Readonly<ViewProps & {
-  title?: WithDefault<string, ''>;
+  accessibilityHint?: WithDefault<string, ''>;
   onChange?: (ReactNull | BubblingEventHandler<Readonly<{
     value: boolean;
   }>>);

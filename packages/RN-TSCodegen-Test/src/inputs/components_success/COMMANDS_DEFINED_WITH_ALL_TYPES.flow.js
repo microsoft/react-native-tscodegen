@@ -21,18 +21,10 @@ import type {Int32, Double, Float} from 'CodegenTypes';
 import type {ViewProps} from 'ViewPropTypes';
 import type {NativeComponent} from 'codegenNativeComponent';
 
-
-export type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
-  // No props or events
-|}>;
-
-type NativeType = NativeComponent<ModuleProps>;
-
 interface NativeCommands {
-  +hotspotUpdate: (viewRef: React.ElementRef<NativeType>, x: Int32, y: Int32) => void;
+  +hotspotUpdate: (viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32) => void;
   +scrollTo: (
-    viewRef: React.ElementRef<NativeType>,
+    viewRef: React.Ref<'RCTView'>,
     x: Float,
     y: Int32,
     z: Double,
@@ -40,10 +32,15 @@ interface NativeCommands {
   ) => void;
 }
 
+export type ModuleProps = $ReadOnly<{|
+  ...ViewProps,
+  // No props or events
+|}>;
+
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['hotspotUpdate', 'scrollTo'],
 });
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeType);
+): NativeComponent<ModuleProps>);

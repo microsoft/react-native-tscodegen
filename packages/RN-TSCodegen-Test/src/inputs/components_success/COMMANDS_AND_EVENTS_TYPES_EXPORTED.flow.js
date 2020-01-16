@@ -57,19 +57,19 @@ export type EventInFile = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  },
+  }
 
   object_optional_key?: {
     string_optional_key?: string,
-  },
+  }
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  },
+  }
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  },
+  }
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -79,13 +79,19 @@ export type EventInFile = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  },
+  }
 
 |}>;
 
 export type Boolean = boolean;
 export type Int = Int32;
 export type Void = void;
+
+export type ScrollTo = (viewRef: React.Ref<'RCTView'>, y: Int, animated: Boolean) => Void
+
+interface NativeCommands {
+  +scrollTo: ScrollTo;
+}
 
 export type ModuleProps = $ReadOnly<{|
   ...ViewProps,
@@ -99,18 +105,10 @@ export type ModuleProps = $ReadOnly<{|
   onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>,
 |}>;
 
-type NativeType = NativeComponent<ModuleProps>;
-
-export type ScrollTo = (viewRef: React.ElementRef<NativeType>, y: Int, animated: Boolean) => Void;
-
-interface NativeCommands {
-  +scrollTo: ScrollTo;
-}
-
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['scrollTo']
 });
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeType);
+): NativeComponent<ModuleProps>);

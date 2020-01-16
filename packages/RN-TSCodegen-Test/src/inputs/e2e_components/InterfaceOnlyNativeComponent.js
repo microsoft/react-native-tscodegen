@@ -25,7 +25,7 @@ type NativeProps = $ReadOnly<{|
   ...ViewProps,
 
   // Props
-  title?: WithDefault<string, ''>,
+  accessibilityHint?: WithDefault<string, ''>,
 
   // Events
   onChange?: ?BubblingEventHandler<$ReadOnly<{|value: boolean|}>>,

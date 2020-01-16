@@ -14,20 +14,18 @@ import {codegenNativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeCommands} from 'react-native-tscodegen-types';
 'use strict';
 
+interface NativeCommands {
+  hotspotUpdate(viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32): void;
+  scrollTo(viewRef: React.Ref<'RCTView'>, x: Float, y: Int32, z: Double, animated: boolean): void;
+}
+
 export type ModuleProps = Readonly<ViewProps & {
 }>;
-
-type NativeType = NativeComponent<ModuleProps>;
-
-interface NativeCommands {
-  hotspotUpdate(viewRef: React.ElementRef<NativeType>, x: Int32, y: Int32): void;
-  scrollTo(viewRef: React.ElementRef<NativeType>, x: Float, y: Int32, z: Double, animated: boolean): void;
-}
 
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['hotspotUpdate', 'scrollTo']
 });
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeType);
+export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
 
 
