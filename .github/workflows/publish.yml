@@ -1,0 +1,18 @@
+name: Publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  Publish:
+    name: Publish
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test
+      - run: npx beachball publish --branch origin/{{ github.base_ref }} -n {{ npmAuthToken }} -yes --bump-deps --access public
