@@ -1,4 +1,3 @@
-lib/**/*.d.ts
 lib/**/*.js.map
 lib/rncodegen/buck_tests/
 lib/rncodegen/e2e/
