@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   PR:
     name: Validation
-    runs-on: windows-2019
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
         with:
