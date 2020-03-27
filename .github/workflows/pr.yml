@@ -10,6 +10,6 @@ jobs:
           submodules: true
 
       - run: yarn install --frozen-lockfile
-      - run: npx beachball check --branch origin/{{ github.base_ref }} --changehint "Run `yarn change` from root of repo to generate a change file."
+      - run: npx beachball check --branch origin/${{ github.base_ref }} --changehint "Run `yarn change` from root of repo to generate a change file."
       - run: yarn build
       - run: yarn test
