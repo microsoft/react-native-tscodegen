@@ -15,4 +15,4 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test
-      - run: npx beachball publish --branch origin/${{ github.base_ref }} -n ${{ secrets.npmAuthToken }} -yes --bump-deps --access public
+      - run: npx beachball publish --branch origin/${{ github.ref }} -n ${{ secrets.npmAuthToken }} -yes --bump-deps --access public
