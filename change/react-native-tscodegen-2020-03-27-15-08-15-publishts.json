@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Publish typings",
-  "packageName": "react-native-tscodegen",
-  "email": "acoates@microsoft.com",
-  "commit": "16dd79d148a227e88eb38fe1116abe66ee0d6d38",
-  "date": "2020-03-27T22:08:15.493Z",
-  "file": "D:\\Repos\\react-native-tscodegen\\change\\react-native-tscodegen-2020-03-27-15-08-15-publishts.json"
-}
