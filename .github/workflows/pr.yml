@@ -3,12 +3,13 @@ on: [push, pull_request]
 jobs:
   PR:
     name: Validation
-    runs-on: windows-2019
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
         with:
           submodules: true
 
       - run: yarn install --frozen-lockfile
+      - run: npx beachball check --branch origin/${{ github.base_ref }} --changehint "Run `yarn change` from root of repo to generate a change file."
       - run: yarn build
       - run: yarn test
