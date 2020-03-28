@@ -1,0 +1,19 @@
+{
+  "name": "react-native-tscodegen",
+  "entries": [
+    {
+      "date": "Sat, 28 Mar 2020 22:10:37 GMT",
+      "tag": "react-native-tscodegen_v0.0.10",
+      "version": "0.0.10",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Publish typings",
+            "author": "acoates@microsoft.com",
+            "commit": "16dd79d148a227e88eb38fe1116abe66ee0d6d38"
+          }
+        ]
+      }
+    }
+  ]
+}
