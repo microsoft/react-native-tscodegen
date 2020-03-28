@@ -12,6 +12,8 @@ jobs:
         with:
           submodules: true
 
+      - run: git config --global user.email "53619745+rnbot@users.noreply.github.com"
+      - run: git config --global user.name "React-Native-Windows Bot"
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test
