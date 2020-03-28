@@ -7,7 +7,10 @@ lib/rncodegen/src/generators/components/__test_fixtures__/
 lib/rncodegen/src/generators/components/__tests__/
 lib/rncodegen/src/generators/modules/__test_fixtures__/
 lib/rncodegen/src/generators/modules/__tests__/
-lib/rncodegen/src/parsers/
+lib/rncodegen/src/parsers/flow/components/__test_fixtures__/
+lib/rncodegen/src/parsers/flow/components/__tests__/
+lib/rncodegen/src/parsers/flow/modules/__test_fixtures__/
+lib/rncodegen/src/parsers/flow/modules/__tests__/
 node_modules/
 src/
 tsconfig.json
