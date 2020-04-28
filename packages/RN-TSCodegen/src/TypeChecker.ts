@@ -92,47 +92,62 @@ export function isReactNull(tsType: ts.Type): boolean {
     return isRNTag(tsType, 'Null');
 }
 
+export interface RNRawTypeCommon {
+    isNullable: boolean;
+    defaultValue?: boolean | number | string;
+}
+
+export interface RNRawObjectType {
+    kind: 'Object';
+    properties: { name: string; propertyType: RNRawType }[];
+}
+
 export type RNRawType = (
-    {
+    | {
         kind: 'BooleanLiteral';
         value: boolean;
-    } | {
+    }
+    | {
         kind: 'StringLiterals';
         values: string[];
-    } | {
+    }
+    | {
         kind: 'NumberLiterals';
         values: number[];
-    } | {
+    }
+    | {
         kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
-    } | {
+    }
+    | {
         kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive';
-    } | {
+    }
+    | {
         kind: 'Array';
         elementType: RNRawType;
-    } | {
-        kind: 'Object';
-        properties: { name: string; propertyType: RNRawType }[];
-    } | {
+    }
+    | RNRawObjectType
+    | {
         kind: 'DirectEventHandler' | 'BubblingEventHandler';
         elementType: RNRawType;
         paperTopLevelNameDeprecated: string | undefined;
-    } | {
+    }
+    | {
         kind: 'js:Object';
-    } | {
+    }
+    | {
         kind: 'js:Promise';
         elementType: RNRawType;
-    } | {
+    }
+    | {
         kind: 'Function';
         returnType: RNRawType;
         parameters: { name: string; parameterType: RNRawType }[];
-    } | {
+    }
+    | {
         kind: 'Union' | 'Tuple';
         types: RNRawType[];
     }
-) & {
-    isNullable: boolean;
-    defaultValue?: boolean | number | string;
-};
+) & RNRawTypeCommon;
 
 function eventTypeToRNRawType(typeArguments: readonly ts.Type[], kind: 'DirectEventHandler' | 'BubblingEventHandler', typeChecker: ts.TypeChecker): RNRawType {
     if (typeArguments === undefined || typeArguments.length < 1 || typeArguments.length > 2) {
