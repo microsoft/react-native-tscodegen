@@ -8,9 +8,10 @@ import {BubblingEventHandler} from 'react-native-tscodegen-types';
 import {DirectEventHandler} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/react-native';
 
 type ModuleProps = Readonly<ViewProps & {
   onDirectEventDefinedInlineNull: DirectEventHandler<null>;
@@ -25,6 +26,6 @@ type ModuleProps = Readonly<ViewProps & {
   onBubblingEventDefinedInlineNullWithPaperName?: (ReactNull | BubblingEventHandler<null, 'paperBubblingEventDefinedInlineNullWithPaperName'>);
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
 

@@ -12,10 +12,11 @@ import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {React} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeCommands} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/react-native';
 
 export type EventInFile = Readonly<{
   boolean_required: boolean;
@@ -71,12 +72,6 @@ export type Int = Int32;
 
 export type Void = void;
 
-export type ScrollTo = (viewRef: React.Ref<'RCTView'>, y: Int, animated: Boolean) => Void;
-
-interface NativeCommands {
-  readonly scrollTo: ScrollTo;
-}
-
 export type ModuleProps = Readonly<ViewProps & {
   onBubblingEventDefinedInline: BubblingEventHandler<EventInFile>;
   onBubblingEventDefinedInlineWithPaperName: BubblingEventHandler<EventInFile, 'paperBubblingEventDefinedInlineWithPaperName'>;
@@ -84,10 +79,18 @@ export type ModuleProps = Readonly<ViewProps & {
   onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>;
 }>;
 
+type NativeType = HostComponent<ModuleProps>;
+
+export type ScrollTo = (viewRef: React.ElementRef<NativeType>, y: Int, animated: Boolean) => Void;
+
+interface NativeCommands {
+  readonly scrollTo: ScrollTo;
+}
+
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['scrollTo']
 });
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as NativeType);
 
 

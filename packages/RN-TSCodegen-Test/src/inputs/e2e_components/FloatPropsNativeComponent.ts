@@ -7,9 +7,10 @@
 import {Float} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
 
 type NativeProps = Readonly<ViewProps & {
   blurRadius: Float;
@@ -18,8 +19,9 @@ type NativeProps = Readonly<ViewProps & {
   blurRadius4?: WithDefault<Float, 0>;
   blurRadius5?: WithDefault<Float, 1>;
   blurRadius6?: WithDefault<Float, -0.0>;
+  blurRadiusNullable?: WithDefault<Float, null>;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('FloatPropsNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('FloatPropsNativeComponentView') as HostComponent<NativeProps>);
 
 

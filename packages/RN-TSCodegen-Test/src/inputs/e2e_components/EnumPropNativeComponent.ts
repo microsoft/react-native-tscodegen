@@ -6,14 +6,16 @@
 
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
+
 type NativeProps = Readonly<ViewProps & {
   alignment?: WithDefault<'top' | 'center' | 'bottom-right', 'center'>;
+  intervals?: WithDefault<0 | 15 | 30 | 60, 0>;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('EnumPropNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('EnumPropNativeComponentView') as HostComponent<NativeProps>);
 
 

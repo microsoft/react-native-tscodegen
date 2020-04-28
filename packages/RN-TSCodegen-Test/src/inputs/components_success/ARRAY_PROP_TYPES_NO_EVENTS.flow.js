@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -18,9 +18,9 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32, Double, Float, WithDefault} from 'CodegenTypes';
 import type {ImageSource} from 'ImageSource';
-import type {ColorValue, PointValue} from 'StyleSheetTypes';
+import type {ColorValue, PointValue, EdgeInsetsValue} from 'StyleSheetTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 type ObjectType = $ReadOnly<{| prop: string |}>;
 type ArrayObjectType = $ReadOnlyArray<$ReadOnly<{| prop: string |}>>;
@@ -87,13 +87,68 @@ type ModuleProps = $ReadOnly<{|
   array_point_optional_value: ?$ReadOnlyArray<PointValue>,
   array_point_optional_both?: ?$ReadOnlyArray<PointValue>,
 
+  // EdgeInsetsValue props
+  array_insets_required: $ReadOnlyArray<EdgeInsetsValue>,
+  array_insets_optional_key?: $ReadOnlyArray<EdgeInsetsValue>,
+  array_insets_optional_value: ?$ReadOnlyArray<EdgeInsetsValue>,
+  array_insets_optional_both?: ?$ReadOnlyArray<EdgeInsetsValue>,
+
   // Object props
   array_object_required: $ReadOnlyArray<$ReadOnly<{| prop: string |}>>,
   array_object_optional_key?: $ReadOnlyArray<$ReadOnly<{| prop: string |}>>,
   array_object_optional_value: ?ArrayObjectType,
   array_object_optional_both?: ?$ReadOnlyArray<ObjectType>,
+
+  // Nested array object types
+  array_of_array_object_required: $ReadOnlyArray<
+    $ReadOnly<{|
+      // This needs to be the same name as the top level array above
+      array_object_required: $ReadOnlyArray<$ReadOnly<{| prop: string |}>>,
+    |}>
+  >,
+  array_of_array_object_optional_key?: $ReadOnlyArray<
+    $ReadOnly<{|
+      // This needs to be the same name as the top level array above
+      array_object_optional_key: $ReadOnlyArray<$ReadOnly<{| prop?: string |}>>,
+    |}>
+  >,
+  array_of_array_object_optional_value: ?$ReadOnlyArray<
+    $ReadOnly<{|
+      // This needs to be the same name as the top level array above
+      array_object_optional_value: $ReadOnlyArray<$ReadOnly<{| prop: ?string |}>>,
+    |}>
+  >,
+  array_of_array_object_optional_both?: ?$ReadOnlyArray<
+    $ReadOnly<{|
+      // This needs to be the same name as the top level array above
+      array_object_optional_both: $ReadOnlyArray<$ReadOnly<{| prop?: ?string |}>>,
+    |}>
+  >,
+
+  // Nested array of array of object types
+  array_of_array_of_object_required: $ReadOnlyArray<
+    $ReadOnlyArray<
+      $ReadOnly<{|
+        prop: string,
+      |}>,
+    >,
+  >,
+
+  // Nested array of array of object types (in file)
+  array_of_array_of_object_required_in_file: $ReadOnlyArray<
+    $ReadOnlyArray<ObjectType>,
+  >,
+
+  // Nested array of array of object types (with spread)
+  array_of_array_of_object_required_with_spread: $ReadOnlyArray<
+    $ReadOnlyArray<
+      $ReadOnly<{|
+        ...ObjectType
+      |}>,
+    >,
+  >,
 |}>;
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

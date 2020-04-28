@@ -13,9 +13,10 @@ import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/react-native';
 
 type ObjectType = Readonly<{
   prop: string;
@@ -60,6 +61,10 @@ type ModuleProps = Readonly<ViewProps & {
   array_point_optional_key?: ReadonlyArray<PointValue>;
   array_point_optional_value: (ReactNull | ReadonlyArray<PointValue>);
   array_point_optional_both?: (ReactNull | ReadonlyArray<PointValue>);
+  array_insets_required: ReadonlyArray<EdgeInsetsValue>;
+  array_insets_optional_key?: ReadonlyArray<EdgeInsetsValue>;
+  array_insets_optional_value: (ReactNull | ReadonlyArray<EdgeInsetsValue>);
+  array_insets_optional_both?: (ReactNull | ReadonlyArray<EdgeInsetsValue>);
   array_object_required: ReadonlyArray<Readonly<{
     prop: string;
   }>>;
@@ -68,8 +73,34 @@ type ModuleProps = Readonly<ViewProps & {
   }>>;
   array_object_optional_value: (ReactNull | ArrayObjectType);
   array_object_optional_both?: (ReactNull | ReadonlyArray<ObjectType>);
+  array_of_array_object_required: ReadonlyArray<Readonly<{
+    array_object_required: ReadonlyArray<Readonly<{
+      prop: string;
+    }>>;
+  }>>;
+  array_of_array_object_optional_key?: ReadonlyArray<Readonly<{
+    array_object_optional_key: ReadonlyArray<Readonly<{
+      prop?: string;
+    }>>;
+  }>>;
+  array_of_array_object_optional_value: (ReactNull | ReadonlyArray<Readonly<{
+    array_object_optional_value: ReadonlyArray<Readonly<{
+      prop: (ReactNull | string);
+    }>>;
+  }>>);
+  array_of_array_object_optional_both?: (ReactNull | ReadonlyArray<Readonly<{
+    array_object_optional_both: ReadonlyArray<Readonly<{
+      prop?: (ReactNull | string);
+    }>>;
+  }>>);
+  array_of_array_of_object_required: ReadonlyArray<ReadonlyArray<Readonly<{
+    prop: string;
+  }>>>;
+  array_of_array_of_object_required_in_file: ReadonlyArray<ReadonlyArray<ObjectType>>;
+  array_of_array_of_object_required_with_spread: ReadonlyArray<ReadonlyArray<Readonly<ObjectType & {
+  }>>>;
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
 

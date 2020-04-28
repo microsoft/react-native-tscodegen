@@ -8,9 +8,10 @@ import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
 
 type NativeProps = Readonly<ViewProps & {
   thumbImage?: ImageSource;
@@ -19,6 +20,6 @@ type NativeProps = Readonly<ViewProps & {
   point?: PointValue;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('MultiNativePropNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('MultiNativePropNativeComponentView') as HostComponent<NativeProps>);
 
 

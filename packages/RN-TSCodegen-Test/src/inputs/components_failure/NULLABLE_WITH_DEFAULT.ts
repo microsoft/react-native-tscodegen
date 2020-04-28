@@ -8,14 +8,15 @@ import {Float} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/react-native';
 
 export type ModuleProps = Readonly<ViewProps & {
   nullable_with_default: (ReactNull | WithDefault<Float, 1.0>);
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
 

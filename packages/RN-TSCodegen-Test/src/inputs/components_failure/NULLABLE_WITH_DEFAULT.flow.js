@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -18,7 +18,7 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {WithDefault, Float} from 'CodegenTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 export type ModuleProps = $ReadOnly<{|
   ...ViewProps,
@@ -27,4 +27,4 @@ export type ModuleProps = $ReadOnly<{|
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

@@ -6,14 +6,15 @@
 
 import {ColorValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
 
 type NativeProps = Readonly<ViewProps & {
   tintColor?: ColorValue;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('ColorPropNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('ColorPropNativeComponentView') as HostComponent<NativeProps>);
 
 

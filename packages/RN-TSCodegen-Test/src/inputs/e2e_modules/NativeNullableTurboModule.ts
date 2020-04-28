@@ -18,6 +18,6 @@ export interface Spec extends TurboModule {
   getValueWithPromise(): (ReactNull | Promise<string>);
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');
+export default (TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule') as Spec);
 
 

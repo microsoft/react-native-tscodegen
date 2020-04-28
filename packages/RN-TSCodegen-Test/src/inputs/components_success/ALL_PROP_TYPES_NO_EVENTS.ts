@@ -15,14 +15,17 @@ import {ColorValue} from 'react-native-tscodegen-types';
 import {ColorArrayValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/react-native';
 
 type ModuleProps = Readonly<ViewProps & {
   boolean_required: boolean;
   boolean_optional_key?: WithDefault<boolean, true>;
   boolean_optional_both?: WithDefault<boolean, true>;
+  boolean_null_optional_key?: WithDefault<boolean, null>;
+  boolean_null_optional_both?: WithDefault<boolean, null>;
   string_required: string;
   string_optional_key?: WithDefault<string, ''>;
   string_optional_both?: WithDefault<string, ''>;
@@ -39,11 +42,14 @@ type ModuleProps = Readonly<ViewProps & {
   float_required: Float;
   float_optional_key?: WithDefault<Float, 1.1>;
   float_optional_both?: WithDefault<Float, 1.1>;
+  float_null_optional_key?: WithDefault<Float, null>;
+  float_null_optional_both?: WithDefault<Float, null>;
   int32_required: Int32;
   int32_optional_key?: WithDefault<Int32, 1>;
   int32_optional_both?: WithDefault<Int32, 1>;
   enum_optional_key?: WithDefault<'small' | 'large', 'small'>;
   enum_optional_both?: WithDefault<'small' | 'large', 'small'>;
+  int_enum_optional_key?: WithDefault<0 | 1, 0>;
   object_optional_key?: Readonly<{
     prop: string;
   }>;
@@ -68,8 +74,12 @@ type ModuleProps = Readonly<ViewProps & {
   point_optional_key?: PointValue;
   point_optional_value: (ReactNull | PointValue);
   point_optional_both?: (ReactNull | PointValue);
+  insets_required: EdgeInsetsValue;
+  insets_optional_key?: EdgeInsetsValue;
+  insets_optional_value: (ReactNull | EdgeInsetsValue);
+  insets_optional_both?: (ReactNull | EdgeInsetsValue);
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
 

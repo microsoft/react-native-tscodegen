@@ -15,6 +15,8 @@ import {ViewProps} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
+
 type ObjectArrayPropType = Readonly<{
   array: ReadonlyArray<string>;
 }>;
@@ -26,6 +28,7 @@ type NativeProps = Readonly<ViewProps & {
     floatProp: Float;
     intProp: Int32;
     stringEnumProp?: WithDefault<'small' | 'large', 'small'>;
+    intEnumProp?: WithDefault<0 | 1, 0>;
   }>;
   objectArrayProp: ObjectArrayPropType;
   objectPrimitiveRequiredProp: Readonly<{
@@ -35,6 +38,6 @@ type NativeProps = Readonly<ViewProps & {
   }>;
 }>;
 
-export default codegenNativeComponent<NativeProps>('ObjectPropsNativeComponent');
+export default (codegenNativeComponent<NativeProps>('ObjectPropsNativeComponent') as HostComponent<NativeProps>);
 
 

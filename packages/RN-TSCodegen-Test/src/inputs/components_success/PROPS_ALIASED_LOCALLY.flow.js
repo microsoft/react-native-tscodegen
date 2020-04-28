@@ -9,19 +9,19 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
 
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 const codegenNativeComponent = require('codegenNativeComponent');
 
 type DeepSpread = $ReadOnly<{|
   otherStringProp: string,
-|}>
+|}>;
 
 export type PropsInFile = $ReadOnly<{|
   ...DeepSpread,
@@ -32,15 +32,15 @@ export type PropsInFile = $ReadOnly<{|
 export type ModuleProps = $ReadOnly<{|
   ...ViewProps,
 
-  ...PropsInFile
+  ...PropsInFile,
 
   localType: $ReadOnly<{|
     ...PropsInFile
-  |}>
+  |}>,
 
   localArr: $ReadOnlyArray<PropsInFile>
 |}>;
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

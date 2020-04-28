@@ -1,1 +1,1 @@
-{"error": "The first argument of method hotspotUpdate must be of type React.Ref<>"}
+{"error": "The first argument of method hotspotUpdate must be of type React.ElementRef<>"}

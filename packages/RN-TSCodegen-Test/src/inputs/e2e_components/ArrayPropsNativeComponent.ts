@@ -11,9 +11,10 @@ import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
 
 type NativeProps = Readonly<ViewProps & {
   names?: ReadonlyArray<string>;
@@ -23,12 +24,13 @@ type NativeProps = Readonly<ViewProps & {
   colors?: ReadonlyArray<ColorValue>;
   srcs?: ReadonlyArray<ImageSource>;
   points?: ReadonlyArray<PointValue>;
+  edgeInsets?: ReadonlyArray<EdgeInsetsValue>;
   sizes?: WithDefault<ReadonlyArray<'small' | 'large'>, 'small'>;
   object?: ReadonlyArray<Readonly<{
     prop: string;
   }>>;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('ArrayPropsNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('ArrayPropsNativeComponentView') as HostComponent<NativeProps>);
 
 

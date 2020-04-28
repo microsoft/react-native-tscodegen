@@ -9,12 +9,12 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
 
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {
@@ -68,19 +68,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -90,7 +90,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -131,19 +131,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -153,7 +153,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -194,19 +194,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -216,7 +216,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -257,19 +257,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -279,7 +279,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -320,19 +320,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -342,7 +342,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
       'paperDirectEventDefinedInlineWithPaperName',
@@ -384,19 +384,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -406,7 +406,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -447,19 +447,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -469,7 +469,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -510,19 +510,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -532,7 +532,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -573,19 +573,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -595,7 +595,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
     >,
@@ -636,19 +636,19 @@ type ModuleProps = $ReadOnly<{|
 
   object_required: {
     boolean_required: boolean,
-  }
+  },
 
   object_optional_key?: {
     string_optional_key?: string,
-  }
+  },
 
   object_optional_value: ?{
     float_optional_value: ?Float,
-  }
+  },
 
   object_optional_both?: ?{
     int32_optional_both?: ?Int32,
-  }
+  },
 
   object_required_nested_2_layers: {
     object_optional_nested_1_layer?: ?{
@@ -658,7 +658,7 @@ type ModuleProps = $ReadOnly<{|
       float_optional_value: ?Float,
       int32_optional_both?: ?Int32,
     }
-  }
+  },
 
       |}>,
       'paperBubblingEventDefinedInlineWithPaperName'
@@ -667,4 +667,4 @@ type ModuleProps = $ReadOnly<{|
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

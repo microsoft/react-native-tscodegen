@@ -13,9 +13,10 @@ import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
+
+import {HostComponent} from '../../lib/react-native';
 
 type ModuleProps = Readonly<ViewProps & {
   boolean_required: Readonly<{
@@ -87,6 +88,18 @@ type ModuleProps = Readonly<ViewProps & {
   point_optional_both: Readonly<{
     prop?: (ReactNull | PointValue);
   }>;
+  insets_required: Readonly<{
+    prop: EdgeInsetsValue;
+  }>;
+  insets_optional_key: Readonly<{
+    prop?: EdgeInsetsValue;
+  }>;
+  insets_optional_value: Readonly<{
+    prop: (ReactNull | EdgeInsetsValue);
+  }>;
+  insets_optional_both: Readonly<{
+    prop?: (ReactNull | EdgeInsetsValue);
+  }>;
   object_required: Readonly<{
     prop: Readonly<{
       nestedProp: string;
@@ -109,6 +122,6 @@ type ModuleProps = Readonly<ViewProps & {
   }>);
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
 

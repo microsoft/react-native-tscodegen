@@ -8,12 +8,13 @@ import {BubblingEventHandler} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
+
 type NativeProps = Readonly<ViewProps & {
-  accessibilityHint?: WithDefault<string, ''>;
+  title?: WithDefault<string, ''>;
   onChange?: (ReactNull | BubblingEventHandler<Readonly<{
     value: boolean;
   }>>);
@@ -22,6 +23,6 @@ type NativeProps = Readonly<ViewProps & {
 export default (codegenNativeComponent<NativeProps>('InterfaceOnlyNativeComponentView', {
   interfaceOnly: true,
   paperComponentName: 'RCTInterfaceOnlyComponent'
-}) as NativeComponentType<NativeProps>);
+}) as HostComponent<NativeProps>);
 
 

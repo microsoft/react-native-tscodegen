@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -19,12 +19,20 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32, Double, Float} from 'CodegenTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
+
+
+export type ModuleProps = $ReadOnly<{|
+  ...ViewProps,
+  // No props or events
+|}>;
+
+type NativeType = HostComponent<ModuleProps>;
 
 interface NativeCommands {
-  +hotspotUpdate: (viewRef: React.Ref<'RCTView'>, x: Int32, y: Int32) => void;
+  +hotspotUpdate: (viewRef: React.ElementRef<NativeType>, x: Int32, y: Int32) => void;
   +scrollTo: (
-    viewRef: React.Ref<'RCTView'>,
+    viewRef: React.ElementRef<NativeType>,
     x: Float,
     y: Int32,
     z: Double,
@@ -32,15 +40,10 @@ interface NativeCommands {
   ) => void;
 }
 
-export type ModuleProps = $ReadOnly<{|
-  ...ViewProps,
-  // No props or events
-|}>;
-
 export const Commands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['hotspotUpdate', 'scrollTo'],
 });
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): NativeType);

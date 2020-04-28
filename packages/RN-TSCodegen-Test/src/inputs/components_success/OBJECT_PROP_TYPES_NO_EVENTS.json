@@ -415,6 +415,74 @@
               }
             },
             {
+              "name": "insets_required",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "name": "EdgeInsetsPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "name": "EdgeInsetsPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "name": "EdgeInsetsPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "name": "EdgeInsetsPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
               "name": "object_required",
               "optional": false,
               "typeAnnotation": {

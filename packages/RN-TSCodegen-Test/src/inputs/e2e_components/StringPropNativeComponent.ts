@@ -6,15 +6,16 @@
 
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
+import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
+
 type NativeProps = Readonly<ViewProps & {
-  accessibilityHint?: WithDefault<string, ''>;
-  accessibilityRole?: string;
+  placeholder?: WithDefault<string, ''>;
+  defaultValue?: string;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('StringPropNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('StringPropNativeComponentView') as HostComponent<NativeProps>);
 
 
