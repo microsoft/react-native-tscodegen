@@ -501,6 +501,8 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
       ),
       seq(
         opt_sc(alt(str(';'), str(','))),
+        opt_sc(str('...')), // ... at the end of an object type
+        opt_sc(str(',')), // extra "," after ...
         opt_sc(str('|')),
         str('}')
       )
@@ -575,7 +577,7 @@ TYPE_TERM.setPattern(
       apply(
         kmid(
           seq(str('$ReadOnlyArray'), str('<')),
-          TYPE,
+          kleft(TYPE, opt_sc(str(','))), // demo issue: $ReadOnlyArray<T,>
           str('>')
         ),
         applyReadonlyArrayType
@@ -584,7 +586,7 @@ TYPE_TERM.setPattern(
       apply(
         kmid(
           seq(str('$ReadOnly'), str('<')),
-          opt_sc(TYPE), // demo issue: $ReadOnly<>
+          opt_sc(kleft(TYPE, opt_sc(str(',')))), // demo issue: $ReadOnly<>, $ReadOnly<T,>
           str('>')
         ),
         applyDecoratedGenericType
