@@ -47,6 +47,10 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       type: 'NativePrimitiveTypeAnnotation',
       name: 'PointPrimitive'
     }];
+    case 'rn:EdgeInsetsPrimitive': return [rawType.isNullable, {
+      type: 'NativePrimitiveTypeAnnotation',
+      name: 'EdgeInsetsPrimitive'
+    }];
     case 'Object': return [rawType.isNullable, {
       type: 'ObjectTypeAnnotation',
       properties: rawType.properties.map((value: { name: string; propertyType: RNRawType }) => {
@@ -107,6 +111,13 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
           elementType: {
             type: 'NativePrimitiveTypeAnnotation',
             name: 'PointPrimitive'
+          }
+        }];
+        case 'rn:EdgeInsetsPrimitive': return [rawType.isNullable, {
+          type: 'ArrayTypeAnnotation',
+          elementType: {
+            type: 'NativePrimitiveTypeAnnotation',
+            name: 'EdgeInsetsPrimitive'
           }
         }];
         case 'Object': return [rawType.isNullable, {

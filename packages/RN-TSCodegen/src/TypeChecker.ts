@@ -105,7 +105,7 @@ export type RNRawType = (
     } | {
         kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
     } | {
-        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive';
+        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive';
     } | {
         kind: 'Array';
         elementType: RNRawType;
@@ -336,6 +336,8 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         } else if (elementType.symbol !== undefined) {
             if (elementType.symbol.name === 'PointValue') {
                 itemOthers.push({ kind: 'rn:PointPrimitive', isNullable: false });
+            } else if (elementType.symbol.name === 'EdgeInsetsValue') {
+                itemOthers.push({ kind: 'rn:EdgeInsetsPrimitive', isNullable: false });
             } else if (elementType.symbol.name === 'Object') {
                 itemOthers.push({ kind: 'js:Object', isNullable: false });
             } else if (elementType.symbol.name === 'Promise') {
