@@ -139,6 +139,28 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
             })
           }
         }];
+        case 'Array': {
+          switch (rawType.elementType.elementType.kind) {
+            case 'Object': return [rawType.isNullable, {
+              type: 'ArrayTypeAnnotation',
+              elementType: {
+                type: 'ArrayTypeAnnotation',
+                elementType: {
+                  type: 'ObjectTypeAnnotation',
+                  properties: rawType.elementType.elementType.properties.map((value: { name: string; propertyType: RNRawType }) => {
+                    const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
+                    return {
+                      name: value.name,
+                      optional,
+                      typeAnnotation
+                    };
+                  })
+                }
+              }
+            }];
+            default:
+          }
+        }
         default:
       }
       break;
