@@ -12,7 +12,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
   switch (rawType.kind) {
     case 'Boolean': return [rawType.isNullable, {
       type: 'BooleanTypeAnnotation',
-      default: (rawType.defaultValue === undefined ? false : rawType.defaultValue === true)
+      default: (rawType.defaultValue === undefined ? (rawType.isNullable ? null : false) : rawType.defaultValue === true)
     }];
     case 'String': return [rawType.isNullable, {
       type: 'StringTypeAnnotation',
@@ -20,7 +20,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
     }];
     case 'Float': return [rawType.isNullable, {
       type: 'FloatTypeAnnotation',
-      default: (rawType.defaultValue === undefined ? 0 : +rawType.defaultValue)
+      default: (rawType.defaultValue === undefined ? (rawType.isNullable ? null : 0) : +rawType.defaultValue)
     }];
     case 'Double': return [rawType.isNullable, {
       type: 'DoubleTypeAnnotation',
@@ -79,7 +79,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
         }];
         case 'Float': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
-          elementType: { type: 'FloatTypeAnnotation', default: 0 }
+          elementType: { type: 'FloatTypeAnnotation' }
         }];
         case 'Double': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
