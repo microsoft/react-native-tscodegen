@@ -37,6 +37,22 @@
               }
             },
             {
+              "name": "boolean_null_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "default": null,
+                "type": "BooleanTypeAnnotation"
+              }
+            },
+            {
+              "name": "boolean_null_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "default": null,
+                "type": "BooleanTypeAnnotation"
+              }
+            },
+            {
               "name": "string_required",
               "optional": false,
               "typeAnnotation": {
@@ -165,6 +181,22 @@
               }
             },
             {
+              "name": "float_null_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "default": null,
+                "type": "FloatTypeAnnotation"
+              }
+            },
+            {
+              "name": "float_null_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "default": null,
+                "type": "FloatTypeAnnotation"
+              }
+            },
+            {
               "name": "int32_required",
               "optional": false,
               "typeAnnotation": {
@@ -218,6 +250,22 @@
                   }
                 ],
                 "type": "StringEnumTypeAnnotation"
+              }
+            },
+            {
+              "name": "int_enum_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "default": 0,
+                "options": [
+                  {
+                    "value": 0
+                  },
+                  {
+                    "value": 1
+                  }
+                ],
+                "type": "Int32EnumTypeAnnotation"
               }
             },
             {
@@ -400,6 +448,38 @@
               "optional": true,
               "typeAnnotation": {
                 "name": "PointPrimitive",
+                "type": "NativePrimitiveTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_required",
+              "optional": false,
+              "typeAnnotation": {
+                "name": "EdgeInsetsPrimitive",
+                "type": "NativePrimitiveTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "name": "EdgeInsetsPrimitive",
+                "type": "NativePrimitiveTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "name": "EdgeInsetsPrimitive",
+                "type": "NativePrimitiveTypeAnnotation"
+              }
+            },
+            {
+              "name": "insets_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "name": "EdgeInsetsPrimitive",
                 "type": "NativePrimitiveTypeAnnotation"
               }
             }

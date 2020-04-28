@@ -72,7 +72,9 @@ export function fixTestCase(program: flow.FlowProgram): void {
                     value.source.indexOf(`codegenNativeCommands'`) !== -1 ||
                     value.source.indexOf(`ImageSource'`) !== -1 ||
                     value.source.indexOf(`StyleSheetTypes'`) !== -1 ||
-                    value.source.indexOf(`ViewPropTypes'`) !== -1
+                    value.source.indexOf(`ViewPropTypes'`) !== -1 ||
+                    value.source.indexOf(`react-native'`) !== -1 ||
+                    value.source.indexOf(`ReactNativeTypes'`) !== -1
                 ) {
                     return false;
                 } else {

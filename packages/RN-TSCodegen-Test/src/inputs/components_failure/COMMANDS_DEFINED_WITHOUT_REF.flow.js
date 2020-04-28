@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -19,7 +19,7 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32} from 'CodegenTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 interface NativeCommands {
   +hotspotUpdate: (x: Int32, y: Int32) => void;
@@ -36,4 +36,4 @@ export const Commands = codegenNativeCommands<NativeCommands>({
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

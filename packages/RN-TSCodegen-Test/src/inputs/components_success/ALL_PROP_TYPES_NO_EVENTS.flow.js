@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -18,9 +18,9 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32, Double, Float, WithDefault} from 'CodegenTypes';
 import type {ImageSource} from 'ImageSource';
-import type {ColorValue, ColorArrayValue, PointValue} from 'StyleSheetTypes';
+import type {ColorValue, ColorArrayValue, PointValue, EdgeInsetsValue} from 'StyleSheetTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 type ModuleProps = $ReadOnly<{|
   ...ViewProps,
@@ -30,6 +30,10 @@ type ModuleProps = $ReadOnly<{|
   boolean_required: boolean,
   boolean_optional_key?: WithDefault<boolean, true>,
   boolean_optional_both?: WithDefault<boolean, true>,
+
+  // Boolean props, null default
+  boolean_null_optional_key?: WithDefault<boolean, null>,
+  boolean_null_optional_both?: WithDefault<boolean, null>,
 
   // String props
   string_required: string,
@@ -59,6 +63,10 @@ type ModuleProps = $ReadOnly<{|
   float_optional_key?: WithDefault<Float, 1.1>,
   float_optional_both?: WithDefault<Float, 1.1>,
 
+  // Float props, null default
+  float_null_optional_key?: WithDefault<Float, null>,
+  float_null_optional_both?: WithDefault<Float, null>,
+
   // Int32 props
   int32_required: Int32,
   int32_optional_key?: WithDefault<Int32, 1>,
@@ -67,6 +75,9 @@ type ModuleProps = $ReadOnly<{|
   // String enum props
   enum_optional_key?: WithDefault<'small' | 'large', 'small'>,
   enum_optional_both?: WithDefault<'small' | 'large', 'small'>,
+
+  // Int enum props
+  int_enum_optional_key?: WithDefault<0 | 1, 0>,
 
   // Object props
   object_optional_key?: $ReadOnly<{| prop: string |}>,
@@ -95,8 +106,14 @@ type ModuleProps = $ReadOnly<{|
   point_optional_key?: PointValue,
   point_optional_value: ?PointValue,
   point_optional_both?: ?PointValue,
+
+  // EdgeInsets props
+  insets_required: EdgeInsetsValue,
+  insets_optional_key?: EdgeInsetsValue,
+  insets_optional_value: ?EdgeInsetsValue,
+  insets_optional_both?: ?EdgeInsetsValue,
 |}>;
 
 export default (codegenNativeComponent<ModuleProps, Options>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

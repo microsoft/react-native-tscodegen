@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -18,9 +18,9 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32, Double, Float, WithDefault} from 'CodegenTypes';
 import type {ImageSource} from 'ImageSource';
-import type {ColorValue, PointValue} from 'StyleSheetTypes';
+import type {ColorValue, PointValue, EdgeInsetsValue} from 'StyleSheetTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 type ModuleProps = $ReadOnly<{|
   ...ViewProps,
@@ -69,6 +69,12 @@ type ModuleProps = $ReadOnly<{|
   point_optional_value: $ReadOnly<{|prop: ?PointValue|}>,
   point_optional_both: $ReadOnly<{|prop?: ?PointValue|}>,
 
+  // EdgeInsetsValue props
+  insets_required: $ReadOnly<{|prop: EdgeInsetsValue|}>,
+  insets_optional_key: $ReadOnly<{|prop?: EdgeInsetsValue|}>,
+  insets_optional_value: $ReadOnly<{|prop: ?EdgeInsetsValue|}>,
+  insets_optional_both: $ReadOnly<{|prop?: ?EdgeInsetsValue|}>,
+
   // Nested object props
   object_required: $ReadOnly<{|prop: $ReadOnly<{nestedProp: string}>|}>,
   object_optional_key?: $ReadOnly<{|prop: $ReadOnly<{nestedProp: string}>|}>,
@@ -78,4 +84,4 @@ type ModuleProps = $ReadOnly<{|
 
 export default (codegenNativeComponent<ModuleProps>(
   'Module',
-): NativeComponent<ModuleProps>);
+): HostComponent<ModuleProps>);

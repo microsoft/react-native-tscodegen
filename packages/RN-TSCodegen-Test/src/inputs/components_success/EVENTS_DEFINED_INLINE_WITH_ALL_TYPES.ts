@@ -11,7 +11,7 @@ import {Double} from 'react-native-tscodegen-types';
 import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
@@ -488,6 +488,6 @@ type ModuleProps = Readonly<ViewProps & {
   }>, 'paperBubblingEventDefinedInlineWithPaperName'>);
 }>;
 
-export default (codegenNativeComponent<ModuleProps>('Module') as NativeComponent<ModuleProps>);
+export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
 

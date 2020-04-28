@@ -21,12 +21,14 @@ const importMaps = {
   ColorValue: `import {ColorValue} from 'react-native-tscodegen-types';`,
   ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
   PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,
+  EdgeInsetsValue: `import {EdgeInsetsValue} from 'react-native-tscodegen-types';`,
 
   React: `import {React} from 'react-native-tscodegen-types';`,
   ViewProps: `import {ViewProps} from 'react-native-tscodegen-types';`,
 
   NativeComponent: `import {NativeComponent} from 'react-native-tscodegen-types';`,
   NativeComponentType: `import {NativeComponentType} from 'react-native-tscodegen-types';`,
+  HostComponent: `import {HostComponent} from 'react-native-tscodegen-types';`,
   codegenNativeComponent: `import {codegenNativeComponent} from 'react-native-tscodegen-types';`,
   codegenNativeCommands: `import {codegenNativeCommands} from 'react-native-tscodegen-types';`,
   TurboModule: `import {TurboModule} from 'react-native-tscodegen-types'`,

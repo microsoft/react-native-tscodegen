@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -19,7 +19,7 @@ import type {
   DirectEventHandler,
 } from 'CodegenTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 const codegenNativeComponent = require('codegenNativeComponent');
 
@@ -99,7 +99,7 @@ export type ModuleProps = $ReadOnly<{|
   onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>,
 |}>;
 
-type NativeType = NativeComponent<ModuleProps>;
+type NativeType = HostComponent<ModuleProps>;
 
 export type ScrollTo = (viewRef: React.ElementRef<NativeType>, y: Int, animated: Boolean) => Void;
 

@@ -12,7 +12,7 @@ import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
@@ -27,6 +27,7 @@ type NativeProps = Readonly<ViewProps & {
     floatProp: Float;
     intProp: Int32;
     stringEnumProp?: WithDefault<'small' | 'large', 'small'>;
+    intEnumProp?: WithDefault<0 | 1, 0>;
   }>;
   objectArrayProp: ObjectArrayPropType;
   objectPrimitiveRequiredProp: Readonly<{
@@ -36,6 +37,6 @@ type NativeProps = Readonly<ViewProps & {
   }>;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('ObjectPropsNativeComponent') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('ObjectPropsNativeComponent') as HostComponent<NativeProps>);
 
 

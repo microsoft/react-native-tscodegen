@@ -11,7 +11,7 @@ import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
@@ -42,6 +42,6 @@ type NativeProps = Readonly<ViewProps & {
   onEventBubblingWithPaperName?: (ReactNull | BubblingEventHandler<null, 'paperBubblingName'>);
 }>;
 
-export default (codegenNativeComponent<NativeProps>('EventPropsNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('EventPropsNativeComponentView') as HostComponent<NativeProps>);
 
 

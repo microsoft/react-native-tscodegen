@@ -447,6 +447,7 @@ function applyProgram(value: ast.Statement[]): ast.FlowProgram {
  ****************************************************************/
 
 export const IDENTIFIER = rule<TokenKind, Token>();
+export const TYPE_FUNCTION = rule<TokenKind, ast.Type>();
 export const TYPE_TERM = rule<TokenKind, ast.Type>();
 export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
@@ -457,6 +458,8 @@ export const STAT = rule<TokenKind, ast.Statement>();
 export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
 
 function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
+  // syntax: {...}
+  // syntax: {|...|}
   return apply(
     kmid(
       str('{'),
@@ -464,16 +467,22 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
         opt_sc(str('|')),
         opt_sc(list_sc(
           alt(
+            // syntax: ...TYPE
             kright(str('...'), TYPE),
+            // syntax: [+]NAME:TYPE
+            // syntax: [+]NAME(params)=>return
             apply(
               seq(
                 opt_sc(str('+')),
                 IDENTIFIER,
                 opt_sc(str('?')),
-                kright(str(':'), TYPE)
+                alt(kright(str(':'), TYPE), TYPE_FUNCTION)
               ),
               applyObjectTypeProp
             ),
+
+            // syntax: [NAME:TYPE]:TYPE
+            // syntax: +[NAME:TYPE]:TYPE
             apply(
               seq(
                 kleft(opt_sc(str('+')), str('[')),
@@ -487,11 +496,13 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
               applyObjectIndexer
             )
           ),
-          alt(str(';'), str(','))
+          opt_sc(alt(str(';'), str(','))) // demo issue: missing delimiter between members
         ))
       ),
       seq(
         opt_sc(alt(str(';'), str(','))),
+        opt_sc(str('...')), // ... at the end of an object type
+        opt_sc(str(',')), // extra "," after ...
         opt_sc(str('|')),
         str('}')
       )
@@ -507,65 +518,80 @@ IDENTIFIER.setPattern(
   )
 );
 
+TYPE_FUNCTION.setPattern(
+  // syntax: (a:TYPE, TYPE)=>TYPE
+  apply(
+    seq(
+      kright(
+        str('('),
+        opt_sc(
+          kleft(
+            list_sc(
+              seq(
+                opt_sc(kleft(tok(TokenKind.Identifier), str(':'))),
+                TYPE
+              ),
+              alt(str(';'), str(','))
+            ),
+            opt_sc(alt(str(';'), str(',')))
+          )
+        )
+      ),
+      kright(
+        seq(
+          str(')'),
+          str('='),
+          str('>')
+        ),
+        TYPE
+      )
+    ),
+    applyFunctionType
+  )
+);
+
 TYPE_TERM.setPattern(
   alt(
     alt(
+      // syntax: void
       apply(str('void'), applyVoid),
+      // syntax: number
       apply(str('number'), applyNumber),
+      // syntax: string
       apply(str('string'), applyString),
+      // syntax: boolean
       apply(str('boolean'), applyBoolean),
+      // syntax: 'STRING' 123 true false undefined null
       apply(
         alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), str('true'), str('false'), str('undefined'), str('null')),
         applyLiteralType
       ),
+      // syntax: ?TYPE
       apply(kright(str('?'), TYPE), applyOptionalType),
-      apply(
-        seq(
-          kright(
-            str('('),
-            opt_sc(
-              kleft(
-                list_sc(
-                  seq(
-                    opt_sc(kleft(tok(TokenKind.Identifier), str(':'))),
-                    TYPE
-                  ),
-                  alt(str(';'), str(','))
-                ),
-                opt_sc(alt(str(';'), str(',')))
-              )
-            )
-          ),
-          kright(
-            seq(
-              str(')'),
-              str('='),
-              str('>')
-            ),
-            TYPE
-          )
-        ),
-        applyFunctionType
-      ),
-      apply(kmid(str('('), TYPE, str(')')), applyParenType)
+      // syntax: (TYPE)
+      apply(kmid(str('('), TYPE, str(')')), applyParenType),
+      TYPE_FUNCTION
     ),
     alt(
+      // syntax: $ReadOnlyArray<TYPE>
       apply(
         kmid(
           seq(str('$ReadOnlyArray'), str('<')),
-          TYPE,
+          kleft(TYPE, opt_sc(str(','))), // demo issue: $ReadOnlyArray<T,>
           str('>')
         ),
         applyReadonlyArrayType
       ),
+      // syntax: $ReadOnly<TYPE>
       apply(
         kmid(
           seq(str('$ReadOnly'), str('<')),
-          opt_sc(/* test case bug */TYPE),
+          opt_sc(kleft(TYPE, opt_sc(str(',')))), // demo issue: $ReadOnly<>, $ReadOnly<T,>
           str('>')
         ),
         applyDecoratedGenericType
       ),
+      // syntax: A[.B ...][<TYPE, ...>]
       apply(
         seq(
           list_sc(IDENTIFIER, str('.')),
@@ -580,6 +606,7 @@ TYPE_TERM.setPattern(
         applyTypeReference
       )
     ),
+    // syntax: [TYPE, ...]
     apply(
       kmid(
         str('['),
@@ -593,6 +620,7 @@ TYPE_TERM.setPattern(
 );
 
 TYPE_ARRAY.setPattern(
+  // syntax: TYPE[]
   lrec_sc(
     TYPE_TERM,
     apply(seq(str('['), str(']')), applyArrayTypeLrec),
@@ -601,6 +629,8 @@ TYPE_ARRAY.setPattern(
 );
 
 TYPE.setPattern(
+  // syntax: A|B|C
+  // syntax: |A|B|C
   lrec_sc(
     apply(kright(opt_sc(str('|')), TYPE_ARRAY), applyUnionHead),
     apply(kright(str('|'), TYPE_ARRAY), applyUnionTypeLrec),
@@ -610,9 +640,11 @@ TYPE.setPattern(
 
 EXPR_TERM.setPattern(
   alt(
+    // syntax: 'STRING' 123 true false undefined null
     apply(
       alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral), str('true'), str('false'), str('undefined'), str('null')),
       applyLiteralExpr),
+    // syntax: A[.B ...][<TYPE, ...>]
     apply(
       seq(
         list_sc(IDENTIFIER, str('.')),
@@ -620,6 +652,7 @@ EXPR_TERM.setPattern(
       ),
       applyExprReference
     ),
+    // syntax: {NAME:EXPR, ...}
     apply(
       kmid(
         str('{'),
@@ -631,6 +664,7 @@ EXPR_TERM.setPattern(
       ),
       applyObjectLiteralExpr
     ),
+    // syntax: [EXPR, ...]
     apply(
       kmid(
         str('['),
@@ -639,11 +673,14 @@ EXPR_TERM.setPattern(
       ),
       applyArrayLiteralExpr
     ),
+    // syntax: (EXPR)
     apply(kmid(str('('), EXPR, str(')')), applyParenExpr)
   )
 );
 
 EXPR.setPattern(
+  // syntax: EXPR:TYPE
+  // syntax: EXPR(EXPR, ...)
   lrec_sc(
     EXPR_TERM,
     alt(
@@ -668,6 +705,7 @@ EXPR.setPattern(
 
 DECL.setPattern(
   alt(
+    // syntax: [export] type NAME = TYPE;
     apply(
       seq(
         kleft(
@@ -678,11 +716,12 @@ DECL.setPattern(
         kmid(
           str('='),
           TYPE,
-          str(';')
+          opt_sc(str(';')) // demo issue: missing ';' after type
         )
       ),
       applyTypeAliasDecl
     ),
+    // export interface NAME [extends TYPE, ...] {...};
     apply(
       seq(
         kleft(
@@ -703,8 +742,10 @@ DECL.setPattern(
 STAT.setPattern(
   alt(
     DECL,
+    // syntax: use strict;
     apply(seq(str(`'use strict'`), str(';')), applyUseStrictStat),
     alt(
+      // syntax: const NAME = require('PATH');
       apply(
         seq(
           kright(
@@ -726,6 +767,7 @@ STAT.setPattern(
         ),
         applyImportEqualStat
       ),
+      // syntax: import * as NAME from 'PATH';
       apply(
         seq(
           kright(
@@ -744,6 +786,7 @@ STAT.setPattern(
         ),
         applyImportAsStat
       ),
+      // syntax: import NAME from 'PATH';
       apply(
         seq(
           kright(
@@ -758,6 +801,7 @@ STAT.setPattern(
         ),
         applyImportSingleStat
       ),
+      // syntax: import [type] {[type] NAME, ...} from 'PATH';
       apply(
         seq(
           kright(
@@ -783,6 +827,7 @@ STAT.setPattern(
         ),
         applyImportNameStat)
     ),
+    // syntax: export const NAME = EXPR;
     apply(
       seq(
         kright(seq(str('export'), str('const')), tok(TokenKind.Identifier)),
@@ -790,6 +835,7 @@ STAT.setPattern(
       ),
       applyExportEqualStat
     ),
+    // syntax: export default EXPR;
     apply(
       kmid(
         seq(str('export'), str('default')),

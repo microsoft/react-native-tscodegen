@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
 'use strict';
@@ -19,7 +19,7 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32} from 'CodegenTypes';
 import type {ViewProps} from 'ViewPropTypes';
-import type {NativeComponent} from 'codegenNativeComponent';
+import type {HostComponent} from 'react-native';
 
 export type Boolean = boolean;
 export type Int = Int32;
@@ -30,7 +30,7 @@ export type ModuleProps = $ReadOnly<{|
   // No props or events
 |}>;
 
-type NativeType = NativeComponent<ModuleProps>;
+type NativeType = HostComponent<ModuleProps>;
 
 export type ScrollTo = (
   viewRef: React.ElementRef<NativeType>,

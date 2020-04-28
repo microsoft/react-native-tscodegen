@@ -9,7 +9,7 @@ import {Double} from 'react-native-tscodegen-types';
 import {Int32} from 'react-native-tscodegen-types';
 import {React} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeCommands} from 'react-native-tscodegen-types';
 'use strict';
@@ -17,7 +17,7 @@ import {codegenNativeCommands} from 'react-native-tscodegen-types';
 export type ModuleProps = Readonly<ViewProps & {
 }>;
 
-type NativeType = NativeComponent<ModuleProps>;
+type NativeType = HostComponent<ModuleProps>;
 
 interface NativeCommands {
   hotspotUpdate(viewRef: React.ElementRef<NativeType>, x: Int32, y: Int32): void;

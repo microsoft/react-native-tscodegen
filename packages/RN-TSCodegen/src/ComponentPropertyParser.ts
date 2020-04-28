@@ -6,13 +6,32 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawType, typeToRNRawType } from './TypeChecker';
+import { RNRawObjectType, RNRawType, RNRawTypeCommon, typeToRNRawType } from './TypeChecker';
+
+interface ObjectTypeAnnotation {
+  type: 'ObjectTypeAnnotation';
+  properties: ReadonlyArray<cs.PropTypeShape>;
+}
+
+function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): ObjectTypeAnnotation {
+  return {
+    type: 'ObjectTypeAnnotation',
+    properties: rawType.properties.map((value: { name: string; propertyType: RNRawType }) => {
+      const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
+      return {
+        name: value.name,
+        optional,
+        typeAnnotation
+      };
+    })
+  };
+}
 
 function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): [boolean, cs.PropTypeTypeAnnotation] {
   switch (rawType.kind) {
     case 'Boolean': return [rawType.isNullable, {
       type: 'BooleanTypeAnnotation',
-      default: (rawType.defaultValue === undefined ? false : rawType.defaultValue === true)
+      default: (rawType.defaultValue === undefined ? (rawType.isNullable ? null : false) : rawType.defaultValue === true)
     }];
     case 'String': return [rawType.isNullable, {
       type: 'StringTypeAnnotation',
@@ -20,7 +39,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
     }];
     case 'Float': return [rawType.isNullable, {
       type: 'FloatTypeAnnotation',
-      default: (rawType.defaultValue === undefined ? 0 : +rawType.defaultValue)
+      default: (rawType.defaultValue === undefined ? (rawType.isNullable ? null : 0) : +rawType.defaultValue)
     }];
     case 'Double': return [rawType.isNullable, {
       type: 'DoubleTypeAnnotation',
@@ -35,6 +54,11 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       options: rawType.values.map((name: string) => { return { name }; }),
       default: (rawType.defaultValue === undefined ? rawType.values[0] : `${rawType.defaultValue}`)
     }];
+    case 'NumberLiterals': return [rawType.isNullable, {
+      type: 'Int32EnumTypeAnnotation',
+      options: rawType.values.map((value: number) => { return { value }; }),
+      default: (rawType.defaultValue === undefined ? rawType.values[0] : +`${rawType.defaultValue}`)
+    }];
     case 'rn:ColorPrimitive': return [rawType.isNullable, {
       type: 'NativePrimitiveTypeAnnotation',
       name: 'ColorPrimitive'
@@ -47,17 +71,11 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       type: 'NativePrimitiveTypeAnnotation',
       name: 'PointPrimitive'
     }];
-    case 'Object': return [rawType.isNullable, {
-      type: 'ObjectTypeAnnotation',
-      properties: rawType.properties.map((value: { name: string; propertyType: RNRawType }) => {
-        const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
-        return {
-          name: value.name,
-          optional,
-          typeAnnotation
-        };
-      })
+    case 'rn:EdgeInsetsPrimitive': return [rawType.isNullable, {
+      type: 'NativePrimitiveTypeAnnotation',
+      name: 'EdgeInsetsPrimitive'
     }];
+    case 'Object': return [rawType.isNullable, rnRawTypeToObjectTypeAnnotation(rawType, typeNode, typeChecker)];
     case 'Array':
       switch (rawType.elementType.kind) {
         case 'Boolean': return [rawType.isNullable, {
@@ -109,20 +127,29 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
             name: 'PointPrimitive'
           }
         }];
-        case 'Object': return [rawType.isNullable, {
+        case 'rn:EdgeInsetsPrimitive': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
           elementType: {
-            type: 'ObjectTypeAnnotation',
-            properties: rawType.elementType.properties.map((value: { name: string; propertyType: RNRawType }) => {
-              const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
-              return {
-                name: value.name,
-                optional,
-                typeAnnotation
-              };
-            })
+            type: 'NativePrimitiveTypeAnnotation',
+            name: 'EdgeInsetsPrimitive'
           }
         }];
+        case 'Object': return [rawType.isNullable, {
+          type: 'ArrayTypeAnnotation',
+          elementType: rnRawTypeToObjectTypeAnnotation(rawType.elementType, typeNode, typeChecker)
+        }];
+        case 'Array': {
+          switch (rawType.elementType.elementType.kind) {
+            case 'Object': return [rawType.isNullable, {
+              type: 'ArrayTypeAnnotation',
+              elementType: {
+                type: 'ArrayTypeAnnotation',
+                elementType: rnRawTypeToObjectTypeAnnotation(rawType.elementType.elementType, typeNode, typeChecker)
+              }
+            }];
+            default:
+          }
+        }
         default:
       }
       break;

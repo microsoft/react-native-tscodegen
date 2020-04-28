@@ -5,7 +5,7 @@
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
@@ -14,6 +14,6 @@ type ModuleProps = Readonly<ViewProps & {
 
 export default (codegenNativeComponent<ModuleProps>('Module', {
   deprecatedViewConfigName: 'DeprecateModuleName'
-}) as NativeComponent<ModuleProps>);
+}) as HostComponent<ModuleProps>);
 
 

@@ -59,6 +59,12 @@ declare module 'react-native-tscodegen-types' {
     x: number;
     y: number;
   }
+  export interface EdgeInsetsValue {
+    top: number;
+    left: number;
+    right: number;
+    bottom: number;
+  }
 
   // \react-native\Libraries\Image\ImageSource.js
 
@@ -91,7 +97,8 @@ declare module 'react-native-tscodegen-types' {
 
   export type NativeComponent<T> = {};
   export type NativeComponentType<T> = {};
-  export function codegenNativeComponent<Props>(componentName: string, options?: Options): NativeComponentType<Props>;
+  export type HostComponent<T> = {};
+  export function codegenNativeComponent<Props>(componentName: string, options?: Options): HostComponent<Props>;
 
   // \react-native\Libraries\Utilities\codegenNativeCommands.js
 

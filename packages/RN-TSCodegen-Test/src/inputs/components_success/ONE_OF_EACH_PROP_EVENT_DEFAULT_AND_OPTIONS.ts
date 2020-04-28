@@ -8,7 +8,7 @@ import {BubblingEventHandler} from 'react-native-tscodegen-types';
 import {DirectEventHandler} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponent} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
@@ -21,6 +21,6 @@ type ModuleProps = Readonly<ViewProps & {
 export default (codegenNativeComponent<ModuleProps>('Module', {
   interfaceOnly: true,
   paperComponentName: 'RCTModule'
-}) as NativeComponent<ModuleProps>);
+}) as HostComponent<ModuleProps>);
 
 

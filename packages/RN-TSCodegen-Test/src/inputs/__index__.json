@@ -28,7 +28,12 @@
       "PROPS_CONFLICT_NAMES",
       "PROPS_CONFLICT_WITH_SPREAD_PROPS",
       "PROPS_SPREAD_CONFLICTS_WITH_PROPS",
-      "PROP_NUMBER_TYPE"
+      "PROP_NUMBER_TYPE",
+      "PROP_MIXED_ENUM",
+      "PROP_ENUM_BOOLEAN",
+      "PROP_ARRAY_MIXED_ENUM",
+      "PROP_ARRAY_ENUM_BOOLEAN",
+      "PROP_ARRAY_ENUM_INT"
     ]
   },
   "modules": {
@@ -65,6 +70,7 @@
       "ArrayPropsNativeComponent",
       "BooleanPropNativeComponent",
       "ColorPropNativeComponent",
+      "EdgeInsetsPropNativeComponent",
       "EnumPropNativeComponent",
       "EventNestedObjectPropsNativeComponent",
       "EventPropsNativeComponent",

@@ -7,7 +7,7 @@
 import {Int32} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
-import {NativeComponentType} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
@@ -17,6 +17,6 @@ type NativeProps = Readonly<ViewProps & {
   progress3?: WithDefault<Int32, 10>;
 }>;
 
-export default (codegenNativeComponent<NativeProps>('IntegerPropNativeComponentView') as NativeComponentType<NativeProps>);
+export default (codegenNativeComponent<NativeProps>('IntegerPropNativeComponentView') as HostComponent<NativeProps>);
 
 

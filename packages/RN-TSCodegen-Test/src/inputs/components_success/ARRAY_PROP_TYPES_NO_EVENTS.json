@@ -383,6 +383,50 @@
               }
             },
             {
+              "name": "array_insets_required",
+              "optional": false,
+              "typeAnnotation": {
+                "elementType": {
+                  "name": "EdgeInsetsPrimitive",
+                  "type": "NativePrimitiveTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
+              "name": "array_insets_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "elementType": {
+                  "name": "EdgeInsetsPrimitive",
+                  "type": "NativePrimitiveTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
+              "name": "array_insets_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "elementType": {
+                  "name": "EdgeInsetsPrimitive",
+                  "type": "NativePrimitiveTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
+              "name": "array_insets_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "elementType": {
+                  "name": "EdgeInsetsPrimitive",
+                  "type": "NativePrimitiveTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
               "name": "array_object_required",
               "optional": false,
               "typeAnnotation": {
@@ -586,6 +630,75 @@
                     }
                   ],
                   "type": "ObjectTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
+              "name": "array_of_array_of_object_required",
+              "optional": false,
+              "typeAnnotation": {
+                "elementType": {
+                  "elementType": {
+                    "properties": [
+                      {
+                        "name": "prop",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "default": null,
+                          "type": "StringTypeAnnotation"
+                        }
+                      }
+                    ],
+                    "type": "ObjectTypeAnnotation"
+                  },
+                  "type": "ArrayTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
+              "name": "array_of_array_of_object_required_in_file",
+              "optional": false,
+              "typeAnnotation": {
+                "elementType": {
+                  "elementType": {
+                    "properties": [
+                      {
+                        "name": "prop",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "default": null,
+                          "type": "StringTypeAnnotation"
+                        }
+                      }
+                    ],
+                    "type": "ObjectTypeAnnotation"
+                  },
+                  "type": "ArrayTypeAnnotation"
+                },
+                "type": "ArrayTypeAnnotation"
+              }
+            },
+            {
+              "name": "array_of_array_of_object_required_with_spread",
+              "optional": false,
+              "typeAnnotation": {
+                "elementType": {
+                  "elementType": {
+                    "properties": [
+                      {
+                        "name": "prop",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "default": null,
+                          "type": "StringTypeAnnotation"
+                        }
+                      }
+                    ],
+                    "type": "ObjectTypeAnnotation"
+                  },
+                  "type": "ArrayTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }

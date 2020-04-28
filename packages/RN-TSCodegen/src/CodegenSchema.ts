@@ -86,7 +86,9 @@ export type ObjectPropertyType =
 export type PropTypeTypeAnnotation =
   | Readonly<{
       type: 'BooleanTypeAnnotation';
-      default: boolean;
+      default:
+        | boolean
+        | null;
     }>
   | Readonly<{
       type: 'StringTypeAnnotation';
@@ -100,7 +102,9 @@ export type PropTypeTypeAnnotation =
     }>
   | Readonly<{
       type: 'FloatTypeAnnotation';
-      default: number;
+      default:
+        | number
+        | null;
     }>
   | Readonly<{
       type: 'Int32TypeAnnotation';
@@ -114,11 +118,19 @@ export type PropTypeTypeAnnotation =
       }>;
     }>
   | Readonly<{
+      type: 'Int32EnumTypeAnnotation';
+      default: number;
+      options: ReadonlyArray<{
+        value: number;
+      }>;
+    }>
+  | Readonly<{
       type: 'NativePrimitiveTypeAnnotation';
       name:
         | 'ColorPrimitive'
         | 'ImageSourcePrimitive'
-        | 'PointPrimitive';
+        | 'PointPrimitive'
+        | 'EdgeInsetsPrimitive';
     }>
   | Readonly<{
       type: 'ObjectTypeAnnotation';
@@ -158,7 +170,15 @@ export type PropTypeTypeAnnotation =
             name:
               | 'ColorPrimitive'
               | 'ImageSourcePrimitive'
-              | 'PointPrimitive';
+              | 'PointPrimitive'
+              | 'EdgeInsetsPrimitive';
+          }>
+        | Readonly<{
+            type: 'ArrayTypeAnnotation';
+            elementType: Readonly<{
+              type: 'ObjectTypeAnnotation';
+              properties: ReadonlyArray<PropTypeShape>;
+            }>;
           }>;
     }>;
 
@@ -271,6 +291,9 @@ export type CommandTypeShape = Readonly<{
 export type OptionsShape = Readonly<{
   interfaceOnly?: boolean;
   paperComponentName?: string;
+  excludedPlatform?:
+    | 'iOS'
+    | 'android';
   paperComponentNameDeprecated?: string;
 }>;
 
