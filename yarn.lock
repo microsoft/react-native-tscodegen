@@ -7174,15 +7174,6 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.2.tgz#984120fd4d16800e9a738208ab1fba422d23b5ab"
   integrity sha512-INBT1QEgtcCCgvccr5/86CfD71fw9EPmDxgiJX4I2Ddr6ZsV6iFXsuby+qWJPtmNuMY0zByTsG4468P7nHuNWA==
 
-react-native-tscodegen@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-tscodegen/-/react-native-tscodegen-0.0.2.tgz#d0347b5f43920a0393b4812cde792f913f4d7aa4"
-  integrity sha512-35luzGi9AZBIGW5VAjWtFVxuB9dscrfvqNh3oYPcMCiMn3s772b2AYxX5KTm1HxzVQpQA44KkrzOcSWplkRleg==
-  dependencies:
-    jscodeshift "0.6.4"
-    nullthrows "1.1.1"
-    typescript "^3.5.3"
-
 react-native@^0.60.6:
   version "0.60.6"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.60.6.tgz#8a13dece1c3f6e01db0833db14d2b01b2d8ccba5"
