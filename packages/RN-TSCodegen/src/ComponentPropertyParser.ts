@@ -35,6 +35,11 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       options: rawType.values.map((name: string) => { return { name }; }),
       default: (rawType.defaultValue === undefined ? rawType.values[0] : `${rawType.defaultValue}`)
     }];
+    case 'NumberLiterals': return [rawType.isNullable, {
+      type: 'Int32EnumTypeAnnotation',
+      options: rawType.values.map((value: number) => { return { value }; }),
+      default: (rawType.defaultValue === undefined ? rawType.values[0] : +`${rawType.defaultValue}`)
+    }];
     case 'rn:ColorPrimitive': return [rawType.isNullable, {
       type: 'NativePrimitiveTypeAnnotation',
       name: 'ColorPrimitive'
@@ -74,7 +79,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
         }];
         case 'Float': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
-          elementType: { type: 'FloatTypeAnnotation' }
+          elementType: { type: 'FloatTypeAnnotation', default: 0 }
         }];
         case 'Double': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',

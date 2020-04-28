@@ -97,11 +97,11 @@ export type RNRawType = (
         kind: 'BooleanLiteral';
         value: boolean;
     } | {
-        kind: 'NumberLiteral';
-        value: number;
-    } | {
         kind: 'StringLiterals';
         values: string[];
+    } | {
+        kind: 'NumberLiterals';
+        values: number[];
     } | {
         kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
     } | {
@@ -248,21 +248,28 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     let itemDefaultValue: boolean | number | string | undefined;
     const itemUnknowns: ts.Type[] = [];
     const itemStringLiterals: string[] = [];
+    const itemNumberLiterals: number[] = [];
     let itemOthers: RNRawType[] = [];
 
     function setDefaultValue(elementType: ts.Type, defaultValueType: ts.Type): void {
         const currentDefaultValue = typeToRNRawType(defaultValueType, typeChecker, allowObject);
 
         switch (currentDefaultValue.kind) {
-            case 'BooleanLiteral':
-            case 'NumberLiteral': {
+            case 'BooleanLiteral': {
                 itemDefaultValue = currentDefaultValue.value;
+                break;
+            }
+            case 'NumberLiterals': {
+                if (currentDefaultValue.values.length === 1) {
+                    itemDefaultValue = currentDefaultValue.values[0];
+                }
                 break;
             }
             case 'StringLiterals': {
                 if (currentDefaultValue.values.length === 1) {
                     itemDefaultValue = currentDefaultValue.values[0];
                 }
+                break;
             }
             default:
         }
@@ -316,11 +323,9 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         } else if (elementType.isStringLiteral()) {
             itemStringLiterals.push(elementType.value);
         } else if (elementType.isNumberLiteral()) {
-            itemOthers.push({ kind: 'NumberLiteral', value: elementType.value, isNullable: false });
+            itemNumberLiterals.push(elementType.value);
         } else if (isNumber(elementType)) {
             itemNumber = true;
-        } else if (elementType.isStringLiteral()) {
-            itemStringLiterals.push(elementType.value);
         } else if (isString(elementType)) {
             itemString = true;
         } else if (isRNTag(elementType, 'Float')) {
@@ -408,6 +413,10 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
 
     if (itemStringLiterals.length > 0) {
         itemOthers.push({ kind: 'StringLiterals', values: itemStringLiterals, isNullable: false });
+    }
+
+    if (itemNumberLiterals.length > 0) {
+        itemOthers.push({ kind: 'NumberLiterals', values: itemNumberLiterals, isNullable: false });
     }
 
     if (itemOthers.length === 0 && allowObject) {
