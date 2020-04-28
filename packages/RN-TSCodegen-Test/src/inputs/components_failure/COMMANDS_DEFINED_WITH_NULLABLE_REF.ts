@@ -8,11 +8,10 @@ import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {React} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeCommands} from 'react-native-tscodegen-types';
 'use strict';
-
-import {HostComponent} from '../../lib/react-native';
 
 interface NativeCommands {
   hotspotUpdate(viewRef: (ReactNull | React.Ref<'RCTView'>), x: Int32, y: Int32): void;

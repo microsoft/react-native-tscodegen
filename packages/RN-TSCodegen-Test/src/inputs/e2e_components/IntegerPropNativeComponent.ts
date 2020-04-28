@@ -7,10 +7,9 @@
 import {Int32} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
-
-import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
 
 type NativeProps = Readonly<ViewProps & {
   progress1?: WithDefault<Int32, 0>;

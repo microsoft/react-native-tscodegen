@@ -6,10 +6,9 @@
 
 import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
+import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
-
-import {HostComponent} from '../../lib/../../../../../Libraries/Renderer/shims/ReactNativeTypes';
 
 type NativeProps = Readonly<ViewProps & {
   startPoint?: PointValue;

@@ -11,8 +11,6 @@ import {ViewProps} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
-import {HostComponent} from '../../lib/react-native';
-
 type ModuleProps = Readonly<ViewProps & {
   boolean_default_true_optional_both?: WithDefault<boolean, true>;
   onDirectEventDefinedInlineNull: DirectEventHandler<null>;
