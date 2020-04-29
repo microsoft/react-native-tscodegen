@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Update to RN 0.62",
+  "packageName": "react-native-tscodegen-types",
+  "email": "acoates@microsoft.com",
+  "commit": "ca54200cd72555d3d6b21f7eb0441bb37b14d189",
+  "date": "2020-04-29T13:05:25.124Z",
+  "file": "D:\\Repos\\react-native-tscodegen\\change\\react-native-tscodegen-types-2020-04-29-06-05-32-master.json"
+}
