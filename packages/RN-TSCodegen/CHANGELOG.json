@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Wed, 29 Apr 2020 13:13:35 GMT",
+      "tag": "react-native-tscodegen_v0.62.1",
+      "version": "0.62.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update to RN 0.62",
+            "author": "acoates@microsoft.com",
+            "commit": "ca54200cd72555d3d6b21f7eb0441bb37b14d189"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 28 Mar 2020 22:10:37 GMT",
       "tag": "react-native-tscodegen_v0.0.10",
       "version": "0.0.10",
