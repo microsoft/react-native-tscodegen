@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump the version of RN to match what RNW is using",
-  "packageName": "react-native-tscodegen",
-  "email": "acoates@microsoft.com",
-  "commit": "df00a801d59e7157732fe350fa3c5f8223948066",
-  "date": "2020-07-06T16:50:12.062Z",
-  "file": "D:\\Repos\\react-native-tscodegen\\change\\react-native-tscodegen-2020-07-06-09-50-12-bumprn.json"
-}
