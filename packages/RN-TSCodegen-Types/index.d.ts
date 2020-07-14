@@ -51,9 +51,25 @@ declare module 'react-native-tscodegen-types' {
   export type ReactNull = RNTag<'Null'> | null | undefined;
   export type WithDefault<T, V> = ReactNull | T | WithDefaultRNTag<V>;
 
+  // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.ios.js
+  // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.android.js
+  // \react-native\Libraries\StyleSheet\processColor.js
   // \react-native\Libraries\StyleSheet\StyleSheetTypes.js
 
-  export type ColorValue = null | string | RNTag<'ColorValue'>;
+  export type NativeColorValue = {
+    // android
+    resource_paths?: string[];
+
+    // ios
+    semantic?: string[];
+    dynamic?: {
+      light?: undefined | ColorValue | ProcessedColorValue;
+      dark?: undefined | ColorValue | ProcessedColorValue;
+    };
+  } | RNTag<'ColorValue'>;
+
+  export type ProcessedColorValue = number | NativeColorValue;
+  export type ColorValue = null | string | NativeColorValue;
   export type ColorArrayValue = null | ReadonlyArray<ColorValue>;
   export interface PointValue {
     x: number;
