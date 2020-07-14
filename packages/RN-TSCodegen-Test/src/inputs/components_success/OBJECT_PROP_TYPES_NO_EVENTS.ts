@@ -76,6 +76,18 @@ type ModuleProps = Readonly<ViewProps & {
   color_optional_both: Readonly<{
     prop?: (ReactNull | ColorValue);
   }>;
+  processed_color_required: Readonly<{
+    prop: ProcessedColorValue;
+  }>;
+  processed_color_optional_key: Readonly<{
+    prop?: ProcessedColorValue;
+  }>;
+  processed_color_optional_value: Readonly<{
+    prop: (ReactNull | ProcessedColorValue);
+  }>;
+  processed_color_optional_both: Readonly<{
+    prop?: (ReactNull | ProcessedColorValue);
+  }>;
   point_required: Readonly<{
     prop: PointValue;
   }>;

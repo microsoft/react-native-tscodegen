@@ -347,6 +347,74 @@
               }
             },
             {
+              "name": "processed_color_required",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "name": "ColorPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "processed_color_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "name": "ColorPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "processed_color_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "name": "ColorPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
+              "name": "processed_color_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "name": "ColorPrimitive",
+                      "type": "NativePrimitiveTypeAnnotation"
+                    }
+                  }
+                ],
+                "type": "ObjectTypeAnnotation"
+              }
+            },
+            {
               "name": "point_required",
               "optional": false,
               "typeAnnotation": {
