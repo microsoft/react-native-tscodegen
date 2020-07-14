@@ -18,7 +18,7 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32, Double, Float, WithDefault} from 'CodegenTypes';
 import type {ImageSource} from 'ImageSource';
-import type {ColorValue, PointValue, EdgeInsetsValue} from 'StyleSheetTypes';
+import type {ColorValue, PointValue, ProcessColorValue, EdgeInsetsValue} from 'StyleSheetTypes';
 import type {ViewProps} from 'ViewPropTypes';
 import type {HostComponent} from 'react-native';
 

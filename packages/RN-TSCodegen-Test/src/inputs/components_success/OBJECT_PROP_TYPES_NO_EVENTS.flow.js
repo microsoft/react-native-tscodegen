@@ -63,6 +63,12 @@ type ModuleProps = $ReadOnly<{|
   color_optional_value: $ReadOnly<{|prop: ?ColorValue|}>,
   color_optional_both: $ReadOnly<{|prop?: ?ColorValue|}>,
 
+  // ProcessedColorValue props
+  processed_color_required: $ReadOnly<{|prop: ProcessedColorValue|}>,
+  processed_color_optional_key: $ReadOnly<{|prop?: ProcessedColorValue|}>,
+  processed_color_optional_value: $ReadOnly<{|prop: ?ProcessedColorValue|}>,
+  processed_color_optional_both: $ReadOnly<{|prop?: ?ProcessedColorValue|}>,
+
   // PointValue props
   point_required: $ReadOnly<{|prop: PointValue|}>,
   point_optional_key: $ReadOnly<{|prop?: PointValue|}>,

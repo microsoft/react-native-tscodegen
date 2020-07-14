@@ -10,6 +10,7 @@ import {Int32} from 'react-native-tscodegen-types';
 import {ReactNull} from 'react-native-tscodegen-types';
 import {WithDefault} from 'react-native-tscodegen-types';
 import {ImageSource} from 'react-native-tscodegen-types';
+import {ProcessedColorValue} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
@@ -75,6 +76,18 @@ type ModuleProps = Readonly<ViewProps & {
   }>;
   color_optional_both: Readonly<{
     prop?: (ReactNull | ColorValue);
+  }>;
+  processed_color_required: Readonly<{
+    prop: ProcessedColorValue;
+  }>;
+  processed_color_optional_key: Readonly<{
+    prop?: ProcessedColorValue;
+  }>;
+  processed_color_optional_value: Readonly<{
+    prop: (ReactNull | ProcessedColorValue);
+  }>;
+  processed_color_optional_both: Readonly<{
+    prop?: (ReactNull | ProcessedColorValue);
   }>;
   point_required: Readonly<{
     prop: PointValue;

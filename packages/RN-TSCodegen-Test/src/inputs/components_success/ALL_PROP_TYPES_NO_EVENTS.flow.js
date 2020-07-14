@@ -101,6 +101,12 @@ type ModuleProps = $ReadOnly<{|
   color_array_optional_value: ?ColorArrayValue,
   color_array_optional_both?: ?ColorArrayValue,
 
+  // ProcessedColorValue props
+  processed_color_required: ProcessedColorValue,
+  processed_color_optional_key?: ProcessedColorValue,
+  processed_color_optional_value: ?ProcessedColorValue,
+  processed_color_optional_both?: ?ProcessedColorValue,
+
   // PointValue props
   point_required: PointValue,
   point_optional_key?: PointValue,

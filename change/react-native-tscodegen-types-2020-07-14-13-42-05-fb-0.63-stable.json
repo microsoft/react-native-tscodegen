@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Update react-native to 0.63-stable",
+  "packageName": "react-native-tscodegen-types",
+  "email": "zihanc@microsoft.com",
+  "commit": "4791152fdae5c3c4b7c539d567b99b9cf6d64fab",
+  "date": "2020-07-14T20:41:53.308Z",
+  "file": "D:\\GitHub\\react-native-tscodegen\\change\\react-native-tscodegen-types-2020-07-14-13-42-05-fb-0.63-stable.json"
+}

@@ -48,13 +48,29 @@ declare module 'react-native-tscodegen-types' {
   export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type NotString = {};
   export type Stringish = string;
-  export type ReactNull = RNTag<'Null'> | null | undefined;
+  export type ReactNull = undefined | null | RNTag<'Null'>;
   export type WithDefault<T, V> = ReactNull | T | WithDefaultRNTag<V>;
 
+  // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.ios.js
+  // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.android.js
+  // \react-native\Libraries\StyleSheet\processColor.js
   // \react-native\Libraries\StyleSheet\StyleSheetTypes.js
 
-  export type ColorValue = null | string | RNTag<'ColorValue'>;
-  export type ColorArrayValue = null | ReadonlyArray<ColorValue>;
+  export type NativeColorValue = {
+    // android
+    resource_paths?: string[];
+
+    // ios
+    semantic?: string[];
+    dynamic?: {
+      light?: FlowOptional<ColorValue | ProcessedColorValue>;
+      dark?: FlowOptional<ColorValue | ProcessedColorValue>;
+    };
+  } | RNTag<'ColorValue'>;
+
+  export type ProcessedColorValue = number | NativeColorValue;
+  export type ColorValue = FlowOptional<string | NativeColorValue>;
+  export type ColorArrayValue = FlowOptional<ReadonlyArray<ColorValue>>;
   export interface PointValue {
     x: number;
     y: number;
