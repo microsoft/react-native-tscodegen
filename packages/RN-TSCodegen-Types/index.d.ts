@@ -48,7 +48,7 @@ declare module 'react-native-tscodegen-types' {
   export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type NotString = {};
   export type Stringish = string;
-  export type ReactNull = RNTag<'Null'> | null | undefined;
+  export type ReactNull = undefined | null | RNTag<'Null'>;
   export type WithDefault<T, V> = ReactNull | T | WithDefaultRNTag<V>;
 
   // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.ios.js
@@ -63,14 +63,14 @@ declare module 'react-native-tscodegen-types' {
     // ios
     semantic?: string[];
     dynamic?: {
-      light?: undefined | ColorValue | ProcessedColorValue;
-      dark?: undefined | ColorValue | ProcessedColorValue;
+      light?: FlowOptional<ColorValue | ProcessedColorValue>;
+      dark?: FlowOptional<ColorValue | ProcessedColorValue>;
     };
   } | RNTag<'ColorValue'>;
 
   export type ProcessedColorValue = number | NativeColorValue;
-  export type ColorValue = null | string | NativeColorValue;
-  export type ColorArrayValue = null | ReadonlyArray<ColorValue>;
+  export type ColorValue = FlowOptional<string | NativeColorValue>;
+  export type ColorArrayValue = FlowOptional<ReadonlyArray<ColorValue>>;
   export interface PointValue {
     x: number;
     y: number;
