@@ -413,16 +413,18 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     }
 
     if (itemNumber) {
-        if (itemFloatRNTag && !itemDoubleRNTag && !itemInt32RNTag) {
-            itemOthers.push({ kind: 'Float', isNullable: false });
-        } else if (!itemFloatRNTag && itemDoubleRNTag && !itemInt32RNTag) {
-            itemOthers.push({ kind: 'Double', isNullable: false });
-        } else if (!itemFloatRNTag && !itemDoubleRNTag && itemInt32RNTag) {
-            itemOthers.push({ kind: 'Int32', isNullable: false });
-        } else if (!itemFloatRNTag && !itemDoubleRNTag && !itemInt32RNTag) {
-            itemOthers.push({ kind: 'Number', isNullable: false });
-        } else {
-            throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
+        if (itemOthers.find((item: RNRawType) => item.kind === 'rn:ColorPrimitive') === undefined) {
+            if (itemFloatRNTag && !itemDoubleRNTag && !itemInt32RNTag) {
+                itemOthers.push({ kind: 'Float', isNullable: false });
+            } else if (!itemFloatRNTag && itemDoubleRNTag && !itemInt32RNTag) {
+                itemOthers.push({ kind: 'Double', isNullable: false });
+            } else if (!itemFloatRNTag && !itemDoubleRNTag && itemInt32RNTag) {
+                itemOthers.push({ kind: 'Int32', isNullable: false });
+            } else if (!itemFloatRNTag && !itemDoubleRNTag && !itemInt32RNTag) {
+                itemOthers.push({ kind: 'Number', isNullable: false });
+            } else {
+                throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
+            }
         }
     }
 
