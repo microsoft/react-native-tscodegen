@@ -569,6 +569,19 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         if (itemDefaultValue !== undefined) {
             result.defaultValue = itemDefaultValue;
         }
+
+        if (result.kind === 'Number') {
+            const tsTypeText = typeChecker.typeToString(tsType);
+            // sometimes when the compiler see underfined | null | PrimitiveType<number, 'TYPE'>
+            // the __primitive_type__ member is lost
+            if (tsTypeText.indexOf('WithDefault<Float,') !== -1 || tsTypeText.indexOf('WithDefault<PrimitiveType<number, "Float">,') !== -1) {
+                result.kind = 'Float';
+            } else if (tsTypeText.indexOf('WithDefault<Double,') !== -1 || tsTypeText.indexOf('WithDefault<PrimitiveType<number, "Double">,') !== -1) {
+                result.kind = 'Double';
+            } else if (tsTypeText.indexOf('WithDefault<Int32,') !== -1 || tsTypeText.indexOf('WithDefault<PrimitiveType<number, "Int32">,') !== -1) {
+                result.kind = 'Int32';
+            }
+        }
         return result;
     }
 }
