@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "sourceMap": true,
-    "noEmitOnError": true,
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "skipLibCheck": true,
     "lib": [
       "es6"
     ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "declaration": true,
+    "sourceMap": true,
     "outDir": "./lib",
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
   },
   "exclude": [
     "node_modules",

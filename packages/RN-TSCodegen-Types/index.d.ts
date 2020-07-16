@@ -5,7 +5,7 @@ declare module 'react-native-tscodegen-types' {
 
   // \react-native\Libraries\Types\CoreEventTypes.js
 
-  type FlowOptional<T> = undefined | null | T;
+  type FlowOptional<T> = ReactNull | T;
 
   export type SyntheticEvent<T> = Readonly<{
     bubbles: FlowOptional<boolean>;
@@ -31,7 +31,6 @@ declare module 'react-native-tscodegen-types' {
   // \react-native\Libraries\Types\CodegenTypes.js
 
   export class RNTag<T extends
-    | 'Null'
     | 'Int32'
     | 'Float'
     | 'Double'
@@ -48,7 +47,7 @@ declare module 'react-native-tscodegen-types' {
   export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type NotString = {};
   export type Stringish = string;
-  export type ReactNull = undefined | null | RNTag<'Null'>;
+  export type ReactNull = undefined | null;
   export type WithDefault<T, V> = ReactNull | T | WithDefaultRNTag<V>;
 
   // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.ios.js
@@ -69,8 +68,8 @@ declare module 'react-native-tscodegen-types' {
   } | RNTag<'ColorValue'>;
 
   export type ProcessedColorValue = number | NativeColorValue;
-  export type ColorValue = FlowOptional<string | NativeColorValue>;
-  export type ColorArrayValue = FlowOptional<ReadonlyArray<ColorValue>>;
+  export type ColorValue = string | NativeColorValue;
+  export type ColorArrayValue = ReadonlyArray<ColorValue>;
   export interface PointValue {
     x: number;
     y: number;
