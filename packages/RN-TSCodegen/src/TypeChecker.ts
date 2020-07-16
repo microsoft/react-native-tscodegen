@@ -88,7 +88,7 @@ function isRNTag(tsType: ts.Type, tag:
     return tagType.value === tag;
 }
 
-export function isReactNull(tsType: ts.Type): boolean {
+function isReactNull(tsType: ts.Type): boolean {
     return isRNTag(tsType, 'Null');
 }
 

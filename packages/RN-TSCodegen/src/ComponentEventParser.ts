@@ -4,14 +4,14 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { isReactNull, RNRawType, typeToRNRawType, WritableObjectType } from './TypeChecker';
+import { RNRawType, typeToRNRawType, WritableObjectType } from './TypeChecker';
 
 function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string | undefined] | undefined {
   if (eventType.isUnion()) {
     let result: [boolean, ts.Type, string, string | undefined] | undefined;
     for (const elementType of eventType.types) {
-      if (!isReactNull(elementType)) {
-        const elementResult = checkEventType(elementType, info, propDecl);
+      const elementResult = checkEventType(elementType, info, propDecl);
+      if (elementResult !== undefined) {
         if (result === undefined) {
           result = elementResult;
         } else {
