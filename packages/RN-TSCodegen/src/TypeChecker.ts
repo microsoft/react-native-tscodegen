@@ -27,6 +27,13 @@ function isNull(tsType: ts.Type): boolean {
     return (tsType.flags & ts.TypeFlags.Null) !== 0;
 }
 
+function isUndefined(tsType: ts.Type): boolean {
+    if (tsType === undefined) {
+        return false;
+    }
+    return (tsType.flags & ts.TypeFlags.Undefined) !== 0;
+}
+
 export function isVoid(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
@@ -56,7 +63,6 @@ function isNumber(tsType: ts.Type): boolean {
 }
 
 function isRNTag(tsType: ts.Type, tag:
-    | 'Null'
     | 'Int32'
     | 'Float'
     | 'Double'
@@ -86,10 +92,6 @@ function isRNTag(tsType: ts.Type, tag:
     }
 
     return tagType.value === tag;
-}
-
-function isReactNull(tsType: ts.Type): boolean {
-    return isRNTag(tsType, 'Null');
 }
 
 export interface RNRawTypeCommon {
@@ -252,7 +254,7 @@ function getRawFunctionType(funcReturnType: ts.Type, funcParameters: readonly ts
 export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
     const tsItems = tsType.isUnion() ? tsType.types : [tsType];
 
-    let itemReactNull = false;
+    let itemNullable = false;
     let itemTrue = false;
     let itemFalse = false;
     let itemNumber = false;
@@ -323,12 +325,10 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             }
         }
 
-        if (isReactNull(elementType)) {
-            itemReactNull = true;
+        if (isNull(elementType) || isUndefined(elementType)) {
+            itemNullable = true;
         } else if (isAny(elementType)) {
             itemOthers.push({ kind: 'Any', isNullable: true });
-        } else if (isNull(elementType)) {
-            itemOthers.push({ kind: 'Null', isNullable: true });
         } else if (isVoid(elementType)) {
             itemOthers.push({ kind: 'Null', isNullable: true });
         } else if (isBoolean(elementType)) {
@@ -371,6 +371,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             } else if (elementType.symbol.name === 'WithDefaultRNTag') {
                 const typeReference = <ts.TypeReference>elementType;
                 if (typeReference.typeArguments !== undefined && typeReference.typeArguments.length === 1) {
+                    itemNullable = true;
                     setDefaultValue(elementType, typeReference.typeArguments[0]);
                 } else {
                     throw new Error(`Unable to extract type from ${typeChecker.typeToString(elementType)}.`);
@@ -387,7 +388,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                     throw new Error(`WithDefault should have one type argument and one literal of that type.`);
                 }
 
-                itemReactNull = true;
+                itemNullable = true;
                 itemOthers.push(typeToRNRawType(typeArguments[0], typeChecker, allowObject));
                 setDefaultValue(elementType, typeArguments[1]);
             } else {
@@ -504,15 +505,19 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     }
 
     if (itemOthers.length === 0) {
-        throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
+        if (itemNullable) {
+            return { kind: 'Null', isNullable: true };
+        } else {
+            throw new Error(`Type is not supported: ${typeChecker.typeToString(tsType)}.`);
+        }
     } else {
         const result: RNRawType = itemOthers.length === 1 ? itemOthers[0] : {
             kind: 'Union',
-            isNullable: itemReactNull,
+            isNullable: itemNullable,
             types: itemOthers
         };
 
-        result.isNullable = itemReactNull;
+        result.isNullable = itemNullable;
         if (itemDefaultValue !== undefined) {
             result.defaultValue = itemDefaultValue;
         }

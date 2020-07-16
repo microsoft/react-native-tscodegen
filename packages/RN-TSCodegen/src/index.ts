@@ -45,6 +45,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
     const program = ts.createProgram(
         [fileName],
         {
+            strictNullChecks: true,
             skipLibCheck: true
         });
     const errors = ts.getPreEmitDiagnostics(program).filter((value: ts.Diagnostic) => value.category === ts.DiagnosticCategory.Error);

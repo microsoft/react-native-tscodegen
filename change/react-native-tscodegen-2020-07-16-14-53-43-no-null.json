@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Remove RNTab<'Null'> from RN-TSCodegen-Types",
+  "packageName": "react-native-tscodegen",
+  "email": "zihanc@microsoft.com",
+  "commit": "795a8b7965098babf9db897542288c1d7a3f742f",
+  "date": "2020-07-16T21:53:43.224Z",
+  "file": "D:\\GitHub\\react-native-tscodegen\\change\\react-native-tscodegen-2020-07-16-14-53-43-no-null.json"
+}
