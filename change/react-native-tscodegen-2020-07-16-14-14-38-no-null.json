@@ -1,0 +1,9 @@
+{
+  "type": "none",
+  "comment": "unexport isReactNull from TypeChecker.ts",
+  "packageName": "react-native-tscodegen",
+  "email": "zihanc@microsoft.com",
+  "commit": "82943b3b5ec81eaf2b92d2d8214365a1e666924f",
+  "date": "2020-07-16T21:14:38.059Z",
+  "file": "D:\\GitHub\\react-native-tscodegen\\change\\react-native-tscodegen-2020-07-16-14-14-38-no-null.json"
+}
