@@ -58,7 +58,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
     case 'NumberLiterals': return [rawType.isNullable, {
       type: 'Int32EnumTypeAnnotation',
       options: rawType.values.map((value: number) => { return { value }; }),
-      default: (rawType.defaultValue === undefined ? rawType.values[0] : +`${rawType.defaultValue}`)
+      default: (rawType.defaultValue === undefined ? rawType.values[0] : +rawType.defaultValue)
     }];
     case 'rn:ColorPrimitive': return [rawType.isNullable, {
       type: 'NativePrimitiveTypeAnnotation',

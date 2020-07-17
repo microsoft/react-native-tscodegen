@@ -61,7 +61,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 case 'ColorValue':
                     itemOthers.push({ kind: 'rn:ColorPrimitive', isNullable: false });
                     break;
-                case 'ColorValueArray':
+                case 'ColorArrayValue':
                     itemOthers.push({ kind: 'Array', isNullable: false, elementType: { kind: 'rn:ColorPrimitive', isNullable: false } });
                     break;
                 case 'ImageSource':
@@ -132,25 +132,28 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                                 if (ts.isStringLiteral(defaultValue.literal)) {
                                     itemDefaultValue = defaultValue.literal.text;
                                 } else if (ts.isNumericLiteral(defaultValue.literal)) {
-                                    itemDefaultValue = +`${defaultValue.literal.text}`;
+                                    itemDefaultValue = +defaultValue.literal.text;
+                                } else if (ts.isPrefixUnaryExpression(defaultValue.literal)) {
+                                    itemDefaultValue = +defaultValue.literal.getText();
                                 } else {
                                     switch (defaultValue.literal.kind) {
+                                        case ts.SyntaxKind.UndefinedKeyword:
+                                        case ts.SyntaxKind.NullKeyword:
+                                        case ts.SyntaxKind.VoidKeyword:
+                                            itemDefaultValue = undefined;
+                                            break;
                                         case ts.SyntaxKind.TrueKeyword:
                                             itemDefaultValue = true;
                                             break;
                                         case ts.SyntaxKind.FalseKeyword:
                                             itemDefaultValue = false;
                                             break;
-                                        case ts.SyntaxKind.UndefinedKeyword:
-                                        case ts.SyntaxKind.VoidKeyword:
-                                            itemDefaultValue = undefined;
-                                            break;
                                         default:
-                                            throw new Error(`Type is not supported: ${typeNode.getText()}, because ${defaultValue} is not a valid default value.`);
+                                            throw new Error(`Type is not supported: ${typeNode.getText()}, because ${defaultValue.getText()} is not a valid default value.`);
                                     }
                                 }
                             } else {
-                                throw new Error(`Type is not supported: ${typeNode.getText()}, because ${defaultValue} is not a valid default value.`);
+                                throw new Error(`Type is not supported: ${typeNode.getText()}, because ${defaultValue.getText()} is not a valid default value.`);
                             }
                     }
                     break;
@@ -191,7 +194,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
             if (ts.isStringLiteral(item.literal)) {
                 itemStringLiterals.push(item.literal.text);
             } else if (ts.isNumericLiteral(item.literal)) {
-                itemNumberLiterals.push(+`item.literal.text`);
+                itemNumberLiterals.push(+item.literal.text);
+            } else if (ts.isPrefixUnaryExpression(item.literal)) {
+                itemNumberLiterals.push(+item.literal.getText());
             } else {
                 throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.literal} is not a valid literal type.`);
             }
@@ -266,6 +271,14 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
         }
     }
 
+    if (itemStringLiterals.length > 0) {
+        itemOthers.push({ kind: 'StringLiterals', values: itemStringLiterals, isNullable: false });
+    }
+
+    if (itemNumberLiterals.length > 0) {
+        itemOthers.push({ kind: 'NumberLiterals', values: itemNumberLiterals, isNullable: false });
+    }
+
     if (itemOthers.length === 0) {
         if (itemNullable) {
             return { kind: 'Null', isNullable: true };
@@ -282,7 +295,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
 
         result.isNullable = itemNullable;
         if (itemDefaultValue !== undefined) {
-            result.defaultValue = itemDefaultValue;
+            result.defaultValue = itemDefaultValue === null ? undefined : itemDefaultValue;
         }
         return result;
     }
