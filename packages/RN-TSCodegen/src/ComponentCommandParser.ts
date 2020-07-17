@@ -35,7 +35,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
             throw new Error(`Unable to find command ${commandName} in type ${info.typeNode.getText()}.`);
         }
 
-        let funcDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature | undefined;
+        let funcDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature | ts.PropertyDeclaration | undefined;
         let funcReturnType: ts.Type | undefined;
         let funcParameters: ReadonlyArray<ts.ParameterDeclaration> | undefined;
 
@@ -50,7 +50,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
                 funcDecl = decl;
                 funcReturnType = typeChecker.getTypeFromTypeNode(decl.type);
                 funcParameters = decl.parameters;
-            } else if (ts.isPropertySignature(decl)) {
+            } else if (ts.isPropertySignature(decl) || ts.isPropertyDeclaration(decl)) {
                 if (decl.type === undefined) {
                     throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should have a property type.`);
                 }

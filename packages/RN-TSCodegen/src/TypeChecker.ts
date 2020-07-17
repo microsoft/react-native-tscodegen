@@ -149,13 +149,15 @@ function readSignature(signature: ts.Signature, decl: ts.Declaration): [ts.Type,
     return [funcReturnType, funcParameters];
 }
 
+type MemberSignature = ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature | ts.PropertyDeclaration;
+
 function tryReadMemberSignature(propSymbolDecl: ts.Declaration, typeChecker: ts.TypeChecker): [
-    ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature,
+    MemberSignature,
     ts.Type | undefined,
     ts.Type | undefined,
     readonly ts.ParameterDeclaration[] | undefined
 ] {
-    let propDecl: ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature | undefined;
+    let propDecl: MemberSignature | undefined;
     let propType: ts.Type | undefined;
     let funcType: [ts.Type, readonly ts.ParameterDeclaration[]] | undefined;
 
@@ -168,7 +170,7 @@ function tryReadMemberSignature(propSymbolDecl: ts.Declaration, typeChecker: ts.
         }
         propDecl = propSymbolDecl;
         funcType = [typeChecker.getTypeFromTypeNode(propSymbolDecl.type), propSymbolDecl.parameters];
-    } else if (ts.isPropertySignature(propSymbolDecl)) {
+    } else if (ts.isPropertySignature(propSymbolDecl) || ts.isPropertyDeclaration(propSymbolDecl)) {
         if (propSymbolDecl.type === undefined) {
             throw new Error(`Member should have a type: ${propSymbolDecl.getText()}.`);
         }
@@ -185,7 +187,7 @@ function tryReadMemberSignature(propSymbolDecl: ts.Declaration, typeChecker: ts.
 
     return [
         // propDecl will not be undefined if propTYpe or funcType is not undefined. This will be checked outside.
-        <ts.MethodSignature | ts.CallSignatureDeclaration | ts.PropertySignature>propDecl,
+        <MemberSignature>propDecl,
         propType,
         funcType === undefined ? undefined : funcType[0],
         funcType === undefined ? undefined : funcType[1]

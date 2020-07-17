@@ -159,7 +159,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
   throw new Error(`Component property argument type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
+export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.PropTypeShape {
   const typeChecker = info.program.getTypeChecker();
   const propType = <ts.TypeNode>propDecl.type;
   const rawType = typeToRNRawType(propType, typeChecker, true);

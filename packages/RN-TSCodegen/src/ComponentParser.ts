@@ -48,7 +48,7 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
     for (const propDecl of validMembers) {
         if (propDecl.name !== undefined) {
             const propertyName = propDecl.name.getText();
-            if (ts.isPropertySignature(propDecl)) {
+            if (ts.isPropertySignature(propDecl) || ts.isPropertyDeclaration(propDecl)) {
                 try {
                     const eventShape = tryParseEvent(info, propDecl);
                     if (eventShape !== undefined) {

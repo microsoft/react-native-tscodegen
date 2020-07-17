@@ -7,7 +7,7 @@ import { ExportComponentInfo } from './ExportParser';
 import { RNRawType, WritableObjectType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
-function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.TypeNode, string, string | undefined] | undefined {
+function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): [boolean, ts.TypeNode, string, string | undefined] | undefined {
   if (ts.isParenthesizedTypeNode(eventType)) {
     return checkEventType(eventType.type, info, propDecl);
   } else if (ts.isUnionTypeNode(eventType)) {
@@ -78,7 +78,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
   throw new Error(`Component event type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape | undefined {
+export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.EventTypeShape | undefined {
   const typeChecker = info.program.getTypeChecker();
   const propType = <ts.TypeNode>propDecl.type;
   const eventTypeTuple = checkEventType(propType, info, propDecl);
