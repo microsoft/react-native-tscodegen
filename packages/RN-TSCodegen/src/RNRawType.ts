@@ -18,10 +18,6 @@ export interface RNRawObjectType {
 
 export type RNRawType = (
     | {
-        kind: 'BooleanLiteral';
-        value: boolean;
-    }
-    | {
         kind: 'StringLiterals';
         values: string[];
     }
