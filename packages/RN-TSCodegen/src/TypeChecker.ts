@@ -4,8 +4,8 @@
 // tslint:disable:no-conditional-assignment
 
 import * as ts from 'typescript';
-import { resolveType } from './ExportParser';
-import { RNRawType } from './RNRawType';
+import { getMembersFromType, resolveType } from './ExportParser';
+import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 
 function isAny(tsType: ts.Type): boolean {
     if (tsType === undefined) {
@@ -540,6 +540,26 @@ function typeToRNRawType2(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObj
     }
 }
 
+function functionToRNRawType(typeNode: ts.SignatureDeclarationBase, sourceFile: ts.SourceFile, allowObject: boolean): RNRawType {
+    if (typeNode.typeParameters !== undefined && typeNode.typeParameters.length !== 0) {
+        throw new Error(`Type is not supported: ${typeNode.getText()}.`);
+    }
+
+    return {
+        kind: 'Function',
+        isNullable: false,
+        returnType: typeNode.type === undefined
+            ? { kind: 'Void', isNullable: false }
+            : typeToRNRawType(typeNode.type, sourceFile, allowObject),
+        parameters: typeNode.parameters.map((decl: ts.ParameterDeclaration) => ({
+            name: decl.name.getText(),
+            parameterType: decl.type === undefined
+                ? { kind: 'Any', isNullable: false }
+                : typeToRNRawType(decl.type, sourceFile, allowObject)
+        }))
+    };
+}
+
 export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile, allowObject: boolean): RNRawType {
     let itemNullable = false;
     let itemDefaultValue: string | number | boolean | undefined;
@@ -687,21 +707,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 throw new Error(`Type is not supported: ${typeNode.getText()}.`);
             }
         } else if (ts.isFunctionTypeNode(item)) {
-            if (item.typeParameters !== undefined && item.typeParameters.length !== 0) {
-                throw new Error(`Type is not supported: ${typeNode.getText()}.`);
-            }
-
-            itemOthers.push({
-                kind: 'Function',
-                isNullable: false,
-                returnType: item.type === undefined ? { kind: 'Void', isNullable: false } : typeToRNRawType(item.type, sourceFile, allowObject),
-                parameters: item.parameters.map((decl: ts.ParameterDeclaration) => ({
-                    name: decl.name.getText(),
-                    parameterType: decl.type === undefined
-                        ? { kind: 'Any', isNullable: false }
-                        : typeToRNRawType(decl.type, sourceFile, allowObject)
-                }))
-            });
+            itemOthers.push(functionToRNRawType(item, sourceFile, allowObject));
         } else if (ts.isTupleTypeNode(item)) {
             itemOthers.push({
                 kind: 'Tuple',
@@ -735,10 +741,57 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
 
         if (scannedItemsCount === scannedItems.length && itemOthersCount === itemOthers.length) {
             if (allowObject) {
+                const members = getMembersFromType(item, sourceFile);
+                if (members === undefined) {
+                    throw new Error(`Type is not supported: ${typeNode.getText()}.`);
+                }
 
+                const rawObjectType: RNRawObjectType & RNRawTypeCommon = {
+                    kind: 'Object',
+                    isNullable: false,
+                    properties: []
+                };
+                for (const member of members) {
+                    if (member.name !== undefined) {
+                        if (ts.isMethodSignature(member) || ts.isCallSignatureDeclaration(member)) {
+                            rawObjectType.properties.push({
+                                name: member.name.getText(),
+                                propertyType: functionToRNRawType(member, sourceFile, allowObject)
+                            });
+                        } else if (ts.isPropertySignature(member) || ts.isPropertyDeclaration(member)) {
+                            rawObjectType.properties.push({
+                                name: member.name.getText(),
+                                propertyType: member.type === undefined
+                                    ? { kind: 'Any', isNullable: false }
+                                    : typeToRNRawType(member.type, sourceFile, allowObject)
+                            });
+                        }
+                    }
+                }
+                itemOthers.push(rawObjectType);
             } else {
                 throw new Error(`Type is not supported: ${typeNode.getText()}.`);
             }
         }
+    }
+
+    if (itemOthers.length === 0) {
+        if (itemNullable) {
+            return { kind: 'Null', isNullable: true };
+        } else {
+            throw new Error(`Type is not supported: ${typeNode.getText()}.`);
+        }
+    } else {
+        const result: RNRawType = itemOthers.length === 1 ? itemOthers[0] : {
+            kind: 'Union',
+            isNullable: itemNullable,
+            types: itemOthers
+        };
+
+        result.isNullable = itemNullable;
+        if (itemDefaultValue !== undefined) {
+            result.defaultValue = itemDefaultValue;
+        }
+        return result;
     }
 }
