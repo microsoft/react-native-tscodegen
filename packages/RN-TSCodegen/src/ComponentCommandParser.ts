@@ -4,7 +4,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportCommandInfo } from './ExportParser';
-import { isVoid, typeToRNRawType } from './TypeChecker';
+import { typeToRNRawType } from './TypeChecker';
 
 function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): cs.CommandsTypeAnnotation {
     const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(typeNode), typeChecker, false);
@@ -71,7 +71,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should be a function.`);
         }
 
-        if (!isVoid(funcReturnType)) {
+        if ((funcReturnType.flags & ts.TypeFlags.VoidLike) === 0) {
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should return void.`);
         }
         if (funcParameters.length === 0) {

@@ -7,7 +7,7 @@ import * as cs from './CodegenSchema';
 import { processComponent } from './ComponentParser';
 import * as ep from './ExportParser';
 import { processNativeModule } from './NativeModuleParser';
-import { WritableObjectType } from './TypeChecker';
+import { WritableObjectType } from './RNRawType';
 
 function messageChainToString(chain: ts.DiagnosticMessageChain, indent: string): string {
     let message = '';

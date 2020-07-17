@@ -4,7 +4,8 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportNativeModuleInfo } from './ExportParser';
-import { RNRawType, typeToRNRawType } from './TypeChecker';
+import { RNRawType } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamTypeAnnotation {
     switch (rawType.kind) {

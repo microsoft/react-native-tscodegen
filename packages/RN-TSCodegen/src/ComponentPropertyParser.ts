@@ -6,7 +6,8 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawObjectType, RNRawType, RNRawTypeCommon, typeToRNRawType } from './TypeChecker';
+import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 interface ObjectTypeAnnotation {
   type: 'ObjectTypeAnnotation';

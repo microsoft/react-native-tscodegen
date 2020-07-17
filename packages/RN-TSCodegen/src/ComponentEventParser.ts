@@ -4,7 +4,8 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawType, typeToRNRawType, WritableObjectType } from './TypeChecker';
+import { RNRawType, WritableObjectType } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string | undefined] | undefined {
   if (eventType.isUnion()) {

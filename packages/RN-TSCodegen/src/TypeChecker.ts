@@ -4,14 +4,7 @@
 // tslint:disable:no-conditional-assignment
 
 import * as ts from 'typescript';
-
-type WritablePropType<T> =
-    T extends ReadonlyArray<infer E1> ? WritableObjectType<E1>[] :
-    T extends (infer E2)[] ? WritableObjectType<E2>[] :
-    WritableObjectType<T>;
-export type WritableObjectType<T> = {
-    - readonly [P in keyof T]: WritablePropType<T[P]>
-};
+import { RNRawType } from './RNRawType';
 
 function isAny(tsType: ts.Type): boolean {
     if (tsType === undefined) {
@@ -34,7 +27,7 @@ function isUndefined(tsType: ts.Type): boolean {
     return (tsType.flags & ts.TypeFlags.Undefined) !== 0;
 }
 
-export function isVoid(tsType: ts.Type): boolean {
+function isVoid(tsType: ts.Type): boolean {
     if (tsType === undefined) {
         return false;
     }
@@ -120,63 +113,6 @@ function isPrimitiveTypeRNTag(tsType: ts.Type, tag:
 
     return tagType.value === tag;
 }
-
-export interface RNRawTypeCommon {
-    isNullable: boolean;
-    defaultValue?: boolean | number | string;
-}
-
-export interface RNRawObjectType {
-    kind: 'Object';
-    properties: { name: string; propertyType: RNRawType }[];
-}
-
-export type RNRawType = (
-    | {
-        kind: 'BooleanLiteral';
-        value: boolean;
-    }
-    | {
-        kind: 'StringLiterals';
-        values: string[];
-    }
-    | {
-        kind: 'NumberLiterals';
-        values: number[];
-    }
-    | {
-        kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
-    }
-    | {
-        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive';
-    }
-    | {
-        kind: 'Array';
-        elementType: RNRawType;
-    }
-    | RNRawObjectType
-    | {
-        kind: 'DirectEventHandler' | 'BubblingEventHandler';
-        elementType: RNRawType;
-        paperTopLevelNameDeprecated: string | undefined;
-    }
-    | {
-        kind: 'js:Object';
-    }
-    | {
-        kind: 'js:Promise';
-        elementType: RNRawType;
-    }
-    | {
-        kind: 'Function';
-        returnType: RNRawType;
-        parameters: { name: string; parameterType: RNRawType }[];
-    }
-    | {
-        kind: 'Union' | 'Tuple';
-        types: RNRawType[];
-    }
-) & RNRawTypeCommon;
 
 function eventTypeToRNRawType(typeArguments: readonly ts.Type[], kind: 'DirectEventHandler' | 'BubblingEventHandler', typeChecker: ts.TypeChecker): RNRawType {
     if (typeArguments === undefined || typeArguments.length < 1 || typeArguments.length > 2) {
