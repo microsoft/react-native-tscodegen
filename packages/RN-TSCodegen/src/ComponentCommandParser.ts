@@ -6,8 +6,8 @@ import * as cs from './CodegenSchema';
 import { ExportCommandInfo, getMembersFromType, resolveType } from './ExportParser';
 import { typeToRNRawType } from './TypeChecker';
 
-function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): cs.CommandsTypeAnnotation {
-    const rawType = typeToRNRawType(typeNode, typeChecker, false);
+function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): cs.CommandsTypeAnnotation {
+    const rawType = typeToRNRawType(typeNode, sourceFile, false);
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
         case 'Float': return { type: 'FloatTypeAnnotation' };
@@ -106,7 +106,7 @@ export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
                     }
                     return {
                         name: param.name.getText(),
-                        typeAnnotation: typeNodeToCommandsTypeAnnotation(param.type, info.program.getTypeChecker())
+                        typeAnnotation: typeNodeToCommandsTypeAnnotation(param.type, info.sourceFile)
                     };
                 })
             }

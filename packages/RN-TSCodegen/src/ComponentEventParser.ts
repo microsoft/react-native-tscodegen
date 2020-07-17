@@ -79,7 +79,6 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
 }
 
 export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.EventTypeShape | undefined {
-  const typeChecker = info.program.getTypeChecker();
   const propType = <ts.TypeNode>propDecl.type;
   const eventTypeTuple = checkEventType(propType, info, propDecl);
   if (eventTypeTuple === undefined) {
@@ -87,7 +86,7 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
   }
 
   const [optional, eventType, eventTypeName, paperTopLevelNameDeprecated] = eventTypeTuple;
-  const rawType = typeToRNRawType(eventType, typeChecker, true);
+  const rawType = typeToRNRawType(eventType, info.sourceFile, true);
 
   let eventProperties: readonly cs.ObjectPropertyType[] = [];
   if (rawType.kind !== 'Null') {

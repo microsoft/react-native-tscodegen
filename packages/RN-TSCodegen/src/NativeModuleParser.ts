@@ -121,7 +121,7 @@ function rawTypeToFunctionTypeAnnotation(rawType: RNRawType, propName: string, t
 }
 
 export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModuleShape {
-    const rawType = typeToRNRawType(info.typeNode, info.program.getTypeChecker(), true);
+    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, true);
     if (rawType.kind !== 'Object') {
         throw new Error(`An object type is expected as a native module: ${info.typeNode.getText()}.`);
     }
