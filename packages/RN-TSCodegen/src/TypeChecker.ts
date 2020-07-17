@@ -517,10 +517,25 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                             if (propDecl.questionToken !== undefined) {
                                 propRawType.isNullable = true;
                             }
-                            objectRawType.properties.push({
+
+                            const pushedProperty = {
                                 name: (<ts.Node>propDecl.name).getText(),
                                 propertyType: propRawType
-                            });
+                            };
+                            objectRawType.properties.push(pushedProperty);
+
+                            if (pushedProperty.propertyType.kind === 'Number') {
+                                // sometimes when the compiler see underfined | null | PrimitiveType<number, 'TYPE'>
+                                // the __primitive_type__ member is lost
+                                const propSymbolDeclText = propSymbolDecl.getText();
+                                if (propSymbolDeclText.match(/\WFloat\W/) !== null) {
+                                    pushedProperty.propertyType.kind = 'Float';
+                                } else if (propSymbolDeclText.match(/\WDouble\W/) !== null) {
+                                    pushedProperty.propertyType.kind = 'Double';
+                                } else if (propSymbolDeclText.match(/\WInt32\W/) !== null) {
+                                    pushedProperty.propertyType.kind = 'Int32';
+                                }
+                            }
                         } else if (funcReturnType !== undefined && funcParameters !== undefined) {
                             const funcRawType = getRawFunctionType(funcReturnType, funcParameters, typeChecker, true);
                             if (propDecl.questionToken !== undefined) {
@@ -574,11 +589,11 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             const tsTypeText = typeChecker.typeToString(tsType);
             // sometimes when the compiler see underfined | null | PrimitiveType<number, 'TYPE'>
             // the __primitive_type__ member is lost
-            if (tsTypeText.indexOf('WithDefault<Float,') !== -1 || tsTypeText.indexOf('WithDefault<PrimitiveType<number, "Float">,') !== -1) {
+            if (tsTypeText.match(/\WFloat\W/) !== null) {
                 result.kind = 'Float';
-            } else if (tsTypeText.indexOf('WithDefault<Double,') !== -1 || tsTypeText.indexOf('WithDefault<PrimitiveType<number, "Double">,') !== -1) {
+            } else if (tsTypeText.match(/\WDouble\W/) !== null) {
                 result.kind = 'Double';
-            } else if (tsTypeText.indexOf('WithDefault<Int32,') !== -1 || tsTypeText.indexOf('WithDefault<PrimitiveType<number, "Int32">,') !== -1) {
+            } else if (tsTypeText.match(/\WInt32\W/) !== null) {
                 result.kind = 'Int32';
             }
         }
