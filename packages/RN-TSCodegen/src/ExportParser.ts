@@ -27,6 +27,21 @@ export interface ExportCommandInfo {
 
 type ExportInfo = [ts.TypeNode, ts.Expression, ts.Expression];
 
+export function resolveType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): ts.TypeNode {
+    if (ts.isParenthesizedTypeNode(typeNode)) {
+        return typeNode.type;
+    } else if (ts.isTypeReferenceNode(typeNode)) {
+        if (typeNode.typeArguments === undefined || typeNode.typeArguments.length === 0) {
+            for (const stat of sourceFile.statements) {
+                if (ts.isTypeAliasDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
+                    return resolveType(stat.type, sourceFile);
+                }
+            }
+        }
+    }
+    return typeNode;
+}
+
 export function getMembersFromType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): readonly ts.TypeElement[] | undefined {
     if (ts.isParenthesizedTypeNode(typeNode)) {
         return getMembersFromType(typeNode.type, sourceFile);
