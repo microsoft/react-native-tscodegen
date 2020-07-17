@@ -41,7 +41,11 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
 
         const item = scannedItems[i];
         if (ts.isParenthesizedTypeNode(item)) {
-            scannedItems.push(item);
+            scannedItems.push(item.type);
+        } else if (ts.isUnionTypeNode(item)) {
+            for (const unionItem of item.types) {
+                scannedItems.push(unionItem);
+            }
         } else if (ts.isTypeReferenceNode(item)) {
             const typeReferenceName = item.typeName.getText();
             switch (typeReferenceName) {
