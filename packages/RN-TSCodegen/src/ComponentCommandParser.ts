@@ -3,7 +3,7 @@
 
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
-import { ExportCommandInfo } from './ExportParser';
+import { ExportCommandInfo, getMembersFromType } from './ExportParser';
 import { typeToRNRawType } from './TypeChecker';
 
 function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): cs.CommandsTypeAnnotation {
@@ -20,6 +20,11 @@ function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, typeChecker: ts
 }
 
 export function parseCommands(info: ExportCommandInfo): cs.CommandTypeShape[] {
+    const validMembers = getMembersFromType(info.typeNode, info.sourceFile);
+    if (validMembers === undefined) {
+        throw new Error(`Type ${info.typeNode.getText()} to define commands should be a interface type defined in the same source file.`);
+    }
+
     const typeChecker = info.program.getTypeChecker();
     const mappedType = typeChecker.getTypeFromTypeNode(info.typeNode);
 

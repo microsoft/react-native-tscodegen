@@ -6,7 +6,7 @@ import * as cs from './CodegenSchema';
 import { parseCommands } from './ComponentCommandParser';
 import { tryParseEvent } from './ComponentEventParser';
 import { parseProperty } from './ComponentPropertyParser';
-import { ExportCommandInfo, ExportComponentInfo } from './ExportParser';
+import { ExportCommandInfo, ExportComponentInfo, getMembersFromType } from './ExportParser';
 
 function importExists(sourceFile: ts.SourceFile, name: string): boolean {
     const result = sourceFile.forEachChild((importNode: ts.Node) => {
@@ -60,6 +60,11 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
 
     if (commandsInfo !== undefined) {
         commands = parseCommands(commandsInfo);
+    }
+
+    const validMembers = getMembersFromType(info.typeNode, info.sourceFile);
+    if (validMembers === undefined) {
+        throw new Error(`Type ${info.typeNode.getText()} to define a component should be a interface type defined in the same source file.`);
     }
 
     const typeChecker = info.program.getTypeChecker();
