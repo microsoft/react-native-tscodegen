@@ -31,18 +31,29 @@ declare module 'react-native-tscodegen-types' {
   // \react-native\Libraries\Types\CodegenTypes.js
 
   export class RNTag<T extends
-    | 'Int32'
-    | 'Float'
-    | 'Double'
     | 'ImageSource'
     | 'ColorValue'
     > {
     private constructor();
   }
+
+  export interface PrimitiveTypeRNTag<P extends
+    | 'Int32'
+    | 'Float'
+    | 'Double'> {
+    __primitive_type__?: P;
+  }
+
+  export type PrimitiveType<T, P extends
+    | 'Int32'
+    | 'Float'
+    | 'Double'
+    > = T & PrimitiveTypeRNTag<P>;
+
   export class WithDefaultRNTag<T>{ private constructor(); }
-  export type Float = number | RNTag<'Float'>;
-  export type Double = number | RNTag<'Double'>;
-  export type Int32 = number | RNTag<'Int32'>;
+  export type Float = PrimitiveType<number, 'Float'>;
+  export type Double = PrimitiveType<number, 'Double'>;
+  export type Int32 = PrimitiveType<number, 'Int32'>;
   export type BubblingEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type NotString = {};

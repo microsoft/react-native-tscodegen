@@ -63,9 +63,6 @@ function isNumber(tsType: ts.Type): boolean {
 }
 
 function isRNTag(tsType: ts.Type, tag:
-    | 'Int32'
-    | 'Float'
-    | 'Double'
     | 'ImageSource'
     | 'ColorValue'
 ): boolean {
@@ -80,6 +77,36 @@ function isRNTag(tsType: ts.Type, tag:
 
     const typeRef = <ts.TypeReference>objectType;
     if (typeRef.target.symbol === undefined || typeRef.target.symbol.name !== 'RNTag') {
+        return false;
+    }
+    if (typeRef.typeArguments === undefined || typeRef.typeArguments.length !== 1) {
+        return false;
+    }
+
+    const tagType = typeRef.typeArguments[0];
+    if (!tagType.isStringLiteral()) {
+        return false;
+    }
+
+    return tagType.value === tag;
+}
+
+function isPrimitiveTypeRNTag(tsType: ts.Type, tag:
+    | 'Float'
+    | 'Double'
+    | 'Int32'
+): boolean {
+    if (tsType.flags !== ts.TypeFlags.Object) {
+        return false;
+    }
+
+    const objectType = <ts.ObjectType>tsType;
+    if (objectType.objectFlags !== ts.ObjectFlags.Reference) {
+        return false;
+    }
+
+    const typeRef = <ts.TypeReference>objectType;
+    if (typeRef.target.symbol === undefined || typeRef.target.symbol.name !== 'PrimitiveTypeRNTag') {
         return false;
     }
     if (typeRef.typeArguments === undefined || typeRef.typeArguments.length !== 1) {
@@ -268,6 +295,33 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     const itemNumberLiterals: number[] = [];
     let itemOthers: RNRawType[] = [];
 
+    for (let i = 0; i < tsItems.length; i++) {
+        const tsItem = tsItems[i];
+        if (tsItem.isIntersection()) {
+            let originalType: ts.Type | undefined;
+            LOOP_INTERSECTION_TYPE:
+            for (const intersectionItem of tsItem.types) {
+                if (isPrimitiveTypeRNTag(intersectionItem, 'Float')) {
+                    itemFloatRNTag = true;
+                } else if (isPrimitiveTypeRNTag(intersectionItem, 'Double')) {
+                    itemDoubleRNTag = true;
+                } else if (isPrimitiveTypeRNTag(intersectionItem, 'Int32')) {
+                    itemInt32RNTag = true;
+                } else if (originalType === undefined) {
+                    originalType = intersectionItem;
+                } else {
+                    throw new Error(`Intersection type is not supported: ${typeChecker.typeToString(tsType)}.`);
+                }
+            }
+
+            if (originalType === undefined) {
+                throw new Error(`Intersection type is not supported: ${typeChecker.typeToString(tsType)}.`);
+            } else {
+                tsItems[i] = originalType;
+            }
+        }
+    }
+
     function setDefaultValue(elementType: ts.Type, defaultValueType: ts.Type): void {
         const currentDefaultValue = typeToRNRawType(defaultValueType, typeChecker, allowObject);
 
@@ -343,12 +397,6 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
             itemNumber = true;
         } else if (isString(elementType)) {
             itemString = true;
-        } else if (isRNTag(elementType, 'Float')) {
-            itemFloatRNTag = true;
-        } else if (isRNTag(elementType, 'Double')) {
-            itemDoubleRNTag = true;
-        } else if (isRNTag(elementType, 'Int32')) {
-            itemInt32RNTag = true;
         } else if (isRNTag(elementType, 'ImageSource')) {
             itemOthers.push({ kind: 'rn:ImageSourcePrimitive', isNullable: false });
         } else if (isRNTag(elementType, 'ColorValue')) {
@@ -469,10 +517,25 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                             if (propDecl.questionToken !== undefined) {
                                 propRawType.isNullable = true;
                             }
-                            objectRawType.properties.push({
+
+                            const pushedProperty = {
                                 name: (<ts.Node>propDecl.name).getText(),
                                 propertyType: propRawType
-                            });
+                            };
+                            objectRawType.properties.push(pushedProperty);
+
+                            if (pushedProperty.propertyType.kind === 'Number') {
+                                // sometimes when the compiler see underfined | null | PrimitiveType<number, 'TYPE'>
+                                // the __primitive_type__ member is lost
+                                const propSymbolDeclText = propSymbolDecl.getText();
+                                if (propSymbolDeclText.match(/\WFloat\W/) !== null) {
+                                    pushedProperty.propertyType.kind = 'Float';
+                                } else if (propSymbolDeclText.match(/\WDouble\W/) !== null) {
+                                    pushedProperty.propertyType.kind = 'Double';
+                                } else if (propSymbolDeclText.match(/\WInt32\W/) !== null) {
+                                    pushedProperty.propertyType.kind = 'Int32';
+                                }
+                            }
                         } else if (funcReturnType !== undefined && funcParameters !== undefined) {
                             const funcRawType = getRawFunctionType(funcReturnType, funcParameters, typeChecker, true);
                             if (propDecl.questionToken !== undefined) {
@@ -520,6 +583,19 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
         result.isNullable = itemNullable;
         if (itemDefaultValue !== undefined) {
             result.defaultValue = itemDefaultValue;
+        }
+
+        if (result.kind === 'Number') {
+            const tsTypeText = typeChecker.typeToString(tsType);
+            // sometimes when the compiler see underfined | null | PrimitiveType<number, 'TYPE'>
+            // the __primitive_type__ member is lost
+            if (tsTypeText.match(/\WFloat\W/) !== null) {
+                result.kind = 'Float';
+            } else if (tsTypeText.match(/\WDouble\W/) !== null) {
+                result.kind = 'Double';
+            } else if (tsTypeText.match(/\WInt32\W/) !== null) {
+                result.kind = 'Int32';
+            }
         }
         return result;
     }

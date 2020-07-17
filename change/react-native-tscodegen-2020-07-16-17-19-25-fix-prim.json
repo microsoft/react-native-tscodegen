@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Fix primitive number type",
+  "packageName": "react-native-tscodegen",
+  "email": "zihanc@microsoft.com",
+  "commit": "a810e1f600e010bf05e6763228b2363e2507e5bb",
+  "date": "2020-07-17T00:19:25.443Z",
+  "file": "D:\\GitHub\\react-native-tscodegen\\change\\react-native-tscodegen-2020-07-16-17-19-25-fix-prim.json"
+}
