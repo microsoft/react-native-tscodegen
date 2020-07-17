@@ -59,4 +59,4 @@ After running `npm run codegen`, you will see files get generated in `./lib/cpp-
 
 ## Building C++ files
 
-(still writing)
+You are expected to use [react-native-windows](https://github.com/microsoft/react-native-windows) for implementing turbo modules in C++.
