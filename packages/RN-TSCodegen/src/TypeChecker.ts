@@ -119,8 +119,8 @@ function eventTypeToRNRawType(typeArguments: readonly ts.Type[], kind: 'DirectEv
         throw new Error(`${kind} should have one type argument and another optional string literal type argument.`);
     }
 
-    const eventType = typeToRNRawType(typeArguments[0], typeChecker, true);
-    const nameType = typeArguments.length === 1 ? undefined : typeToRNRawType(typeArguments[1], typeChecker, false);
+    const eventType = typeToRNRawType2(typeArguments[0], typeChecker, true);
+    const nameType = typeArguments.length === 1 ? undefined : typeToRNRawType2(typeArguments[1], typeChecker, false);
     if (nameType !== undefined && (nameType.kind !== 'StringLiterals' || nameType.values.length !== 1)) {
         throw new Error(`${kind} should have one type argument and another optional string literal type argument.`);
     }
@@ -196,14 +196,14 @@ function getRawFunctionType(funcReturnType: ts.Type, funcParameters: readonly ts
     const funcRawType: RNRawType = {
         kind: 'Function',
         isNullable: false,
-        returnType: typeToRNRawType(funcReturnType, typeChecker, allowObject),
+        returnType: typeToRNRawType2(funcReturnType, typeChecker, allowObject),
         parameters: []
     };
     for (const paramDecl of funcParameters) {
         if (paramDecl.type !== undefined) {
             const paramRawType = {
                 name: paramDecl.name.getText(),
-                parameterType: typeToRNRawType(typeChecker.getTypeFromTypeNode(paramDecl.type), typeChecker, allowObject)
+                parameterType: typeToRNRawType(paramDecl.type, typeChecker, allowObject)
             };
             if (paramDecl.questionToken !== undefined) {
                 paramRawType.parameterType.isNullable = true;
@@ -214,7 +214,12 @@ function getRawFunctionType(funcReturnType: ts.Type, funcParameters: readonly ts
     return funcRawType;
 }
 
-export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
+export function typeToRNRawType(tsTypeNode: ts.TypeNode, typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
+    const tsType = typeChecker.getTypeFromTypeNode(tsTypeNode);
+    return typeToRNRawType2(tsType, typeChecker, allowObject);
+}
+
+function typeToRNRawType2(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObject: boolean): RNRawType {
     const tsItems = tsType.isUnion() ? tsType.types : [tsType];
 
     let itemNullable = false;
@@ -259,7 +264,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
     }
 
     function setDefaultValue(elementType: ts.Type, defaultValueType: ts.Type): void {
-        const currentDefaultValue = typeToRNRawType(defaultValueType, typeChecker, allowObject);
+        const currentDefaultValue = typeToRNRawType2(defaultValueType, typeChecker, allowObject);
 
         switch (currentDefaultValue.kind) {
             case 'BooleanLiteral': {
@@ -299,14 +304,14 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                             itemOthers.push({
                                 kind: 'Tuple',
                                 isNullable: false,
-                                types: typeReference.typeArguments.map((value: ts.Type) => typeToRNRawType(value, typeChecker, allowObject))
+                                types: typeReference.typeArguments.map((value: ts.Type) => typeToRNRawType2(value, typeChecker, allowObject))
                             });
                             continue;
                         } else if (typeReferenceTarget.symbol.name === 'Array' || typeReferenceTarget.symbol.name === 'ReadonlyArray') {
                             itemOthers.push({
                                 kind: 'Array',
                                 isNullable: false,
-                                elementType: typeToRNRawType(typeReference.typeArguments[0], typeChecker, allowObject)
+                                elementType: typeToRNRawType2(typeReference.typeArguments[0], typeChecker, allowObject)
                             });
                             continue;
                         }
@@ -348,7 +353,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                 const typeReference = <ts.TypeReference>elementType;
                 if (typeReference.typeArguments !== undefined && typeReference.typeArguments.length === 1) {
                     const promiseType = typeReference.typeArguments[0];
-                    itemOthers.push({ kind: 'js:Promise', elementType: typeToRNRawType(promiseType, typeChecker, allowObject), isNullable: false });
+                    itemOthers.push({ kind: 'js:Promise', elementType: typeToRNRawType2(promiseType, typeChecker, allowObject), isNullable: false });
                 } else {
                     throw new Error(`Unable to extract type from ${typeChecker.typeToString(elementType)}.`);
                 }
@@ -373,7 +378,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                 }
 
                 itemNullable = true;
-                itemOthers.push(typeToRNRawType(typeArguments[0], typeChecker, allowObject));
+                itemOthers.push(typeToRNRawType2(typeArguments[0], typeChecker, allowObject));
                 setDefaultValue(elementType, typeArguments[1]);
             } else {
                 itemUnknowns.push(elementType);
@@ -449,7 +454,7 @@ export function typeToRNRawType(tsType: ts.Type, typeChecker: ts.TypeChecker, al
                         const [propDecl, propType, funcReturnType, funcParameters] = tryReadMemberSignature(propSymbolDecl, typeChecker);
 
                         if (propType !== undefined) {
-                            const propRawType = typeToRNRawType(propType, typeChecker, allowObject);
+                            const propRawType = typeToRNRawType2(propType, typeChecker, allowObject);
                             if (propDecl.questionToken !== undefined) {
                                 propRawType.isNullable = true;
                             }

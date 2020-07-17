@@ -162,7 +162,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
 export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
   const typeChecker = info.program.getTypeChecker();
   const propType = <ts.TypeNode>propDecl.type;
-  const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propType), typeChecker, true);
+  const rawType = typeToRNRawType(propType, typeChecker, true);
   const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propType, info.program.getTypeChecker());
   return {
     name: propDecl.name.getText(),
