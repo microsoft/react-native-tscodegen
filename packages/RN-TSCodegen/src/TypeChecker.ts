@@ -4,6 +4,7 @@
 // tslint:disable:no-conditional-assignment
 
 import * as ts from 'typescript';
+import { resolveType } from './ExportParser';
 import { RNRawType } from './RNRawType';
 
 function isAny(tsType: ts.Type): boolean {
@@ -539,7 +540,7 @@ function typeToRNRawType2(tsType: ts.Type, typeChecker: ts.TypeChecker, allowObj
     }
 }
 
-export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RNRawType {
+export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile, allowObject: boolean): RNRawType {
     let itemNullable = false;
     let itemDefaultValue: string | number | boolean | undefined;
     const itemStringLiterals: string[] = [];
@@ -548,6 +549,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
 
     const scannedItems: ts.TypeNode[] = [typeNode];
     for (let i = 0; i < scannedItems.length; i++) {
+        const scannedItemsCount = scannedItems.length;
+        const itemOthersCount = itemOthers.length;
+
         const item = scannedItems[i];
         if (ts.isParenthesizedTypeNode(item)) {
             scannedItems.push(item);
@@ -589,7 +593,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
                     if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
                         throw new Error(`${typeNode.getText()} should have one type argument.`);
                     }
-                    itemOthers.push({ kind: 'js:Promise', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], allowObject) });
+                    itemOthers.push({ kind: 'js:Promise', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, allowObject) });
                     break;
                 }
                 case 'DirectEventHandler':
@@ -598,7 +602,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
                         throw new Error(`${typeNode.getText()} should have one type argument and another optional string literal type argument.`);
                     }
 
-                    const eventType = typeToRNRawType(item.typeArguments[0], true);
+                    const eventType = typeToRNRawType(item.typeArguments[0], sourceFile, true);
                     let nameType: string | undefined;
                     if (item.typeArguments.length == 2) {
                         const nameNode = item.typeArguments[1];
@@ -621,7 +625,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
                     if (item.typeArguments === undefined || item.typeArguments.length !== 2) {
                         throw new Error(`${typeNode.getText()} should have one type argument and another default value.`);
                     }
-                    itemOthers.push(typeToRNRawType(item.typeArguments[0], allowObject));
+                    itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, allowObject));
 
                     const defaultValue = item.typeArguments[1];
                     switch (defaultValue.kind) {
@@ -654,11 +658,26 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
                     if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
                         throw new Error(`${typeNode.getText()} should have one type argument.`);
                     }
-                    itemOthers.push(typeToRNRawType(item.typeArguments[0], allowObject));
+                    itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, allowObject));
                     break;
                 }
-                default:
+                case 'Array':
+                case 'ReadonlyArray': {
+                    if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
+                        throw new Error(`${typeNode.getText()} should have one type argument.`);
+                    }
+                    itemOthers.push({ kind: 'Array', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, allowObject) });
+                    break;
+                }
+                default: {
+                    const resolvedType = resolveType(item, sourceFile);
+                    if (resolvedType !== item) {
+                        scannedItems.push(resolvedType);
+                    }
+                }
             }
+        } else if (ts.isArrayTypeNode(item)) {
+            itemOthers.push({ kind: 'Array', isNullable: false, elementType: typeToRNRawType(item.elementType, sourceFile, allowObject) });
         } else if (ts.isLiteralTypeNode(item)) {
             if (ts.isStringLiteral(item.literal)) {
                 itemStringLiterals.push(item.literal.text);
@@ -667,6 +686,28 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
             } else {
                 throw new Error(`Type is not supported: ${typeNode.getText()}.`);
             }
+        } else if (ts.isFunctionTypeNode(item)) {
+            if (item.typeParameters !== undefined && item.typeParameters.length !== 0) {
+                throw new Error(`Type is not supported: ${typeNode.getText()}.`);
+            }
+
+            itemOthers.push({
+                kind: 'Function',
+                isNullable: false,
+                returnType: item.type === undefined ? { kind: 'Void', isNullable: false } : typeToRNRawType(item.type, sourceFile, allowObject),
+                parameters: item.parameters.map((decl: ts.ParameterDeclaration) => ({
+                    name: decl.name.getText(),
+                    parameterType: decl.type === undefined
+                        ? { kind: 'Any', isNullable: false }
+                        : typeToRNRawType(decl.type, sourceFile, allowObject)
+                }))
+            });
+        } else if (ts.isTupleTypeNode(item)) {
+            itemOthers.push({
+                kind: 'Tuple',
+                isNullable: false,
+                types: item.elementTypes.map((elementType: ts.TypeNode) => typeToRNRawType(elementType, sourceFile, allowObject))
+            });
         } else {
             switch (item.kind) {
                 case ts.SyntaxKind.UndefinedKeyword:
@@ -689,6 +730,14 @@ export function typeToRNRawType(typeNode: ts.TypeNode, allowObject: boolean): RN
                     itemOthers.push({ kind: 'Any', isNullable: false });
                     break;
                 default:
+            }
+        }
+
+        if (scannedItemsCount === scannedItems.length && itemOthersCount === itemOthers.length) {
+            if (allowObject) {
+
+            } else {
+                throw new Error(`Type is not supported: ${typeNode.getText()}.`);
             }
         }
     }
