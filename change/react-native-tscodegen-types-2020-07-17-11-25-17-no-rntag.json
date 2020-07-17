@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Completely remove RNTag",
-  "packageName": "react-native-tscodegen-types",
-  "email": "zihanc@microsoft.com",
-  "commit": "04b5681b8cf9c1714498dbd8c207b83c2209558d",
-  "date": "2020-07-17T18:25:13.680Z",
-  "file": "D:\\GitHub\\react-native-tscodegen\\change\\react-native-tscodegen-types-2020-07-17-11-25-17-no-rntag.json"
-}

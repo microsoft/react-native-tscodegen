@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen-types",
   "entries": [
     {
+      "date": "Fri, 17 Jul 2020 18:42:32 GMT",
+      "tag": "react-native-tscodegen-types_v0.65.3",
+      "version": "0.65.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Completely remove RNTag",
+            "author": "zihanc@microsoft.com",
+            "commit": "04b5681b8cf9c1714498dbd8c207b83c2209558d"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jul 2020 18:23:21 GMT",
       "tag": "react-native-tscodegen-types_v0.65.2",
       "version": "0.65.2",

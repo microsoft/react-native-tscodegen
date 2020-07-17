@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen-types
 
-This log was last generated on Fri, 17 Jul 2020 18:23:21 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Jul 2020 18:42:32 GMT and should not be manually modified.
 
+## 0.65.3
+Fri, 17 Jul 2020 18:42:32 GMT
+
+### Patches
+
+- Completely remove RNTag (zihanc@microsoft.com)
 ## 0.65.2
 Fri, 17 Jul 2020 18:23:21 GMT
 
