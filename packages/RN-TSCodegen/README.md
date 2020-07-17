@@ -2,6 +2,10 @@
 
 This library enable people to write react-native Turbo Module in TypeScript, and generate native code in C++, Objective C++ and Java!
 
+## Target react-native version
+
+0.63.0
+
 ## Authoring a Turbo Module
 
 At this moment, the new Turbo Module API is not published by Facebook,

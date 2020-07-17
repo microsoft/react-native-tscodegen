@@ -6,18 +6,19 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawObjectType, RNRawType, RNRawTypeCommon, typeToRNRawType } from './TypeChecker';
+import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 interface ObjectTypeAnnotation {
   type: 'ObjectTypeAnnotation';
   properties: ReadonlyArray<cs.PropTypeShape>;
 }
 
-function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): ObjectTypeAnnotation {
+function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode): ObjectTypeAnnotation {
   return {
     type: 'ObjectTypeAnnotation',
     properties: rawType.properties.map((value: { name: string; propertyType: RNRawType }) => {
-      const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode, typeChecker);
+      const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode);
       return {
         name: value.name,
         optional,
@@ -27,7 +28,7 @@ function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCom
   };
 }
 
-function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.TypeNode, typeChecker: ts.TypeChecker): [boolean, cs.PropTypeTypeAnnotation] {
+function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.TypeNode): [boolean, cs.PropTypeTypeAnnotation] {
   switch (rawType.kind) {
     case 'Boolean': return [rawType.isNullable, {
       type: 'BooleanTypeAnnotation',
@@ -57,7 +58,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
     case 'NumberLiterals': return [rawType.isNullable, {
       type: 'Int32EnumTypeAnnotation',
       options: rawType.values.map((value: number) => { return { value }; }),
-      default: (rawType.defaultValue === undefined ? rawType.values[0] : +`${rawType.defaultValue}`)
+      default: (rawType.defaultValue === undefined ? rawType.values[0] : +rawType.defaultValue)
     }];
     case 'rn:ColorPrimitive': return [rawType.isNullable, {
       type: 'NativePrimitiveTypeAnnotation',
@@ -75,7 +76,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       type: 'NativePrimitiveTypeAnnotation',
       name: 'EdgeInsetsPrimitive'
     }];
-    case 'Object': return [rawType.isNullable, rnRawTypeToObjectTypeAnnotation(rawType, typeNode, typeChecker)];
+    case 'Object': return [rawType.isNullable, rnRawTypeToObjectTypeAnnotation(rawType, typeNode)];
     case 'Array':
       switch (rawType.elementType.kind) {
         case 'Boolean': return [rawType.isNullable, {
@@ -136,7 +137,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
         }];
         case 'Object': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
-          elementType: rnRawTypeToObjectTypeAnnotation(rawType.elementType, typeNode, typeChecker)
+          elementType: rnRawTypeToObjectTypeAnnotation(rawType.elementType, typeNode)
         }];
         case 'Array': {
           switch (rawType.elementType.elementType.kind) {
@@ -144,7 +145,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
               type: 'ArrayTypeAnnotation',
               elementType: {
                 type: 'ArrayTypeAnnotation',
-                elementType: rnRawTypeToObjectTypeAnnotation(rawType.elementType.elementType, typeNode, typeChecker)
+                elementType: rnRawTypeToObjectTypeAnnotation(rawType.elementType.elementType, typeNode)
               }
             }];
             default:
@@ -158,11 +159,10 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
   throw new Error(`Component property argument type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.PropTypeShape {
-  const typeChecker = info.program.getTypeChecker();
+export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.PropTypeShape {
   const propType = <ts.TypeNode>propDecl.type;
-  const rawType = typeToRNRawType(typeChecker.getTypeFromTypeNode(propType), typeChecker, true);
-  const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propType, info.program.getTypeChecker());
+  const rawType = typeToRNRawType(propType, info.sourceFile, true);
+  const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propType);
   return {
     name: propDecl.name.getText(),
     optional: propDecl.questionToken !== undefined || optional,

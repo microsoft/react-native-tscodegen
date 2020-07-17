@@ -4,11 +4,14 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawType, typeToRNRawType, WritableObjectType } from './TypeChecker';
+import { RNRawType, WritableObjectType } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
-function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl: ts.PropertySignature): [boolean, ts.Type, string, string | undefined] | undefined {
-  if (eventType.isUnion()) {
-    let result: [boolean, ts.Type, string, string | undefined] | undefined;
+function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): [boolean, ts.TypeNode, string, string | undefined] | undefined {
+  if (ts.isParenthesizedTypeNode(eventType)) {
+    return checkEventType(eventType.type, info, propDecl);
+  } else if (ts.isUnionTypeNode(eventType)) {
+    let result: [boolean, ts.TypeNode, string, string | undefined] | undefined;
     for (const elementType of eventType.types) {
       const elementResult = checkEventType(elementType, info, propDecl);
       if (elementResult !== undefined) {
@@ -23,23 +26,26 @@ function checkEventType(eventType: ts.Type, info: ExportComponentInfo, propDecl:
       result[0] = true;
     }
     return result;
-  } else {
-    if (eventType.aliasSymbol === undefined || (eventType.aliasSymbol.name !== 'DirectEventHandler' && eventType.aliasSymbol.name !== 'BubblingEventHandler')) {
+  } else if (ts.isTypeReferenceNode(eventType)) {
+    const typeName = eventType.typeName.getText();
+    if (typeName !== 'DirectEventHandler' && typeName !== 'BubblingEventHandler') {
       return undefined;
     }
 
-    const typeArguments = eventType.aliasTypeArguments;
+    const typeArguments = eventType.typeArguments;
     if (typeArguments === undefined || typeArguments.length < 1 || typeArguments.length > 2) {
-      throw new Error(`Event ${propDecl.name.getText()} in type ${info.typeNode.getText()} should have one or two type parameters for ${eventType.aliasSymbol.name}.`);
+      throw new Error(`Event ${propDecl.name.getText()} in type ${info.typeNode.getText()} should have one or two type parameters for ${typeName}.`);
     }
 
     if (typeArguments.length === 2) {
       const nameArgument = typeArguments[1];
-      if (nameArgument.isStringLiteral()) {
-        return [false, typeArguments[0], eventType.aliasSymbol.name, nameArgument.value];
+      if (ts.isLiteralTypeNode(nameArgument) && ts.isStringLiteral(nameArgument.literal)) {
+        return [false, typeArguments[0], typeName, nameArgument.literal.text];
       }
     }
-    return [false, typeArguments[0], eventType.aliasSymbol.name, undefined];
+    return [false, typeArguments[0], typeName, undefined];
+  } else {
+    return undefined;
   }
 }
 
@@ -72,16 +78,15 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
   throw new Error(`Component event type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature): cs.EventTypeShape | undefined {
-  const typeChecker = info.program.getTypeChecker();
+export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.EventTypeShape | undefined {
   const propType = <ts.TypeNode>propDecl.type;
-  const eventTypeTuple = checkEventType(typeChecker.getTypeFromTypeNode(propType), info, propDecl);
+  const eventTypeTuple = checkEventType(propType, info, propDecl);
   if (eventTypeTuple === undefined) {
     return undefined;
   }
 
   const [optional, eventType, eventTypeName, paperTopLevelNameDeprecated] = eventTypeTuple;
-  const rawType = typeToRNRawType(eventType, typeChecker, true);
+  const rawType = typeToRNRawType(eventType, info.sourceFile, true);
 
   let eventProperties: readonly cs.ObjectPropertyType[] = [];
   if (rawType.kind !== 'Null') {

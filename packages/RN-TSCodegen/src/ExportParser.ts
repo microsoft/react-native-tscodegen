@@ -27,6 +27,58 @@ export interface ExportCommandInfo {
 
 type ExportInfo = [ts.TypeNode, ts.Expression, ts.Expression];
 
+export function resolveType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): ts.TypeNode {
+    if (ts.isParenthesizedTypeNode(typeNode)) {
+        return typeNode.type;
+    } else if (ts.isTypeReferenceNode(typeNode)) {
+        if (typeNode.typeArguments === undefined || typeNode.typeArguments.length === 0) {
+            for (const stat of sourceFile.statements) {
+                if (ts.isTypeAliasDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
+                    return resolveType(stat.type, sourceFile);
+                }
+            }
+        }
+    }
+    return typeNode;
+}
+
+export function getMembersFromType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): readonly ts.TypeElement[] | undefined {
+    if (ts.isParenthesizedTypeNode(typeNode)) {
+        return getMembersFromType(typeNode.type, sourceFile);
+    } else if (ts.isTypeLiteralNode(typeNode)) {
+        return typeNode.members;
+    } else if (ts.isIntersectionTypeNode(typeNode)) {
+        const validMembers = typeNode.types
+            .map((itemType: ts.TypeNode) => getMembersFromType(itemType, sourceFile))
+            .filter((members: readonly ts.TypeElement[] | undefined) => members !== undefined);
+        if (validMembers.length === 0) {
+            return undefined;
+        } else {
+            return validMembers.reduce((a: ts.TypeElement[], b: ts.TypeElement[]) => a.concat(b));
+        }
+    } else if (ts.isTypeReferenceNode(typeNode)) {
+        switch (typeNode.typeName.getText()) {
+            case 'Readonly': {
+                if (typeNode.typeArguments !== undefined && typeNode.typeArguments.length > 0) {
+                    return getMembersFromType(typeNode.typeArguments[0], sourceFile);
+                }
+                break;
+            }
+            case 'ViewProps': return undefined;
+            default: {
+                for (const stat of sourceFile.statements) {
+                    if (ts.isInterfaceDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
+                        return stat.members;
+                    } else if (ts.isTypeAliasDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
+                        return getMembersFromType(stat.type, sourceFile);
+                    }
+                }
+            }
+        }
+    }
+    return undefined;
+}
+
 export function tryParseExportedCallExpression(callExpression: ts.Expression, functionName: string): ExportInfo | undefined {
     // the export statement may be "export default (CALL-EXPRESSION as Type)"
     while (ts.isParenthesizedExpression(callExpression) || ts.isTypeAssertion(callExpression) || ts.isAsExpression(callExpression)) {

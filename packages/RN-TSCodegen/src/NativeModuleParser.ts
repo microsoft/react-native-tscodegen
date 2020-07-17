@@ -4,7 +4,8 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportNativeModuleInfo } from './ExportParser';
-import { RNRawType, typeToRNRawType } from './TypeChecker';
+import { RNRawType } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 function rawTypeToParamType(rawType: RNRawType): cs.FunctionTypeAnnotationParamTypeAnnotation {
     switch (rawType.kind) {
@@ -120,7 +121,7 @@ function rawTypeToFunctionTypeAnnotation(rawType: RNRawType, propName: string, t
 }
 
 export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModuleShape {
-    const rawType = typeToRNRawType(info.program.getTypeChecker().getTypeFromTypeNode(info.typeNode), info.program.getTypeChecker(), true);
+    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, true);
     if (rawType.kind !== 'Object') {
         throw new Error(`An object type is expected as a native module: ${info.typeNode.getText()}.`);
     }

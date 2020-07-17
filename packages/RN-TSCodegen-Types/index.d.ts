@@ -30,36 +30,15 @@ declare module 'react-native-tscodegen-types' {
 
   // \react-native\Libraries\Types\CodegenTypes.js
 
-  export class RNTag<T extends
-    | 'ImageSource'
-    | 'ColorValue'
-    > {
-    private constructor();
-  }
-
-  export interface PrimitiveTypeRNTag<P extends
-    | 'Int32'
-    | 'Float'
-    | 'Double'> {
-    __primitive_type__?: P;
-  }
-
-  export type PrimitiveType<T, P extends
-    | 'Int32'
-    | 'Float'
-    | 'Double'
-    > = T & PrimitiveTypeRNTag<P>;
-
-  export class WithDefaultRNTag<T>{ private constructor(); }
-  export type Float = PrimitiveType<number, 'Float'>;
-  export type Double = PrimitiveType<number, 'Double'>;
-  export type Int32 = PrimitiveType<number, 'Int32'>;
+  export type Float = number;
+  export type Double = number;
+  export type Int32 = number;
   export type BubblingEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
   export type NotString = {};
   export type Stringish = string;
   export type ReactNull = undefined | null;
-  export type WithDefault<T, V> = ReactNull | T | WithDefaultRNTag<V>;
+  export type WithDefault<T, V> = ReactNull | T;
 
   // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.ios.js
   // \react-native\Libraries\StyleSheet\PlatformColorValueTypes.android.js
@@ -76,7 +55,7 @@ declare module 'react-native-tscodegen-types' {
       light?: FlowOptional<ColorValue | ProcessedColorValue>;
       dark?: FlowOptional<ColorValue | ProcessedColorValue>;
     };
-  } | RNTag<'ColorValue'>;
+  };
 
   export type ProcessedColorValue = number | NativeColorValue;
   export type ColorValue = string | NativeColorValue;
@@ -95,7 +74,7 @@ declare module 'react-native-tscodegen-types' {
   // \react-native\Libraries\Image\ImageSource.js
 
   import { ImageURISource } from 'react-native';
-  export type ImageSource = ImageURISource | number | Array<ImageURISource> | RNTag<'ImageSource'>;
+  export type ImageSource = ImageURISource | number | Array<ImageURISource>;
 
   // \react-native\Libraries\TurboModule\RCTExport.js
 
@@ -114,7 +93,7 @@ declare module 'react-native-tscodegen-types' {
 
   // \react-native\Libraries\Utilities\codegenNativeComponent.js
 
-  type Options = Readonly<{
+  type ComponentOptions = Readonly<{
     interfaceOnly?: boolean;
     paperComponentName?: string;
     paperComponentNameDeprecated?: string;
@@ -124,15 +103,15 @@ declare module 'react-native-tscodegen-types' {
   export type NativeComponent<T> = {};
   export type NativeComponentType<T> = {};
   export type HostComponent<T> = {};
-  export function codegenNativeComponent<Props>(componentName: string, options?: Options): HostComponent<Props>;
+  export function codegenNativeComponent<Props>(componentName: string, options?: ComponentOptions): HostComponent<Props>;
 
   // \react-native\Libraries\Utilities\codegenNativeCommands.js
 
-  type Options<T = string> = Readonly<{
+  type CommandOptions<T = string> = Readonly<{
     supportedCommands: ReadonlyArray<T>;
   }>;
 
-  export function codegenNativeCommands<T extends {}>(options?: Options<keyof T>): T;
+  export function codegenNativeCommands<T extends {}>(options?: CommandOptions<keyof T>): T;
 }
 
 declare module 'react-native-tscodegen-types' {
