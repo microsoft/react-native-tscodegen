@@ -112,6 +112,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     if (item.typeArguments === undefined || item.typeArguments.length !== 2) {
                         throw new Error(`${typeNode.getText()} should have one type argument and another default value.`);
                     }
+                    itemNullable = true;
                     itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, allowObject));
 
                     const defaultValue = item.typeArguments[1];
@@ -249,17 +250,23 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 for (const member of members) {
                     if (member.name !== undefined) {
                         const name = member.name.getText();
+                        let propertyType: RNRawType | undefined;
+
                         if (ts.isMethodSignature(member) || ts.isCallSignatureDeclaration(member)) {
-                            rawObjectType.properties.push({
-                                name,
-                                propertyType: functionToRNRawType(member, sourceFile, allowObject)
-                            });
+                            propertyType = functionToRNRawType(member, sourceFile, allowObject);
                         } else if (ts.isPropertySignature(member) || ts.isPropertyDeclaration(member)) {
+                            propertyType = member.type === undefined
+                                ? { kind: 'Any', isNullable: false }
+                                : typeToRNRawType(member.type, sourceFile, allowObject);
+                        }
+
+                        if (propertyType !== undefined) {
+                            if (member.questionToken !== undefined) {
+                                propertyType.isNullable = true;
+                            }
                             rawObjectType.properties.push({
                                 name,
-                                propertyType: member.type === undefined
-                                    ? { kind: 'Any', isNullable: false }
-                                    : typeToRNRawType(member.type, sourceFile, allowObject)
+                                propertyType
                             });
                         }
                     }
