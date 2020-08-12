@@ -220,7 +220,7 @@
                     "optional": false,
                     "typeAnnotation": {
                       "name": "ImageSourcePrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -237,7 +237,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ImageSourcePrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -254,7 +254,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ImageSourcePrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -271,7 +271,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ImageSourcePrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -288,7 +288,7 @@
                     "optional": false,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -305,7 +305,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -322,7 +322,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -339,7 +339,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -356,7 +356,7 @@
                     "optional": false,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -373,7 +373,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -390,7 +390,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -407,7 +407,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "ColorPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -424,7 +424,7 @@
                     "optional": false,
                     "typeAnnotation": {
                       "name": "PointPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -441,7 +441,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "PointPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -458,7 +458,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "PointPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -475,7 +475,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "PointPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -492,7 +492,7 @@
                     "optional": false,
                     "typeAnnotation": {
                       "name": "EdgeInsetsPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -509,7 +509,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "EdgeInsetsPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -526,7 +526,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "EdgeInsetsPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],
@@ -543,7 +543,7 @@
                     "optional": true,
                     "typeAnnotation": {
                       "name": "EdgeInsetsPrimitive",
-                      "type": "NativePrimitiveTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation"
                     }
                   }
                 ],

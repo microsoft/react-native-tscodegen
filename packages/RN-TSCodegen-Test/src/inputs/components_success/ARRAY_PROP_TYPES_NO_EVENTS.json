@@ -256,7 +256,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ImageSourcePrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -267,7 +267,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ImageSourcePrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -278,7 +278,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ImageSourcePrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -289,7 +289,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ImageSourcePrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -300,7 +300,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -311,7 +311,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -322,7 +322,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -333,7 +333,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "ColorPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -344,7 +344,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "PointPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -355,7 +355,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "PointPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -366,7 +366,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "PointPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -377,7 +377,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "PointPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -388,7 +388,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "EdgeInsetsPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -399,7 +399,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "EdgeInsetsPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -410,7 +410,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "EdgeInsetsPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
@@ -421,7 +421,7 @@
               "typeAnnotation": {
                 "elementType": {
                   "name": "EdgeInsetsPrimitive",
-                  "type": "NativePrimitiveTypeAnnotation"
+                  "type": "ReservedPropTypeAnnotation"
                 },
                 "type": "ArrayTypeAnnotation"
               }
