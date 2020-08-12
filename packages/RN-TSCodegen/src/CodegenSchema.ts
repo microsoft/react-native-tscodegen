@@ -201,6 +201,8 @@ export type PrimitiveTypeAnnotation = Readonly<{
   type: PrimitiveTypeAnnotationType;
 }>;
 
+export type ReservedFunctionValueTypeName = 'RootTag';
+
 export type FunctionTypeAnnotationParamTypeAnnotation =
   | Readonly<{
       type:
@@ -215,7 +217,11 @@ export type FunctionTypeAnnotationParamTypeAnnotation =
   | Readonly<{
       type: 'ObjectTypeAnnotation';
       properties: (undefined | ReadonlyArray<ObjectParamTypeAnnotation>);
-    }>;
+    }>
+  | Readonly<{
+    type: 'ReservedFunctionValueTypeAnnotation';
+    name: ReservedFunctionValueTypeName;
+  }>;
 
 export type FunctionTypeAnnotationReturnArrayElementType = FunctionTypeAnnotationParamTypeAnnotation;
 
