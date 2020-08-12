@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Wed, 12 Aug 2020 21:54:20 GMT and should not be manually modified.
+This log was last generated on Wed, 12 Aug 2020 22:27:25 GMT and should not be manually modified.
 
+## 0.66.1
+Wed, 12 Aug 2020 22:27:25 GMT
+
+### Patches
+
+- Add ReservedFunctionValueTypeAnnotation to typings (acoates-ms@noreply.github.com)
 ## 0.66.0
 Wed, 12 Aug 2020 21:54:20 GMT
 

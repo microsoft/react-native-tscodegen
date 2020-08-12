@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Wed, 12 Aug 2020 22:27:25 GMT",
+      "tag": "react-native-tscodegen_v0.66.1",
+      "version": "0.66.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add ReservedFunctionValueTypeAnnotation to typings",
+            "author": "acoates-ms@noreply.github.com",
+            "commit": "ba41f16f3eef47ddb600b4486afab46527c3d1e4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 12 Aug 2020 21:54:20 GMT",
       "tag": "react-native-tscodegen_v0.66.0",
       "version": "0.66.0",
