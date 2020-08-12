@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Fri, 17 Jul 2020 18:42:32 GMT and should not be manually modified.
+This log was last generated on Wed, 12 Aug 2020 21:54:20 GMT and should not be manually modified.
 
+## 0.66.0
+Wed, 12 Aug 2020 21:54:20 GMT
+
+### Minor changes
+
+- Sync to react-native d8e6c4578 (rename NativePrimitive => ReservedProp) (acoates-ms@noreply.github.com)
 ## 0.65.3
 Fri, 17 Jul 2020 18:42:32 GMT
 

@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Wed, 12 Aug 2020 21:54:20 GMT",
+      "tag": "react-native-tscodegen_v0.66.0",
+      "version": "0.66.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Sync to react-native d8e6c4578 (rename NativePrimitive => ReservedProp)",
+            "author": "acoates-ms@noreply.github.com",
+            "commit": "8e39f3cb7cf554ed8d8b85533f196d634990bcc6"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jul 2020 18:42:32 GMT",
       "tag": "react-native-tscodegen_v0.65.3",
       "version": "0.65.3",
