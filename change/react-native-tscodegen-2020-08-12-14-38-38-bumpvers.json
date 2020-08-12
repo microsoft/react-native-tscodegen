@@ -1,5 +1,5 @@
 {
-  "type": "patch",
+  "type": "minor",
   "comment": "Sync to react-native d8e6c4578 (rename NativePrimitive => ReservedProp)",
   "packageName": "react-native-tscodegen",
   "email": "acoates-ms@noreply.github.com",
