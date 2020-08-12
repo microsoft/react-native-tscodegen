@@ -125,7 +125,7 @@ export type PropTypeTypeAnnotation =
       }>;
     }>
   | Readonly<{
-      type: 'NativePrimitiveTypeAnnotation';
+      type: 'ReservedPropTypeAnnotation';
       name:
         | 'ColorPrimitive'
         | 'ImageSourcePrimitive'
@@ -166,7 +166,7 @@ export type PropTypeTypeAnnotation =
             properties: ReadonlyArray<PropTypeShape>;
           }>
         | Readonly<{
-            type: 'NativePrimitiveTypeAnnotation';
+            type: 'ReservedPropTypeAnnotation';
             name:
               | 'ColorPrimitive'
               | 'ImageSourcePrimitive'

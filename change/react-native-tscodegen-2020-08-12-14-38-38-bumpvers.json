@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Sync to react-native d8e6c4578 (rename NativePrimitive => ReservedProp)",
+  "packageName": "react-native-tscodegen",
+  "email": "acoates-ms@noreply.github.com",
+  "commit": "8e39f3cb7cf554ed8d8b85533f196d634990bcc6",
+  "date": "2020-08-12T21:38:38.564Z",
+  "file": "E:\\Repos\\react-native-tscodegen\\change\\react-native-tscodegen-2020-08-12-14-38-38-bumpvers.json"
+}

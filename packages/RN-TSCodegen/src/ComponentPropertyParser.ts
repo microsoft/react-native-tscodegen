@@ -61,19 +61,19 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       default: (rawType.defaultValue === undefined ? rawType.values[0] : +rawType.defaultValue)
     }];
     case 'rn:ColorPrimitive': return [rawType.isNullable, {
-      type: 'NativePrimitiveTypeAnnotation',
+      type: 'ReservedPropTypeAnnotation',
       name: 'ColorPrimitive'
     }];
     case 'rn:ImageSourcePrimitive': return [rawType.isNullable, {
-      type: 'NativePrimitiveTypeAnnotation',
+      type: 'ReservedPropTypeAnnotation',
       name: 'ImageSourcePrimitive'
     }];
     case 'rn:PointPrimitive': return [rawType.isNullable, {
-      type: 'NativePrimitiveTypeAnnotation',
+      type: 'ReservedPropTypeAnnotation',
       name: 'PointPrimitive'
     }];
     case 'rn:EdgeInsetsPrimitive': return [rawType.isNullable, {
-      type: 'NativePrimitiveTypeAnnotation',
+      type: 'ReservedPropTypeAnnotation',
       name: 'EdgeInsetsPrimitive'
     }];
     case 'Object': return [rawType.isNullable, rnRawTypeToObjectTypeAnnotation(rawType, typeNode)];
@@ -110,28 +110,28 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
         case 'rn:ColorPrimitive': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
           elementType: {
-            type: 'NativePrimitiveTypeAnnotation',
+            type: 'ReservedPropTypeAnnotation',
             name: 'ColorPrimitive'
           }
         }];
         case 'rn:ImageSourcePrimitive': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
           elementType: {
-            type: 'NativePrimitiveTypeAnnotation',
+            type: 'ReservedPropTypeAnnotation',
             name: 'ImageSourcePrimitive'
           }
         }];
         case 'rn:PointPrimitive': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
           elementType: {
-            type: 'NativePrimitiveTypeAnnotation',
+            type: 'ReservedPropTypeAnnotation',
             name: 'PointPrimitive'
           }
         }];
         case 'rn:EdgeInsetsPrimitive': return [rawType.isNullable, {
           type: 'ArrayTypeAnnotation',
           elementType: {
-            type: 'NativePrimitiveTypeAnnotation',
+            type: 'ReservedPropTypeAnnotation',
             name: 'EdgeInsetsPrimitive'
           }
         }];
