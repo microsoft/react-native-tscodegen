@@ -131,7 +131,3 @@ popd
 git status
 ```
 
-### Improvements
-
-- Remove `RNTag<T>`
-- Remove `ignoredProperties` from `ComponentParser.ts`
