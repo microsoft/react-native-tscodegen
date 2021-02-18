@@ -517,6 +517,10 @@ export type Point = $ReadOnly<{|
   z: Double,
 |}>;
 
+export type PointList<+T:Point> = {
+  ps: T[];
+};
+
 export const Zero = 0;
 export default (func<string>('abc'):number);
   `;
@@ -609,6 +613,37 @@ export default (func<string>('abc'):number);
               propType: { kind: 'TypeReference', name: 'Double', typeArguments: [] }
             }]
           }
+        }
+      },
+      {
+        kind: 'TypeAliasDecl',
+        hasExport: true,
+        name: 'PointList',
+        generic: {
+          parameters: [{
+            name: 'T',
+            baseType: {
+              kind: 'TypeReference',
+              name: 'Point',
+              typeArguments: []
+            }
+          }]
+        },
+        aliasedType: {
+          kind: 'ObjectType',
+          isExact: false,
+          mixinTypes: [],
+          members: [{
+            kind: 'Prop',
+            isReadonly: false,
+            isOptional: false,
+            name: 'ps',
+            propType: {
+              kind: 'ArrayType',
+              isReadonly: false,
+              elementType: { kind: 'TypeReference', name: 'T', typeArguments: [] }
+            }
+          }]
         }
       },
       {

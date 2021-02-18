@@ -169,9 +169,19 @@ export type Expression =
  * Declarations
  ****************************************************************/
 
+export interface GenericParameter {
+  name: string;
+  baseType?: Type;
+}
+
+export interface GenericHeader {
+  parameters: GenericParameter[];
+}
+
 export interface DeclarationBase {
   hasExport: boolean;
   name: string;
+  generic?: GenericHeader;
 }
 
 export interface TypeAliasDecl extends DeclarationBase {

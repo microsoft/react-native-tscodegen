@@ -322,18 +322,46 @@ function applyExprLrec(first: ast.Expression, second: ast.TypeCastExpr | ast.Cal
  * Declarations (apply)
  ****************************************************************/
 
+function applyGenericParameter(value: [
+  undefined | Token,
+  Token,
+  undefined | ast.Type
+]): ast.GenericParameter {
+  const [, name, baseType] = value;
+  if (baseType === undefined) {
+    return { name: name.text };
+  } else {
+    return { name: name.text, baseType };
+  }
+}
+
+function applyGenericHeader(value: ast.GenericParameter[]): ast.GenericHeader {
+  return { parameters: value };
+}
+
 function applyTypeAliasDecl(value: [
   undefined | {/*export*/ },
   Token,
+  undefined | ast.GenericHeader,
   ast.Type
 ]): ast.Declaration {
-  const [hasExport, name, aliasedType] = value;
-  return {
-    kind: 'TypeAliasDecl',
-    hasExport: hasExport !== undefined,
-    name: name.text,
-    aliasedType
-  };
+  const [hasExport, name, generic, aliasedType] = value;
+  if (generic === undefined) {
+    return {
+      kind: 'TypeAliasDecl',
+      hasExport: hasExport !== undefined,
+      name: name.text,
+      aliasedType
+    };
+  } else {
+    return {
+      kind: 'TypeAliasDecl',
+      hasExport: hasExport !== undefined,
+      name: name.text,
+      generic,
+      aliasedType
+    };
+  }
 }
 
 function applyInterfaceDecl(value: [
@@ -453,6 +481,7 @@ export const TYPE_ARRAY = rule<TokenKind, ast.Type>();
 export const TYPE = rule<TokenKind, ast.Type>();
 export const EXPR_TERM = rule<TokenKind, ast.Expression>();
 export const EXPR = rule<TokenKind, ast.Expression>();
+export const GENERIC = rule<TokenKind, ast.GenericHeader>();
 export const DECL = rule<TokenKind, ast.Declaration>();
 export const STAT = rule<TokenKind, ast.Statement>();
 export const PROGRAM = rule<TokenKind, ast.FlowProgram>();
@@ -703,6 +732,28 @@ EXPR.setPattern(
   )
 );
 
+GENERIC.setPattern(
+  // <T, +U:TYPE>
+  apply(
+    kmid(
+      str('<'),
+      list_sc(
+        apply(
+          seq(
+            opt_sc(str('+')),
+            IDENTIFIER,
+            opt_sc(kright(str(':'), TYPE))
+          ),
+          applyGenericParameter
+        ),
+        str(',')
+      ),
+      seq(opt_sc(str(',')), str('>'))
+    ),
+    applyGenericHeader
+  )
+);
+
 DECL.setPattern(
   alt(
     // syntax: [export] type NAME = TYPE;
@@ -713,6 +764,7 @@ DECL.setPattern(
           str('type')
         ),
         IDENTIFIER,
+        opt_sc(GENERIC),
         kmid(
           str('='),
           TYPE,
