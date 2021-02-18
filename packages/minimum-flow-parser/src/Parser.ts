@@ -45,8 +45,8 @@ function applyOptionalType(value: ast.Type): ast.Type {
 
 function applyFunctionType(value: [
   undefined | [
-    undefined | Token,
-    ast.Type
+    undefined | [Token, undefined | Token],
+    ast.Type,
   ][],
   ast.Type
 ]): ast.Type {
@@ -61,12 +61,20 @@ function applyFunctionType(value: [
     return {
       kind: 'FunctionType',
       returnType,
-      parameters: optionalParameters.map((prop: [undefined | Token, ast.Type]) => {
-        const nameColon = prop[0];
-        return {
-          name: nameColon === undefined ? '' : nameColon.text,
-          parameterType: prop[1]
-        };
+      parameters: optionalParameters.map((prop: [undefined | [Token, undefined | Token], ast.Type]) => {
+        if (prop[0] === undefined) {
+          return {
+            name: '',
+            optional: false,
+            parameterType: prop[1]
+          };
+        } else {
+          return {
+            name: prop[0][0].text,
+            optional: prop[0][1] !== undefined,
+            parameterType: prop[1]
+          };
+        }
       })
     };
   }
@@ -557,7 +565,7 @@ TYPE_FUNCTION.setPattern(
           kleft(
             list_sc(
               seq(
-                opt_sc(kleft(tok(TokenKind.Identifier), str(':'))),
+                opt_sc(kleft(seq(tok(TokenKind.Identifier), opt_sc(str('?'))), str(':'))),
                 TYPE
               ),
               alt(str(';'), str(','))

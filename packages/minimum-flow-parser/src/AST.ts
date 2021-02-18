@@ -88,7 +88,7 @@ export interface TypeReference {
 export interface FunctionType {
   kind: 'FunctionType';
   returnType: Type;
-  parameters: { name: string; parameterType: Type }[];
+  parameters: { name: string; parameterType: Type; optional: boolean }[];
 }
 
 export interface ParenType {

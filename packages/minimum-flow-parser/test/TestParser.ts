@@ -358,15 +358,17 @@ test(`Test Object Type with Indexers`, () => {
 });
 
 test(`Test Function Type`, () => {
-  assert.deepStrictEqual(parseType(`(a:string, b:number)=>void`), {
+  assert.deepStrictEqual(parseType(`(a:string, b?:number)=>void`), {
     kind: 'FunctionType',
     returnType: { kind: 'PrimitiveType', name: 'void' },
     parameters: [{
       name: 'a',
+      optional: false,
       parameterType: { kind: 'PrimitiveType', name: 'string' }
     },
     {
       name: 'b',
+      optional: true,
       parameterType: { kind: 'PrimitiveType', name: 'number' }
     }]
   });
