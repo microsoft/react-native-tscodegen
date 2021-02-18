@@ -68,7 +68,8 @@ function printFunctionType(printer: Printer, functionType: flow.FunctionType, in
         if (i !== 0) {
             printer.write(', ');
         }
-        printer.write(`${functionType.parameters[i].name}: `);
+        printer.write(functionType.parameters[i].name);
+        printer.write(functionType.parameters[i].optional ? '?: ' : ': ');
         printType(printer, functionType.parameters[i].parameterType, config);
     }
     if (interfaceMember) {
@@ -296,6 +297,24 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
     }
 }
 
+function printGenericHeader(printer: Printer, generic: undefined | flow.GenericHeader, typeConfig: PrintTypeConfig): void {
+    if (generic !== undefined) {
+        printer.write('<');
+        for (let i = 0; i < generic.parameters.length; i++) {
+            if (i !== 0) {
+                printer.write(', ');
+            }
+            printer.write(generic.parameters[i].name);
+            const baseType = generic.parameters[i].baseType;
+            if (baseType !== undefined) {
+                printer.write(' extends ');
+                printType(printer, baseType, typeConfig);
+            }
+        }
+        printer.write('>');
+    }
+}
+
 function printStatement(printer: Printer, stat: flow.Statement, forceExport: boolean, typeConfig: PrintTypeConfig): void {
     switch (stat.kind) {
         case 'UseStrictStat': {
@@ -305,7 +324,9 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
             if (forceExport || stat.hasExport) {
                 printer.write(`export `);
             }
-            printer.write(`type ${stat.name} =`);
+            printer.write(`type ${stat.name}`);
+            printGenericHeader(printer, stat.generic, typeConfig);
+            printer.write(' =');
             if (stat.aliasedType.kind === 'UnionType') {
                 printUnionTypeWithHeader(printer, stat.aliasedType, typeConfig);
                 printer.write(';');
@@ -321,6 +342,7 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
                 printer.write(`export `);
             }
             printer.write(`interface ${stat.name}`);
+            printGenericHeader(printer, stat.generic, typeConfig);
 
             if (stat.baseTypes.length > 0) {
                 printer.write(' extends ');
