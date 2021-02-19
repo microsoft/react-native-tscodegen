@@ -70,7 +70,7 @@ export function fixTestCase(program: flow.FlowProgram): void {
                     value.source.indexOf(`TurboModuleRegistry'`) !== -1 ||
                     value.source.indexOf(`codegenNativeComponent'`) !== -1 ||
                     value.source.indexOf(`codegenNativeCommands'`) !== -1 ||
-                    value.source.indexOf(`ColorValue'`) !== -1 ||
+                    value.source.indexOf(`StyleSheet'`) !== -1 ||
                     value.source.indexOf(`ImageSource'`) !== -1 ||
                     value.source.indexOf(`StyleSheetTypes'`) !== -1 ||
                     value.source.indexOf(`ViewPropTypes'`) !== -1 ||
