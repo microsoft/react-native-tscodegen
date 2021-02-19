@@ -207,7 +207,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
             itemOthers.push({
                 kind: 'Tuple',
                 isNullable: false,
-                types: item.elementTypes.map((elementType: ts.TypeNode) => typeToRNRawType(elementType, sourceFile, allowObject))
+                types: item.elements.map((elementType: ts.TypeNode) => typeToRNRawType(elementType, sourceFile, allowObject))
             });
         } else {
             switch (item.kind) {

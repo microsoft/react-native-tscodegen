@@ -131,3 +131,14 @@ popd
 git status
 ```
 
+### Fixing test case codegen
+
+```cmd
+cls & pushd packages\update-test-files & npm run build & cd ..\RN-TSCodegen-Test & npm run build & popd
+```
+
+### Fixing compiler
+
+```cmd
+cls & pushd packages\RN-TSCodegen & npm run build & cd ..\RN-TSCodegen-Test & npm run build & npm run test & popd
+```
