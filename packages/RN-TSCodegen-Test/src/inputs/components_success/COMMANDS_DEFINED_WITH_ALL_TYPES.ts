@@ -7,6 +7,7 @@
 import {Float} from 'react-native-tscodegen-types';
 import {Double} from 'react-native-tscodegen-types';
 import {Int32} from 'react-native-tscodegen-types';
+import {RootTag} from 'react-native-tscodegen-types';
 import {React} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
 import {HostComponent} from 'react-native-tscodegen-types';

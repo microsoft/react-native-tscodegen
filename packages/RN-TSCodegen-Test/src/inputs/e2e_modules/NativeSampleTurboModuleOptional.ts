@@ -4,6 +4,7 @@
 // Automatically generated from NativeSampleTurboModuleOptional.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
+import {RootTag} from 'react-native-tscodegen-types';
 import {TurboModule} from 'react-native-tscodegen-types'
 import {TurboModuleRegistry} from 'react-native-tscodegen-types';
 'use strict';

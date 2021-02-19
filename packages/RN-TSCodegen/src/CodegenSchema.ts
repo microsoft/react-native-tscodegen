@@ -306,9 +306,9 @@ export type NativeModuleObjectTypeAnnotationPropertySchema = Readonly<{
   typeAnnotation: Nullable<NativeModuleBaseTypeAnnotation>;
 }>;
 
-export type NativeModuleArrayTypeAnnotation = Readonly<{
+export type NativeModuleArrayTypeAnnotation<T extends Nullable<NativeModuleBaseTypeAnnotation>> = Readonly<{
   type: 'ArrayTypeAnnotation';
-  elementType?: Nullable<NativeModuleBaseTypeAnnotation>;
+  elementType?: T;
 }>;
 
 export type NativeModuleStringTypeAnnotation = Readonly<{
@@ -367,7 +367,7 @@ export type NativeModuleBaseTypeAnnotation =
   | NativeModuleGenericObjectTypeAnnotation
   | NativeModuleReservedFunctionValueTypeAnnotation
   | NativeModuleTypeAliasTypeAnnotation
-  | NativeModuleArrayTypeAnnotation
+  | NativeModuleArrayTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>>
   | NativeModuleObjectTypeAnnotation;
 
 export type NativeModuleParamTypeAnnotation =
