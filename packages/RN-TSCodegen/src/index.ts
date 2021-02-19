@@ -94,8 +94,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
 
         const info = nativeModuleInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
-        result.modules[moduleName] = { nativeModules: {} };
-        (<{}>result.modules[moduleName].nativeModules)[targetName === undefined ? info.name : targetName] = <WritableObjectType<cs.NativeModuleShape>>processNativeModule(info);
+        result.modules[moduleName] = <WritableObjectType<cs.NativeModuleSchema>>processNativeModule(info);
         return result;
     } else {
         if (commandInfos.length > 1) {
@@ -104,8 +103,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
 
         const info = componentInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
-        result.modules[moduleName] = { components: {} };
-        (<{}>result.modules[moduleName].components)[targetName === undefined ? info.name : targetName] = <WritableObjectType<cs.ComponentShape>>processComponent(info, commandInfos[0]);
+        result.modules[info.name] = <WritableObjectType<cs.ComponentSchema>>processComponent(info, commandInfos[0]);
         return result;
     }
 }

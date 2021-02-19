@@ -49,7 +49,7 @@ function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propD
   }
 }
 
-function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.ObjectPropertyType {
+function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.EventObjectPropertyType {
   const namePlaceholder = <string><unknown>undefined;
   switch (rawType.kind) {
     case 'Boolean': return { type: 'BooleanTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
@@ -68,7 +68,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
       name: namePlaceholder,
       optional: rawType.isNullable,
       properties: rawType.properties.map((rawProp: { name: string; propertyType: RNRawType }) => {
-        const prop = <WritableObjectType<cs.ObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
+        const prop = <WritableObjectType<cs.EventObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
         prop.name = rawProp.name;
         return prop;
       })
@@ -88,7 +88,7 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
   const [optional, eventType, eventTypeName, paperTopLevelNameDeprecated] = eventTypeTuple;
   const rawType = typeToRNRawType(eventType, info.sourceFile, true);
 
-  let eventProperties: readonly cs.ObjectPropertyType[] = [];
+  let eventProperties: readonly cs.EventObjectPropertyType[] = [];
   if (rawType.kind !== 'Null') {
     const objectType = rnRawTypeToObjectPropertyType(propType, rawType);
     if (objectType.type === 'ObjectTypeAnnotation') {
@@ -106,7 +106,7 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
       type: 'EventTypeAnnotation',
       argument: {
         type: 'ObjectTypeAnnotation',
-        properties: <WritableObjectType<cs.ObjectPropertyType>[]>eventProperties
+        properties: <WritableObjectType<cs.EventObjectPropertyType>[]>eventProperties
       }
     }
   };

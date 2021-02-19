@@ -31,14 +31,13 @@ function importExists(sourceFile: ts.SourceFile, name: string): boolean {
     return result === undefined ? false : result;
 }
 
-export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo | undefined): cs.ComponentShape {
+export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo): cs.ComponentSchema {
+    const extendsProps: cs.ExtendsPropsShape[] = [];
     const events: cs.EventTypeShape[] = [];
     const props: cs.PropTypeShape[] = [];
     let commands: cs.CommandTypeShape[] = [];
 
-    if (commandsInfo !== undefined) {
-        commands = parseCommands(commandsInfo);
-    }
+    commands = parseCommands(commandsInfo);
 
     const validMembers = getMembersFromType(info.typeNode, info.sourceFile);
     if (validMembers === undefined) {
@@ -69,19 +68,20 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
         }
     }
 
-    const result = {
-        extendsProps: <cs.ExtendsPropsShape[]>[],
+    if (importExists(info.sourceFile, 'ViewProps')) {
+        extendsProps.push({ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' });
+    }
+
+    const shape: cs.ComponentShape = {
+        extendsProps,
         events,
         props,
         commands
     };
 
-    if (importExists(info.sourceFile, 'ViewProps')) {
-        result.extendsProps.push({ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' });
-    }
     Object.getOwnPropertyNames(info.options).forEach((key: string) => {
-        result[key] = info.options[key];
+        shape[key] = info.options[key];
     });
 
-    return <cs.ComponentShape>result;
+    return { type: 'Component', components: { [info.name]: shape } };
 }
