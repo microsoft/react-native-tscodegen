@@ -34,7 +34,7 @@ export interface Spec extends TurboModule {
   getAlias?(arg?: (ReactNull | Animal)): (ReactNull | Animal);
   getRootTag?(arg?: (ReactNull | RootTag)): (ReactNull | RootTag);
   getValue?(x?: (ReactNull | number), y?: (ReactNull | string), z?: (ReactNull | Object)): (ReactNull | Object);
-  getValueWithCallback?(callback?: (ReactNull | (value?: (ReactNull | string)) => void)): void;
+  getValueWithCallback?(callback?: (ReactNull | ((value?: (ReactNull | string)) => void))): void;
   getValueWithPromise?(error?: (ReactNull | boolean)): (ReactNull | Promise<string>);
 }
 

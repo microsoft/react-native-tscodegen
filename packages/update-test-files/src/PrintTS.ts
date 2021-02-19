@@ -137,12 +137,18 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
     printer.write('}');
 }
 
-function printTypeArray(printer: Printer, types: flow.Type[], delimiter: string, config: PrintTypeConfig): void {
+function printTypeArray(printer: Printer, types: flow.Type[], delimiter: string, config: PrintTypeConfig, braceOnFunction: boolean): void {
     for (let i = 0; i < types.length; i++) {
         if (i !== 0) {
             printer.write(delimiter);
         }
+        if (braceOnFunction && types[i].kind === 'FunctionType') {
+            printer.write('(');
+        }
         printType(printer, types[i], config);
+        if (braceOnFunction && types[i].kind === 'FunctionType') {
+            printer.write(')');
+        }
     }
 }
 
@@ -171,7 +177,13 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             } else {
                 printer.write('(undefined | ');
             }
+            if (flowType.elementType.kind === 'FunctionType') {
+                printer.write('(');
+            }
             printType(printer, flowType.elementType, config);
+            if (flowType.elementType.kind === 'FunctionType') {
+                printer.write(')');
+            }
             printer.write(')');
             break;
         }
@@ -188,7 +200,7 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
         }
         case 'TupleType': {
             printer.write('[');
-            printTypeArray(printer, flowType.types, ', ', config);
+            printTypeArray(printer, flowType.types, ', ', config, false);
             printer.write(']');
             break;
         }
@@ -207,14 +219,14 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             break;
         }
         case 'UnionType': {
-            printTypeArray(printer, flowType.elementTypes, ' | ', config);
+            printTypeArray(printer, flowType.elementTypes, ' | ', config, true);
             break;
         }
         case 'TypeReference': {
             printEntity(printer, flowType.name);
             if (flowType.typeArguments.length > 0) {
                 printer.write('<');
-                printTypeArray(printer, flowType.typeArguments, ', ', config);
+                printTypeArray(printer, flowType.typeArguments, ', ', config, false);
                 printer.write('>');
             }
             break;
@@ -243,7 +255,7 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
             printEntity(printer, expr.name);
             if (expr.typeArguments.length > 0) {
                 printer.write('<');
-                printTypeArray(printer, expr.typeArguments, ', ', config);
+                printTypeArray(printer, expr.typeArguments, ', ', config, false);
                 printer.write('>');
             }
             break;
@@ -346,7 +358,7 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
 
             if (stat.baseTypes.length > 0) {
                 printer.write(' extends ');
-                printTypeArray(printer, stat.baseTypes.concat(stat.interfaceType.mixinTypes), ', ', typeConfig);
+                printTypeArray(printer, stat.baseTypes.concat(stat.interfaceType.mixinTypes), ', ', typeConfig, false);
             }
 
             printer.write(' ');
