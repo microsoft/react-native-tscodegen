@@ -16,7 +16,7 @@ const cfCases = convertTestInput(testCaseInputFolder, `./components/__test_fixtu
 const msCases = convertTestInput(testCaseInputFolder, `./modules/__test_fixtures__/fixtures.js`, testCaseOutputFolder, 'modules_success');
 const mfCases = convertTestInput(testCaseInputFolder, `./modules/__test_fixtures__/failures.js`, testCaseOutputFolder, 'modules_failure');
 convertTestOutput(path.join(testCaseInputFolder, `./components/__tests__/__snapshots__/component-parser-test.js.snap`), testCaseOutputFolder, 'components', csCases, cfCases);
-convertTestOutput(path.join(testCaseInputFolder, `./modules/__tests__/__snapshots__/module-parser-test.js.snap`), testCaseOutputFolder, 'modules', msCases, mfCases);
+convertTestOutput(path.join(testCaseInputFolder, `./modules/__tests__/__snapshots__/module-parser-snapshot-test.js.snap`), testCaseOutputFolder, 'modules', msCases, mfCases);
 
 const testE2EInputFolder = path.join(__dirname, `../../../react-native/packages/react-native-codegen/e2e/__test_fixtures__`);
 const testE2EOutputFolder = path.join(__dirname, `../../RN-TSCodegen-Test/src/inputs`);

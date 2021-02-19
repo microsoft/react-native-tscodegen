@@ -1,6 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+/* tslint:disable:no-eval */
+
 import { writeFileSync } from 'fs';
 import * as flow from 'minimum-flow-parser';
 import * as path from 'path';
@@ -20,12 +22,12 @@ export function convertTestInput(inputFolder: string, inputPath: string, outputF
     {
       const outputPath = path.join(outputFolder, `${category}/${key}.flow.js`);
       writeFileSync(
-          outputPath,
-          `
+        outputPath,
+        `
 // Automatically copied from ${inputPath.substr(2)}
 // (/react-native/packages/react-native-codegen/src/parsers/flow)
 ${flowSourceCode}`,
-          { encoding: 'utf-8' }
+        { encoding: 'utf-8' }
       );
     }
     {
@@ -50,10 +52,11 @@ function convertSuccessSnapshotContent(snapshotContent: string): string {
   const normalizedJson = snapshotContent
     .replace(/Object \{/g, '{')
     .replace(/Array \[/g, '[')
+    .replace(/"\{/g, '{')
+    .replace(/\}"/g, '}')
     ;
 
   return JSON.stringify(
-    // tslint:disable-next-line:no-eval
     eval(`(${normalizedJson})`),
     undefined,
     2

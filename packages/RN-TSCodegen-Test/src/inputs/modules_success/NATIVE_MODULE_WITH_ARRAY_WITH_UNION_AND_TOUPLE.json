@@ -1,32 +1,34 @@
 {
   "modules": {
     "NativeSampleTurboModule": {
-      "nativeModules": {
-        "SampleTurboModule": {
-          "properties": [
-            {
-              "name": "getArray",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "type": "ArrayTypeAnnotation"
-                    }
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "getArray",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ArrayTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ArrayTypeAnnotation"
                   }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "ArrayTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
+                }
+              ]
             }
-          ]
-        }
-      }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
     }
   }
 }

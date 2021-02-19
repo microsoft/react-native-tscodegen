@@ -62,6 +62,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>;
   onDirectEventDefinedInlineOptionalKey?: DirectEventHandler<Readonly<{
     boolean_required: boolean;
@@ -109,6 +121,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>;
   onDirectEventDefinedInlineOptionalValue: (ReactNull | DirectEventHandler<Readonly<{
     boolean_required: boolean;
@@ -156,6 +180,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>);
   onDirectEventDefinedInlineOptionalBoth?: (ReactNull | DirectEventHandler<Readonly<{
     boolean_required: boolean;
@@ -203,6 +239,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>);
   onDirectEventDefinedInlineWithPaperName?: (ReactNull | DirectEventHandler<Readonly<{
     boolean_required: boolean;
@@ -250,6 +298,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>, 'paperDirectEventDefinedInlineWithPaperName'>);
   onBubblingEventDefinedInline: BubblingEventHandler<Readonly<{
     boolean_required: boolean;
@@ -297,6 +357,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>;
   onBubblingEventDefinedInlineOptionalKey?: BubblingEventHandler<Readonly<{
     boolean_required: boolean;
@@ -344,6 +416,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>;
   onBubblingEventDefinedInlineOptionalValue: (ReactNull | BubblingEventHandler<Readonly<{
     boolean_required: boolean;
@@ -391,6 +475,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>);
   onBubblingEventDefinedInlineOptionalBoth?: (ReactNull | BubblingEventHandler<Readonly<{
     boolean_required: boolean;
@@ -438,6 +534,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>>);
   onBubblingEventDefinedInlineWithPaperName?: (ReactNull | BubblingEventHandler<Readonly<{
     boolean_required: boolean;
@@ -485,6 +593,18 @@ type ModuleProps = Readonly<ViewProps & {
         int32_optional_both?: (ReactNull | Int32);
       });
     };
+    object_readonly_required: Readonly<{
+      boolean_required: boolean;
+    }>;
+    object_readonly_optional_key?: Readonly<{
+      string_optional_key?: string;
+    }>;
+    object_readonly_optional_value: (ReactNull | Readonly<{
+      float_optional_value: (ReactNull | Float);
+    }>);
+    object_readonly_optional_both?: (ReactNull | Readonly<{
+      int32_optional_both?: (ReactNull | Int32);
+    }>);
   }>, 'paperBubblingEventDefinedInlineWithPaperName'>);
 }>;
 

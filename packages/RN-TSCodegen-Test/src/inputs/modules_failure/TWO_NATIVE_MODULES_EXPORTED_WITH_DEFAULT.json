@@ -1,4 +1,1 @@
-{"error": 
-"Default export for module specified incorrectly. It should containts
-    either type extending \"TurboModule\" or \"codegenNativeComponent\"."
-}
+{"error": "File neither contains a module declaration, nor a component declaration. For module declarations, please make sure your file has an InterfaceDeclaration extending TurboModule. For component declarations, please make sure your file has a default export calling the codegenNativeComponent<Props>(...) macro."}

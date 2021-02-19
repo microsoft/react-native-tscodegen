@@ -1,1 +1,1 @@
-{"error": "Unsupported param for method \"getString\", param \"arg\". No type specified for $ReadOnly"}
+{"error": "Module NativeSampleTurboModule: Generic '$ReadOnly' must have exactly one type parameter."}

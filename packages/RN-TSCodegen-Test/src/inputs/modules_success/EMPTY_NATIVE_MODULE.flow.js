@@ -18,7 +18,7 @@ import type {TurboModule} from '../RCTExport';
 import * as TurboModuleRegistry from '../TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  // mo methods
+  // no methods
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

@@ -81,6 +81,22 @@ export type EventInFile = $ReadOnly<{|
     }
   },
 
+  object_readonly_required: $ReadOnly<{
+    boolean_required: boolean,
+  }>,
+
+  object_readonly_optional_key?: $ReadOnly<{
+    string_optional_key?: string,
+  }>,
+
+  object_readonly_optional_value: ?$ReadOnly<{
+    float_optional_value: ?Float,
+  }>,
+
+  object_readonly_optional_both?: ?$ReadOnly<{
+    int32_optional_both?: ?Int32,
+  }>,
+
 |}>;
 
 export type ModuleProps = $ReadOnly<{|

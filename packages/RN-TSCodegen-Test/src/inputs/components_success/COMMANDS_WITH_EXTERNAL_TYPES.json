@@ -1,13 +1,23 @@
 {
   "modules": {
     "Module": {
+      "type": "Component",
       "components": {
         "Module": {
+          "extendsProps": [
+            {
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
+            }
+          ],
+          "events": [],
+          "props": [],
           "commands": [
             {
               "name": "scrollTo",
               "optional": false,
               "typeAnnotation": {
+                "type": "FunctionTypeAnnotation",
                 "params": [
                   {
                     "name": "y",
@@ -21,19 +31,10 @@
                       "type": "BooleanTypeAnnotation"
                     }
                   }
-                ],
-                "type": "FunctionTypeAnnotation"
+                ]
               }
             }
-          ],
-          "events": [],
-          "extendsProps": [
-            {
-              "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType"
-            }
-          ],
-          "props": []
+          ]
         }
       }
     }

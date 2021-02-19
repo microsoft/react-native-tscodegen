@@ -1,18 +1,19 @@
 {
   "modules": {
     "Module": {
+      "type": "Component",
       "components": {
         "Module": {
-          "commands": [],
           "deprecatedViewConfigName": "DeprecateModuleName",
-          "events": [],
           "extendsProps": [
             {
-              "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType"
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
             }
           ],
-          "props": []
+          "events": [],
+          "props": [],
+          "commands": []
         }
       }
     }

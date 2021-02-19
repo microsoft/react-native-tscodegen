@@ -1,1 +1,1 @@
-{"error": "Only methods are supported as module properties. Found BooleanTypeAnnotation in sampleBool"}
+{"error": "Module NativeSampleTurboModule: Flow interfaces extending TurboModule must only contain 'FunctionTypeAnnotation's. Property 'sampleBool' refers to a 'BooleanTypeAnnotation'."}

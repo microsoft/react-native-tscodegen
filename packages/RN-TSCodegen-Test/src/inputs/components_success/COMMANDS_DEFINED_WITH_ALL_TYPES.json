@@ -1,13 +1,39 @@
 {
   "modules": {
     "Module": {
+      "type": "Component",
       "components": {
         "Module": {
+          "extendsProps": [
+            {
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
+            }
+          ],
+          "events": [],
+          "props": [],
           "commands": [
+            {
+              "name": "handleRootTag",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "FunctionTypeAnnotation",
+                "params": [
+                  {
+                    "name": "rootTag",
+                    "typeAnnotation": {
+                      "type": "ReservedFunctionValueTypeAnnotation",
+                      "name": "RootTag"
+                    }
+                  }
+                ]
+              }
+            },
             {
               "name": "hotspotUpdate",
               "optional": false,
               "typeAnnotation": {
+                "type": "FunctionTypeAnnotation",
                 "params": [
                   {
                     "name": "x",
@@ -21,14 +47,14 @@
                       "type": "Int32TypeAnnotation"
                     }
                   }
-                ],
-                "type": "FunctionTypeAnnotation"
+                ]
               }
             },
             {
               "name": "scrollTo",
               "optional": false,
               "typeAnnotation": {
+                "type": "FunctionTypeAnnotation",
                 "params": [
                   {
                     "name": "x",
@@ -54,19 +80,10 @@
                       "type": "BooleanTypeAnnotation"
                     }
                   }
-                ],
-                "type": "FunctionTypeAnnotation"
+                ]
               }
             }
-          ],
-          "events": [],
-          "extendsProps": [
-            {
-              "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType"
-            }
-          ],
-          "props": []
+          ]
         }
       }
     }

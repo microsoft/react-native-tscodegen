@@ -1,0 +1,130 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "type": "NativeModule",
+      "aliases": {
+        "ObjectAlias": {
+          "type": "ObjectTypeAnnotation",
+          "properties": [
+            {
+              "name": "x",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "NumberTypeAnnotation"
+              }
+            },
+            {
+              "name": "y",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "NumberTypeAnnotation"
+              }
+            },
+            {
+              "name": "label",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation"
+              }
+            },
+            {
+              "name": "truthy",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation"
+              }
+            }
+          ]
+        }
+      },
+      "spec": {
+        "properties": [
+          {
+            "name": "getNumber",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "NumberTypeAnnotation"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getVoid",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "getArray",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "a",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "NumberTypeAnnotation"
+                    }
+                  }
+                ]
+              },
+              "params": [
+                {
+                  "name": "a",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ArrayTypeAnnotation",
+                    "elementType": {
+                      "type": "NumberTypeAnnotation"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getStringFromAlias",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "StringTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "a",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "TypeAliasTypeAnnotation",
+                    "name": "ObjectAlias"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
+    }
+  }
+}

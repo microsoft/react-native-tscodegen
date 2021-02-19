@@ -1,1 +1,1 @@
-{"error": "Unsupported return type for getString: expected to find annotation for type of array contents"}
+{"error": "Module NativeSampleTurboModule: Generic 'Array' must have type parameters."}

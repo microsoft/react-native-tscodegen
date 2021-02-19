@@ -1,0 +1,88 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "type": "NativeModule",
+      "aliases": {
+        "DisplayMetricsAndroid": {
+          "type": "ObjectTypeAnnotation",
+          "properties": [
+            {
+              "name": "width",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "NumberTypeAnnotation"
+              }
+            }
+          ]
+        }
+      },
+      "spec": {
+        "properties": [
+          {
+            "name": "getConstants",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "Dimensions",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "windowPhysicalPixels",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "TypeAliasTypeAnnotation",
+                            "name": "DisplayMetricsAndroid"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "getConstants2",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "Dimensions",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "windowPhysicalPixels",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "TypeAliasTypeAnnotation",
+                            "name": "DisplayMetricsAndroid"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "params": []
+            }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
+    }
+  }
+}

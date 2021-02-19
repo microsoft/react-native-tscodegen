@@ -1,11 +1,14 @@
 {
   "modules": {
     "NativeSampleTurboModule": {
-      "nativeModules": {
-        "SampleTurboModule": {
-          "properties": []
-        }
-      }
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": []
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
     }
   }
 }

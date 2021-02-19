@@ -10,6 +10,8 @@ import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
+import {ColorValue} from '../../lib/../../../../../Libraries/StyleSheet/StyleSheet';
+
 type NativeProps = Readonly<ViewProps & {
   tintColor?: ColorValue;
 }>;

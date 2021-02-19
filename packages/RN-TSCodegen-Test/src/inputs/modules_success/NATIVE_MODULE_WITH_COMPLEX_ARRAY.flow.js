@@ -18,7 +18,7 @@ import type {TurboModule} from '../RCTExport';
 import * as TurboModuleRegistry from '../TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getArray: (arg: Array<Array<Array<Array<Array<any>>>>>) => Array<Array<Array<string>>>;
+  +getArray: (arg: Array<Array<Array<Array<Array<string>>>>>) => Array<Array<Array<string>>>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

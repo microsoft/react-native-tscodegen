@@ -1,0 +1,17 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": []
+      },
+      "moduleNames": [
+        "SampleTurboModuleAndroid"
+      ],
+      "excludedPlatforms": [
+        "iOS"
+      ]
+    }
+  }
+}
