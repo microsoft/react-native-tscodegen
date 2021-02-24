@@ -4,7 +4,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { parseCommands } from './ComponentCommandParser';
-import { tryParseEvent } from './ComponentEventParser';
+import { checkEventType, parseEvent } from './ComponentEventParser';
 import { parseProperty } from './ComponentPropertyParser';
 import { ExportCommandInfo, ExportComponentInfo, getMembersFromType } from './ExportParser';
 
@@ -48,19 +48,11 @@ export function processComponent(info: ExportComponentInfo, commandsInfo?: Expor
         if (propDecl.name !== undefined) {
             const propertyName = propDecl.name.getText();
             if (ts.isPropertySignature(propDecl) || ts.isPropertyDeclaration(propDecl)) {
-                try {
-                    const eventShape = tryParseEvent(info, propDecl);
-                    if (eventShape !== undefined) {
-                        events.push(eventShape);
-                    } else {
-                        props.push(parseProperty(info, propDecl));
-                    }
-                } catch (err) {
-                    if (err instanceof Error) {
-                        err.message = `${propertyName}: ${err.message}`;
-                    } else {
-                        throw err;
-                    }
+                const eventInfo = checkEventType(<ts.TypeNode>propDecl.type, info, propDecl);
+                if (eventInfo === undefined) {
+                    props.push(parseProperty(info, propDecl));
+                } else {
+                    events.push(parseEvent(info, propDecl, eventInfo));
                 }
             } else {
                 throw new Error(`Member ${propertyName} in type ${info.typeNode.getText()} is expected to be a property.`);

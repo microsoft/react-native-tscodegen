@@ -198,6 +198,8 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 itemNumberLiterals.push(+item.literal.text);
             } else if (ts.isPrefixUnaryExpression(item.literal)) {
                 itemNumberLiterals.push(+item.literal.getText());
+            } else if (item.literal.kind === ts.SyntaxKind.NullKeyword) {
+                itemNullable = true;
             } else {
                 throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.literal} is not a valid literal type.`);
             }
