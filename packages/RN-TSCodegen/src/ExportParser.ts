@@ -15,7 +15,7 @@ export interface ExportComponentInfo {
     sourceFile: ts.SourceFile;
     typeNode: ts.TypeNode;
     name: string;
-    options: { [key: string]: boolean | string };
+    options: { [key: string]: boolean | string | string[] };
 }
 
 export interface ExportCommandInfo {
@@ -200,6 +200,14 @@ export function tryParseExportComponent(program: ts.Program, sourceFile: ts.Sour
                     result.options[optionItem.name.getText()] = true;
                 } else if (optionItem.initializer.kind === ts.SyntaxKind.FalseKeyword) {
                     result.options[optionItem.name.getText()] = false;
+                } else if (ts.isArrayLiteralExpression(optionItem.initializer)) {
+                    const strings: string[] = [];
+                    for (const element of optionItem.initializer.elements) {
+                        if (ts.isStringLiteral(element)) {
+                            strings.push(element.text);
+                        }
+                    }
+                    result.options[optionItem.name.getText()] = strings;
                 }
             }
         });
