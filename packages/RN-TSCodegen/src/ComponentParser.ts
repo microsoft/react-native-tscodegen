@@ -31,7 +31,7 @@ function importExists(sourceFile: ts.SourceFile, name: string): boolean {
     return result === undefined ? false : result;
 }
 
-export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo): cs.ComponentSchema {
+export function processComponent(info: ExportComponentInfo, commandsInfo?: ExportCommandInfo): cs.ComponentSchema {
     const extendsProps: cs.ExtendsPropsShape[] = [];
     const events: cs.EventTypeShape[] = [];
     const props: cs.PropTypeShape[] = [];
