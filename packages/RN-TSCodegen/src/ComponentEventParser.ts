@@ -30,7 +30,7 @@ export function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo
       }
     }
     if (result !== undefined) {
-      result[0] = true;
+      result.optional = true;
     }
     return result;
   } else if (ts.isTypeReferenceNode(eventType)) {

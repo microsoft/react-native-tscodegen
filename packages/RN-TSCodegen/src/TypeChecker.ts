@@ -73,6 +73,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 case 'EdgeInsetsValue':
                     itemOthers.push({ kind: 'rn:EdgeInsetsPrimitive', isNullable: false });
                     break;
+                case 'RootTag':
+                    itemOthers.push({ kind: 'rn:RootTag', isNullable: false });
+                    break;
                 case 'Object':
                     itemOthers.push({ kind: 'js:Object', isNullable: false });
                     break;

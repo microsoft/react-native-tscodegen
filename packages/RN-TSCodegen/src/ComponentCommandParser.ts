@@ -14,6 +14,7 @@ function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Int32': return { type: 'Int32TypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
+        case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
         default:
     }
     throw new Error(`Component command argument type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
