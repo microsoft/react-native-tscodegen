@@ -33,6 +33,10 @@ function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotatio
                 };
             })
         };
+        case 'Alias': return {
+            type: 'TypeAliasTypeAnnotation',
+            name: rawType.name
+        };
         default:
     }
 
