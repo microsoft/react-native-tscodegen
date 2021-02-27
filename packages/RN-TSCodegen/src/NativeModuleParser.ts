@@ -164,6 +164,13 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     const spec: cs.NativeModuleSpec = { properties };
     const moduleNames: string[] = [info.name];
     const excludedPlatforms: cs.PlatformType[] = [];
+    if (info.name.endsWith('Android')) {
+        excludedPlatforms.push('iOS');
+    }
+    if (info.name.endsWith('IOS')) {
+        excludedPlatforms.push('android');
+    }
+
     if (excludedPlatforms.length === 0) {
         return { type: 'NativeModule', aliases, spec, moduleNames };
     } else {
