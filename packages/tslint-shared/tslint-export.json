@@ -21,6 +21,7 @@
       "timeEnd",
       "trace"
     ],
+    "no-dynamic-delete": false,
     "no-relative-imports": false,
     "no-parameter-properties": false,
     "non-literal-fs-path": false,

@@ -6,7 +6,7 @@ import { ExportNativeModuleInfo } from './ExportParser';
 import { RNRawFunctionParameter, RNRawObjectProperty, RNRawType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
-function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotation {
+function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.NativeModuleBaseTypeAnnotation {
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
         case 'Number': return { type: 'NumberTypeAnnotation' };
@@ -21,13 +21,13 @@ function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotatio
                 const result = { type: 'ArrayTypeAnnotation' };
                 return <cs.NativeModuleBaseTypeAnnotation>result;
             } else {
-                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType) };
+                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
         }
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
             properties: rawType.properties.map((param: RNRawObjectProperty) => {
-                const propertyType = rawTypeToBaseType(param.propertyType);
+                const propertyType = rawTypeToBaseType(param.propertyType, usedAliases);
                 return {
                     optional: param.optional,
                     name: param.name,
@@ -35,10 +35,13 @@ function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotatio
                 };
             })
         };
-        case 'Alias': return {
-            type: 'TypeAliasTypeAnnotation',
-            name: rawType.name
-        };
+        case 'Alias': {
+            usedAliases.push(rawType.name);
+            return {
+                type: 'TypeAliasTypeAnnotation',
+                name: rawType.name
+            };
+        }
         default:
     }
 
@@ -49,26 +52,26 @@ function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotatio
     }
 }
 
-function rawTypeToParamType(rawType: RNRawType): cs.NativeModuleParamTypeAnnotation {
+function rawTypeToParamType(rawType: RNRawType, usedAliases: string[]): cs.NativeModuleParamTypeAnnotation {
     switch (rawType.kind) {
         case 'Function': return {
             type: 'FunctionTypeAnnotation',
             params: rawType.parameters.map((param: RNRawFunctionParameter) => {
-                const parameterType = rawTypeToParamType(param.parameterType);
+                const parameterType = rawTypeToParamType(param.parameterType, usedAliases);
                 return {
                     optional: param.optional,
                     name: param.name,
                     typeAnnotation: param.parameterType.isNullable ? { type: 'NullableTypeAnnotation', typeAnnotation: parameterType } : parameterType
                 };
             }),
-            returnTypeAnnotation: rawTypeToReturnType(rawType.returnType)
+            returnTypeAnnotation: rawTypeToReturnType(rawType.returnType, usedAliases)
         };
         default:
-            return rawTypeToBaseType(rawType);
+            return rawTypeToBaseType(rawType, usedAliases);
     }
 }
 
-function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnotation {
+function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.NativeModuleReturnTypeAnnotation {
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
         case 'Number': return { type: 'NumberTypeAnnotation' };
@@ -84,7 +87,7 @@ function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnot
                 const result = { type: 'ArrayTypeAnnotation' };
                 return <cs.NativeModuleReturnTypeAnnotation>result;
             } else {
-                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType) };
+                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
         }
         // What happened?
@@ -96,14 +99,17 @@ function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnot
                 return {
                     optional: param.propertyType.isNullable,
                     name: param.name,
-                    typeAnnotation: rawTypeToBaseType(param.propertyType)
+                    typeAnnotation: rawTypeToBaseType(param.propertyType, usedAliases)
                 };
             })
         };
-        case 'Alias': return {
-            type: 'TypeAliasTypeAnnotation',
-            name: rawType.name
-        };
+        case 'Alias': {
+            usedAliases.push(rawType.name);
+            return {
+                type: 'TypeAliasTypeAnnotation',
+                name: rawType.name
+            };
+        }
         default:
     }
 
@@ -125,6 +131,7 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     }
 
     const properties: cs.NativeModulePropertySchema[] = [];
+    const usedAliases: string[] = [];
     for (const prop of rawType.properties) {
         if (prop.name === 'getConstants' &&
             prop.propertyType.isNullable === true &&
@@ -143,7 +150,7 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
         properties.push({
             name: prop.name,
             optional: prop.optional,
-            typeAnnotation: <cs.NativeModuleFunctionTypeAnnotation>rawTypeToParamType(prop.propertyType)
+            typeAnnotation: <cs.NativeModuleFunctionTypeAnnotation>rawTypeToParamType(prop.propertyType, usedAliases)
         });
     }
 
@@ -152,7 +159,12 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     Object.keys(nativeModuleAliases.aliases).forEach((key: string) => {
         const rnRawType = nativeModuleAliases.aliases[key];
         if (rnRawType !== undefined) {
-            writableAliases[key] = rawTypeToParamType(rnRawType);
+            writableAliases[key] = rawTypeToParamType(rnRawType, usedAliases);
+        }
+    });
+    Object.keys(nativeModuleAliases.aliases).forEach((key: string) => {
+        if (usedAliases.indexOf(key) === -1) {
+            delete writableAliases[key];
         }
     });
 
