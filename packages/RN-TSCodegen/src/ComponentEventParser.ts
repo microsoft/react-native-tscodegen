@@ -4,7 +4,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawType, WritableObjectType } from './RNRawType';
+import { RNRawObjectProperty, RNRawType, WritableObjectType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
 export interface ComponentEventInfo {
@@ -83,9 +83,12 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
       type: 'ObjectTypeAnnotation',
       name: namePlaceholder,
       optional: rawType.isNullable,
-      properties: rawType.properties.map((rawProp: { name: string; propertyType: RNRawType }) => {
+      properties: rawType.properties.map((rawProp: RNRawObjectProperty) => {
         const prop = <WritableObjectType<cs.EventObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
         prop.name = rawProp.name;
+        if (rawProp.optional) {
+          prop.optional = true;
+        }
         return prop;
       })
     };

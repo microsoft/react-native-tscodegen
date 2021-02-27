@@ -6,7 +6,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
+import { RNRawObjectProperty, RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
 interface ObjectTypeAnnotation {
@@ -17,11 +17,11 @@ interface ObjectTypeAnnotation {
 function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode): ObjectTypeAnnotation {
   return {
     type: 'ObjectTypeAnnotation',
-    properties: rawType.properties.map((value: { name: string; propertyType: RNRawType }) => {
+    properties: rawType.properties.map((value: RNRawObjectProperty) => {
       const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(value.propertyType, typeNode);
       return {
         name: value.name,
-        optional,
+        optional: value.optional || optional,
         typeAnnotation
       };
     })

@@ -17,15 +17,15 @@ export interface RNRawObjectProperty {
     propertyType: RNRawType;
 }
 
+export interface RNRawObjectType {
+    kind: 'Object';
+    properties: RNRawObjectProperty[];
+}
+
 export interface RNRawFunctionParameter {
     name: string;
     optional: boolean;
     parameterType: RNRawType;
-}
-
-export interface RNRawObjectType {
-    kind: 'Object';
-    properties: RNRawObjectProperty[];
 }
 
 export type RNRawType = (
