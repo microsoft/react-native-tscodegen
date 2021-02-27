@@ -86,7 +86,7 @@ function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnot
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
-                const result = { type: 'ArrayTypeAnnotation', nullable: rawType.isNullable };
+                const result = { type: 'ArrayTypeAnnotation' };
                 return <cs.NativeModuleReturnTypeAnnotation>result;
             } else {
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType) };
