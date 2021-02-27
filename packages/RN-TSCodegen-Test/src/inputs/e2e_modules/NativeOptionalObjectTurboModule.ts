@@ -13,7 +13,6 @@ export interface Spec extends TurboModule {
   getConstants(): {
     D?: (ReactNull | boolean);
     A?: Array<any>;
-    G?: any;
     E?: (ReactNull | {
       D?: (ReactNull | boolean);
       E?: (ReactNull | {

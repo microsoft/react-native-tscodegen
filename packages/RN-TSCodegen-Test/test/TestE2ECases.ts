@@ -20,7 +20,7 @@ function generateFiles(libraryName: string, schema: SchemaType, category: string
             moduleSpecName: 'ModuleSpec'
         },
         {
-            generators: ['descriptors', 'events', 'props', 'tests', 'shadow-nodes', 'modules']
+            generators: ['descriptors', 'events', 'props', 'tests', 'shadow-nodes', 'modulesAndroid', 'modulesCxx', 'modulesIOS']
         }
     );
 }

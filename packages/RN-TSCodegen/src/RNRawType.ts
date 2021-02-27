@@ -1,9 +1,9 @@
 type WritablePropType<T> =
-T extends ReadonlyArray<infer E1> ? WritableObjectType<E1>[] :
-T extends (infer E2)[] ? WritableObjectType<E2>[] :
-WritableObjectType<T>;
+    T extends ReadonlyArray<infer E1> ? WritableObjectType<E1>[] :
+    T extends (infer E2)[] ? WritableObjectType<E2>[] :
+    WritableObjectType<T>;
 export type WritableObjectType<T> = {
-- readonly [P in keyof T]: WritablePropType<T[P]>
+    - readonly [P in keyof T]: WritablePropType<T[P]>
 };
 
 export interface RNRawTypeCommon {
@@ -11,9 +11,21 @@ export interface RNRawTypeCommon {
     defaultValue?: boolean | number | string;
 }
 
+export interface RNRawObjectProperty {
+    name: string;
+    optional: boolean;
+    propertyType: RNRawType;
+}
+
 export interface RNRawObjectType {
     kind: 'Object';
-    properties: { name: string; propertyType: RNRawType }[];
+    properties: RNRawObjectProperty[];
+}
+
+export interface RNRawFunctionParameter {
+    name: string;
+    optional: boolean;
+    parameterType: RNRawType;
 }
 
 export type RNRawType = (
@@ -29,7 +41,7 @@ export type RNRawType = (
         kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
     }
     | {
-        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive';
+        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive' | 'rn:RootTag';
     }
     | {
         kind: 'Array';
@@ -51,10 +63,14 @@ export type RNRawType = (
     | {
         kind: 'Function';
         returnType: RNRawType;
-        parameters: { name: string; parameterType: RNRawType }[];
+        parameters: RNRawFunctionParameter[];
     }
     | {
         kind: 'Union' | 'Tuple';
         types: RNRawType[];
+    }
+    | {
+        kind: 'Alias';
+        name: string;
     }
 ) & RNRawTypeCommon;

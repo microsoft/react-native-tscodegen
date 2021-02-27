@@ -1,197 +1,200 @@
 {
   "modules": {
     "Module": {
+      "type": "Component",
       "components": {
         "Module": {
-          "commands": [],
-          "events": [],
           "extendsProps": [
             {
-              "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType"
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
             }
           ],
+          "events": [],
           "props": [
             {
               "name": "boolean_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": false,
-                      "type": "BooleanTypeAnnotation"
+                      "type": "BooleanTypeAnnotation",
+                      "default": false
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "boolean_optional",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "default": false,
-                      "type": "BooleanTypeAnnotation"
+                      "type": "BooleanTypeAnnotation",
+                      "default": false
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "string_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": null,
-                      "type": "StringTypeAnnotation"
+                      "type": "StringTypeAnnotation",
+                      "default": null
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "string_optional",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "default": "",
-                      "type": "StringTypeAnnotation"
+                      "type": "StringTypeAnnotation",
+                      "default": ""
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "double_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": 0,
-                      "type": "DoubleTypeAnnotation"
+                      "type": "DoubleTypeAnnotation",
+                      "default": 0
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "double_optional",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "default": 0,
-                      "type": "DoubleTypeAnnotation"
+                      "type": "DoubleTypeAnnotation",
+                      "default": 0
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "float_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": 0,
-                      "type": "FloatTypeAnnotation"
+                      "type": "FloatTypeAnnotation",
+                      "default": 0
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "float_optional",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "default": 0,
-                      "type": "FloatTypeAnnotation"
+                      "type": "FloatTypeAnnotation",
+                      "default": 0
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "int_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": 0,
-                      "type": "Int32TypeAnnotation"
+                      "type": "Int32TypeAnnotation",
+                      "default": 0
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "int_optional",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "default": 0,
-                      "type": "Int32TypeAnnotation"
+                      "type": "Int32TypeAnnotation",
+                      "default": 0
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "enum_optional",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
+                      "type": "ArrayTypeAnnotation",
                       "elementType": {
+                        "type": "StringEnumTypeAnnotation",
                         "default": "small",
                         "options": [
                           {
@@ -200,461 +203,459 @@
                           {
                             "name": "large"
                           }
-                        ],
-                        "type": "StringEnumTypeAnnotation"
-                      },
-                      "type": "ArrayTypeAnnotation"
+                        ]
+                      }
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "image_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "name": "ImageSourcePrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "image_optional_key",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ImageSourcePrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "image_optional_value",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ImageSourcePrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "image_optional_both",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ImageSourcePrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "color_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "color_optional_key",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "color_optional_value",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "color_optional_both",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "processed_color_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "processed_color_optional_key",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "processed_color_optional_value",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "processed_color_optional_both",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "ColorPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "point_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "name": "PointPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "point_optional_key",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "PointPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "point_optional_value",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "PointPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "point_optional_both",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "PointPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "insets_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
-                      "name": "EdgeInsetsPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "insets_optional_key",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "EdgeInsetsPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "insets_optional_value",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "EdgeInsetsPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "insets_optional_both",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": true,
                     "typeAnnotation": {
-                      "name": "EdgeInsetsPrimitive",
-                      "type": "ReservedPropTypeAnnotation"
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "object_required",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
                       "properties": [
                         {
                           "name": "nestedProp",
                           "optional": false,
                           "typeAnnotation": {
-                            "default": null,
-                            "type": "StringTypeAnnotation"
+                            "type": "StringTypeAnnotation",
+                            "default": null
                           }
                         }
-                      ],
-                      "type": "ObjectTypeAnnotation"
+                      ]
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "object_optional_key",
               "optional": true,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
                       "properties": [
                         {
                           "name": "nestedProp",
                           "optional": false,
                           "typeAnnotation": {
-                            "default": null,
-                            "type": "StringTypeAnnotation"
+                            "type": "StringTypeAnnotation",
+                            "default": null
                           }
                         }
-                      ],
-                      "type": "ObjectTypeAnnotation"
+                      ]
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "object_optional_value",
               "optional": true,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
                       "properties": [
                         {
                           "name": "nestedProp",
                           "optional": false,
                           "typeAnnotation": {
-                            "default": null,
-                            "type": "StringTypeAnnotation"
+                            "type": "StringTypeAnnotation",
+                            "default": null
                           }
                         }
-                      ],
-                      "type": "ObjectTypeAnnotation"
+                      ]
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "object_optional_both",
               "optional": true,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "prop",
                     "optional": false,
                     "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
                       "properties": [
                         {
                           "name": "nestedProp",
                           "optional": false,
                           "typeAnnotation": {
-                            "default": null,
-                            "type": "StringTypeAnnotation"
+                            "type": "StringTypeAnnotation",
+                            "default": null
                           }
                         }
-                      ],
-                      "type": "ObjectTypeAnnotation"
+                      ]
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             }
-          ]
+          ],
+          "commands": []
         }
       }
     }

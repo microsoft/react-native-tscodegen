@@ -1,111 +1,112 @@
 {
   "modules": {
     "Module": {
+      "type": "Component",
       "components": {
         "Module": {
-          "commands": [],
-          "events": [],
           "extendsProps": [
             {
-              "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType"
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
             }
           ],
+          "events": [],
           "props": [
             {
               "name": "otherStringProp",
               "optional": false,
               "typeAnnotation": {
-                "default": null,
-                "type": "StringTypeAnnotation"
+                "type": "StringTypeAnnotation",
+                "default": null
               }
             },
             {
               "name": "isEnabled",
               "optional": false,
               "typeAnnotation": {
-                "default": false,
-                "type": "BooleanTypeAnnotation"
+                "type": "BooleanTypeAnnotation",
+                "default": false
               }
             },
             {
               "name": "label",
               "optional": false,
               "typeAnnotation": {
-                "default": null,
-                "type": "StringTypeAnnotation"
+                "type": "StringTypeAnnotation",
+                "default": null
               }
             },
             {
               "name": "localType",
               "optional": false,
               "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
                 "properties": [
                   {
                     "name": "otherStringProp",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": null,
-                      "type": "StringTypeAnnotation"
+                      "type": "StringTypeAnnotation",
+                      "default": null
                     }
                   },
                   {
                     "name": "isEnabled",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": false,
-                      "type": "BooleanTypeAnnotation"
+                      "type": "BooleanTypeAnnotation",
+                      "default": false
                     }
                   },
                   {
                     "name": "label",
                     "optional": false,
                     "typeAnnotation": {
-                      "default": null,
-                      "type": "StringTypeAnnotation"
+                      "type": "StringTypeAnnotation",
+                      "default": null
                     }
                   }
-                ],
-                "type": "ObjectTypeAnnotation"
+                ]
               }
             },
             {
               "name": "localArr",
               "optional": false,
               "typeAnnotation": {
+                "type": "ArrayTypeAnnotation",
                 "elementType": {
+                  "type": "ObjectTypeAnnotation",
                   "properties": [
                     {
                       "name": "otherStringProp",
                       "optional": false,
                       "typeAnnotation": {
-                        "default": null,
-                        "type": "StringTypeAnnotation"
+                        "type": "StringTypeAnnotation",
+                        "default": null
                       }
                     },
                     {
                       "name": "isEnabled",
                       "optional": false,
                       "typeAnnotation": {
-                        "default": false,
-                        "type": "BooleanTypeAnnotation"
+                        "type": "BooleanTypeAnnotation",
+                        "default": false
                       }
                     },
                     {
                       "name": "label",
                       "optional": false,
                       "typeAnnotation": {
-                        "default": null,
-                        "type": "StringTypeAnnotation"
+                        "type": "StringTypeAnnotation",
+                        "default": null
                       }
                     }
-                  ],
-                  "type": "ObjectTypeAnnotation"
-                },
-                "type": "ArrayTypeAnnotation"
+                  ]
+                }
               }
             }
-          ]
+          ],
+          "commands": []
         }
       }
     }

@@ -63,6 +63,18 @@ export type EventInFile = Readonly<{
       int32_optional_both?: (ReactNull | Int32);
     });
   };
+  object_readonly_required: Readonly<{
+    boolean_required: boolean;
+  }>;
+  object_readonly_optional_key?: Readonly<{
+    string_optional_key?: string;
+  }>;
+  object_readonly_optional_value: (ReactNull | Readonly<{
+    float_optional_value: (ReactNull | Float);
+  }>);
+  object_readonly_optional_both?: (ReactNull | Readonly<{
+    int32_optional_both?: (ReactNull | Int32);
+  }>);
 }>;
 
 export type Boolean = boolean;

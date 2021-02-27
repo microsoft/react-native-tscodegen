@@ -1,53 +1,54 @@
 {
   "modules": {
     "Module": {
+      "type": "Component",
       "components": {
         "Module": {
-          "commands": [],
+          "interfaceOnly": true,
+          "paperComponentName": "RCTModule",
+          "extendsProps": [
+            {
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
+            }
+          ],
           "events": [
             {
-              "bubblingType": "direct",
               "name": "onDirectEventDefinedInlineNull",
               "optional": false,
+              "bubblingType": "direct",
               "typeAnnotation": {
+                "type": "EventTypeAnnotation",
                 "argument": {
-                  "properties": [],
-                  "type": "ObjectTypeAnnotation"
-                },
-                "type": "EventTypeAnnotation"
+                  "type": "ObjectTypeAnnotation",
+                  "properties": []
+                }
               }
             },
             {
-              "bubblingType": "bubble",
               "name": "onBubblingEventDefinedInlineNull",
               "optional": false,
+              "bubblingType": "bubble",
               "typeAnnotation": {
+                "type": "EventTypeAnnotation",
                 "argument": {
-                  "properties": [],
-                  "type": "ObjectTypeAnnotation"
-                },
-                "type": "EventTypeAnnotation"
+                  "type": "ObjectTypeAnnotation",
+                  "properties": []
+                }
               }
             }
           ],
-          "extendsProps": [
-            {
-              "knownTypeName": "ReactNativeCoreViewProps",
-              "type": "ReactNativeBuiltInType"
-            }
-          ],
-          "interfaceOnly": true,
-          "paperComponentName": "RCTModule",
           "props": [
             {
               "name": "boolean_default_true_optional_both",
               "optional": true,
               "typeAnnotation": {
-                "default": true,
-                "type": "BooleanTypeAnnotation"
+                "type": "BooleanTypeAnnotation",
+                "default": true
               }
             }
-          ]
+          ],
+          "commands": []
         }
       }
     }

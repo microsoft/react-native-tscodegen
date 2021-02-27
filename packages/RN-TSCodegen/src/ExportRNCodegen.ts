@@ -21,7 +21,9 @@ export type Generators =
     | 'props'
     | 'tests'
     | 'shadow-nodes'
-    | 'modules'
+    | 'modulesAndroid'
+    | 'modulesCxx'
+    | 'modulesIOS'
     ;
 
 export type Config = Readonly<{

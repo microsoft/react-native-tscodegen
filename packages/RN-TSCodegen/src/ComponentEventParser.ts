@@ -4,14 +4,21 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
-import { RNRawType, WritableObjectType } from './RNRawType';
+import { RNRawObjectProperty, RNRawType, WritableObjectType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
-function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): [boolean, ts.TypeNode, string, string | undefined] | undefined {
+export interface ComponentEventInfo {
+  optional: boolean;
+  eventType: ts.TypeNode;
+  eventTypeName: string;
+  paperTopLevelNameDeprecated?: string;
+}
+
+export function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): ComponentEventInfo | undefined {
   if (ts.isParenthesizedTypeNode(eventType)) {
     return checkEventType(eventType.type, info, propDecl);
   } else if (ts.isUnionTypeNode(eventType)) {
-    let result: [boolean, ts.TypeNode, string, string | undefined] | undefined;
+    let result: ComponentEventInfo | undefined;
     for (const elementType of eventType.types) {
       const elementResult = checkEventType(elementType, info, propDecl);
       if (elementResult !== undefined) {
@@ -23,7 +30,7 @@ function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propD
       }
     }
     if (result !== undefined) {
-      result[0] = true;
+      result.optional = true;
     }
     return result;
   } else if (ts.isTypeReferenceNode(eventType)) {
@@ -40,16 +47,25 @@ function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo, propD
     if (typeArguments.length === 2) {
       const nameArgument = typeArguments[1];
       if (ts.isLiteralTypeNode(nameArgument) && ts.isStringLiteral(nameArgument.literal)) {
-        return [false, typeArguments[0], typeName, nameArgument.literal.text];
+        return {
+          optional: false,
+          eventType: typeArguments[0],
+          eventTypeName: typeName,
+          paperTopLevelNameDeprecated: nameArgument.literal.text
+        };
       }
     }
-    return [false, typeArguments[0], typeName, undefined];
+    return {
+      optional: false,
+      eventType: typeArguments[0],
+      eventTypeName: typeName
+    };
   } else {
     return undefined;
   }
 }
 
-function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.ObjectPropertyType {
+function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.EventObjectPropertyType {
   const namePlaceholder = <string><unknown>undefined;
   switch (rawType.kind) {
     case 'Boolean': return { type: 'BooleanTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
@@ -67,28 +83,31 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
       type: 'ObjectTypeAnnotation',
       name: namePlaceholder,
       optional: rawType.isNullable,
-      properties: rawType.properties.map((rawProp: { name: string; propertyType: RNRawType }) => {
-        const prop = <WritableObjectType<cs.ObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
+      properties: rawType.properties.map((rawProp: RNRawObjectProperty) => {
+        const prop = <WritableObjectType<cs.EventObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
         prop.name = rawProp.name;
+        if (rawProp.optional) {
+          prop.optional = true;
+        }
         return prop;
       })
+    };
+    case 'Null': return {
+      type: 'ObjectTypeAnnotation',
+      name: namePlaceholder,
+      optional: rawType.isNullable,
+      properties: []
     };
     default:
   }
   throw new Error(`Component event type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.EventTypeShape | undefined {
+export function parseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration, eventInfo: ComponentEventInfo): cs.EventTypeShape {
   const propType = <ts.TypeNode>propDecl.type;
-  const eventTypeTuple = checkEventType(propType, info, propDecl);
-  if (eventTypeTuple === undefined) {
-    return undefined;
-  }
+  const rawType = typeToRNRawType(eventInfo.eventType, info.sourceFile, { allowObject: true });
 
-  const [optional, eventType, eventTypeName, paperTopLevelNameDeprecated] = eventTypeTuple;
-  const rawType = typeToRNRawType(eventType, info.sourceFile, true);
-
-  let eventProperties: readonly cs.ObjectPropertyType[] = [];
+  let eventProperties: readonly cs.EventObjectPropertyType[] = [];
   if (rawType.kind !== 'Null') {
     const objectType = rnRawTypeToObjectPropertyType(propType, rawType);
     if (objectType.type === 'ObjectTypeAnnotation') {
@@ -100,19 +119,19 @@ export function tryParseEvent(info: ExportComponentInfo, propDecl: ts.PropertySi
 
   const result: WritableObjectType<cs.EventTypeShape> = {
     name: propDecl.name.getText(),
-    bubblingType: eventTypeName === 'DirectEventHandler' ? 'direct' : 'bubble',
-    optional: (propDecl.questionToken !== undefined) || optional,
+    bubblingType: eventInfo.eventTypeName === 'DirectEventHandler' ? 'direct' : 'bubble',
+    optional: (propDecl.questionToken !== undefined) || eventInfo.optional,
     typeAnnotation: {
       type: 'EventTypeAnnotation',
       argument: {
         type: 'ObjectTypeAnnotation',
-        properties: <WritableObjectType<cs.ObjectPropertyType>[]>eventProperties
+        properties: <WritableObjectType<cs.EventObjectPropertyType>[]>eventProperties
       }
     }
   };
 
-  if (paperTopLevelNameDeprecated !== undefined) {
-    result.paperTopLevelNameDeprecated = paperTopLevelNameDeprecated;
+  if (eventInfo.paperTopLevelNameDeprecated !== undefined) {
+    result.paperTopLevelNameDeprecated = eventInfo.paperTopLevelNameDeprecated;
   }
   return result;
 }

@@ -18,7 +18,7 @@ import type {TurboModule} from '../RCTExport';
 import * as TurboModuleRegistry from '../TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getObject: (o : Object) => Object,
+  +getObject: (o: Object) => Object,
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

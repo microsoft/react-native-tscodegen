@@ -1,0 +1,36 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "getRootTag",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ReservedFunctionValueTypeAnnotation",
+                "name": "RootTag"
+              },
+              "params": [
+                {
+                  "name": "rootTag",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ReservedFunctionValueTypeAnnotation",
+                    "name": "RootTag"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
+    }
+  }
+}

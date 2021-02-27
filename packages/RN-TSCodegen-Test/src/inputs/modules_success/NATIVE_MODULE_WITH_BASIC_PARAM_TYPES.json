@@ -1,92 +1,91 @@
 {
   "modules": {
     "NativeSampleTurboModule": {
-      "nativeModules": {
-        "SampleTurboModule": {
-          "properties": [
-            {
-              "name": "passBool",
-              "typeAnnotation": {
-                "optional": true,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "type": "BooleanTypeAnnotation"
-                    }
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "passBool",
+            "optional": true,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "BooleanTypeAnnotation"
                   }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "VoidTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
-            },
-            {
-              "name": "passNumber",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "type": "NumberTypeAnnotation"
-                    }
-                  }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "VoidTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
-            },
-            {
-              "name": "passString",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "type": "StringTypeAnnotation"
-                    }
-                  }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "VoidTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
-            },
-            {
-              "name": "passStringish",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "type": "StringTypeAnnotation"
-                    }
-                  }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "VoidTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
+                }
+              ]
             }
-          ]
-        }
-      }
+          },
+          {
+            "name": "passNumber",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "NumberTypeAnnotation"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "passString",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "StringTypeAnnotation"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "passStringish",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "StringTypeAnnotation"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
     }
   }
 }

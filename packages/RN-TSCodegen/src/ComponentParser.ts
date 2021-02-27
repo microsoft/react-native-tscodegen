@@ -4,7 +4,7 @@
 import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { parseCommands } from './ComponentCommandParser';
-import { tryParseEvent } from './ComponentEventParser';
+import { checkEventType, parseEvent } from './ComponentEventParser';
 import { parseProperty } from './ComponentPropertyParser';
 import { ExportCommandInfo, ExportComponentInfo, getMembersFromType } from './ExportParser';
 
@@ -31,14 +31,13 @@ function importExists(sourceFile: ts.SourceFile, name: string): boolean {
     return result === undefined ? false : result;
 }
 
-export function processComponent(info: ExportComponentInfo, commandsInfo: ExportCommandInfo | undefined): cs.ComponentShape {
+export function processComponent(info: ExportComponentInfo, commandsInfo?: ExportCommandInfo): cs.ComponentSchema {
+    const extendsProps: cs.ExtendsPropsShape[] = [];
     const events: cs.EventTypeShape[] = [];
     const props: cs.PropTypeShape[] = [];
     let commands: cs.CommandTypeShape[] = [];
 
-    if (commandsInfo !== undefined) {
-        commands = parseCommands(commandsInfo);
-    }
+    commands = parseCommands(commandsInfo);
 
     const validMembers = getMembersFromType(info.typeNode, info.sourceFile);
     if (validMembers === undefined) {
@@ -49,19 +48,11 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
         if (propDecl.name !== undefined) {
             const propertyName = propDecl.name.getText();
             if (ts.isPropertySignature(propDecl) || ts.isPropertyDeclaration(propDecl)) {
-                try {
-                    const eventShape = tryParseEvent(info, propDecl);
-                    if (eventShape !== undefined) {
-                        events.push(eventShape);
-                    } else {
-                        props.push(parseProperty(info, propDecl));
-                    }
-                } catch (err) {
-                    if (err instanceof Error) {
-                        err.message = `${propertyName}: ${err.message}`;
-                    } else {
-                        throw err;
-                    }
+                const eventInfo = checkEventType(<ts.TypeNode>propDecl.type, info, propDecl);
+                if (eventInfo === undefined) {
+                    props.push(parseProperty(info, propDecl));
+                } else {
+                    events.push(parseEvent(info, propDecl, eventInfo));
                 }
             } else {
                 throw new Error(`Member ${propertyName} in type ${info.typeNode.getText()} is expected to be a property.`);
@@ -69,19 +60,20 @@ export function processComponent(info: ExportComponentInfo, commandsInfo: Export
         }
     }
 
-    const result = {
-        extendsProps: <cs.ExtendsPropsShape[]>[],
+    if (importExists(info.sourceFile, 'ViewProps')) {
+        extendsProps.push({ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' });
+    }
+
+    const shape: cs.ComponentShape = {
+        extendsProps,
         events,
         props,
         commands
     };
 
-    if (importExists(info.sourceFile, 'ViewProps')) {
-        result.extendsProps.push({ knownTypeName: 'ReactNativeCoreViewProps', type: 'ReactNativeBuiltInType' });
-    }
     Object.getOwnPropertyNames(info.options).forEach((key: string) => {
-        result[key] = info.options[key];
+        shape[key] = info.options[key];
     });
 
-    return <cs.ComponentShape>result;
+    return { type: 'Component', components: { [info.name]: shape } };
 }

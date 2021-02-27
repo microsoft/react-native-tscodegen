@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "catch up to react-native 0.64",
+  "packageName": "react-native-tscodegen",
+  "email": "zihanc@microsoft.com",
+  "commit": "a15efdc739c0941922c5f9807eefa2541bf026ee",
+  "date": "2021-02-27T02:47:57.866Z",
+  "file": "C:\\Code\\Microsoft\\react-native-tscodegen\\change\\react-native-tscodegen-2021-02-26-18-47-57-0.64-stable.json"
+}

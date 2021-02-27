@@ -1,1 +1,1 @@
-{"error": "Unsupported type for getBool. Please provide a name for every parameter."}
+{"error": "Module NativeSampleTurboModule: All function parameters must be named."}

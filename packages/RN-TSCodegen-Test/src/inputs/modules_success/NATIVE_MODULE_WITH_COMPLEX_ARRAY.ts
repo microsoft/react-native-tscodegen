@@ -9,7 +9,7 @@ import {TurboModuleRegistry} from 'react-native-tscodegen-types';
 'use strict';
 
 export interface Spec extends TurboModule {
-  getArray(arg: Array<Array<Array<Array<Array<any>>>>>): Array<Array<Array<string>>>;
+  getArray(arg: Array<Array<Array<Array<Array<string>>>>>): Array<Array<Array<string>>>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

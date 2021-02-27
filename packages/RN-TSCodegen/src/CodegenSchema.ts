@@ -5,6 +5,10 @@
 
 'use strict';
 
+export type PlatformType =
+  | 'iOS'
+  | 'android';
+
 export type CommandsFunctionTypeAnnotation = Readonly<{
   type: 'FunctionTypeAnnotation';
   params: ReadonlyArray<CommandsFunctionTypeParamAnnotation>;
@@ -16,11 +20,17 @@ export type CommandsFunctionTypeParamAnnotation = Readonly<{
 }>;
 
 export type CommandsTypeAnnotation =
+  | ReservedFunctionValueTypeAnnotation
   | BooleanTypeAnnotation
   | Int32TypeAnnotation
   | DoubleTypeAnnotation
   | FloatTypeAnnotation
   | StringTypeAnnotation;
+
+export type ReservedFunctionValueTypeAnnotation = Readonly<{
+  type: 'ReservedFunctionValueTypeAnnotation';
+  name: ReservedFunctionValueTypeName;
+}>;
 
 export type DoubleTypeAnnotation = Readonly<{
   type: 'DoubleTypeAnnotation';
@@ -42,7 +52,7 @@ export type StringTypeAnnotation = Readonly<{
   type: 'StringTypeAnnotation';
 }>;
 
-export type ObjectPropertyType =
+export type EventObjectPropertyType =
   | Readonly<{
       type: 'BooleanTypeAnnotation';
       name: string;
@@ -80,7 +90,7 @@ export type ObjectPropertyType =
       type: 'ObjectTypeAnnotation';
       name: string;
       optional: boolean;
-      properties: ReadonlyArray<ObjectPropertyType>;
+      properties: ReadonlyArray<EventObjectPropertyType>;
     }>;
 
 export type PropTypeTypeAnnotation =
@@ -188,90 +198,6 @@ export type PropTypeShape = Readonly<{
   typeAnnotation: PropTypeTypeAnnotation;
 }>;
 
-export type PrimitiveTypeAnnotationType =
-  | 'StringTypeAnnotation'
-  | 'NumberTypeAnnotation'
-  | 'Int32TypeAnnotation'
-  | 'DoubleTypeAnnotation'
-  | 'FloatTypeAnnotation'
-  | 'BooleanTypeAnnotation'
-  | 'GenericObjectTypeAnnotation';
-
-export type PrimitiveTypeAnnotation = Readonly<{
-  type: PrimitiveTypeAnnotationType;
-}>;
-
-export type ReservedFunctionValueTypeName = 'RootTag';
-
-export type FunctionTypeAnnotationParamTypeAnnotation =
-  | Readonly<{
-      type:
-        | 'AnyTypeAnnotation'
-        | 'FunctionTypeAnnotation'
-        | PrimitiveTypeAnnotationType;
-    }>
-  | Readonly<{
-      type: 'ArrayTypeAnnotation';
-      elementType: (undefined | FunctionTypeAnnotationParamTypeAnnotation);
-    }>
-  | Readonly<{
-      type: 'ObjectTypeAnnotation';
-      properties: (undefined | ReadonlyArray<ObjectParamTypeAnnotation>);
-    }>
-  | Readonly<{
-    type: 'ReservedFunctionValueTypeAnnotation';
-    name: ReservedFunctionValueTypeName;
-  }>;
-
-export type FunctionTypeAnnotationReturnArrayElementType = FunctionTypeAnnotationParamTypeAnnotation;
-
-export type ObjectParamTypeAnnotation = Readonly<{
-  optional: boolean;
-  name: string;
-  typeAnnotation: FunctionTypeAnnotationParamTypeAnnotation;
-}>;
-
-export type FunctionTypeAnnotationReturn =
-  | Readonly<{
-      nullable: boolean;
-      type:
-        | PrimitiveTypeAnnotationType
-        | 'VoidTypeAnnotation'
-        | 'GenericPromiseTypeAnnotation';
-    }>
-  | Readonly<{
-      nullable: boolean;
-      type: 'ArrayTypeAnnotation';
-      elementType: (undefined | FunctionTypeAnnotationReturnArrayElementType);
-    }>
-  | Readonly<{
-      nullable: boolean;
-      type: 'ObjectTypeAnnotation';
-      properties: (undefined | ReadonlyArray<ObjectParamTypeAnnotation>);
-    }>;
-
-export type FunctionTypeAnnotationParam = Readonly<{
-  nullable: boolean;
-  name: string;
-  typeAnnotation: FunctionTypeAnnotationParamTypeAnnotation;
-}>;
-
-export type FunctionTypeAnnotation = Readonly<{
-  type: 'FunctionTypeAnnotation';
-  params: ReadonlyArray<FunctionTypeAnnotationParam>;
-  returnTypeAnnotation: FunctionTypeAnnotationReturn;
-  optional: boolean;
-}>;
-
-export type MethodTypeShape = Readonly<{
-  name: string;
-  typeAnnotation: FunctionTypeAnnotation;
-}>;
-
-export type NativeModuleShape = Readonly<{
-  properties: ReadonlyArray<MethodTypeShape>;
-}>;
-
 export type EventTypeShape = Readonly<{
   name: string;
   bubblingType:
@@ -283,7 +209,7 @@ export type EventTypeShape = Readonly<{
     type: 'EventTypeAnnotation';
     argument?: Readonly<{
       type: 'ObjectTypeAnnotation';
-      properties: ReadonlyArray<ObjectPropertyType>;
+      properties: ReadonlyArray<EventObjectPropertyType>;
     }>;
   }>;
 }>;
@@ -297,9 +223,7 @@ export type CommandTypeShape = Readonly<{
 export type OptionsShape = Readonly<{
   interfaceOnly?: boolean;
   paperComponentName?: string;
-  excludedPlatform?:
-    | 'iOS'
-    | 'android';
+  excludedPlatforms?: ReadonlyArray<PlatformType>;
   paperComponentNameDeprecated?: string;
 }>;
 
@@ -317,14 +241,153 @@ export type ComponentShape = Readonly<OptionsShape & {
 
 export type SchemaType = Readonly<{
   modules: Readonly<{
-    [module: string]: Readonly<{
-      components?: Readonly<{
-        [component: string]: ComponentShape;
-      }>;
-      nativeModules?: Readonly<{
-        [nativeModule: string]: NativeModuleShape;
-      }>;
-    }>;
+    [hasteModuleName: string]: ComponentSchema | NativeModuleSchema;
   }>;
 }>;
+
+export type ComponentSchema = Readonly<{
+  type: 'Component';
+  components: Readonly<{
+    [componentName: string]: ComponentShape;
+  }>;
+}>;
+
+export type Nullable<T extends NativeModuleTypeAnnotation> =
+  | NullableTypeAnnotation<T>
+  | T;
+
+export type NullableTypeAnnotation<T extends NativeModuleTypeAnnotation> = Readonly<{
+  type: 'NullableTypeAnnotation';
+  typeAnnotation: T;
+}>;
+
+export type NativeModuleSchema = Readonly<{
+  type: 'NativeModule';
+  aliases: NativeModuleAliasMap;
+  spec: NativeModuleSpec;
+  moduleNames: ReadonlyArray<string>;
+  excludedPlatforms?: ReadonlyArray<PlatformType>;
+}>;
+
+export type NativeModuleSpec = Readonly<{
+  properties: ReadonlyArray<NativeModulePropertySchema>;
+}>;
+
+export type NativeModulePropertySchema = Readonly<{
+  name: string;
+  optional: boolean;
+  typeAnnotation: Nullable<NativeModuleFunctionTypeAnnotation>;
+}>;
+
+export type NativeModuleAliasMap = Readonly<{
+  [aliasName: string]: NativeModuleObjectTypeAnnotation;
+}>;
+
+export type NativeModuleFunctionTypeAnnotation = Readonly<{
+  type: 'FunctionTypeAnnotation';
+  params: ReadonlyArray<NativeModuleMethodParamSchema>;
+  returnTypeAnnotation: Nullable<NativeModuleReturnTypeAnnotation>;
+}>;
+
+export type NativeModuleMethodParamSchema = Readonly<{
+  name: string;
+  optional: boolean;
+  typeAnnotation: Nullable<NativeModuleParamTypeAnnotation>;
+}>;
+
+export type NativeModuleObjectTypeAnnotation = Readonly<{
+  type: 'ObjectTypeAnnotation';
+  properties: ReadonlyArray<NativeModuleObjectTypeAnnotationPropertySchema>;
+}>;
+
+export type NativeModuleObjectTypeAnnotationPropertySchema = Readonly<{
+  name: string;
+  optional: boolean;
+  typeAnnotation: Nullable<NativeModuleBaseTypeAnnotation>;
+}>;
+
+export type NativeModuleArrayTypeAnnotation = Readonly<{
+  type: 'ArrayTypeAnnotation';
+  elementType?: Nullable<NativeModuleBaseTypeAnnotation>;
+}>;
+
+export type NativeModuleStringTypeAnnotation = Readonly<{
+  type: 'StringTypeAnnotation';
+}>;
+
+export type NativeModuleNumberTypeAnnotation = Readonly<{
+  type: 'NumberTypeAnnotation';
+}>;
+
+export type NativeModuleInt32TypeAnnotation = Readonly<{
+  type: 'Int32TypeAnnotation';
+}>;
+
+export type NativeModuleDoubleTypeAnnotation = Readonly<{
+  type: 'DoubleTypeAnnotation';
+}>;
+
+export type NativeModuleFloatTypeAnnotation = Readonly<{
+  type: 'FloatTypeAnnotation';
+}>;
+
+export type NativeModuleBooleanTypeAnnotation = Readonly<{
+  type: 'BooleanTypeAnnotation';
+}>;
+
+export type NativeModuleGenericObjectTypeAnnotation = Readonly<{
+  type: 'GenericObjectTypeAnnotation';
+}>;
+
+export type NativeModuleReservedFunctionValueTypeAnnotation = Readonly<{
+  type: 'ReservedFunctionValueTypeAnnotation';
+  name: ReservedFunctionValueTypeName;
+}>;
+
+export type NativeModuleTypeAliasTypeAnnotation = Readonly<{
+  type: 'TypeAliasTypeAnnotation';
+  name: string;
+}>;
+
+export type NativeModulePromiseTypeAnnotation = Readonly<{
+  type: 'PromiseTypeAnnotation';
+}>;
+
+export type NativeModuleVoidTypeAnnotation = Readonly<{
+  type: 'VoidTypeAnnotation';
+}>;
+
+export type NativeModuleBaseTypeAnnotation =
+  | NativeModuleStringTypeAnnotation
+  | NativeModuleNumberTypeAnnotation
+  | NativeModuleInt32TypeAnnotation
+  | NativeModuleDoubleTypeAnnotation
+  | NativeModuleFloatTypeAnnotation
+  | NativeModuleBooleanTypeAnnotation
+  | NativeModuleGenericObjectTypeAnnotation
+  | NativeModuleReservedFunctionValueTypeAnnotation
+  | NativeModuleTypeAliasTypeAnnotation
+  | NativeModuleArrayTypeAnnotation
+  | NativeModuleObjectTypeAnnotation;
+
+export type NativeModuleParamTypeAnnotation =
+  | NativeModuleBaseTypeAnnotation
+  | NativeModuleParamOnlyTypeAnnotation;
+
+export type NativeModuleReturnTypeAnnotation =
+  | NativeModuleBaseTypeAnnotation
+  | NativeModuleReturnOnlyTypeAnnotation;
+
+export type NativeModuleTypeAnnotation =
+  | NativeModuleBaseTypeAnnotation
+  | NativeModuleParamOnlyTypeAnnotation
+  | NativeModuleReturnOnlyTypeAnnotation;
+
+export type NativeModuleParamOnlyTypeAnnotation = NativeModuleFunctionTypeAnnotation;
+
+export type NativeModuleReturnOnlyTypeAnnotation =
+  | NativeModulePromiseTypeAnnotation
+  | NativeModuleVoidTypeAnnotation;
+
+export type ReservedFunctionValueTypeName = 'RootTag';
 

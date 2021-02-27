@@ -1,32 +1,59 @@
 {
   "modules": {
     "NativeSampleTurboModule": {
-      "nativeModules": {
-        "SampleTurboModule": {
-          "properties": [
-            {
-              "name": "getValueWithCallback",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "callback",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "type": "FunctionTypeAnnotation"
-                    }
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "getValueWithCallback",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "callback",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "FunctionTypeAnnotation",
+                    "returnTypeAnnotation": {
+                      "type": "VoidTypeAnnotation"
+                    },
+                    "params": [
+                      {
+                        "name": "value",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "StringTypeAnnotation"
+                        }
+                      },
+                      {
+                        "name": "arr",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "ArrayTypeAnnotation",
+                          "elementType": {
+                            "type": "ArrayTypeAnnotation",
+                            "elementType": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        }
+                      }
+                    ]
                   }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "VoidTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
+                }
+              ]
             }
-          ]
-        }
-      }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
     }
   }
 }

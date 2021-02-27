@@ -1,188 +1,48 @@
 {
   "modules": {
     "NativeSampleTurboModule": {
-      "nativeModules": {
-        "SampleTurboModule": {
-          "properties": [
-            {
-              "name": "getObject",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "getObject",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
                   {
-                    "name": "arg",
-                    "nullable": false,
+                    "name": "const1",
+                    "optional": false,
                     "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
                       "properties": [
                         {
                           "name": "const1",
                           "optional": false,
                           "typeAnnotation": {
-                            "properties": [
-                              {
-                                "name": "const1",
-                                "optional": false,
-                                "typeAnnotation": {
-                                  "type": "BooleanTypeAnnotation"
-                                }
-                              }
-                            ],
-                            "type": "ObjectTypeAnnotation"
+                            "type": "BooleanTypeAnnotation"
                           }
                         }
-                      ],
-                      "type": "ObjectTypeAnnotation"
+                      ]
                     }
                   }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "properties": [
-                    {
-                      "name": "const1",
-                      "optional": false,
-                      "typeAnnotation": {
-                        "properties": [
-                          {
-                            "name": "const1",
-                            "optional": false,
-                            "typeAnnotation": {
-                              "type": "BooleanTypeAnnotation"
-                            }
-                          }
-                        ],
-                        "type": "ObjectTypeAnnotation"
-                      }
-                    }
-                  ],
-                  "type": "ObjectTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
-            },
-            {
-              "name": "getReadOnlyObject",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "properties": [
-                        {
-                          "name": "const1",
-                          "optional": false,
-                          "typeAnnotation": {
-                            "properties": [
-                              {
-                                "name": "const1",
-                                "optional": false,
-                                "typeAnnotation": {
-                                  "type": "BooleanTypeAnnotation"
-                                }
-                              }
-                            ],
-                            "type": "ObjectTypeAnnotation"
-                          }
-                        }
-                      ],
-                      "type": "ObjectTypeAnnotation"
-                    }
-                  }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "properties": [
-                    {
-                      "name": "const1",
-                      "optional": false,
-                      "typeAnnotation": {
-                        "properties": [
-                          {
-                            "name": "const1",
-                            "optional": false,
-                            "typeAnnotation": {
-                              "type": "BooleanTypeAnnotation"
-                            }
-                          }
-                        ],
-                        "type": "ObjectTypeAnnotation"
-                      }
-                    }
-                  ],
-                  "type": "ObjectTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
-            },
-            {
-              "name": "getObject2",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "properties": [
-                        {
-                          "name": "a",
-                          "optional": false,
-                          "typeAnnotation": {
-                            "type": "StringTypeAnnotation"
-                          }
-                        }
-                      ],
-                      "type": "ObjectTypeAnnotation"
-                    }
-                  }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "GenericObjectTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
-            },
-            {
-              "name": "getObjectInArray",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": false,
-                    "typeAnnotation": {
-                      "properties": [
-                        {
-                          "name": "const1",
-                          "optional": false,
-                          "typeAnnotation": {
-                            "properties": [
-                              {
-                                "name": "const1",
-                                "optional": false,
-                                "typeAnnotation": {
-                                  "type": "BooleanTypeAnnotation"
-                                }
-                              }
-                            ],
-                            "type": "ObjectTypeAnnotation"
-                          }
-                        }
-                      ],
-                      "type": "ObjectTypeAnnotation"
-                    }
-                  }
-                ],
-                "returnTypeAnnotation": {
-                  "elementType": {
+                ]
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
                     "properties": [
                       {
                         "name": "const1",
                         "optional": false,
                         "typeAnnotation": {
+                          "type": "ObjectTypeAnnotation",
                           "properties": [
                             {
                               "name": "const1",
@@ -191,22 +51,161 @@
                                 "type": "BooleanTypeAnnotation"
                               }
                             }
-                          ],
-                          "type": "ObjectTypeAnnotation"
+                          ]
                         }
                       }
-                    ],
-                    "type": "ObjectTypeAnnotation"
-                  },
-                  "nullable": false,
-                  "type": "ArrayTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
+                    ]
+                  }
+                }
+              ]
             }
-          ]
-        }
-      }
+          },
+          {
+            "name": "getReadOnlyObject",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "const1",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "const1",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "BooleanTypeAnnotation"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "const1",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "ObjectTypeAnnotation",
+                          "properties": [
+                            {
+                              "name": "const1",
+                              "optional": false,
+                              "typeAnnotation": {
+                                "type": "BooleanTypeAnnotation"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getObject2",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "GenericObjectTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "a",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "StringTypeAnnotation"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getObjectInArray",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ArrayTypeAnnotation",
+                "elementType": {
+                  "type": "ObjectTypeAnnotation",
+                  "properties": [
+                    {
+                      "name": "const1",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "const1",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "const1",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "ObjectTypeAnnotation",
+                          "properties": [
+                            {
+                              "name": "const1",
+                              "optional": false,
+                              "typeAnnotation": {
+                                "type": "BooleanTypeAnnotation"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
     }
   }
 }

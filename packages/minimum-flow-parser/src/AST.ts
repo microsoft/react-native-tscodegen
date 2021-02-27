@@ -88,7 +88,7 @@ export interface TypeReference {
 export interface FunctionType {
   kind: 'FunctionType';
   returnType: Type;
-  parameters: { name: string; parameterType: Type }[];
+  parameters: { name: string; parameterType: Type; optional: boolean }[];
 }
 
 export interface ParenType {
@@ -169,9 +169,19 @@ export type Expression =
  * Declarations
  ****************************************************************/
 
+export interface GenericParameter {
+  name: string;
+  baseType?: Type;
+}
+
+export interface GenericHeader {
+  parameters: GenericParameter[];
+}
+
 export interface DeclarationBase {
   hasExport: boolean;
   name: string;
+  generic?: GenericHeader;
 }
 
 export interface TypeAliasDecl extends DeclarationBase {

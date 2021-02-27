@@ -1,1 +1,1 @@
-{"error": "Found two types extending \"TurboModule\" is one file. Split them into separated files."}
+{"error": "File contains declarations of more than one module: Spec, Spec2. Please declare exactly one module in this file."}

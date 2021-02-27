@@ -1,8 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-declare module 'react-native-tscodegen-types' {
-
+declare module "react-native-tscodegen-types" {
   // \react-native\Libraries\Types\CoreEventTypes.js
 
   type FlowOptional<T> = ReactNull | T;
@@ -33,8 +32,12 @@ declare module 'react-native-tscodegen-types' {
   export type Float = number;
   export type Double = number;
   export type Int32 = number;
-  export type BubblingEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
-  export type DirectEventHandler<T, PaperName extends string | {} = {}> = (event: SyntheticEvent<T>) => void | Promise<void>;
+  export type BubblingEventHandler<T, PaperName extends string | {} = {}> = (
+    event: SyntheticEvent<T>
+  ) => void | Promise<void>;
+  export type DirectEventHandler<T, PaperName extends string | {} = {}> = (
+    event: SyntheticEvent<T>
+  ) => void | Promise<void>;
   export type NotString = {};
   export type Stringish = string;
   export type ReactNull = undefined | null;
@@ -57,8 +60,8 @@ declare module 'react-native-tscodegen-types' {
     };
   };
 
+  export type RootTag = number;
   export type ProcessedColorValue = number | NativeColorValue;
-  export type ColorValue = string | NativeColorValue;
   export type ColorArrayValue = ReadonlyArray<ColorValue>;
   export interface PointValue {
     x: number;
@@ -71,30 +74,27 @@ declare module 'react-native-tscodegen-types' {
     bottom: number;
   }
 
-  // \react-native\Libraries\Image\ImageSource.js
-
-  import { ImageURISource } from 'react-native';
-  export type ImageSource = ImageURISource | number | Array<ImageURISource>;
-
   // \react-native\Libraries\TurboModule\RCTExport.js
 
   export interface DEPRECATED_RCTEXPORT<T extends void = void> {
     getConstants?: () => {};
   }
 
-  export interface TurboModule extends DEPRECATED_RCTEXPORT<void> {
-  }
+  export interface TurboModule extends DEPRECATED_RCTEXPORT<void> {}
 
   // \react-native\Libraries\TurboModule\TurboModuleRegistry.js
 
   export namespace TurboModuleRegistry {
-    export function getEnforcing<T extends TurboModule>(name: string): FlowOptional<T>;
+    export function getEnforcing<T extends TurboModule>(
+      name: string
+    ): FlowOptional<T>;
   }
 
   // \react-native\Libraries\Utilities\codegenNativeComponent.js
 
   type ComponentOptions = Readonly<{
     interfaceOnly?: boolean;
+    excludedPlatforms?: string[];
     paperComponentName?: string;
     paperComponentNameDeprecated?: string;
     deprecatedViewConfigName?: string;
@@ -102,8 +102,10 @@ declare module 'react-native-tscodegen-types' {
 
   export type NativeComponent<T> = {};
   export type NativeComponentType<T> = {};
-  export type HostComponent<T> = {};
-  export function codegenNativeComponent<Props>(componentName: string, options?: ComponentOptions): HostComponent<Props>;
+  export function codegenNativeComponent<Props>(
+    componentName: string,
+    options?: ComponentOptions
+  ): HostComponent<Props>;
 
   // \react-native\Libraries\Utilities\codegenNativeCommands.js
 
@@ -111,19 +113,26 @@ declare module 'react-native-tscodegen-types' {
     supportedCommands: ReadonlyArray<T>;
   }>;
 
-  export function codegenNativeCommands<T extends {}>(options?: CommandOptions<keyof T>): T;
+  export function codegenNativeCommands<T extends {}>(
+    options?: CommandOptions<keyof T>
+  ): T;
 }
 
-declare module 'react-native-tscodegen-types' {
+declare module "react-native-tscodegen-types" {
   // This is just for compiling auto-translated test cases
   // Do not import anything from here
   // React.ElementRef is a Flow predefined type, use React.Ref instead
 
-  import React from 'react';
+  import React from "react";
 
   export namespace React {
     export type Ref<T> = React.Ref<T>;
     export type ElementRef<T> = React.Ref<T>;
   }
-  export { ViewProps } from 'react-native';
+  export {
+    ColorValue,
+    HostComponent,
+    ImageSourcePropType as ImageSource,
+    ViewProps,
+  } from "react-native";
 }

@@ -37,5 +37,6 @@ type ModuleProps = $ReadOnly<{|
 
 export default codegenNativeComponent<ModuleProps>('Module', {
   interfaceOnly: true,
+  excludedPlatforms: ['android'],
   paperComponentName: 'RCTModule',
 });

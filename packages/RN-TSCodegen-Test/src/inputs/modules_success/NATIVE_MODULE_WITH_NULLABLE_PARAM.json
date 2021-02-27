@@ -1,32 +1,37 @@
 {
   "modules": {
     "NativeSampleTurboModule": {
-      "nativeModules": {
-        "SampleTurboModule": {
-          "properties": [
-            {
-              "name": "voidFunc",
-              "typeAnnotation": {
-                "optional": false,
-                "params": [
-                  {
-                    "name": "arg",
-                    "nullable": true,
+      "type": "NativeModule",
+      "aliases": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "voidFunc",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "NullableTypeAnnotation",
                     "typeAnnotation": {
                       "type": "StringTypeAnnotation"
                     }
                   }
-                ],
-                "returnTypeAnnotation": {
-                  "nullable": false,
-                  "type": "VoidTypeAnnotation"
-                },
-                "type": "FunctionTypeAnnotation"
-              }
+                }
+              ]
             }
-          ]
-        }
-      }
+          }
+        ]
+      },
+      "moduleNames": [
+        "SampleTurboModule"
+      ]
     }
   }
 }

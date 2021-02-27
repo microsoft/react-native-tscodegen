@@ -6,8 +6,9 @@ import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { processComponent } from './ComponentParser';
 import * as ep from './ExportParser';
-import { processNativeModule } from './NativeModuleParser';
+import { NativeModuleAliases, processNativeModule } from './NativeModuleParser';
 import { WritableObjectType } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 function messageChainToString(chain: ts.DiagnosticMessageChain, indent: string): string {
     let message = '';
@@ -92,10 +93,29 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
             throw new Error('Command list should not be exported in a TypeScript source file that exports a native module.');
         }
 
+        // find out all type aliases in this file
+        const aliases: NativeModuleAliases = { aliases: {} };
+        const knownAliases: string[] = [];
+        program.getSourceFiles().forEach((sourceFile: ts.SourceFile) => {
+            if (path.basename(fileName) === path.basename(sourceFile.fileName)) {
+                sourceFile.statements.forEach((node: ts.Node) => {
+                    if (ts.isTypeAliasDeclaration(node)) {
+                        if (node.typeParameters === undefined || node.typeParameters.length === 0) {
+                            const rnRawType = typeToRNRawType(node.type, sourceFile, { allowObject: true, knownAliases });
+                            if (rnRawType.kind === 'Object') {
+                                const aliasName = node.name.text;
+                                aliases.aliases[aliasName] = rnRawType;
+                                knownAliases.push(aliasName);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
         const info = nativeModuleInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
-        result.modules[moduleName] = { nativeModules: {} };
-        (<{}>result.modules[moduleName].nativeModules)[targetName === undefined ? info.name : targetName] = <WritableObjectType<cs.NativeModuleShape>>processNativeModule(info);
+        result.modules[moduleName] = <WritableObjectType<cs.NativeModuleSchema>>processNativeModule(info, aliases);
         return result;
     } else {
         if (commandInfos.length > 1) {
@@ -104,8 +124,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
 
         const info = componentInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
-        result.modules[moduleName] = { components: {} };
-        (<{}>result.modules[moduleName].components)[targetName === undefined ? info.name : targetName] = <WritableObjectType<cs.ComponentShape>>processComponent(info, commandInfos[0]);
+        result.modules[info.name] = <WritableObjectType<cs.ComponentSchema>>processComponent(info, commandInfos[0]);
         return result;
     }
 }

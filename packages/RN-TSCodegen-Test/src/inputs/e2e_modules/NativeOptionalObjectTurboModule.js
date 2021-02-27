@@ -20,7 +20,6 @@ export interface Spec extends TurboModule {
   +getConstants: () => {|
     D?: ?boolean,
     A?: Array<any>,
-    G?: any,
     E?: ?{|
       D?: ?boolean,
       E?: ?{|

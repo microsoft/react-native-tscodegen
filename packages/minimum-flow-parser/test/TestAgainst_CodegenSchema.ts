@@ -28,65 +28,19 @@ const codegenSchemaLastStatement: Statement = {
           name: '$ReadOnly',
           elementType: {
             kind: 'ObjectType',
-            isExact: false,
+            isExact: true,
             mixinTypes: [],
             members: [{
               kind: 'Indexer',
               isReadonly: false,
-              keyName: 'module',
+              keyName: 'hasteModuleName',
               keyType: { kind: 'PrimitiveType', name: 'string' },
               valueType: {
-                kind: 'DecoratedGenericType',
-                name: '$ReadOnly',
-                elementType: {
-                  kind: 'ObjectType',
-                  isExact: true,
-                  mixinTypes: [],
-                  members: [{
-                    kind: 'Prop',
-                    isReadonly: false,
-                    isOptional: true,
-                    name: 'components',
-                    propType: {
-                      kind: 'DecoratedGenericType',
-                      name: '$ReadOnly',
-                      elementType: {
-                        kind: 'ObjectType',
-                        isExact: false,
-                        mixinTypes: [],
-                        members: [{
-                          kind: 'Indexer',
-                          isReadonly: false,
-                          keyName: 'component',
-                          keyType: { kind: 'PrimitiveType', name: 'string' },
-                          valueType: { kind: 'TypeReference', name: 'ComponentShape', typeArguments: [] }
-                        }]
-                      }
-                    }
-                  },
-                  {
-                    kind: 'Prop',
-                    isReadonly: false,
-                    isOptional: true,
-                    name: 'nativeModules',
-                    propType: {
-                      kind: 'DecoratedGenericType',
-                      name: '$ReadOnly',
-                      elementType: {
-                        kind: 'ObjectType',
-                        isExact: false,
-                        mixinTypes: [],
-                        members: [{
-                          kind: 'Indexer',
-                          isReadonly: false,
-                          keyName: 'nativeModule',
-                          keyType: { kind: 'PrimitiveType', name: 'string' },
-                          valueType: { kind: 'TypeReference', name: 'NativeModuleShape', typeArguments: [] }
-                        }]
-                      }
-                    }
-                  }]
-                }
+                kind: 'UnionType',
+                elementTypes: [
+                  { kind: 'TypeReference', name: 'ComponentSchema', typeArguments: [] },
+                  { kind: 'TypeReference', name: 'NativeModuleSchema', typeArguments: [] }
+                ]
               }
             }]
           }
@@ -101,7 +55,7 @@ test(`Test CodegenSchema.js`, () => {
   const flowSource = readFileSync(inputPath, { encoding: 'utf-8' });
   const flowAst = expectSingleResult(expectEOF(PROGRAM.parse(tokenizer.parse(flowSource))));
 
-  // if the code is successfully parsed, pick one random thing to compare
+  // if the code is successfully parsed, test SchemaType
   const schemaTypeAst = flowAst.statements.filter((value: Statement) => {
     return value.kind === 'TypeAliasDecl' && value.name === 'SchemaType';
   })[0];

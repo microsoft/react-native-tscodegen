@@ -27,7 +27,9 @@ try {
         'props',
         'tests',
         'shadow-nodes',
-        'modules'
+        'modulesAndroid',
+        'modulesCxx',
+        'modulesIOS'
     ];
 
     const config = <ConfigJson>JSON.parse(readFileSync(process.argv[2], { encoding: 'utf-8' }));

@@ -7,7 +7,12 @@ import * as ts from 'typescript';
 import { getMembersFromType, resolveType } from './ExportParser';
 import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 
-function functionToRNRawType(typeNode: ts.SignatureDeclarationBase, sourceFile: ts.SourceFile, allowObject: boolean): RNRawType {
+export interface RNRawTypeOptions {
+    allowObject: boolean;
+    knownAliases?: string[];
+}
+
+function functionToRNRawType(typeNode: ts.SignatureDeclarationBase, sourceFile: ts.SourceFile, options: RNRawTypeOptions): RNRawType {
     if (typeNode.typeParameters !== undefined && typeNode.typeParameters.length !== 0) {
         throw new Error(`Type is not supported: ${typeNode.getText()}.`);
     }
@@ -17,17 +22,18 @@ function functionToRNRawType(typeNode: ts.SignatureDeclarationBase, sourceFile: 
         isNullable: false,
         returnType: typeNode.type === undefined
             ? { kind: 'Void', isNullable: false }
-            : typeToRNRawType(typeNode.type, sourceFile, allowObject),
+            : typeToRNRawType(typeNode.type, sourceFile, options),
         parameters: typeNode.parameters.map((decl: ts.ParameterDeclaration) => ({
             name: decl.name.getText(),
+            optional: decl.questionToken !== undefined,
             parameterType: decl.type === undefined
                 ? { kind: 'Any', isNullable: false }
-                : typeToRNRawType(decl.type, sourceFile, allowObject)
+                : typeToRNRawType(decl.type, sourceFile, options)
         }))
     };
 }
 
-export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile, allowObject: boolean): RNRawType {
+export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile, options: RNRawTypeOptions): RNRawType {
     let itemNullable = false;
     let itemDefaultValue: string | number | boolean | undefined;
     const itemStringLiterals: string[] = [];
@@ -73,6 +79,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 case 'EdgeInsetsValue':
                     itemOthers.push({ kind: 'rn:EdgeInsetsPrimitive', isNullable: false });
                     break;
+                case 'RootTag':
+                    itemOthers.push({ kind: 'rn:RootTag', isNullable: false });
+                    break;
                 case 'Object':
                     itemOthers.push({ kind: 'js:Object', isNullable: false });
                     break;
@@ -80,7 +89,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
                         throw new Error(`${typeNode.getText()} should have one type argument.`);
                     }
-                    itemOthers.push({ kind: 'js:Promise', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, allowObject) });
+                    itemOthers.push({ kind: 'js:Promise', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, options) });
                     break;
                 }
                 case 'DirectEventHandler':
@@ -89,7 +98,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                         throw new Error(`${typeNode.getText()} should have one type argument and another optional string literal type argument.`);
                     }
 
-                    const eventType = typeToRNRawType(item.typeArguments[0], sourceFile, true);
+                    const eventType = typeToRNRawType(item.typeArguments[0], sourceFile, { allowObject: true, knownAliases: options.knownAliases });
                     let nameType: string | undefined;
                     if (item.typeArguments.length === 2) {
                         const nameNode = item.typeArguments[1];
@@ -113,7 +122,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                         throw new Error(`${typeNode.getText()} should have one type argument and another default value.`);
                     }
                     itemNullable = true;
-                    itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, allowObject));
+                    itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, options));
 
                     const defaultValue = item.typeArguments[1];
                     switch (defaultValue.kind) {
@@ -163,7 +172,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
                         throw new Error(`${typeNode.getText()} should have one type argument.`);
                     }
-                    itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, allowObject));
+                    itemOthers.push(typeToRNRawType(item.typeArguments[0], sourceFile, options));
                     break;
                 }
                 case 'Array':
@@ -171,15 +180,19 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
                         throw new Error(`${typeNode.getText()} should have one type argument.`);
                     }
-                    itemOthers.push({ kind: 'Array', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, allowObject) });
+                    itemOthers.push({ kind: 'Array', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, options) });
                     break;
                 }
                 default: {
-                    const resolvedType = resolveType(item, sourceFile);
-                    if (resolvedType !== item) {
-                        scannedItems.push(resolvedType);
+                    if (options.knownAliases !== undefined && options.knownAliases.indexOf(typeReferenceName) !== -1) {
+                        itemOthers.push({ kind: 'Alias', isNullable: false, name: typeReferenceName });
                     } else {
-                        recognized = false;
+                        const resolvedType = resolveType(item, sourceFile);
+                        if (resolvedType !== item) {
+                            scannedItems.push(resolvedType);
+                        } else {
+                            recognized = false;
+                        }
                     }
                 }
             }
@@ -190,7 +203,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 scannedItems.push(unionItem);
             }
         } else if (ts.isArrayTypeNode(item)) {
-            itemOthers.push({ kind: 'Array', isNullable: false, elementType: typeToRNRawType(item.elementType, sourceFile, allowObject) });
+            itemOthers.push({ kind: 'Array', isNullable: false, elementType: typeToRNRawType(item.elementType, sourceFile, options) });
         } else if (ts.isLiteralTypeNode(item)) {
             if (ts.isStringLiteral(item.literal)) {
                 itemStringLiterals.push(item.literal.text);
@@ -198,16 +211,18 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 itemNumberLiterals.push(+item.literal.text);
             } else if (ts.isPrefixUnaryExpression(item.literal)) {
                 itemNumberLiterals.push(+item.literal.getText());
+            } else if (item.literal.kind === ts.SyntaxKind.NullKeyword) {
+                itemNullable = true;
             } else {
                 throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.literal} is not a valid literal type.`);
             }
         } else if (ts.isFunctionTypeNode(item)) {
-            itemOthers.push(functionToRNRawType(item, sourceFile, allowObject));
+            itemOthers.push(functionToRNRawType(item, sourceFile, options));
         } else if (ts.isTupleTypeNode(item)) {
             itemOthers.push({
                 kind: 'Tuple',
                 isNullable: false,
-                types: item.elementTypes.map((elementType: ts.TypeNode) => typeToRNRawType(elementType, sourceFile, allowObject))
+                types: item.elements.map((elementType: ts.TypeNode) => typeToRNRawType(elementType, sourceFile, options))
             });
         } else {
             switch (item.kind) {
@@ -236,7 +251,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
         }
 
         if (!recognized) {
-            if (allowObject) {
+            if (options.allowObject) {
                 const members = getMembersFromType(item, sourceFile);
                 if (members === undefined) {
                     throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.getText()} is not an interface.`);
@@ -253,19 +268,17 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                         let propertyType: RNRawType | undefined;
 
                         if (ts.isMethodSignature(member) || ts.isCallSignatureDeclaration(member)) {
-                            propertyType = functionToRNRawType(member, sourceFile, allowObject);
+                            propertyType = functionToRNRawType(member, sourceFile, options);
                         } else if (ts.isPropertySignature(member) || ts.isPropertyDeclaration(member)) {
                             propertyType = member.type === undefined
                                 ? { kind: 'Any', isNullable: false }
-                                : typeToRNRawType(member.type, sourceFile, allowObject);
+                                : typeToRNRawType(member.type, sourceFile, options);
                         }
 
                         if (propertyType !== undefined) {
-                            if (member.questionToken !== undefined) {
-                                propertyType.isNullable = true;
-                            }
                             rawObjectType.properties.push({
                                 name,
+                                optional: member.questionToken !== undefined,
                                 propertyType
                             });
                         }
