@@ -42,8 +42,10 @@ Name the following file as `react-native-tscodegen.json`
         "events",
         "props",
         "tests",
-        "shadow-nodes",
-        "modules"
+        "shadow-nodes", 
+        "modulesAndroid"
+        "modulesCxx"
+        "modulesIOS"
     ],
     "inputFile": "./src/turboModule.ts"
 }
