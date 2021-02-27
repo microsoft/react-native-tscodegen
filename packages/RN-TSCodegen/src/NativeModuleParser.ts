@@ -17,9 +17,8 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
         case 'Array': {
-            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
-                const result = { type: 'ArrayTypeAnnotation' };
-                return <cs.NativeModuleBaseTypeAnnotation>result;
+            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
+                return { type: 'ArrayTypeAnnotation' };
             } else {
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
@@ -83,9 +82,8 @@ function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.Nati
         case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Array': {
-            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
-                const result = { type: 'ArrayTypeAnnotation' };
-                return <cs.NativeModuleReturnTypeAnnotation>result;
+            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
+                return { type: 'ArrayTypeAnnotation' };
             } else {
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
