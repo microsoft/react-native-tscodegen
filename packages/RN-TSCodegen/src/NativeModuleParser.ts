@@ -101,6 +101,10 @@ function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnot
                 };
             })
         };
+        case 'Alias': return {
+            type: 'TypeAliasTypeAnnotation',
+            name: rawType.name
+        };
         default:
     }
 
@@ -111,8 +115,12 @@ function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnot
     }
 }
 
-export function processNativeModule(info: ExportNativeModuleInfo): cs.NativeModuleSchema {
-    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, true);
+export interface NativeModuleAliases {
+    aliases: { [key: string]: RNRawType };
+}
+
+export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAliases: NativeModuleAliases): cs.NativeModuleSchema {
+    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, { allowObject: true, knownAliases: Object.keys(nativeModuleAliases) });
     if (rawType.kind !== 'Object') {
         throw new Error(`An object type is expected as a native module: ${info.typeNode.getText()}.`);
     }

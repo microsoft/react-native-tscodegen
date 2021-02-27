@@ -6,7 +6,7 @@ import * as ts from 'typescript';
 import * as cs from './CodegenSchema';
 import { processComponent } from './ComponentParser';
 import * as ep from './ExportParser';
-import { processNativeModule } from './NativeModuleParser';
+import { NativeModuleAliases, processNativeModule } from './NativeModuleParser';
 import { WritableObjectType } from './RNRawType';
 
 function messageChainToString(chain: ts.DiagnosticMessageChain, indent: string): string {
@@ -92,9 +92,11 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
             throw new Error('Command list should not be exported in a TypeScript source file that exports a native module.');
         }
 
+        const aliases: NativeModuleAliases = { aliases: {} };
+
         const info = nativeModuleInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };
-        result.modules[moduleName] = <WritableObjectType<cs.NativeModuleSchema>>processNativeModule(info);
+        result.modules[moduleName] = <WritableObjectType<cs.NativeModuleSchema>>processNativeModule(info, aliases);
         return result;
     } else {
         if (commandInfos.length > 1) {

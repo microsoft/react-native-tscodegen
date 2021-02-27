@@ -57,4 +57,8 @@ export type RNRawType = (
         kind: 'Union' | 'Tuple';
         types: RNRawType[];
     }
+    | {
+        kind: 'Alias';
+        name: string;
+    }
 ) & RNRawTypeCommon;

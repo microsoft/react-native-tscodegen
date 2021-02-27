@@ -7,7 +7,7 @@ import { ExportCommandInfo, getMembersFromType, resolveType } from './ExportPars
 import { typeToRNRawType } from './TypeChecker';
 
 function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): cs.CommandsTypeAnnotation {
-    const rawType = typeToRNRawType(typeNode, sourceFile, false);
+    const rawType = typeToRNRawType(typeNode, sourceFile, { allowObject: false });
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
         case 'Float': return { type: 'FloatTypeAnnotation' };

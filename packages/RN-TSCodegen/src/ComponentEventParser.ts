@@ -102,7 +102,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
 
 export function parseEvent(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration, eventInfo: ComponentEventInfo): cs.EventTypeShape {
   const propType = <ts.TypeNode>propDecl.type;
-  const rawType = typeToRNRawType(eventInfo.eventType, info.sourceFile, true);
+  const rawType = typeToRNRawType(eventInfo.eventType, info.sourceFile, { allowObject: true });
 
   let eventProperties: readonly cs.EventObjectPropertyType[] = [];
   if (rawType.kind !== 'Null') {
