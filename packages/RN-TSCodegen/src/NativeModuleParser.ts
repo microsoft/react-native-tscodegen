@@ -15,6 +15,7 @@ function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotatio
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
+        case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
                 const result = { type: 'ArrayTypeAnnotation' };
@@ -76,6 +77,7 @@ function rawTypeToReturnType(rawType: RNRawType): cs.NativeModuleReturnTypeAnnot
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
+        case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple') {
@@ -140,7 +142,7 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
 
         properties.push({
             name: prop.name,
-            optional: false,
+            optional: prop.optional,
             typeAnnotation: <cs.NativeModuleFunctionTypeAnnotation>rawTypeToParamType(prop.propertyType)
         });
     }
