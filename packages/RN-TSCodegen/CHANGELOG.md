@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Wed, 12 Aug 2020 22:27:25 GMT and should not be manually modified.
+This log was last generated on Sat, 27 Feb 2021 02:56:34 GMT and should not be manually modified.
 
+## 0.67.0
+Sat, 27 Feb 2021 02:56:34 GMT
+
+### Minor changes
+
+- catch up to react-native 0.64 (zihanc@microsoft.com)
 ## 0.66.1
 Wed, 12 Aug 2020 22:27:25 GMT
 
