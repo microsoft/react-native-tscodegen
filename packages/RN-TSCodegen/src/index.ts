@@ -8,6 +8,7 @@ import { processComponent } from './ComponentParser';
 import * as ep from './ExportParser';
 import { NativeModuleAliases, processNativeModule } from './NativeModuleParser';
 import { WritableObjectType } from './RNRawType';
+import { typeToRNRawType } from './TypeChecker';
 
 function messageChainToString(chain: ts.DiagnosticMessageChain, indent: string): string {
     let message = '';
@@ -92,7 +93,25 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
             throw new Error('Command list should not be exported in a TypeScript source file that exports a native module.');
         }
 
+        // find out all type aliases in this file
         const aliases: NativeModuleAliases = { aliases: {} };
+        const knownAliases: string[] = [];
+        program.getSourceFiles().forEach((sourceFile: ts.SourceFile) => {
+            if (path.basename(fileName) === path.basename(sourceFile.fileName)) {
+                sourceFile.statements.forEach((node: ts.Node) => {
+                    if (ts.isTypeAliasDeclaration(node)) {
+                        if (node.typeParameters === undefined || node.typeParameters.length === 0) {
+                            const rnRawType = typeToRNRawType(node.type, sourceFile, { allowObject: true, knownAliases });
+                            if (rnRawType.kind === 'Object') {
+                                const aliasName = node.name.text;
+                                aliases.aliases[aliasName] = rnRawType;
+                                knownAliases.push(aliasName);
+                            }
+                        }
+                    }
+                });
+            }
+        });
 
         const info = nativeModuleInfos[0];
         const result: WritableObjectType<cs.SchemaType> = { modules: {} };

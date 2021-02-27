@@ -120,7 +120,7 @@ export interface NativeModuleAliases {
 }
 
 export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAliases: NativeModuleAliases): cs.NativeModuleSchema {
-    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, { allowObject: true, knownAliases: Object.keys(nativeModuleAliases) });
+    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, { allowObject: true, knownAliases: Object.keys(nativeModuleAliases.aliases) });
     if (rawType.kind !== 'Object') {
         throw new Error(`An object type is expected as a native module: ${info.typeNode.getText()}.`);
     }
@@ -149,8 +149,16 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     }
 
     const aliases: cs.NativeModuleAliasMap = {};
+    const writableAliases = <{ [key: string]: cs.NativeModuleParamTypeAnnotation }>aliases;
+    Object.keys(nativeModuleAliases.aliases).forEach((key: string) => {
+        const rnRawType = nativeModuleAliases.aliases[key];
+        if (rnRawType !== undefined) {
+            writableAliases[key] = rawTypeToParamType(rnRawType);
+        }
+    });
+
     const spec: cs.NativeModuleSpec = { properties };
-    const moduleNames: string[] = [];
+    const moduleNames: string[] = [info.name];
     const excludedPlatforms: cs.PlatformType[] = [];
     if (excludedPlatforms.length === 0) {
         return { type: 'NativeModule', aliases, spec, moduleNames };
