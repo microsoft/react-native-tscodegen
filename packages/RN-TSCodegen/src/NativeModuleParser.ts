@@ -3,7 +3,7 @@
 
 import * as cs from './CodegenSchema';
 import { ExportNativeModuleInfo } from './ExportParser';
-import { RNRawType } from './RNRawType';
+import { RNRawFunctionParameter, RNRawObjectProperty, RNRawType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
 function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotation {
@@ -25,11 +25,12 @@ function rawTypeToBaseType(rawType: RNRawType): cs.NativeModuleBaseTypeAnnotatio
         }
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
-            properties: rawType.properties.map((param: { name: string; propertyType: RNRawType }) => {
+            properties: rawType.properties.map((param: RNRawObjectProperty) => {
+                const propertyType = rawTypeToBaseType(param.propertyType);
                 return {
-                    optional: param.propertyType.isNullable,
+                    optional: param.optional,
                     name: param.name,
-                    typeAnnotation: rawTypeToBaseType(param.propertyType)
+                    typeAnnotation: param.propertyType.isNullable ? { type: 'NullableTypeAnnotation', typeAnnotation: propertyType } : propertyType
                 };
             })
         };
@@ -51,21 +52,13 @@ function rawTypeToParamType(rawType: RNRawType): cs.NativeModuleParamTypeAnnotat
     switch (rawType.kind) {
         case 'Function': return {
             type: 'FunctionTypeAnnotation',
-            params: rawType.parameters.map((param: { name: string; parameterType: RNRawType }) => {
+            params: rawType.parameters.map((param: RNRawFunctionParameter) => {
                 const parameterType = rawTypeToParamType(param.parameterType);
-                if (param.parameterType.isNullable) {
-                    return {
-                        optional: false,
-                        name: param.name,
-                        typeAnnotation: { type: 'NullableTypeAnnotation', typeAnnotation: parameterType }
-                    };
-                } else {
-                    return {
-                        optional: false,
-                        name: param.name,
-                        typeAnnotation: parameterType
-                    };
-                }
+                return {
+                    optional: param.optional,
+                    name: param.name,
+                    typeAnnotation: param.parameterType.isNullable ? { type: 'NullableTypeAnnotation', typeAnnotation: parameterType } : parameterType
+                };
             }),
             returnTypeAnnotation: rawTypeToReturnType(rawType.returnType)
         };

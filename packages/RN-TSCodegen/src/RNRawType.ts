@@ -11,9 +11,21 @@ export interface RNRawTypeCommon {
     defaultValue?: boolean | number | string;
 }
 
+export interface RNRawObjectProperty {
+    name: string;
+    optional: boolean;
+    propertyType: RNRawType;
+}
+
+export interface RNRawFunctionParameter {
+    name: string;
+    optional: boolean;
+    parameterType: RNRawType;
+}
+
 export interface RNRawObjectType {
     kind: 'Object';
-    properties: { name: string; propertyType: RNRawType }[];
+    properties: RNRawObjectProperty[];
 }
 
 export type RNRawType = (
@@ -51,7 +63,7 @@ export type RNRawType = (
     | {
         kind: 'Function';
         returnType: RNRawType;
-        parameters: { name: string; parameterType: RNRawType }[];
+        parameters: RNRawFunctionParameter[];
     }
     | {
         kind: 'Union' | 'Tuple';

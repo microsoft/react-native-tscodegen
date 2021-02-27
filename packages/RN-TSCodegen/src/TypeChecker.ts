@@ -25,6 +25,7 @@ function functionToRNRawType(typeNode: ts.SignatureDeclarationBase, sourceFile: 
             : typeToRNRawType(typeNode.type, sourceFile, options),
         parameters: typeNode.parameters.map((decl: ts.ParameterDeclaration) => ({
             name: decl.name.getText(),
+            optional: decl.questionToken !== undefined,
             parameterType: decl.type === undefined
                 ? { kind: 'Any', isNullable: false }
                 : typeToRNRawType(decl.type, sourceFile, options)
@@ -275,11 +276,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                         }
 
                         if (propertyType !== undefined) {
-                            if (member.questionToken !== undefined) {
-                                propertyType.isNullable = true;
-                            }
                             rawObjectType.properties.push({
                                 name,
+                                optional: member.questionToken !== undefined,
                                 propertyType
                             });
                         }
