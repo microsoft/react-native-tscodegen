@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Thu, 29 Apr 2021 21:09:25 GMT",
+      "tag": "react-native-tscodegen_v0.68.0",
+      "version": "0.68.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add experimental @types/react-native from flow2dts to react-native-tscodegen-types",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "4ac44d9ace95f509d85bdb5f6d8a335733103b8b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Feb 2021 02:56:34 GMT",
       "tag": "react-native-tscodegen_v0.67.0",
       "version": "0.67.0",

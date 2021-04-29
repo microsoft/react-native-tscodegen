@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen-types
 
-This log was last generated on Sat, 27 Feb 2021 02:56:34 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Apr 2021 21:09:25 GMT and should not be manually modified.
 
+## 0.67.0
+Thu, 29 Apr 2021 21:09:25 GMT
+
+### Minor changes
+
+- Add experimental @types/react-native from flow2dts to react-native-tscodegen-types (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.66.0
 Sat, 27 Feb 2021 02:56:34 GMT
 
