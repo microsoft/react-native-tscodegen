@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Add experimental @types/react-native from flow2dts to react-native-tscodegen-types",
+  "packageName": "react-native-tscodegen",
+  "email": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+  "commit": "4ac44d9ace95f509d85bdb5f6d8a335733103b8b",
+  "date": "2021-04-29T20:53:05.830Z",
+  "file": "C:\\Code\\vczh-ds3\\Microsoft\\react-native-tscodegen\\change\\react-native-tscodegen-2021-04-29-13-53-05-flow2dts.json"
+}
