@@ -1,4 +1,4 @@
-# Welcome to react-native-tscodegen (alpha)!
+# Welcome to react-native-tscodegen (beta)!
 
 This library enable people to write react-native Turbo Module in TypeScript, and generate native code in C++, Objective C++ and Java!
 

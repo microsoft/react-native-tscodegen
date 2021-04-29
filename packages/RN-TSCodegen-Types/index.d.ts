@@ -1,6 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+declare module "react-native" {
+  export * from './react-native/index';
+}
+
 declare module "react-native-tscodegen-types" {
   // \react-native\Libraries\Types\CoreEventTypes.js
 
