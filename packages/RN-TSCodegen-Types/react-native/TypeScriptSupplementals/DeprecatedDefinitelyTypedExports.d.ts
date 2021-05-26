@@ -112,7 +112,7 @@ export type ImageURISource = import("../Libraries/Image/ImageSource").ImageURISo
 /**
  * @deprecated Instead use `import("react-native/Libraries/vendor/emitter/EmitterSubscription")`.
  */
-export { default as EmitterSubscription } from "../Libraries/vendor/emitter/EmitterSubscription"
+export { default as EmitterSubscription } from "../Libraries/vendor/emitter/_EmitterSubscription"
 
 /**
  * @deprecated Instead use `import("react-native/Libraries/Alert/Alert").Buttons`.

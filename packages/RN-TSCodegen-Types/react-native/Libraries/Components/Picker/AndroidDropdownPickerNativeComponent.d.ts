@@ -5,7 +5,7 @@ import { Int32 } from "../../Types/CodegenTypes";
 import { WithDefault } from "../../Types/CodegenTypes";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
 import { TextStyleProp } from "../../StyleSheet/StyleSheet";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ProcessedColorValue } from "../../StyleSheet/processColor";
 import { ViewProps } from "../../Components/View/ViewPropTypes";
 declare type PickerItem = Readonly<

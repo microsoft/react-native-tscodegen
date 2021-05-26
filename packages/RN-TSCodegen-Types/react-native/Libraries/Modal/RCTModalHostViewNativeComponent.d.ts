@@ -2,6 +2,7 @@
 import { HostComponent } from "../Renderer/shims/ReactNativeTypes";
 import { WithDefault } from "../Types/CodegenTypes";
 import { DirectEventHandler } from "../Types/CodegenTypes";
+import { BubblingEventHandler } from "../Types/CodegenTypes";
 import { Int32 } from "../Types/CodegenTypes";
 import { ViewProps } from "../Components/View/ViewPropTypes";
 declare type OrientationChangeEvent = Readonly<
@@ -67,6 +68,14 @@ ViewProps & {
   * See https://reactnative.dev/docs/modal.html#onshow
   */
   onShow?: null | undefined | DirectEventHandler<null>;
+
+  /**
+  * The `onDismiss` prop allows passing a function that will be called once
+  * the modal has been dismissed.
+  *
+  * See https://reactnative.dev/docs/modal.html#ondismiss
+  */
+  onDismiss?: null | undefined | BubblingEventHandler<null>;
 
   /**
   * Deprecated. Use the `animationType` prop instead.

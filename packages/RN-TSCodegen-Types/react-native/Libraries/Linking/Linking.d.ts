@@ -1,5 +1,6 @@
-import $2 from "../EventEmitter/NativeEventEmitter";
-declare class Linking extends $2 {
+// @flow
+import NativeEventEmitter from "../EventEmitter/NativeEventEmitter";
+declare class Linking extends NativeEventEmitter {
   constructor();
 
   /**
@@ -8,21 +9,21 @@ declare class Linking extends $2 {
    *
    * See https://reactnative.dev/docs/linking.html#addeventlistener
    */
-  addEventListener(type: string, handler: Function): void;
+  addEventListener<T>(type: string, handler: T): void;
 
   /**
    * Remove a handler by passing the `url` event type and the handler.
    *
    * See https://reactnative.dev/docs/linking.html#removeeventlistener
    */
-  removeEventListener(type: string, handler: Function): void;
+  removeEventListener<T>(type: string, handler: T): void;
 
   /**
    * Try to open the given `url` with any of the installed apps.
    *
    * See https://reactnative.dev/docs/linking.html#openurl
    */
-  openURL(url: string): Promise<any>;
+  openURL(url: string): Promise<void>;
 
   /**
    * Determine whether or not an installed app can handle a given URL.
@@ -36,7 +37,7 @@ declare class Linking extends $2 {
    *
    * See https://reactnative.dev/docs/linking.html#opensettings
    */
-  openSettings(): Promise<any>;
+  openSettings(): Promise<void>;
 
   /**
    * If the app launch was triggered by an app link,

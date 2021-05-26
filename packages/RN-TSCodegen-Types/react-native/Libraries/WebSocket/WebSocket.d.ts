@@ -1,7 +1,8 @@
-import $1 from "../Blob/Blob";
+// @flow
+import Blob from "../Blob/Blob";
 declare type ArrayBufferView = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | DataView;
 declare type BinaryType = "blob" | "arraybuffer";
-declare class WebSocket extends $2 {
+declare class WebSocket extends $1 {
   static CONNECTING: number;
   static OPEN: number;
   static CLOSING: number;
@@ -27,8 +28,8 @@ declare class WebSocket extends $2 {
   binaryType(): null | undefined | BinaryType;
   binaryType(binaryType: BinaryType): void;
   close(code?: number, reason?: string): void;
-  send(data: string | ArrayBuffer | ArrayBufferView | $1): void;
+  send(data: string | ArrayBuffer | ArrayBufferView | typeof Blob): void;
   ping(): void;
 }
-declare var $2: any;
+declare var $1: any;
 export default WebSocket;

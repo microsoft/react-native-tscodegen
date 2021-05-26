@@ -1,6 +1,7 @@
-import $2 from "../vendor/emitter/EventEmitter";
-import $4 from "../EventEmitter/NativeEventEmitter";
-declare class AppState extends $4 {
+// @flow
+import NativeEventEmitter from "../EventEmitter/NativeEventEmitter";
+import EventEmitter from "../vendor/emitter/EventEmitter";
+declare class AppState extends NativeEventEmitter {
   currentState?: null | undefined | string;
   isAvailable: boolean;
   constructor();
@@ -25,7 +26,7 @@ declare class AppState extends $4 {
    */
   removeEventListener(type: string, handler: Function): void;
 }
-declare class MissingNativeAppStateShim extends $2 {
+declare class MissingNativeAppStateShim extends EventEmitter {
   // AppState
   isAvailable: boolean;
   currentState?: null | undefined | string;

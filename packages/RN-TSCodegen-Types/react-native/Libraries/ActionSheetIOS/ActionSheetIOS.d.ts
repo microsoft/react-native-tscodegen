@@ -1,5 +1,5 @@
 // @flow
-import { ColorValue } from "../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../StyleSheet/StyleSheet";
 import { ProcessedColorValue } from "../StyleSheet/processColor";
 declare var ActionSheetIOS:
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
@@ -14,6 +14,7 @@ declare var ActionSheetIOS:
    * - `destructiveButtonIndex` (int or array of ints) - index or indices of destructive buttons in `options`
    * - `title` (string) - a title to show above the action sheet
    * - `message` (string) - a message to show below the title
+   * - `disabledButtonIndices` (array of numbers) - a list of button indices which should be disabled
    *
    * The 'callback' function takes one parameter, the zero-based index
    * of the selected item.
@@ -31,6 +32,7 @@ declare var ActionSheetIOS:
     readonly anchor?: null | undefined | number;
     readonly tintColor?: ColorValue | ProcessedColorValue;
     readonly userInterfaceStyle?: string;
+    readonly disabledButtonIndices?: number[];
   }, callback: (buttonIndex: number) => void) => void;
 
   /**

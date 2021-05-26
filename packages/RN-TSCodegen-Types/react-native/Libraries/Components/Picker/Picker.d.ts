@@ -1,6 +1,6 @@
 import $3 from "react";
 import { TextStyleProp } from "../../StyleSheet/StyleSheet";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 declare type PickerItemProps = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
@@ -11,9 +11,9 @@ declare type PickerItemProps = Readonly<
 
   /**
   * The value to be passed to picker's `onValueChange` callback when
-  * this item is selected. Can be a string or an integer.
+  * this item is selected.
   */
-  value?: null | undefined | (number | string);
+  value?: null | undefined | string;
 
   /**
   * Color of this item's text.
@@ -36,9 +36,9 @@ declare type PickerProps = Readonly<
   style?: null | undefined | TextStyleProp;
 
   /**
-  * Value matching value of one of the items. Can be a string or an integer.
+  * Value matching value of one of the items.
   */
-  selectedValue?: null | undefined | (number | string);
+  selectedValue?: null | undefined | string;
 
   /**
   * Callback for when an item is selected. This is called with the following parameters:

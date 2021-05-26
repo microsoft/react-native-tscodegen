@@ -1,6 +1,6 @@
 import { React$PropType$Primitive, ReactPropsCheckType } from "flow2dts-flow-types-polyfill";
 import $1 from "./DeprecatedEdgeInsetsPropType";
-import $2 from "./DeprecatedImageSourcePropType";
+import $2 from "../../TypeScriptSupplementals/DeprecatedImageSourcePropType";
 import $3 from "prop-types";
 declare const $f2d_style: ReactPropsCheckType;
 declare const $f2d_source: typeof $2;

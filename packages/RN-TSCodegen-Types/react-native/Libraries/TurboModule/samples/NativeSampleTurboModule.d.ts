@@ -1,4 +1,5 @@
 // @flow
+import { RootTag } from "../RCTExport";
 import { TurboModule } from "../RCTExport";
 interface Spec extends TurboModule {
   // Exported methods.
@@ -15,6 +16,7 @@ interface Spec extends TurboModule {
   readonly getString: (arg: string) => string;
   readonly getArray: (arg: any[]) => any[];
   readonly getObject: (arg: Object) => Object;
+  readonly getRootTag: (arg: RootTag) => RootTag;
   readonly getValue: (x: number, y: string, z: Object) => Object;
   readonly getValueWithCallback: (callback: (value: string) => void) => void;
   readonly getValueWithPromise: (error: boolean) => Promise<string>;

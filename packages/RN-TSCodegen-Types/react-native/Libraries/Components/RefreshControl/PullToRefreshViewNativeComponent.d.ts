@@ -1,7 +1,7 @@
 // @flow
 import { DirectEventHandler } from "../../Types/CodegenTypes";
 import { WithDefault } from "../../Types/CodegenTypes";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 import * as React from "react";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";

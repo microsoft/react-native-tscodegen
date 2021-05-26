@@ -24,7 +24,9 @@ declare type ImageURISource = Readonly<{
   * `headers` is an object representing the HTTP headers to send along with the
   * request for a remote image.
   */
-  headers?: null | undefined | Object;
+  headers?: null | undefined | {
+    [$f2tKey: string]: string;
+  };
 
   /**
   * `body` is the HTTP body to send with the request. This must be a valid
@@ -68,6 +70,6 @@ declare type ImageURISource = Readonly<{
   */
   scale?: null | undefined | number;
 }>;
-declare type ImageSource = ImageURISource | number | ImageURISource[];
+declare type ImageSource = number | ImageURISource | ReadonlyArray<ImageURISource>;
 export type { ImageURISource };
 export type { ImageSource };

@@ -1,6 +1,6 @@
 import { $Keys } from "utility-types";
 import $1 from "react";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 declare type StatusBarStyle = $Keys<{
   /**
   * Default status bar style (dark for iOS, light for Android)
@@ -67,7 +67,7 @@ declare type IOSProps = Readonly<
   *
   * @platform ios
   */
-  showHideTransition?: null | undefined | ("fade" | "slide");
+  showHideTransition?: null | undefined | ("fade" | "slide" | "none");
 }>;
 declare type Props = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

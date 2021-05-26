@@ -5,10 +5,11 @@ import $2 from "react";
 import $3 from "./TextInputState";
 import { TextStyleProp } from "../../StyleSheet/StyleSheet";
 import { ViewStyleProp } from "../../StyleSheet/StyleSheet";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 import { SyntheticEvent } from "../../Types/CoreEventTypes";
 import { ScrollEvent } from "../../Types/CoreEventTypes";
+import { PressEvent } from "../../Types/CoreEventTypes";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
 declare type ReactRefSetter<T> = {
   current: null | T;
@@ -274,7 +275,6 @@ declare type AndroidProps = Readonly<
   /**
   * When `false`, it will prevent the soft keyboard from showing when the field is focused.
   * Defaults to `true`.
-  * @platform android
   */
   showSoftInputOnFocus?: null | undefined | boolean;
 }>;
@@ -355,8 +355,6 @@ $Diff<ViewProps, Readonly<
   *
   * - `visible-password`
   *
-  * On Android devices manufactured by Xiaomi with Android Q, 'email-address'
-  * type will be replaced in native by 'default' to prevent a system related crash.
   */
   keyboardType?: null | undefined | KeyboardType;
 
@@ -440,6 +438,16 @@ $Diff<ViewProps, Readonly<
   * Callback that is called when text input ends.
   */
   onEndEditing?: null | undefined | ((e: EditingEvent) => unknown);
+
+  /**
+  * Called when a touch is engaged.
+  */
+  onPressIn?: null | undefined | ((event: PressEvent) => unknown);
+
+  /**
+  * Called when a touch is released.
+  */
+  onPressOut?: null | undefined | ((event: PressEvent) => unknown);
 
   /**
   * Callback that is called when the text input selection is changed.
@@ -555,7 +563,12 @@ $Diff<ViewProps, Readonly<
 
   /**
   * If `true`, caret is hidden. The default value is `false`.
-  * This property is supported only for single-line TextInput component on iOS.
+  *
+  * On Android devices manufactured by Xiaomi with Android Q,
+  * when keyboardType equals 'email-address'this will be set
+  * in native to 'true' to prevent a system related crash. This
+  * will cause cursor to be diabled as a side-effect.
+  *
   */
   caretHidden?: null | undefined | boolean;
 

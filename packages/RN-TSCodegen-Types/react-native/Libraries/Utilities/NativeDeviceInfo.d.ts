@@ -33,9 +33,18 @@ interface Spec extends TurboModule {
     readonly isIPhoneX_deprecated?: boolean;
   };
 }
-declare var NativeModule: Spec;
+declare var NativeDeviceInfo:
+/*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
+{
+  getConstants: () =>
+  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
+  {
+    readonly Dimensions: DimensionsPayload;
+    readonly isIPhoneX_deprecated?: boolean;
+  };
+};
 export type { DisplayMetrics };
 export type { DimensionsPayload };
 export type { Spec };
-declare const $f2tExportDefault: typeof NativeModule;
+declare const $f2tExportDefault: typeof NativeDeviceInfo;
 export default $f2tExportDefault;

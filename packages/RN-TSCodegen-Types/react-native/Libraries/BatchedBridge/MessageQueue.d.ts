@@ -3,24 +3,22 @@ declare type SpyData = {
   type: number;
   module?: null | undefined | string;
   method: string | number;
-  args: any[];
+  args: unknown[];
 };
 declare class MessageQueue {
   __spy?: null | undefined | ((data: SpyData) => void);
   constructor();
   static spy(spyOrToggle: boolean | ((data: SpyData) => void)): void;
-  callFunctionReturnFlushedQueue(module: string, method: string, args: any[]): null | [number[], number[], any[], number];
-  // Deprecated. T61834641: Remove me once native clients have updated
-  callFunctionReturnResultAndFlushedQueue(module: string, method: string, args: any[]): void;
-  invokeCallbackAndReturnFlushedQueue(cbID: number, args: any[]): null | [number[], number[], any[], number];
-  flushedQueue(): null | [number[], number[], any[], number];
+  callFunctionReturnFlushedQueue(module: string, method: string, args: unknown[]): null | [number[], number[], unknown[], number];
+  invokeCallbackAndReturnFlushedQueue(cbID: number, args: unknown[]): null | [number[], number[], unknown[], number];
+  flushedQueue(): null | [number[], number[], unknown[], number];
   getEventLoopRunningTime(): number;
-  registerCallableModule(name: string, module: Object): void;
-  registerLazyCallableModule(name: string, factory: ($f2t1: void) => Object): void;
-  getCallableModule(name: string): any | null;
-  callNativeSyncHook(moduleID: number, methodID: number, params: any[], onFail?: null | undefined | Function, onSucc?: null | undefined | Function): any;
-  processCallbacks(moduleID: number, methodID: number, params: any[], onFail?: null | undefined | Function, onSucc?: null | undefined | Function): void;
-  enqueueNativeCall(moduleID: number, methodID: number, params: any[], onFail?: null | undefined | Function, onSucc?: null | undefined | Function): void;
+  registerCallableModule(name: string, module: {}): void;
+  registerLazyCallableModule(name: string, factory: ($f2t1: void) => {}): void;
+  getCallableModule(name: string): {} | null;
+  callNativeSyncHook(moduleID: number, methodID: number, params: unknown[], onFail?: null | undefined | ((...$f2tRest: unknown[]) => void), onSucc?: null | undefined | ((...$f2tRest: unknown[]) => void)): unknown;
+  processCallbacks(moduleID: number, methodID: number, params: unknown[], onFail?: null | undefined | ((...$f2tRest: unknown[]) => void), onSucc?: null | undefined | ((...$f2tRest: unknown[]) => void)): void;
+  enqueueNativeCall(moduleID: number, methodID: number, params: unknown[], onFail?: null | undefined | ((...$f2tRest: unknown[]) => void), onSucc?: null | undefined | ((...$f2tRest: unknown[]) => void)): void;
   createDebugLookup(moduleID: number, name: string, methods?: null | undefined | ReadonlyArray<string>): void;
   // For JSTimers to register its callback. Otherwise a circular dependency
   // between modules is introduced. Note that only one callback may be
@@ -38,8 +36,8 @@ declare class MessageQueue {
   // can be configured by the VM or any Inspector
   __shouldPauseOnThrow(): boolean;
   __callImmediates(): void;
-  __callFunction(module: string, method: string, args: any[]): void;
-  __invokeCallback(cbID: number, args: any[]): void;
+  __callFunction(module: string, method: string, args: unknown[]): void;
+  __invokeCallback(cbID: number, args: unknown[]): void;
 }
 export type { SpyData };
 export default MessageQueue;

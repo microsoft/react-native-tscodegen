@@ -2,7 +2,7 @@
 import { Float } from "../../Types/CodegenTypes";
 import { WithDefault } from "../../Types/CodegenTypes";
 import { ImageSource } from "../../Image/ImageSource";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
 declare type NativeProps = Readonly<

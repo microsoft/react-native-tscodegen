@@ -100,7 +100,6 @@ declare class TouchableNativeFeedback extends React.Component<Props, State> {
   static canUseNativeForeground(): boolean;
   state: State;
   render(): React.Node;
-  componentDidMount(): void;
   componentDidUpdate(prevProps: Props, prevState: State): void;
   componentWillUnmount(): void;
 }

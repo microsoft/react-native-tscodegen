@@ -1,7 +1,7 @@
 import { Stringish } from "flow2dts-flow-types-polyfill";
 import $2 from "react";
 import { TextStyleProp } from "../../StyleSheet/StyleSheet";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ProcessedColorValue } from "../../StyleSheet/processColor";
 import { SyntheticEvent } from "../../Types/CoreEventTypes";
 import { ViewProps } from "../View/ViewPropTypes";
@@ -15,7 +15,7 @@ declare type RCTPickerIOSItemType = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
   label?: null | undefined | Label;
-  value?: null | undefined | (number | string);
+  value?: null | undefined | string;
   textColor?: null | undefined | ProcessedColorValue;
 }>;
 declare type Label = Stringish | number;
@@ -26,7 +26,7 @@ ViewProps & {
   itemStyle?: null | undefined | TextStyleProp;
   onChange?: null | undefined | ((event: PickerIOSChangeEvent) => unknown);
   onValueChange?: null | undefined | ((itemValue: string | number, itemIndex: number) => unknown);
-  selectedValue?: null | undefined | (number | string);
+  selectedValue?: null | undefined | string;
   accessibilityLabel?: null | undefined | string;
 }>;
 declare type State =
@@ -39,7 +39,7 @@ declare type ItemProps = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
   label?: null | undefined | Label;
-  value?: null | undefined | (number | string);
+  value?: null | undefined | string;
   color?: null | undefined | ColorValue;
 }>;
 declare var PickerIOSItem: (props: ItemProps) => null;

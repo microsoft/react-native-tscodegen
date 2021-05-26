@@ -3,7 +3,7 @@ import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
 import { ViewProps } from "../View/ViewPropTypes";
 import { ViewStyleProp } from "../../StyleSheet/StyleSheet";
 import { DangerouslyImpreciseStyle } from "../../StyleSheet/StyleSheet";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { EdgeInsetsProp } from "../../StyleSheet/EdgeInsetsPropType";
 import { ScrollEvent } from "../../Types/CoreEventTypes";
 import { PointProp } from "../../StyleSheet/PointPropType";
@@ -59,7 +59,6 @@ declare type ScrollViewNativeProps = Readonly<ViewProps & {
   snapToOffsets?: null | undefined | ReadonlyArray<number>;
   snapToStart?: null | undefined | boolean;
   zoomScale?: null | undefined | number;
-  DEPRECATED_sendUpdatedChildFrames?: null | undefined | boolean;
   // Overrides
   style?: (ViewStyleProp & {}) | DangerouslyImpreciseStyle;
   onResponderGrant?: null | undefined | ((e: any) => void | boolean);

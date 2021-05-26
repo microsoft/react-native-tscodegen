@@ -1,6 +1,6 @@
 // @flow
 import { ViewProps } from "../../../Libraries/Components/View/ViewPropTypes";
-import { ColorValue } from "../../../Libraries/StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../../Libraries/StyleSheet/StyleSheet";
 import { WithDefault } from "../../../Libraries/Types/CodegenTypes";
 import { DirectEventHandler } from "../../../Libraries/Types/CodegenTypes";
 import { Int32 } from "../../../Libraries/Types/CodegenTypes";

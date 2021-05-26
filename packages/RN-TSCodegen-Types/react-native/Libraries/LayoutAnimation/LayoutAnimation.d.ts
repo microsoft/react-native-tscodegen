@@ -1,26 +1,12 @@
 // @flow
-declare type Type = "spring" | "linear" | "easeInEaseOut" | "easeIn" | "easeOut" | "keyboard";
-declare type Property = "opacity" | "scaleX" | "scaleY" | "scaleXY";
-declare type AnimationConfig = Readonly<
-/*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-{
-  duration?: number;
-  delay?: number;
-  springDamping?: number;
-  initialVelocity?: number;
-  type?: Type;
-  property?: Property;
-}>;
-declare type LayoutAnimationConfig = Readonly<
-/*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-{
-  duration: number;
-  create?: AnimationConfig;
-  update?: AnimationConfig;
-  delete?: AnimationConfig;
-}>;
-declare function configureNext(config: LayoutAnimationConfig, onAnimationDidEnd?: Function): void;
-declare function create(duration: number, type: Type, property: Property): LayoutAnimationConfig;
+import { LayoutAnimationType } from "../Renderer/shims/ReactNativeTypes";
+import { LayoutAnimationProperty } from "../Renderer/shims/ReactNativeTypes";
+import { LayoutAnimationConfig as LayoutAnimationConfig_ } from "../Renderer/shims/ReactNativeTypes";
+declare type LayoutAnimationConfig = LayoutAnimationConfig_;
+declare type OnAnimationDidEndCallback = () => void;
+declare type OnAnimationDidFailCallback = () => void;
+declare function configureNext(config: LayoutAnimationConfig, onAnimationDidEnd?: OnAnimationDidEndCallback, onAnimationDidFail?: OnAnimationDidFailCallback): void;
+declare function create(duration: number, type: LayoutAnimationType, property: LayoutAnimationProperty): LayoutAnimationConfig;
 declare var Presets:
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
@@ -92,9 +78,9 @@ declare var LayoutAnimation:
   };
   checkConfig: (...args: unknown[]) => void;
   Presets: typeof Presets;
-  easeInEaseOut: (onAnimationDidEnd?: any) => void;
-  linear: (onAnimationDidEnd?: any) => void;
-  spring: (onAnimationDidEnd?: any) => void;
+  easeInEaseOut: (onAnimationDidEnd?: OnAnimationDidEndCallback) => void;
+  linear: (onAnimationDidEnd?: OnAnimationDidEndCallback) => void;
+  spring: (onAnimationDidEnd?: OnAnimationDidEndCallback) => void;
 };
 export type { LayoutAnimationConfig };
 declare const $f2tExportDefault: typeof LayoutAnimation;

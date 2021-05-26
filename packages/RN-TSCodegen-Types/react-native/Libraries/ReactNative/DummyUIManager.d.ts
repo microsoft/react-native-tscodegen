@@ -3,7 +3,6 @@ declare const $f2d_getViewManagerConfig: (viewManagerName: string) => unknown;
 declare const $f2d_getConstants: () => {};
 declare const $f2d_getConstantsForViewManager: (viewManagerName: string) => void;
 declare const $f2d_getDefaultEventTypes: () => $FlowFixMe[];
-declare const $f2d_playTouchSound: () => void;
 declare const $f2d_lazilyLoadView: (name: string) => void;
 declare const $f2d_createView: (reactTag: null | undefined | number, viewName: string, rootTag: number, props: Object) => void;
 declare const $f2d_updateView: (reactTag: number, viewName: string, props: Object) => void;
@@ -27,7 +26,7 @@ declare const $f2d_setLayoutAnimationEnabledExperimental: (enabled: boolean) => 
 declare const $f2d_sendAccessibilityEvent: (reactTag: null | undefined | number, eventType: number) => void;
 declare const $f2d_showPopupMenu: (reactTag: null | undefined | number, items: string[], error: (error: Object) => void, success: (event: string, selected?: number) => void) => void;
 declare const $f2d_dismissPopupMenu: () => void;
-export { $f2d_getViewManagerConfig as getViewManagerConfig, $f2d_getConstants as getConstants, $f2d_getConstantsForViewManager as getConstantsForViewManager, $f2d_getDefaultEventTypes as getDefaultEventTypes, $f2d_playTouchSound as playTouchSound, $f2d_lazilyLoadView as lazilyLoadView, $f2d_createView as createView, $f2d_updateView as updateView, $f2d_focus as focus, $f2d_blur as blur, $f2d_findSubviewIn as findSubviewIn, $f2d_dispatchViewManagerCommand as dispatchViewManagerCommand, $f2d_measure as measure, $f2d_measureInWindow as measureInWindow, $f2d_viewIsDescendantOf as viewIsDescendantOf, $f2d_measureLayout as measureLayout, $f2d_measureLayoutRelativeToParent as measureLayoutRelativeToParent, $f2d_setJSResponder as setJSResponder, $f2d_clearJSResponder as clearJSResponder, $f2d_configureNextLayoutAnimation as configureNextLayoutAnimation, $f2d_removeSubviewsFromContainerWithID as removeSubviewsFromContainerWithID, $f2d_replaceExistingNonRootView as replaceExistingNonRootView, $f2d_setChildren as setChildren, $f2d_manageChildren as manageChildren, $f2d_setLayoutAnimationEnabledExperimental as setLayoutAnimationEnabledExperimental, $f2d_sendAccessibilityEvent as sendAccessibilityEvent, $f2d_showPopupMenu as showPopupMenu, $f2d_dismissPopupMenu as dismissPopupMenu };
+export { $f2d_getViewManagerConfig as getViewManagerConfig, $f2d_getConstants as getConstants, $f2d_getConstantsForViewManager as getConstantsForViewManager, $f2d_getDefaultEventTypes as getDefaultEventTypes, $f2d_lazilyLoadView as lazilyLoadView, $f2d_createView as createView, $f2d_updateView as updateView, $f2d_focus as focus, $f2d_blur as blur, $f2d_findSubviewIn as findSubviewIn, $f2d_dispatchViewManagerCommand as dispatchViewManagerCommand, $f2d_measure as measure, $f2d_measureInWindow as measureInWindow, $f2d_viewIsDescendantOf as viewIsDescendantOf, $f2d_measureLayout as measureLayout, $f2d_measureLayoutRelativeToParent as measureLayoutRelativeToParent, $f2d_setJSResponder as setJSResponder, $f2d_clearJSResponder as clearJSResponder, $f2d_configureNextLayoutAnimation as configureNextLayoutAnimation, $f2d_removeSubviewsFromContainerWithID as removeSubviewsFromContainerWithID, $f2d_replaceExistingNonRootView as replaceExistingNonRootView, $f2d_setChildren as setChildren, $f2d_manageChildren as manageChildren, $f2d_setLayoutAnimationEnabledExperimental as setLayoutAnimationEnabledExperimental, $f2d_sendAccessibilityEvent as sendAccessibilityEvent, $f2d_showPopupMenu as showPopupMenu, $f2d_dismissPopupMenu as dismissPopupMenu };
 // @flow
 declare const $f2tExportDefault:
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
@@ -36,7 +35,6 @@ declare const $f2tExportDefault:
   getConstants: () => {};
   getConstantsForViewManager: (viewManagerName: string) => void;
   getDefaultEventTypes: () => $FlowFixMe[];
-  playTouchSound: () => void;
   lazilyLoadView: (name: string) => void;
   createView: (reactTag: null | undefined | number, viewName: string, rootTag: number, props: Object) => void;
   updateView: (reactTag: number, viewName: string, props: Object) => void;

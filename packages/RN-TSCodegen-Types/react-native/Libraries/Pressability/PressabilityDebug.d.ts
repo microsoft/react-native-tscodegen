@@ -1,5 +1,5 @@
 // @flow
-import { ColorValue } from "../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../StyleSheet/StyleSheet";
 import * as React from "react";
 declare type Props = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

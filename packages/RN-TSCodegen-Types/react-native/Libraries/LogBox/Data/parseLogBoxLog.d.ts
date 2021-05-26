@@ -14,6 +14,10 @@ declare type CodeFrame = Readonly<
     column: number;
   };
   fileName: string;
+  // TODO: When React switched to using call stack frames,
+  // we gained the ability to use the collapse flag, but
+  // it is not integrated into the LogBox UI.
+  collapse?: boolean;
 }>;
 declare type Message = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

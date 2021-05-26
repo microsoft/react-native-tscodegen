@@ -1,8 +1,9 @@
-import $1 from "../vendor/emitter/EventEmitter";
-import $2 from "../vendor/emitter/EventSubscriptionVendor";
-import EmitterSubscription from "../vendor/emitter/EmitterSubscription";
-declare class RCTDeviceEventEmitter extends $1 {
-  sharedSubscriber: $2;
+// @flow
+import EventEmitter from "../vendor/emitter/EventEmitter";
+import EmitterSubscription from "../vendor/emitter/_EmitterSubscription";
+import EventSubscriptionVendor from "../vendor/emitter/_EventSubscriptionVendor";
+declare class RCTDeviceEventEmitter extends EventEmitter {
+  sharedSubscriber: typeof EventSubscriptionVendor;
   constructor();
   addListener(eventType: string, listener: Function, context?: null | undefined | Object): EmitterSubscription;
   removeAllListeners(eventType?: null | undefined | string): void;

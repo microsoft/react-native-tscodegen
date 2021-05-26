@@ -116,6 +116,11 @@ declare type Props = Readonly<
   * Used only for documentation or testing (e.g. snapshot testing).
   */
   testOnly_pressed?: null | undefined | boolean;
+
+  /**
+  * Duration to wait after press down before calling `onPressIn`.
+  */
+  unstable_pressDelay?: null | undefined | number;
 }>;
 export type { StateCallbackType };
 declare const $f2tExportDefault: React.AbstractComponent<Props, React.ElementRef<typeof View>>;

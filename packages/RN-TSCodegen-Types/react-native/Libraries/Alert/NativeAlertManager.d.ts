@@ -5,7 +5,7 @@ declare type Args =
 {
   title?: string;
   message?: string;
-  buttons?: Object[]; // TODO: have a better type
+  buttons?: Object[]; // TODO(T67565166): have a better type
 
   type?: string;
   defaultValue?: string;
