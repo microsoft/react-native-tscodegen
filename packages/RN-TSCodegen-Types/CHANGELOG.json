@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen-types",
   "entries": [
     {
+      "date": "Wed, 26 May 2021 20:37:17 GMT",
+      "tag": "react-native-tscodegen-types_v0.67.1",
+      "version": "0.67.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade react-native-tscodegen-types to contain TypeScript type definitions for react-native v0.64.1",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "a98d60c3cee1a71b7ebfe5935b34859937ee2925"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Apr 2021 21:09:25 GMT",
       "tag": "react-native-tscodegen-types_v0.67.0",
       "version": "0.67.0",

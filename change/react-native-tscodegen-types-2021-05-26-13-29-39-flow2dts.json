@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade react-native-tscodegen-types to contain TypeScript type definitions for react-native v0.64.1",
-  "packageName": "react-native-tscodegen-types",
-  "email": "53799235+ZihanChen-MSFT@users.noreply.github.com",
-  "commit": "a98d60c3cee1a71b7ebfe5935b34859937ee2925",
-  "date": "2021-05-26T20:29:17.052Z",
-  "file": "C:\\Code\\vczh-ds3\\Microsoft\\react-native-tscodegen\\change\\react-native-tscodegen-types-2021-05-26-13-29-39-flow2dts.json"
-}

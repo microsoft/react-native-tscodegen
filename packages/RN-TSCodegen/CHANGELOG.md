@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Thu, 29 Apr 2021 21:09:25 GMT and should not be manually modified.
+This log was last generated on Wed, 26 May 2021 20:37:17 GMT and should not be manually modified.
 
+## 0.68.1
+Wed, 26 May 2021 20:37:17 GMT
+
+### Patches
+
+- Upgrade react-native-tscodegen-types to contain TypeScript type definitions for react-native v0.64l1 (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.68.0
 Thu, 29 Apr 2021 21:09:25 GMT
 

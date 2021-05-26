@@ -30,8 +30,8 @@
     "tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "react-native-tscodegen": "^0.68.0",
-    "react-native-tscodegen-types": "^0.67.0"
+    "react-native-tscodegen": "^0.68.1",
+    "react-native-tscodegen-types": "^0.67.1"
   },
   "jest": {
     "testRegex": "/lib/test/Test.*Cases\\.js",
