@@ -1,7 +1,8 @@
+import { $FlowFixMe } from "flow2dts-flow-types-polyfill";
 // @flow
 declare type ModuleConfig = [string
 /* name */
-, null | undefined | Object
+, null | undefined | {}
 /* constants */
 , null | undefined | ReadonlyArray<string>
 /* functions */
@@ -12,7 +13,7 @@ declare type ModuleConfig = [string
 ];
 declare type MethodType = "async" | "promise" | "sync";
 export interface NativeModules {
-  [moduleName: string]: Object;
+  [moduleName: string]: $FlowFixMe;
 }
 declare var NativeModules: NativeModules;
 export type { ModuleConfig };

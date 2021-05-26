@@ -1,5 +1,5 @@
 import { React$PropType$Primitive } from "flow2dts-flow-types-polyfill";
-import $1 from "./DeprecatedColorPropType";
+import $1 from "../../TypeScriptSupplementals/DeprecatedColorPropType";
 import $2 from "./DeprecatedViewStylePropTypes";
 import $3 from "prop-types";
 declare var DeprecatedTextStylePropTypes:

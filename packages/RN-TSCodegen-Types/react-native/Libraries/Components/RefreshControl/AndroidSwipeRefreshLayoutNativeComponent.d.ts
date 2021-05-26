@@ -5,7 +5,7 @@ import { DirectEventHandler } from "../../Types/CodegenTypes";
 import { Float } from "../../Types/CodegenTypes";
 import { Int32 } from "../../Types/CodegenTypes";
 import { WithDefault } from "../../Types/CodegenTypes";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 declare type NativeProps = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

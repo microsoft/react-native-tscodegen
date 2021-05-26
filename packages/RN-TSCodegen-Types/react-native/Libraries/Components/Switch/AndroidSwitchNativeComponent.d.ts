@@ -3,7 +3,7 @@ import * as React from "react";
 import { WithDefault } from "../../../Libraries/Types/CodegenTypes";
 import { BubblingEventHandler } from "../../../Libraries/Types/CodegenTypes";
 import { HostComponent } from "../../../Libraries/Renderer/shims/ReactNativeTypes";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 declare type SwitchChangeEvent = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

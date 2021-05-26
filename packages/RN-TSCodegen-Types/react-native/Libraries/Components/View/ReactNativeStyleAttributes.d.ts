@@ -3,7 +3,7 @@ import $2 from "../../DeprecatedPropTypes/DeprecatedTextStylePropTypes";
 import $3 from "../../DeprecatedPropTypes/DeprecatedViewStylePropTypes";
 import $4 from "../../StyleSheet/processColor";
 import $5 from "../../StyleSheet/processTransform";
-import $6 from "../../Utilities/differ/sizesDiffer";
+import $6 from "../../../TypeScriptSupplementals/sizesDiffer";
 declare type ReturnBoolType = <V>($f2t1: V) => true;
 declare type BoolifiedDeprecatedViewStylePropTypes =
 /*[FLOW2DTS - Warning] This type was a $ObjMap type in the original Flow source.*/

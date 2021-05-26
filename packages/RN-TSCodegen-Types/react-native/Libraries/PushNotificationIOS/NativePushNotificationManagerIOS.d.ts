@@ -23,7 +23,9 @@ declare type Notification =
   readonly isSilent?: null | undefined | boolean;
 };
 interface Spec extends TurboModule {
-  readonly getConstants: () => {};
+  readonly getConstants: () =>
+  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
+  {};
   readonly onFinishRemoteNotification: (notificationId: string, fetchResult: string) => void;
   readonly setApplicationIconBadgeNumber: (num: number) => void;
   readonly getApplicationIconBadgeNumber: (callback: (num: number) => void) => void;

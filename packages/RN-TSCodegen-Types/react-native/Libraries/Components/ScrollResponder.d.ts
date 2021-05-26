@@ -1,9 +1,9 @@
 import $1 from "react";
+import { HostComponent } from "../Renderer/shims/ReactNativeTypes";
 import { PressEvent } from "../Types/CoreEventTypes";
 import { ScrollEvent } from "../Types/CoreEventTypes";
+import { EventSubscription } from "../vendor/emitter/EventEmitter";
 import { KeyboardEvent } from "./Keyboard/Keyboard";
-import EmitterSubscription from "../vendor/emitter/EmitterSubscription";
-import { HostComponent } from "../Renderer/shims/ReactNativeTypes";
 declare type State =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
@@ -16,10 +16,10 @@ declare type State =
 declare var ScrollResponderMixin:
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
-  _subscriptionKeyboardWillShow?: null | undefined | EmitterSubscription;
-  _subscriptionKeyboardWillHide?: null | undefined | EmitterSubscription;
-  _subscriptionKeyboardDidShow?: null | undefined | EmitterSubscription;
-  _subscriptionKeyboardDidHide?: null | undefined | EmitterSubscription;
+  _subscriptionKeyboardWillShow?: null | undefined | EventSubscription;
+  _subscriptionKeyboardWillHide?: null | undefined | EventSubscription;
+  _subscriptionKeyboardDidShow?: null | undefined | EventSubscription;
+  _subscriptionKeyboardDidHide?: null | undefined | EventSubscription;
   scrollResponderMixinGetInitialState: () => State;
 
   /**
@@ -66,6 +66,11 @@ declare var ScrollResponderMixin:
    * Invoke this from an `onStartShouldSetResponderCapture` event.
    */
   scrollResponderHandleStartShouldSetResponderCapture: (e: PressEvent) => boolean;
+
+  /**
+   * Do we consider there to be a dismissible soft-keyboard open?
+   */
+  scrollResponderKeyboardIsDismissible: () => boolean;
 
   /**
    * Invoke this from an `onResponderReject` event.

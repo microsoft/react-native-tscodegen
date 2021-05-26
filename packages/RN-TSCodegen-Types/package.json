@@ -12,10 +12,11 @@
     "url": "https://github.com/microsoft/react-native-tscodegen/issues"
   },
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
-  "devDependencies": {
-    "@types/react": "^16.9.2"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "react-native": "^0.60.6"
+    "@react-native/assets": "1.0.0",
+    "react-native": "0.64.1",
+    "@types/react": "17.0.8",
+    "@types/react-native__assets": "1.0.0"
   }
 }

@@ -7,12 +7,12 @@ export {
    * @deprecate Use Node
    */
   Node as Animated,
-} from "../Libraries/Animated/src/AnimatedMock"
+} from "../Libraries/Animated/AnimatedMock"
 
-export { AnimationConfig } from "../Libraries/Animated/src/animations/Animation"
-export { TimingAnimationConfig } from "../Libraries/Animated/src/animations/TimingAnimation"
-export { DecayAnimationConfig } from "../Libraries/Animated/src/animations/DecayAnimation"
-export { SpringAnimationConfig } from "../Libraries/Animated/src/animations/SpringAnimation"
+export { AnimationConfig } from "../Libraries/Animated/animations/Animation"
+export { TimingAnimationConfig } from "../Libraries/Animated/animations/TimingAnimation"
+export { DecayAnimationConfig } from "../Libraries/Animated/animations/DecayAnimation"
+export { SpringAnimationConfig } from "../Libraries/Animated/animations/SpringAnimation"
 
 /**
  * These should be pushed upstream from DT to Flow

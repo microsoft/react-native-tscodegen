@@ -1,8 +1,8 @@
 import { $Shape } from "utility-types";
-import $1 from "../Animated/src/nodes/AnimatedNode";
+import $1 from "../Animated/nodes/AnimatedNode";
 import { NativeColorValue } from "./PlatformColorValueTypes";
-declare type ColorValue = null | string | NativeColorValue;
-declare type ColorArrayValue = null | ReadonlyArray<ColorValue>;
+declare type ____ColorValue_Internal = null | string | NativeColorValue;
+declare type ColorArrayValue = null | ReadonlyArray<____ColorValue_Internal>;
 declare type PointValue =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
@@ -518,7 +518,7 @@ declare type ____ShadowStyle_Internal = Readonly<
   * Sets the drop shadow color
   * @platform ios
   */
-  shadowColor?: ColorValue;
+  shadowColor?: ____ColorValue_Internal;
 
   /**
   * Sets the drop shadow offset
@@ -553,14 +553,14 @@ ____ShadowStyle_Internal &
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 ____TransformStyle_Internal & {
   backfaceVisibility?: "visible" | "hidden";
-  backgroundColor?: ColorValue;
-  borderColor?: ColorValue;
-  borderBottomColor?: ColorValue;
-  borderEndColor?: ColorValue;
-  borderLeftColor?: ColorValue;
-  borderRightColor?: ColorValue;
-  borderStartColor?: ColorValue;
-  borderTopColor?: ColorValue;
+  backgroundColor?: ____ColorValue_Internal;
+  borderColor?: ____ColorValue_Internal;
+  borderBottomColor?: ____ColorValue_Internal;
+  borderEndColor?: ____ColorValue_Internal;
+  borderLeftColor?: ____ColorValue_Internal;
+  borderRightColor?: ____ColorValue_Internal;
+  borderStartColor?: ____ColorValue_Internal;
+  borderTopColor?: ____ColorValue_Internal;
   borderRadius?: number | $1;
   borderBottomEndRadius?: number | $1;
   borderBottomLeftRadius?: number | $1;
@@ -587,7 +587,7 @@ declare type ____TextStyle_Internal = Readonly<
 
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 ____ViewStyle_Internal & {
-  color?: ColorValue;
+  color?: ____ColorValue_Internal;
   fontFamily?: string;
   fontSize?: number;
   fontStyle?: "normal" | "italic";
@@ -600,7 +600,7 @@ ____ViewStyle_Internal & {
     height: number;
   }>;
   textShadowRadius?: number;
-  textShadowColor?: ColorValue;
+  textShadowColor?: ____ColorValue_Internal;
   letterSpacing?: number;
   lineHeight?: number;
   textAlign?: "auto" | "left" | "right" | "center" | "justify";
@@ -608,7 +608,7 @@ ____ViewStyle_Internal & {
   includeFontPadding?: boolean;
   textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through";
   textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
-  textDecorationColor?: ColorValue;
+  textDecorationColor?: ____ColorValue_Internal;
   textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
   writingDirection?: "auto" | "ltr" | "rtl";
 }>;
@@ -618,14 +618,14 @@ declare type ____ImageStyle_Internal = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 ____ViewStyle_Internal & {
   resizeMode?: "contain" | "cover" | "stretch" | "center" | "repeat";
-  tintColor?: ColorValue;
+  tintColor?: ____ColorValue_Internal;
   overlayColor?: string;
 }>;
 declare type ____DangerouslyImpreciseStyle_Internal =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 ____TextStyle_Internal & {
   readonly resizeMode?: "contain" | "cover" | "stretch" | "center" | "repeat";
-  readonly tintColor?: ColorValue;
+  readonly tintColor?: ____ColorValue_Internal;
   readonly overlayColor?: string;
 };
 declare type GenericStyleProp<
@@ -638,7 +638,7 @@ declare type ____ImageStyleProp_Internal = GenericStyleProp<Readonly<$Shape<____
 declare type ____Styles_Internal = {
   readonly [key: string]: $Shape<____DangerouslyImpreciseStyle_Internal>;
 };
-export type { ColorValue };
+export type { ____ColorValue_Internal };
 export type { ColorArrayValue };
 export type { PointValue };
 export type { EdgeInsetsValue };

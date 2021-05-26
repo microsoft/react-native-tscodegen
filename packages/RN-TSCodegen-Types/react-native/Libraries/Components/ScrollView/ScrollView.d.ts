@@ -1,18 +1,19 @@
-import { React$Context } from "flow2dts-flow-types-polyfill";
 import { $PropertyType } from "utility-types";
-import $1 from "react";
-import $2 from "../ScrollResponder";
-import $4 from "../View/View";
+// @flow
+import * as React from "react";
+import ScrollResponder from "../ScrollResponder";
+import View from "../View/View";
 import { EdgeInsetsProp } from "../../StyleSheet/EdgeInsetsPropType";
 import { PointProp } from "../../StyleSheet/PointPropType";
 import { ViewStyleProp } from "../../StyleSheet/StyleSheet";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { PressEvent } from "../../Types/CoreEventTypes";
 import { ScrollEvent } from "../../Types/CoreEventTypes";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
 import { State as ScrollResponderState } from "../ScrollResponder";
 import { ViewProps } from "../View/ViewPropTypes";
 import { Props as ScrollViewStickyHeaderProps } from "./ScrollViewStickyHeader";
+import ScrollViewContext from "./ScrollViewContext";
 import ScrollViewNativeComponent from "./ScrollViewNativeComponent";
 declare type ScrollViewImperativeMethods = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
@@ -26,8 +27,8 @@ declare type ScrollViewImperativeMethods = Readonly<
   scrollToEnd: $PropertyType<ScrollView, "scrollToEnd">;
   flashScrollIndicators: $PropertyType<ScrollView, "flashScrollIndicators">;
   // ScrollResponder.Mixin public methods
-  scrollResponderZoomTo: $PropertyType<typeof $2.Mixin, "scrollResponderZoomTo">;
-  scrollResponderScrollNativeHandleToKeyboard: $PropertyType<typeof $2.Mixin, "scrollResponderScrollNativeHandleToKeyboard">;
+  scrollResponderZoomTo: $PropertyType<typeof ScrollResponder.Mixin, "scrollResponderZoomTo">;
+  scrollResponderScrollNativeHandleToKeyboard: $PropertyType<typeof ScrollResponder.Mixin, "scrollResponderScrollNativeHandleToKeyboard">;
 }>;
 declare type ScrollResponderType = ScrollViewImperativeMethods;
 declare type IOSProps = Readonly<
@@ -258,16 +259,6 @@ declare type IOSProps = Readonly<
   * @platform ios
   */
   contentInsetAdjustmentBehavior?: null | undefined | ("automatic" | "scrollableAxes" | "never" | "always");
-
-  /**
-  * When true, ScrollView will emit updateChildFrames data in scroll events,
-  * otherwise will not compute or emit child frame data.  This only exists
-  * to support legacy issues, `onLayout` should be used instead to retrieve
-  * frame data.
-  * The default value is false.
-  * @platform ios
-  */
-  DEPRECATED_sendUpdatedChildFrames?: null | undefined | boolean;
 }>;
 declare type AndroidProps = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
@@ -352,7 +343,7 @@ declare type VRProps = Readonly<
   {}> | number // Opaque type returned by import IMAGE from './image.jpg'
   );
 }>;
-declare type StickyHeaderComponentType = $1.AbstractComponent<ScrollViewStickyHeaderProps, Readonly<{
+declare type StickyHeaderComponentType = React.AbstractComponent<ScrollViewStickyHeaderProps, Readonly<{
   setNextHeaderY: ($f2t1: number) => void;
 }>>;
 declare type Props = Readonly<
@@ -575,40 +566,34 @@ ViewProps & IOSProps & AndroidProps & VRProps & {
   * See [RefreshControl](docs/refreshcontrol.html).
   */
   // $FlowFixMe - how to handle generic type without existential operator?
-  refreshControl?: null | undefined | $1.Element<any>;
-  children?: $1.Node;
+  refreshControl?: null | undefined | React.Element<any>;
+  children?: React.Node;
 
   /**
   * A ref to the inner View element of the ScrollView. This should be used
   * instead of calling `getInnerViewRef`.
   */
-  innerViewRef?: $1.Ref<typeof $4>;
+  innerViewRef?: React.Ref<typeof View>;
 
   /**
   * A ref to the Native ScrollView component. This ref can be used to call
   * all of ScrollView's public methods, in addition to native methods like
   * measure, measureLayout, etc.
   */
-  scrollViewRef?: $1.Ref<typeof ScrollViewNativeComponent & ScrollViewImperativeMethods>;
+  scrollViewRef?: React.Ref<typeof ScrollViewNativeComponent & ScrollViewImperativeMethods>;
 }>;
 declare type State =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 ScrollResponderState & {
   layoutHeight?: null | undefined | number;
 };
-declare type ContextType =
-/*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-{
-  horizontal: boolean;
-} | null;
-declare var Context: $1.Context<ContextType>;
 declare type ScrollViewComponentStatics = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
-  Context: typeof Context;
+  Context: typeof ScrollViewContext;
 }>;
-declare class ScrollView extends $1.Component<Props, State> {
-  static Context: React$Context<ContextType>;
+declare class ScrollView extends React.Component<Props, State> {
+  static Context: typeof ScrollViewContext;
   constructor(props: Props);
   state: State;
   UNSAFE_componentWillMount(): void;
@@ -626,8 +611,8 @@ declare class ScrollView extends $1.Component<Props, State> {
   getScrollResponder(): ScrollResponderType;
   getScrollableNode(): null | undefined | number;
   getInnerViewNode(): null | undefined | number;
-  getInnerViewRef(): null | undefined | $1.ElementRef<typeof $4>;
-  getNativeScrollRef(): null | undefined | $1.ElementRef<HostComponent<{}>>;
+  getInnerViewRef(): null | undefined | React.ElementRef<typeof View>;
+  getNativeScrollRef(): null | undefined | React.ElementRef<HostComponent<{}>>;
 
   /**
    * Scrolls to a given x, y offset, either immediately or with a smooth animation.
@@ -664,14 +649,14 @@ declare class ScrollView extends $1.Component<Props, State> {
    * @platform ios
    */
   flashScrollIndicators(): void;
-  render(): $1.Node | $1.Element<string>;
+  render(): React.Node | React.Element<string>;
 }
 export type { ScrollViewImperativeMethods };
 export type { ScrollResponderType };
 export type { Props };
-declare const $f2tExportDefault: $1.AbstractComponent<$1.ElementConfig<typeof ScrollView>, Readonly<
+declare const $f2tExportDefault: React.AbstractComponent<React.ElementConfig<typeof ScrollView>, Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-$1.ElementRef<HostComponent<{}>> & ScrollViewImperativeMethods & {}>> & ScrollViewComponentStatics;
+React.ElementRef<HostComponent<{}>> & ScrollViewImperativeMethods & {}>> & ScrollViewComponentStatics;
 export default $f2tExportDefault;

@@ -1,4 +1,5 @@
-import $1 from "react";
+// @flow
+import * as React from "react";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
 import { ViewProps } from "../View/ViewPropTypes";
 declare type Props = Readonly<
@@ -6,6 +7,6 @@ declare type Props = Readonly<
 ViewProps & {
   emulateUnlessSupported?: boolean;
 }>;
-declare var exported: $1.AbstractComponent<Props, $1.ElementRef<HostComponent<{}>>>;
+declare var exported: React.AbstractComponent<Props, React.ElementRef<HostComponent<{}>>>;
 declare const $f2tExportDefault: typeof exported;
 export default $f2tExportDefault;

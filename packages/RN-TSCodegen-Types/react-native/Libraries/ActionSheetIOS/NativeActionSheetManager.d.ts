@@ -15,6 +15,7 @@ interface Spec extends TurboModule {
     readonly anchor?: null | undefined | number;
     readonly tintColor?: null | undefined | number;
     readonly userInterfaceStyle?: null | undefined | string;
+    readonly disabledButtonIndices?: number[];
   }, callback: (buttonIndex: number) => void) => void;
   readonly showShareActionSheetWithOptions: (options:
   /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

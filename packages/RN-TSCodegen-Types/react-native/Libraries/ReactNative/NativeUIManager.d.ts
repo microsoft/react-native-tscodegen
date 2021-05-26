@@ -4,7 +4,6 @@ interface Spec extends TurboModule {
   readonly getConstants: () => Object;
   readonly getConstantsForViewManager: (viewManagerName: string) => Object;
   readonly getDefaultEventTypes: () => string[];
-  readonly playTouchSound: () => void;
   readonly lazilyLoadView: (name: string) => Object;
   // revisit return
   readonly createView: (reactTag: null | undefined | number, viewName: string, rootTag: number, props: Object) => void;

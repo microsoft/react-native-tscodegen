@@ -1,5 +1,5 @@
 import { React$PropType$Primitive, ReactPropsCheckType } from "flow2dts-flow-types-polyfill";
-import $1 from "./DeprecatedColorPropType";
+import $1 from "../../TypeScriptSupplementals/DeprecatedColorPropType";
 import $2 from "./DeprecatedViewPropTypes";
 import $3 from "prop-types";
 import $4 from "../Text/Text";
@@ -427,6 +427,7 @@ typeof $2 & {
    *
    * [Styles](docs/style.html)
    */
+  // $FlowFixMe[incompatible-use]
   style: ReactPropsCheckType;
 
   /**
@@ -512,7 +513,6 @@ typeof $2 & {
   /**
    * When `false`, it will prevent the soft keyboard from showing when the field is focused.
    * Defaults to `true`.
-   * @platform android
    */
   showSoftInputOnFocus: typeof $3.bool;
 };

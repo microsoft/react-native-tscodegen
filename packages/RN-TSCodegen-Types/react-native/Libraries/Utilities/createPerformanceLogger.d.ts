@@ -1,40 +1,48 @@
 // @flow
 declare type Timespan = {
-  description?: string;
-  totalTime?: number;
-  startTime?: number;
+  startTime: number;
   endTime?: number;
+  totalTime?: number;
+  startExtras?: Extras;
+  endExtras?: Extras;
 };
-declare type IPerformanceLogger = {
-  addTimespan: ($f2t1: string, $f2t2: number, $f2t3: string | void) => void;
-  startTimespan: ($f2t1: string, $f2t2: string | void) => void;
-  stopTimespan: ($f2t1: string, options?: {
-    update?: boolean;
-  }) => void;
+declare type ExtraValue = number | string | boolean;
+declare type Extras = {
+  [key: string]: ExtraValue;
+};
+interface IPerformanceLogger {
+  addTimespan: (key: string, startTime: number, endTime: number, startExtras?: Extras, endExtras?: Extras) => void;
+  append: (logger: IPerformanceLogger) => void;
   clear: () => void;
   clearCompleted: () => void;
-  clearExceptTimespans: ($f2t1: string[]) => void;
+  close: () => void;
   currentTimestamp: () => number;
-  getTimespans: () => {
-    [key: string]: Timespan;
-  };
-  hasTimespan: ($f2t1: string) => boolean;
-  logTimespans: () => void;
-  addTimespans: ($f2t1: number[], $f2t2: string[]) => void;
-  setExtra: ($f2t1: string, $f2t2: any) => void;
-  getExtras: () => {
-    [key: string]: any;
-  };
-  removeExtra: ($f2t1: string) => null | undefined | any;
-  logExtras: () => void;
-  markPoint: ($f2t1: string, $f2t2: number | void) => void;
-  getPoints: () => {
-    [key: string]: number;
-  };
-  logPoints: () => void;
+  getExtras: () => Readonly<{
+    [key: string]: null | undefined | ExtraValue;
+  }>;
+  getPoints: () => Readonly<{
+    [key: string]: null | undefined | number;
+  }>;
+  getPointExtras: () => Readonly<{
+    [key: string]: null | undefined | Extras;
+  }>;
+  getTimespans: () => Readonly<{
+    [key: string]: null | undefined | Timespan;
+  }>;
+  hasTimespan: (key: string) => boolean;
+  isClosed: () => boolean;
   logEverything: () => void;
-};
+  markPoint: (key: string, timestamp?: number, extras?: Extras) => void;
+  removeExtra: (key: string) => null | undefined | ExtraValue;
+  setExtra: (key: string, value: ExtraValue) => void;
+  startTimespan: (key: string, timestamp?: number, extras?: Extras) => void;
+  stopTimespan: (key: string, timestamp?: number, extras?: Extras) => void;
+}
+declare var getCurrentTimestamp: () => number;
 declare function createPerformanceLogger(): IPerformanceLogger;
+export type { Timespan };
+export type { ExtraValue };
+export type { Extras };
 export type { IPerformanceLogger };
-declare const $f2tExportDefault: typeof createPerformanceLogger;
-export default $f2tExportDefault;
+export { getCurrentTimestamp };
+export { createPerformanceLogger as default };

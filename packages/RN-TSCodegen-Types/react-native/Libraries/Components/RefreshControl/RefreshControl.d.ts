@@ -1,5 +1,5 @@
 import $1 from "react";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 declare var RefreshLayoutConsts: any;
 declare type IOSProps = Readonly<

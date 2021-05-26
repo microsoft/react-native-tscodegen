@@ -56,7 +56,6 @@ declare type State = Readonly<
 declare class TouchableWithoutFeedback extends React.Component<Props, State> {
   state: State;
   render(): React.Node;
-  componentDidMount(): void;
   componentDidUpdate(): void;
   componentWillUnmount(): void;
 }

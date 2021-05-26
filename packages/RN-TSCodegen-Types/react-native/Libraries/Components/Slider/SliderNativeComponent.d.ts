@@ -4,7 +4,7 @@ import { DirectEventHandler } from "../../Types/CodegenTypes";
 import { Double } from "../../Types/CodegenTypes";
 import { WithDefault } from "../../Types/CodegenTypes";
 import { HostComponent } from "../../Renderer/shims/ReactNativeTypes";
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ImageSource } from "../../Image/ImageSource";
 import { ViewProps } from "../View/ViewPropTypes";
 declare type Event = Readonly<

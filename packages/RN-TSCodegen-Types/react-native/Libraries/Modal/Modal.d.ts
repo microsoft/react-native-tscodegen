@@ -1,6 +1,6 @@
-import { React$PropType$Primitive } from "flow2dts-flow-types-polyfill";
 import $2 from "react";
 import { ViewProps } from "../Components/View/ViewPropTypes";
+import { RootTag } from "../ReactNative/RootTag";
 import { DirectEventHandler } from "../Types/CodegenTypes";
 declare type OrientationChangeEvent = Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
@@ -104,22 +104,9 @@ declare class Modal extends $2.Component<Props> {
     hardwareAccelerated: boolean;
     visible: boolean;
   };
-  static contextTypes: any |
-  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-  {
-    rootTag: React$PropType$Primitive<number>;
-  };
+  static contextType: $2.Context<RootTag>;
   constructor(props: Props);
-  static childContextTypes: any |
-  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-  {
-    virtualizedList: React$PropType$Primitive<any>;
-  };
-  getChildContext():
-  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-  {
-    virtualizedList: null;
-  };
+  componentDidMount(): void;
   componentWillUnmount(): void;
   UNSAFE_componentWillReceiveProps(nextProps: Props): void;
   render(): $2.Node;

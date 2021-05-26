@@ -1,5 +1,5 @@
 // @flow
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { PressEvent } from "../../Types/CoreEventTypes";
 import View from "../../Components/View/View";
 import * as React from "react";
@@ -14,9 +14,9 @@ declare type NativeBackgroundProp = Readonly<
 declare type RippleConfig =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
-  color?: null | undefined | ColorValue;
-  borderless?: null | undefined | boolean;
-  radius?: null | undefined | number;
+  color?: ColorValue;
+  borderless?: boolean;
+  radius?: number;
 };
 declare function useAndroidRippleForView(rippleConfig: null | undefined | RippleConfig, viewRef:
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/

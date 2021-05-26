@@ -1,8 +1,6 @@
 // @flow
 import { StackFrame } from "../NativeExceptionsManager";
-declare type CodeFrame = Readonly<
-/*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-{
+declare type CodeFrame = Readonly<{
   content: string;
   location?: null | undefined | {
     row: number;
@@ -10,9 +8,7 @@ declare type CodeFrame = Readonly<
   };
   fileName: string;
 }>;
-declare type SymbolicatedStackTrace = Readonly<
-/*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-{
+declare type SymbolicatedStackTrace = Readonly<{
   stack: StackFrame[];
   codeFrame?: null | undefined | CodeFrame;
 }>;

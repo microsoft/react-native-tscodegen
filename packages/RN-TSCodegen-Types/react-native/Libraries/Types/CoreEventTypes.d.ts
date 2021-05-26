@@ -82,7 +82,7 @@ declare type PressEvent = ResponderSyntheticEvent<Readonly<
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
   changedTouches: ReadonlyArray<$PropertyType<PressEvent, "nativeEvent">>;
-  force: number;
+  force?: number;
   identifier: number;
   locationX: number;
   locationY: number;

@@ -1,12 +1,12 @@
-import { React$PropType$Primitive } from "flow2dts-flow-types-polyfill";
-import $1 from "react";
-import $2 from "../Components/ScrollView/ScrollView";
-import $3 from "../Components/View/View";
+import $1 from "../Components/ScrollView/ScrollView";
+import $2 from "../Components/View/View";
+import * as React from "react";
 import { ScrollResponderType } from "../Components/ScrollView/ScrollView";
 import { ViewStyleProp } from "../StyleSheet/StyleSheet";
 import { ViewabilityConfig } from "./ViewabilityHelper";
 import { ViewToken } from "./ViewabilityHelper";
 import { ViewabilityConfigCallbackPair } from "./ViewabilityHelper";
+import { VirtualizedListContext } from "./VirtualizedListContext.js";
 declare type Item = any;
 declare type Separators = {
   highlight: () => void;
@@ -18,7 +18,7 @@ declare type RenderItemProps<ItemT> = {
   index: number;
   separators: Separators;
 };
-declare type RenderItemType<ItemT> = (info: RenderItemProps<ItemT>) => $1.Node;
+declare type RenderItemType<ItemT> = (info: RenderItemProps<ItemT>) => React.Node;
 declare type RequiredProps =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
@@ -95,7 +95,7 @@ declare type OptionalProps =
    * Each cell is rendered using this element. Can be a React Component Class,
    * or a render function. Defaults to using View.
    */
-  CellRendererComponent?: null | undefined | $1.ComponentType<any>;
+  CellRendererComponent?: null | undefined | React.ComponentType<any>;
 
   /**
    * Rendered in between each item, but not at the top or bottom. By default, `highlighted` and
@@ -103,7 +103,7 @@ declare type OptionalProps =
    * which will update the `highlighted` prop, but you can also add custom props with
    * `separators.updateProps`.
    */
-  ItemSeparatorComponent?: null | undefined | $1.ComponentType<any>;
+  ItemSeparatorComponent?: null | undefined | React.ComponentType<any>;
 
   /**
    * Takes an item from `data` and renders it into the list. Example usage:
@@ -131,19 +131,19 @@ declare type OptionalProps =
    * `highlight` and `unhighlight` (which set the `highlighted: boolean` prop) are insufficient for
    * your use-case.
    */
-  ListItemComponent?: null | undefined | ($1.ComponentType<any> | $1.Element<any>);
+  ListItemComponent?: null | undefined | (React.ComponentType<any> | React.Element<any>);
 
   /**
    * Rendered when the list is empty. Can be a React Component Class, a render function, or
    * a rendered element.
    */
-  ListEmptyComponent?: null | undefined | ($1.ComponentType<any> | $1.Element<any>);
+  ListEmptyComponent?: null | undefined | (React.ComponentType<any> | React.Element<any>);
 
   /**
    * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
    * a rendered element.
    */
-  ListFooterComponent?: null | undefined | ($1.ComponentType<any> | $1.Element<any>);
+  ListFooterComponent?: null | undefined | (React.ComponentType<any> | React.Element<any>);
 
   /**
    * Styling for internal View for ListFooterComponent
@@ -154,7 +154,7 @@ declare type OptionalProps =
    * Rendered at the top of all the items. Can be a React Component Class, a render function, or
    * a rendered element.
    */
-  ListHeaderComponent?: null | undefined | ($1.ComponentType<any> | $1.Element<any>);
+  ListHeaderComponent?: null | undefined | (React.ComponentType<any> | React.Element<any>);
 
   /**
    * Styling for internal View for ListHeaderComponent
@@ -229,7 +229,7 @@ declare type OptionalProps =
    * <RefreshControl> component built internally. The onRefresh and refreshing
    * props are also ignored. Only works for vertical VirtualizedList.
    */
-  refreshControl?: null | undefined | $1.Element<any>;
+  refreshControl?: null | undefined | React.Element<any>;
 
   /**
    * Set this true while waiting for new data from a refresh.
@@ -246,7 +246,7 @@ declare type OptionalProps =
   /**
    * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
    */
-  renderScrollComponent?: (props: Object) => $1.Element<any>;
+  renderScrollComponent?: (props: Object) => React.Element<any>;
 
   /**
    * Amount of time between low-pri item render batches, e.g. for rendering items quite a ways off
@@ -281,7 +281,7 @@ declare type OptionalProps =
 };
 declare type Props =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-$1.ElementConfig<typeof $2> & RequiredProps & OptionalProps & {};
+React.ElementConfig<typeof $1> & RequiredProps & OptionalProps & {};
 declare type DefaultProps =
 /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
 {
@@ -295,33 +295,12 @@ declare type DefaultProps =
   updateCellsBatchingPeriod: number;
   windowSize: number;
 };
-declare type Frame = {
-  offset: number;
-  length: number;
-  index: number;
-  inLayout: boolean;
-};
-declare type ChildListState = {
-  first: number;
-  last: number;
-  frames: {
-    [key: number]: Frame;
-  };
-};
 declare type State = {
   first: number;
   last: number;
 };
-declare type ListDebugInfo = {
-  cellKey: string;
-  listKey: string;
-  parent?: null | undefined | ListDebugInfo;
-  // We include all ancestors regardless of orientation, so this is not always
-  // identical to the child's orientation.
-  horizontal: boolean;
-};
-declare class VirtualizedList extends $1.PureComponent<Props, State> {
-  props: Props;
+declare class VirtualizedList extends React.PureComponent<Props, State> {
+  static contextType: typeof VirtualizedListContext;
   // scrollToEnd may be janky without getItemLayout prop
   scrollToEnd(params?: null | undefined | {
     animated?: null | undefined | boolean;
@@ -365,80 +344,16 @@ declare class VirtualizedList extends $1.PureComponent<Props, State> {
    */
   getScrollResponder(): null | undefined | ScrollResponderType;
   getScrollableNode(): null | undefined | number;
-  getScrollRef(): (null | undefined | $1.ElementRef<typeof $2>) | (null | undefined | $1.ElementRef<typeof $3>);
+  getScrollRef(): (null | undefined | React.ElementRef<typeof $1>) | (null | undefined | React.ElementRef<typeof $2>);
   setNativeProps(props: Object): void;
   static defaultProps: DefaultProps;
-  static contextTypes: any |
-  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-  {
-    virtualizedCell:
-    /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-    {
-      cellKey: React$PropType$Primitive<string>;
-    };
-    virtualizedList:
-    /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-    {
-      getScrollMetrics: React$PropType$Primitive<Function>;
-      horizontal: React$PropType$Primitive<boolean>;
-      getOutermostParentListRef: React$PropType$Primitive<Function>;
-      getNestedChildState: React$PropType$Primitive<Function>;
-      registerAsNestedChild: React$PropType$Primitive<Function>;
-      unregisterAsNestedChild: React$PropType$Primitive<Function>;
-      debugInfo:
-      /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-      {
-        listKey: React$PropType$Primitive<string>;
-        cellKey: React$PropType$Primitive<string>;
-      };
-    };
-  };
-  static childContextTypes: any |
-  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-  {
-    getScrollMetrics: React$PropType$Primitive<Function>;
-    horizontal: React$PropType$Primitive<boolean>;
-    getOutermostParentListRef: React$PropType$Primitive<Function>;
-    getNestedChildState: React$PropType$Primitive<Function>;
-    registerAsNestedChild: React$PropType$Primitive<Function>;
-    unregisterAsNestedChild: React$PropType$Primitive<Function>;
-  };
-  getChildContext():
-  /*[FLOW2DTS - Warning] This type was an exact object type in the original Flow source.*/
-  {
-    virtualizedList: {
-      getScrollMetrics: () => {
-        contentLength: number;
-        dOffset: number;
-        dt: number;
-        offset: number;
-        timestamp: number;
-        velocity: number;
-        visibleLength: number;
-      };
-      horizontal?: null | undefined | boolean;
-      getOutermostParentListRef: Function;
-      getNestedChildState: ($f2t1: string) => null | undefined | ChildListState;
-      registerAsNestedChild: ($f2t1: {
-        cellKey: string;
-        key: string;
-        ref: VirtualizedList;
-        parentDebugInfo: ListDebugInfo;
-      }) => null | undefined | ChildListState;
-      unregisterAsNestedChild: ($f2t1: {
-        key: string;
-        state: ChildListState;
-      }) => void;
-      debugInfo: ListDebugInfo;
-    };
-  };
   hasMore(): boolean;
   state: State;
-  constructor(props: Props, context: Object);
+  constructor(props: Props);
   componentDidMount(): void;
   componentWillUnmount(): void;
   static getDerivedStateFromProps(newProps: Props, prevState: State): State;
-  render(): $1.Node;
+  render(): React.Node;
   componentDidUpdate(prevProps: Props): void;
   measureLayoutRelativeToContainingList(): void;
 }

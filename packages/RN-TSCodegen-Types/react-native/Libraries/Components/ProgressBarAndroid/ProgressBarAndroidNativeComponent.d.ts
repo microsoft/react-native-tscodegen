@@ -1,5 +1,5 @@
 // @flow
-import { ColorValue } from "../../StyleSheet/StyleSheetTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 import { ViewProps } from "../View/ViewPropTypes";
 import { Double } from "../../Types/CodegenTypes";
 import { WithDefault } from "../../Types/CodegenTypes";

@@ -4,7 +4,7 @@ This library enable people to write react-native Turbo Module in TypeScript, and
 
 ## Target react-native version
 
-0.63.0
+0.64.1
 
 ## Authoring a Turbo Module
 

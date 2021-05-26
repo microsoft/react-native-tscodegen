@@ -25,7 +25,6 @@ interface Spec extends TurboModule {
   readonly reportFatalException: (message: string, stack: StackFrame[], exceptionId: number) => void;
   // Deprecated: Use `reportException`
   readonly reportSoftException: (message: string, stack: StackFrame[], exceptionId: number) => void;
-  // TODO(T53311281): This is a noop on iOS now. Implement it.
   readonly reportException?: (data: ExceptionData) => void;
   readonly updateExceptionMessage: (message: string, stack: StackFrame[], exceptionId: number) => void;
   // TODO(T53311281): This is a noop on iOS now. Implement it.

@@ -1,5 +1,6 @@
 import { $FlowFixMe } from "flow2dts-flow-types-polyfill";
 import { $Keys } from "utility-types";
+// @flow
 declare type ChangeEventName = $Keys<{
   announcementFinished: string;
   boldTextChanged: string;
@@ -105,7 +106,9 @@ declare var AccessibilityInfo:
    *
    * See https://reactnative.dev/docs/accessibilityinfo.html#addeventlistener
    */
-  addEventListener: (eventName: ChangeEventName, handler: Function) => Object;
+  addEventListener: <T>(eventName: ChangeEventName, handler: T) => {
+    remove: () => void;
+  };
 
   /**
    * Set accessibility focus to a react component.
@@ -126,7 +129,7 @@ declare var AccessibilityInfo:
    *
    * See https://reactnative.dev/docs/accessibilityinfo.html#removeeventlistener
    */
-  removeEventListener: (eventName: ChangeEventName, handler: Function) => void;
+  removeEventListener: <T>(eventName: ChangeEventName, handler: T) => void;
 };
 declare const $f2tExportDefault: typeof AccessibilityInfo;
 export default $f2tExportDefault;

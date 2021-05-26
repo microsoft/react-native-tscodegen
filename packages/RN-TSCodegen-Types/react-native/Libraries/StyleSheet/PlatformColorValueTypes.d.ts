@@ -1,5 +1,5 @@
 // @flow
-import { ColorValue } from "./StyleSheetTypes";
+import { ColorValue } from "./StyleSheet";
 import { ProcessedColorValue } from "./processColor";
 
 /*[FLOW2DTS - Warning] This type alias was opaque in the original Flow source.*/
