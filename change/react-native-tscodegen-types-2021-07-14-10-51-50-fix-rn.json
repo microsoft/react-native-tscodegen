@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update @types/react-native",
-  "packageName": "react-native-tscodegen-types",
-  "email": "53799235+ZihanChen-MSFT@users.noreply.github.com",
-  "commit": "c87bbe6d23b00b511ded6a95ef9aed769efb83ef",
-  "date": "2021-07-14T17:51:50.555Z",
-  "file": "C:\\Code\\vczh-ds3\\Microsoft\\react-native-tscodegen\\change\\react-native-tscodegen-types-2021-07-14-10-51-50-fix-rn.json"
-}
