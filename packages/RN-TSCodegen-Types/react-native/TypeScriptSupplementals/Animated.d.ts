@@ -43,7 +43,7 @@ type WithAnimatedObject<T> = {
 export type WithAnimatedValue<T> = T extends Builtin | Nullable
   ? T
   : T extends Primitive
-  ? T | typeof Animated.Value | typeof Animated.AnimatedInterpolation // add `Value` and `AnimatedInterpolation` but also preserve original T
+  ? T | Animated["Value"] | Animated["AnimatedInterpolation"] // add `Value` and `AnimatedInterpolation` but also preserve original T
   : T extends Array<infer P>
   ? WithAnimatedArray<P>
   : T extends {}
@@ -74,10 +74,10 @@ export interface AnimatedComponent<T extends React.ComponentType<any>>
  * Animated variants of the basic native views. Accepts Animated.Value for
  * props and style.
  */
-export const View: AnimatedComponent<typeof _View>
-export const Image: AnimatedComponent<typeof _Image>
-export const Text: AnimatedComponent<typeof _Text>
-export const ScrollView: AnimatedComponent<typeof _ScrollView>
+export const View: AnimatedComponent<_View>
+export const Image: AnimatedComponent<_Image>
+export const Text: AnimatedComponent<_Text>
+export const ScrollView: AnimatedComponent<_ScrollView>
 
 /**
  * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
