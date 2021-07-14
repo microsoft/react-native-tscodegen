@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "react-native-tscodegen": "^0.68.1",
-    "react-native-tscodegen-types": "^0.67.1"
+    "react-native-tscodegen-types": "^0.67.2"
   },
   "jest": {
     "testRegex": "/lib/test/Test.*Cases\\.js",
