@@ -34,8 +34,8 @@ function importExists(sourceFile: ts.SourceFile, name: string): boolean {
 export function processComponent(info: ExportComponentInfo, commandsInfo?: ExportCommandInfo): cs.ComponentSchema {
     const extendsProps: cs.ExtendsPropsShape[] = [];
     const events: cs.EventTypeShape[] = [];
-    const props: cs.PropTypeShape[] = [];
-    let commands: cs.CommandTypeShape[] = [];
+    const props: cs.NamedShape<cs.PropTypeAnnotation>[] = [];
+    let commands: cs.NamedShape<cs.CommandTypeAnnotation>[] = [];
 
     commands = parseCommands(commandsInfo);
 

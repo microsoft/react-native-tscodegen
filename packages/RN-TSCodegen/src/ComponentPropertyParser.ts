@@ -9,12 +9,7 @@ import { ExportComponentInfo } from './ExportParser';
 import { RNRawObjectProperty, RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
-interface ObjectTypeAnnotation {
-  type: 'ObjectTypeAnnotation';
-  properties: ReadonlyArray<cs.PropTypeShape>;
-}
-
-function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode): ObjectTypeAnnotation {
+function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode): cs.ObjectTypeAnnotation_PropTypeAnnotation {
   return {
     type: 'ObjectTypeAnnotation',
     properties: rawType.properties.map((value: RNRawObjectProperty) => {
@@ -28,7 +23,7 @@ function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCom
   };
 }
 
-function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.TypeNode): [boolean, cs.PropTypeTypeAnnotation] {
+function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.TypeNode): [boolean, cs.PropTypeAnnotation] {
   switch (rawType.kind) {
     case 'Boolean': return [rawType.isNullable, {
       type: 'BooleanTypeAnnotation',
@@ -52,12 +47,12 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
     }];
     case 'StringLiterals': return [rawType.isNullable, {
       type: 'StringEnumTypeAnnotation',
-      options: rawType.values.map((name: string) => { return { name }; }),
+      options: rawType.values,
       default: (rawType.defaultValue === undefined ? rawType.values[0] : `${rawType.defaultValue}`)
     }];
     case 'NumberLiterals': return [rawType.isNullable, {
       type: 'Int32EnumTypeAnnotation',
-      options: rawType.values.map((value: number) => { return { value }; }),
+      options: rawType.values,
       default: (rawType.defaultValue === undefined ? rawType.values[0] : +rawType.defaultValue)
     }];
     case 'rn:ColorPrimitive': return [rawType.isNullable, {
@@ -103,7 +98,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
           type: 'ArrayTypeAnnotation',
           elementType: {
             type: 'StringEnumTypeAnnotation',
-            options: rawType.elementType.values.map((name: string) => { return { name }; }),
+            options: rawType.elementType.values,
             default: <string>(rawType.defaultValue === undefined ? rawType.elementType.defaultValue === undefined ? null : `${rawType.elementType.defaultValue}` : `${rawType.defaultValue}`)
           }
         }];
@@ -159,7 +154,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
   throw new Error(`Component property argument type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.PropTypeShape {
+export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.NamedShape<cs.PropTypeAnnotation> {
   const propType = <ts.TypeNode>propDecl.type;
   const rawType = typeToRNRawType(propType, info.sourceFile, { allowObject: true });
   const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propType);
