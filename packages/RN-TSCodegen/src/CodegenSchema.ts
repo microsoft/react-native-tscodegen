@@ -100,6 +100,8 @@ export type EventTypeShape = Readonly<{
   }>;
 }>;
 
+export interface ObjectTypeAnnotation_EventTypeAnnotation extends ObjectTypeAnnotation<EventTypeAnnotation> {}
+
 export type EventTypeAnnotation =
   | BooleanTypeAnnotation
   | StringTypeAnnotation
@@ -107,7 +109,9 @@ export type EventTypeAnnotation =
   | FloatTypeAnnotation
   | Int32TypeAnnotation
   | StringEnumTypeAnnotation
-  | ObjectTypeAnnotation<EventTypeAnnotation>;
+  | ObjectTypeAnnotation_EventTypeAnnotation;
+
+export interface ObjectTypeAnnotation_PropTypeAnnotation extends ObjectTypeAnnotation<PropTypeAnnotation> {}
 
 export type PropTypeAnnotation =
   | Readonly<{
@@ -147,7 +151,7 @@ export type PropTypeAnnotation =
       options: ReadonlyArray<number>;
     }>
   | ReservedPropTypeAnnotation
-  | ObjectTypeAnnotation<PropTypeAnnotation>
+  | ObjectTypeAnnotation_PropTypeAnnotation
   | Readonly<{
       type: 'ArrayTypeAnnotation';
       elementType:
@@ -220,9 +224,9 @@ export type NativeModuleAliasMap = Readonly<{
   [aliasName: string]: NativeModuleObjectTypeAnnotation;
 }>;
 
-export type NativeModuleFunctionTypeAnnotation = FunctionTypeAnnotation<Nullable<NativeModuleParamTypeAnnotation>, Nullable<NativeModuleReturnTypeAnnotation>>;
+export interface NativeModuleFunctionTypeAnnotation extends FunctionTypeAnnotation<Nullable<NativeModuleParamTypeAnnotation>, Nullable<NativeModuleReturnTypeAnnotation>> {}
 
-export type NativeModuleObjectTypeAnnotation = ObjectTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>>;
+export interface NativeModuleObjectTypeAnnotation extends ObjectTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>> {}
 
 export type NativeModuleArrayTypeAnnotation<T extends Nullable<NativeModuleBaseTypeAnnotation>> = Readonly<{
   type: 'ArrayTypeAnnotation';
@@ -266,6 +270,8 @@ export type NativeModulePromiseTypeAnnotation = Readonly<{
   type: 'PromiseTypeAnnotation';
 }>;
 
+export interface NativeModuleArrayTypeAnnotation_Nullable_NativeModuleBaseTypeAnnotation extends NativeModuleArrayTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>> {}
+
 export type NativeModuleBaseTypeAnnotation =
   | NativeModuleStringTypeAnnotation
   | NativeModuleNumberTypeAnnotation
@@ -276,7 +282,7 @@ export type NativeModuleBaseTypeAnnotation =
   | NativeModuleGenericObjectTypeAnnotation
   | ReservedTypeAnnotation
   | NativeModuleTypeAliasTypeAnnotation
-  | NativeModuleArrayTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>>
+  | NativeModuleArrayTypeAnnotation_Nullable_NativeModuleBaseTypeAnnotation
   | NativeModuleObjectTypeAnnotation;
 
 export type NativeModuleParamTypeAnnotation =
@@ -297,4 +303,3 @@ export type NativeModuleParamOnlyTypeAnnotation = NativeModuleFunctionTypeAnnota
 export type NativeModuleReturnOnlyTypeAnnotation =
   | NativeModulePromiseTypeAnnotation
   | VoidTypeAnnotation;
-
