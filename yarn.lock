@@ -4268,7 +4268,7 @@ find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-flow-parser@0.*, flow-parser@^0.109.0:
+flow-parser@0.*:
   version "0.109.0"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.109.0.tgz#2df1d503aa3f0425143a6a59720faf3f2bb17582"
   integrity sha512-e8Z1n0QvXAjpFcTqLBBM5hVKoJuR8CLNy5WlhRYIqcSH3ClYvZNSi38ZZN9wnQSoNoH12vnvMVeMHUCfYyVNhQ==
@@ -4278,12 +4278,17 @@ flow-parser@^0.121.0:
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.121.0.tgz#9f9898eaec91a9f7c323e9e992d81ab5c58e618f"
   integrity sha512-1gIBiWJNR0tKUNv8gZuk7l9rVX06OuLzY9AoGio7y/JT4V1IZErEMEq2TJS+PFcw/y0RshZ1J/27VfK1UQzYVg==
 
-flow-remove-types@^2.106.2:
-  version "2.109.0"
-  resolved "https://registry.yarnpkg.com/flow-remove-types/-/flow-remove-types-2.109.0.tgz#5bc0196d594a312ee9d2ab4daa88934eecf5a33c"
-  integrity sha512-IN0t0foOC0ZZc05mS3Kfv7tgbdH9v/Zi0hia9pDjBmAZFld2h19JtesMLpC/57tqZiWAYNQBUV5dqE/BZ1flgQ==
+flow-parser@^0.158.0:
+  version "0.158.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.158.0.tgz#d845f167c722babe880110fc3681c44f21823399"
+  integrity sha512-0hMsPkBTRrkII/0YiG9ehOxFXy4gOWdk8RSRze5WbfeKAQpL5kC2K4BmumyTfU9o5gr7/llgElF3UpSSrjzQAA==
+
+flow-remove-types@^2.158.0:
+  version "2.158.0"
+  resolved "https://registry.yarnpkg.com/flow-remove-types/-/flow-remove-types-2.158.0.tgz#22be85994305866e7d0304d5af96d4c3d6e4b27f"
+  integrity sha512-mLDU+B2LuiCg0KA9V0A5OdgI5evugWlHKqG+GLlNIrtOPEPO497p3PJAUxGD3SR+gJmtxCDdgL+qLZnw5op9bA==
   dependencies:
-    flow-parser "^0.109.0"
+    flow-parser "^0.158.0"
     pirates "^3.0.2"
     vlq "^0.2.1"
 
@@ -7297,9 +7302,9 @@ path-key@^2.0.0, path-key@^2.0.1:
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
 path-parse@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-  integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+  integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-type@^1.0.0:
   version "1.1.0"
