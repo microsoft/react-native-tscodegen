@@ -82,6 +82,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 case 'RootTag':
                     itemOthers.push({ kind: 'rn:RootTag', isNullable: false });
                     break;
+                case 'UnsafeObject':
+                    itemOthers.push({ kind: 'rn:UnsafeObject', isNullable: false });
+                    break;
                 case 'Object':
                     itemOthers.push({ kind: 'js:Object', isNullable: false });
                     break;

@@ -16,6 +16,7 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
+        case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
                 return { type: 'ArrayTypeAnnotation' };
