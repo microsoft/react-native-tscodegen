@@ -227,12 +227,8 @@
                 "type": "StringEnumTypeAnnotation",
                 "default": "small",
                 "options": [
-                  {
-                    "name": "small"
-                  },
-                  {
-                    "name": "large"
-                  }
+                  "small",
+                  "large"
                 ]
               }
             },
@@ -243,12 +239,8 @@
                 "type": "StringEnumTypeAnnotation",
                 "default": "small",
                 "options": [
-                  {
-                    "name": "small"
-                  },
-                  {
-                    "name": "large"
-                  }
+                  "small",
+                  "large"
                 ]
               }
             },
@@ -259,12 +251,8 @@
                 "type": "Int32EnumTypeAnnotation",
                 "default": 0,
                 "options": [
-                  {
-                    "value": 0
-                  },
-                  {
-                    "value": 1
-                  }
+                  0,
+                  1
                 ]
               }
             },

@@ -31,7 +31,10 @@
                       "type": "BooleanTypeAnnotation"
                     }
                   }
-                ]
+                ],
+                "returnTypeAnnotation": {
+                  "type": "VoidTypeAnnotation"
+                }
               }
             }
           ]

@@ -115,7 +115,7 @@ git submodule update
 ```cmd
 pushd react-native
 git fetch
-git merge origin/master
+git checkout <VERSION-NAME>
 popd
 git status
 ```
@@ -125,7 +125,7 @@ git status
 ```cmd
 yarn
 yarn build
-pushd update-test-files
+pushd packages\update-test-files
 npm run start
 popd
 git status

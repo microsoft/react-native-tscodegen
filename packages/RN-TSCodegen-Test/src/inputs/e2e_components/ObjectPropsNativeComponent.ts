@@ -14,8 +14,6 @@ import {PointValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
 import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
-'use strict';
-
 type ObjectArrayPropType = Readonly<{
   array: ReadonlyArray<string>;
 }>;

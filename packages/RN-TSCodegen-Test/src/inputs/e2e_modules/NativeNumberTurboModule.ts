@@ -6,8 +6,6 @@
 
 import {TurboModule} from 'react-native-tscodegen-types'
 import {TurboModuleRegistry} from 'react-native-tscodegen-types';
-'use strict';
-
 export type Number = number;
 
 type AnotherNumber = Number;

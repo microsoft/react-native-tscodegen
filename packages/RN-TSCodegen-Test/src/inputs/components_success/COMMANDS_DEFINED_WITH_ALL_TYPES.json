@@ -22,11 +22,14 @@
                   {
                     "name": "rootTag",
                     "typeAnnotation": {
-                      "type": "ReservedFunctionValueTypeAnnotation",
+                      "type": "ReservedTypeAnnotation",
                       "name": "RootTag"
                     }
                   }
-                ]
+                ],
+                "returnTypeAnnotation": {
+                  "type": "VoidTypeAnnotation"
+                }
               }
             },
             {
@@ -47,7 +50,10 @@
                       "type": "Int32TypeAnnotation"
                     }
                   }
-                ]
+                ],
+                "returnTypeAnnotation": {
+                  "type": "VoidTypeAnnotation"
+                }
               }
             },
             {
@@ -80,7 +86,10 @@
                       "type": "BooleanTypeAnnotation"
                     }
                   }
-                ]
+                ],
+                "returnTypeAnnotation": {
+                  "type": "VoidTypeAnnotation"
+                }
               }
             }
           ]
