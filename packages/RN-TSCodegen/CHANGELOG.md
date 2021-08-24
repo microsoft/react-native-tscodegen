@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Wed, 26 May 2021 20:37:17 GMT and should not be manually modified.
+This log was last generated on Tue, 24 Aug 2021 21:37:02 GMT and should not be manually modified.
 
+## 0.68.2
+Tue, 24 Aug 2021 21:37:02 GMT
+
+### Patches
+
+- Update flow-remove-types version (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.68.1
 Wed, 26 May 2021 20:37:17 GMT
 

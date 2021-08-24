@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Tue, 24 Aug 2021 21:37:02 GMT",
+      "tag": "react-native-tscodegen_v0.68.2",
+      "version": "0.68.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update flow-remove-types version",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "8f9acf7621767ce1bf3093d793c9cc27778e1268"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 May 2021 20:37:17 GMT",
       "tag": "react-native-tscodegen_v0.68.1",
       "version": "0.68.1",
