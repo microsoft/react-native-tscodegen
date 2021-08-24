@@ -18,6 +18,7 @@ const importMaps = {
   WithDefault: `import {WithDefault} from 'react-native-tscodegen-types';`,
 
   RootTag: `import {RootTag} from 'react-native-tscodegen-types';`,
+  UnsafeObject: `import {UnsafeObject} from 'react-native-tscodegen-types';`,
   ImageSource: `import {ImageSource} from 'react-native-tscodegen-types';`,
   ProcessedColorValue: `import {ProcessedColorValue} from 'react-native-tscodegen-types';`,
   ColorValue: `import {ColorValue} from 'react-native-tscodegen-types';`,

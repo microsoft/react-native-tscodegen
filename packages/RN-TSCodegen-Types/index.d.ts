@@ -11,6 +11,7 @@ declare module "react-native-tscodegen-types" {
   export type NotString = {};
   export type Stringish = string;
   export type RootTag = number;
+  export type UnsafeObject = {};
   export type NativeComponent<T> = {};
   export type NativeComponentType<T> = {};
   type FlowOptional<T> = ReactNull | T;
