@@ -1,1 +1,1 @@
-{"error": "File contains declarations of more than one module: Spec, Spec2. Please declare exactly one module in this file."}
+{"error": "Module NativeSampleTurboModule: Every NativeModule spec file must declare exactly one NativeModule Flow interface. This file declares 2: 'Spec', and 'Spec2'. Please remove the extraneous Flow interface declarations."}

@@ -1,1 +1,1 @@
-{"error": "File neither contains a module declaration, nor a component declaration. For module declarations, please make sure your file has an InterfaceDeclaration extending TurboModule. For component declarations, please make sure your file has a default export calling the codegenNativeComponent<Props>(...) macro."}
+{"error": "Module NativeSampleTurboModule: No Flow interfaces extending TurboModule were detected in this NativeModule spec."}

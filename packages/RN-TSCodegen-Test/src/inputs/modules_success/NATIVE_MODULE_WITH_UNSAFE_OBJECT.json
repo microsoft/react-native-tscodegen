@@ -6,21 +6,19 @@
       "spec": {
         "properties": [
           {
-            "name": "getRootTag",
+            "name": "getUnsafeObject",
             "optional": false,
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
-                "type": "ReservedTypeAnnotation",
-                "name": "RootTag"
+                "type": "GenericObjectTypeAnnotation"
               },
               "params": [
                 {
-                  "name": "rootTag",
+                  "name": "o",
                   "optional": false,
                   "typeAnnotation": {
-                    "type": "ReservedTypeAnnotation",
-                    "name": "RootTag"
+                    "type": "GenericObjectTypeAnnotation"
                   }
                 }
               ]

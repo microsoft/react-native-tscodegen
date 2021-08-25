@@ -8,8 +8,6 @@ import {ReactNull} from 'react-native-tscodegen-types';
 import {RootTag} from 'react-native-tscodegen-types';
 import {TurboModule} from 'react-native-tscodegen-types'
 import {TurboModuleRegistry} from 'react-native-tscodegen-types';
-'use strict';
-
 type Animal = {
   name: string;
 };

@@ -15,7 +15,8 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
-        case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
+        case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
+        case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
                 return { type: 'ArrayTypeAnnotation' };
@@ -79,7 +80,8 @@ function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.Nati
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
-        case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
+        case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
+        case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
@@ -128,7 +130,7 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
         throw new Error(`An object type is expected as a native module: ${info.typeNode.getText()}.`);
     }
 
-    const properties: cs.NativeModulePropertySchema[] = [];
+    const properties: cs.NativeModulePropertyShape[] = [];
     const usedAliases: string[] = [];
     for (const prop of rawType.properties) {
         if (prop.name === 'getConstants' &&

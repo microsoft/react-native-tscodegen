@@ -6,7 +6,7 @@ import * as cs from './CodegenSchema';
 import { ExportCommandInfo, getMembersFromType, resolveType } from './ExportParser';
 import { typeToRNRawType } from './TypeChecker';
 
-function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): cs.CommandsTypeAnnotation {
+function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): cs.CommandParamTypeAnnotation {
     const rawType = typeToRNRawType(typeNode, sourceFile, { allowObject: false });
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
@@ -14,13 +14,13 @@ function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Int32': return { type: 'Int32TypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
-        case 'rn:RootTag': return { type: 'ReservedFunctionValueTypeAnnotation', name: 'RootTag' };
+        case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
         default:
     }
     throw new Error(`Component command argument type does not support ${typeNode.getText()}: ${JSON.stringify(rawType, undefined, 2)}.`);
 }
 
-export function parseCommands(info?: ExportCommandInfo): cs.CommandTypeShape[] {
+export function parseCommands(info?: ExportCommandInfo): cs.NamedShape<cs.CommandTypeAnnotation>[] {
     if (info === undefined) {
         return [];
     }
@@ -39,7 +39,7 @@ export function parseCommands(info?: ExportCommandInfo): cs.CommandTypeShape[] {
         return undefined;
     }
 
-    const commands: cs.CommandTypeShape[] = [];
+    const commands: cs.NamedShape<cs.CommandTypeAnnotation>[] = [];
     for (const commandName of info.supportedCommands) {
         const decl = getMember(commandName);
         if (decl === undefined) {
@@ -105,14 +105,17 @@ export function parseCommands(info?: ExportCommandInfo): cs.CommandTypeShape[] {
             optional: funcDecl.questionToken !== undefined,
             typeAnnotation: {
                 type: 'FunctionTypeAnnotation',
-                params: funcParameters.slice(1).map((param: ts.ParameterDeclaration): cs.CommandsFunctionTypeParamAnnotation => {
+                returnTypeAnnotation: { type: 'VoidTypeAnnotation' },
+                params: funcParameters.slice(1).map((param: ts.ParameterDeclaration): cs.NamedShape<cs.CommandParamTypeAnnotation> => {
                     if (param.type === undefined) {
                         throw new Error(`Parameter ${param.name.getText()} in command ${commandName} in type ${info.typeNode.getText()} should have a parameter type.`);
                     }
-                    return {
+                    // provided test case fixtures miss the "optional" field
+                    const commandParam = {
                         name: param.name.getText(),
                         typeAnnotation: typeNodeToCommandsTypeAnnotation(param.type, info.sourceFile)
                     };
+                    return <cs.NamedShape<cs.CommandParamTypeAnnotation>>commandParam;
                 })
             }
         });

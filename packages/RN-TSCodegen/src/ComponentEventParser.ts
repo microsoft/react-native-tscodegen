@@ -65,37 +65,30 @@ export function checkEventType(eventType: ts.TypeNode, info: ExportComponentInfo
   }
 }
 
-function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.EventObjectPropertyType {
-  const namePlaceholder = <string><unknown>undefined;
+function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType): cs.EventTypeAnnotation {
   switch (rawType.kind) {
-    case 'Boolean': return { type: 'BooleanTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
-    case 'String': return { type: 'StringTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
-    case 'Float': return { type: 'FloatTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
-    case 'Double': return { type: 'DoubleTypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
-    case 'Int32': return { type: 'Int32TypeAnnotation', name: namePlaceholder, optional: rawType.isNullable };
+    case 'Boolean': return { type: 'BooleanTypeAnnotation' };
+    case 'String': return { type: 'StringTypeAnnotation' };
+    case 'Float': return { type: 'FloatTypeAnnotation' };
+    case 'Double': return { type: 'DoubleTypeAnnotation' };
+    case 'Int32': return { type: 'Int32TypeAnnotation' };
     case 'StringLiterals': return {
       type: 'StringEnumTypeAnnotation',
-      name: namePlaceholder,
-      optional: rawType.isNullable,
-      options: rawType.values.map((name: string) => { return { name }; })
+      options: rawType.values
     };
     case 'Object': return {
       type: 'ObjectTypeAnnotation',
-      name: namePlaceholder,
-      optional: rawType.isNullable,
       properties: rawType.properties.map((rawProp: RNRawObjectProperty) => {
-        const prop = <WritableObjectType<cs.EventObjectPropertyType>>rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
-        prop.name = rawProp.name;
-        if (rawProp.optional) {
-          prop.optional = true;
-        }
-        return prop;
+        const prop = rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
+        return {
+          name: rawProp.name,
+          optional: rawProp.optional || rawProp.propertyType.isNullable,
+          typeAnnotation: prop
+        };
       })
     };
     case 'Null': return {
       type: 'ObjectTypeAnnotation',
-      name: namePlaceholder,
-      optional: rawType.isNullable,
       properties: []
     };
     default:
@@ -107,7 +100,7 @@ export function parseEvent(info: ExportComponentInfo, propDecl: ts.PropertySigna
   const propType = <ts.TypeNode>propDecl.type;
   const rawType = typeToRNRawType(eventInfo.eventType, info.sourceFile, { allowObject: true });
 
-  let eventProperties: readonly cs.EventObjectPropertyType[] = [];
+  let eventProperties: readonly cs.NamedShape<cs.EventTypeAnnotation>[] = [];
   if (rawType.kind !== 'Null') {
     const objectType = rnRawTypeToObjectPropertyType(propType, rawType);
     if (objectType.type === 'ObjectTypeAnnotation') {
@@ -125,7 +118,7 @@ export function parseEvent(info: ExportComponentInfo, propDecl: ts.PropertySigna
       type: 'EventTypeAnnotation',
       argument: {
         type: 'ObjectTypeAnnotation',
-        properties: <WritableObjectType<cs.EventObjectPropertyType>[]>eventProperties
+        properties: <WritableObjectType<cs.NamedShape<cs.EventTypeAnnotation>>[]>eventProperties
       }
     }
   };

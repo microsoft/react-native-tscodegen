@@ -10,8 +10,6 @@ import {WithDefault} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
 import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
-'use strict';
-
 type NativeProps = Readonly<ViewProps & {
   title?: WithDefault<string, ''>;
   onChange?: (ReactNull | BubblingEventHandler<Readonly<{

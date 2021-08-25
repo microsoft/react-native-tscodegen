@@ -7,8 +7,6 @@
 import {ReactNull} from 'react-native-tscodegen-types';
 import {TurboModule} from 'react-native-tscodegen-types'
 import {TurboModuleRegistry} from 'react-native-tscodegen-types';
-'use strict';
-
 export interface Spec extends TurboModule {
   getConstants(): {
     D?: (ReactNull | boolean);

@@ -221,12 +221,8 @@
                   "type": "StringEnumTypeAnnotation",
                   "default": "small",
                   "options": [
-                    {
-                      "name": "small"
-                    },
-                    {
-                      "name": "large"
-                    }
+                    "small",
+                    "large"
                   ]
                 }
               }
@@ -240,12 +236,8 @@
                   "type": "StringEnumTypeAnnotation",
                   "default": "small",
                   "options": [
-                    {
-                      "name": "small"
-                    },
-                    {
-                      "name": "large"
-                    }
+                    "small",
+                    "large"
                   ]
                 }
               }

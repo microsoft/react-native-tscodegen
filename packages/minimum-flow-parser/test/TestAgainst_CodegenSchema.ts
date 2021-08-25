@@ -16,7 +16,7 @@ const codegenSchemaLastStatement: Statement = {
     name: '$ReadOnly',
     elementType: {
       kind: 'ObjectType',
-      isExact: true,
+      isExact: false,
       mixinTypes: [],
       members: [{
         kind: 'Prop',
@@ -28,7 +28,7 @@ const codegenSchemaLastStatement: Statement = {
           name: '$ReadOnly',
           elementType: {
             kind: 'ObjectType',
-            isExact: true,
+            isExact: false,
             mixinTypes: [],
             members: [{
               kind: 'Indexer',
