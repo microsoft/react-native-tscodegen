@@ -82,7 +82,7 @@ function rnRawTypeToObjectPropertyType(typeNode: ts.TypeNode, rawType: RNRawType
         const prop = rnRawTypeToObjectPropertyType(typeNode, rawProp.propertyType);
         return {
           name: rawProp.name,
-          optional: rawProp.optional,
+          optional: rawProp.optional || rawProp.propertyType.isNullable,
           typeAnnotation: prop
         };
       })

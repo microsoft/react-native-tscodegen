@@ -110,11 +110,12 @@ export function parseCommands(info?: ExportCommandInfo): cs.NamedShape<cs.Comman
                     if (param.type === undefined) {
                         throw new Error(`Parameter ${param.name.getText()} in command ${commandName} in type ${info.typeNode.getText()} should have a parameter type.`);
                     }
-                    return {
+                    // provided test case fixtures miss the "optional" field
+                    const commandParam = {
                         name: param.name.getText(),
-                        optional: false,
                         typeAnnotation: typeNodeToCommandsTypeAnnotation(param.type, info.sourceFile)
                     };
+                    return <cs.NamedShape<cs.CommandParamTypeAnnotation>>commandParam;
                 })
             }
         });
