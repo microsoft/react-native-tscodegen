@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "catch up to react-native 0.65-stable",
+  "packageName": "react-native-tscodegen-types",
+  "email": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+  "commit": "5e862514bd65c325820687662cad21d1b2a18963",
+  "date": "2021-08-25T00:10:39.387Z",
+  "file": "E:\\github\\microsoft\\react-native-tscodegen\\change\\react-native-tscodegen-types-2021-08-24-17-10-51-rn-0.65.json"
+}
