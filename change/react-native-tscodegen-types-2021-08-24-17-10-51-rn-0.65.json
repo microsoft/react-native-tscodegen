@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "catch up to react-native 0.65-stable",
+  "comment": "catch up to react-native 0.65-stable (compiler only, no including @types/react-native)",
   "packageName": "react-native-tscodegen-types",
   "email": "53799235+ZihanChen-MSFT@users.noreply.github.com",
   "commit": "5e862514bd65c325820687662cad21d1b2a18963",
