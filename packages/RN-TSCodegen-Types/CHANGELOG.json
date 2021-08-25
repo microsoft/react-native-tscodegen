@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen-types",
   "entries": [
     {
+      "date": "Wed, 25 Aug 2021 00:24:50 GMT",
+      "tag": "react-native-tscodegen-types_v0.67.3",
+      "version": "0.67.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "catch up to react-native 0.65-stable (compiler only, no including @types/react-native)",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "5e862514bd65c325820687662cad21d1b2a18963"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 14 Jul 2021 18:04:50 GMT",
       "tag": "react-native-tscodegen-types_v0.67.2",
       "version": "0.67.2",

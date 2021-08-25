@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen-types
 
-This log was last generated on Wed, 14 Jul 2021 18:04:50 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Aug 2021 00:24:50 GMT and should not be manually modified.
 
+## 0.67.3
+Wed, 25 Aug 2021 00:24:50 GMT
+
+### Patches
+
+- catch up to react-native 0.65-stable (compiler only, no including @types/react-native) (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.67.2
 Wed, 14 Jul 2021 18:04:50 GMT
 

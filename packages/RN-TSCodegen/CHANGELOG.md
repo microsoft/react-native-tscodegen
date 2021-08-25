@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Tue, 24 Aug 2021 21:37:02 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Aug 2021 00:24:50 GMT and should not be manually modified.
 
+## 0.68.3
+Wed, 25 Aug 2021 00:24:50 GMT
+
+### Patches
+
+- catch up to react-native 0.65-stable (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.68.2
 Tue, 24 Aug 2021 21:37:02 GMT
 
