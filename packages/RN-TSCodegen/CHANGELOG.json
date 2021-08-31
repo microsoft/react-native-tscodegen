@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Tue, 31 Aug 2021 18:15:23 GMT",
+      "tag": "react-native-tscodegen_v0.68.4",
+      "version": "0.68.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update react-native to 0.66-stable",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "20291dda7b5b561ef8c143b74deefad40e9d517d"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Aug 2021 00:24:50 GMT",
       "tag": "react-native-tscodegen_v0.68.3",
       "version": "0.68.3",

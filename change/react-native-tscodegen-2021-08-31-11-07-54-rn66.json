@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "update react-native to 0.66-stable",
-  "packageName": "react-native-tscodegen",
-  "email": "53799235+ZihanChen-MSFT@users.noreply.github.com",
-  "commit": "20291dda7b5b561ef8c143b74deefad40e9d517d",
-  "date": "2021-08-31T18:07:54.656Z",
-  "file": "E:\\github\\microsoft\\react-native-tscodegen\\change\\react-native-tscodegen-2021-08-31-11-07-54-rn66.json"
-}
