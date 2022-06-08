@@ -30,7 +30,7 @@
     "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "react-native-tscodegen": "^0.68.4",
+    "react-native-tscodegen": "^0.68.5",
     "react-native-tscodegen-types": "^0.67.3"
   },
   "jest": {

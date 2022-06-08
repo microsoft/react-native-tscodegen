@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Tue, 31 Aug 2021 18:15:23 GMT and should not be manually modified.
+This log was last generated on Wed, 08 Jun 2022 20:03:29 GMT and should not be manually modified.
 
+## 0.68.5
+Wed, 08 Jun 2022 20:03:29 GMT
+
+### Patches
+
+- Rename private packages to avoid conflict with npm versions (30809111+acoates-ms@users.noreply.github.com)
 ## 0.68.4
 Tue, 31 Aug 2021 18:15:23 GMT
 
