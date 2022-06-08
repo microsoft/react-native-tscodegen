@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as flow from 'minimum-flow-parser';
+import * as flow from '@react-native-tscodegen/minimum-flow-parser';
 
 function fixExpression(expr: flow.Expression): void {
     switch (expr.kind) {

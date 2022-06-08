@@ -33,7 +33,7 @@ yarn test
 
 ## Packages
 
-### tslint-shared
+### @react-native-tscodegen/tslint-shared
 
 This is the shared tslint configuration for all other packages.
 
@@ -61,7 +61,7 @@ There are two important exported functions:
 
 This package contains all test cases for RN-TSCodegen, with unit test code.
 
-### minimum-flow-parser
+### @react-native-tscodegen/minimum-flow-parser
 
 This is a Flow parser, just enough to convert necessary files to TypeScript for this repo.
 

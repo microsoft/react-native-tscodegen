@@ -27,7 +27,7 @@
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^4.1.5",
-    "tslint-shared": "^1.0.0"
+    "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
     "react-native-tscodegen": "^0.68.4",

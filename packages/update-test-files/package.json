@@ -22,10 +22,10 @@
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^4.1.5",
-    "tslint-shared": "^1.0.0"
+    "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "minimum-flow-parser": "^1.0.0",
+    "@react-native-tscodegen/minimum-flow-parser": "^1.0.0",
     "typescript-parsec": "^0.1.1"
   }
 }

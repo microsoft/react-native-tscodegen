@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Rename private packages to avoid conflict with npm versions",
+  "packageName": "react-native-tscodegen",
+  "email": "30809111+acoates-ms@users.noreply.github.com",
+  "commit": "5099c01afcf87ce2156f55b464e65b785505553d",
+  "date": "2022-06-08T19:56:19.764Z",
+  "file": "E:\\Repos\\react-native-tscodegen\\change\\react-native-tscodegen-2022-06-08-12-56-19-renamePrivPackages.json"
+}

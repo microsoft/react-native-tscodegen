@@ -1,6 +1,6 @@
 {
   "extends": [
-    "tslint-shared"
+    "@react-native-tscodegen/tslint-shared"
   ],
   "linterOptions": {
     "exclude": [
