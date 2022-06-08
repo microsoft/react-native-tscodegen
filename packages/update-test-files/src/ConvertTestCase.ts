@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as flow from 'minimum-flow-parser';
+import * as flow from '@react-native-tscodegen/minimum-flow-parser';
 import * as os from 'os';
 import { fixTestCase } from './FixTestCase';
 import { printTypeScript } from './PrintTS';

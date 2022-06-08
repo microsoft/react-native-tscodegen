@@ -1,5 +1,5 @@
 {
-  "name": "tslint-shared",
+  "name": "@react-native-tscodegen/tslint-shared",
   "version": "1.0.0",
   "description": "Shared tslint rules",
   "main": "tslint-export.json",

@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 import * as fs from 'fs';
-import * as flow from 'minimum-flow-parser';
+import * as flow from '@react-native-tscodegen/minimum-flow-parser';
 import * as path from 'path';
 import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import { printTypeScript } from './PrintTS';

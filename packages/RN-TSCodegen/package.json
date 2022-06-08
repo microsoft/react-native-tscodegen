@@ -22,7 +22,7 @@
     "flow-remove-types": "^2.158.0",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "tslint-shared": "^1.0.0"
+    "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
     "typescript": "^4.1.5",
