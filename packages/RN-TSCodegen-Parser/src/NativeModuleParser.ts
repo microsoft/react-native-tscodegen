@@ -184,6 +184,10 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     if (info.name.endsWith('IOS')) {
         excludedPlatforms.push('android');
     }
+    if (info.name.endsWith('Cxx')) {
+        excludedPlatforms.push('iOS');
+        excludedPlatforms.push('android');
+    }
 
     if (excludedPlatforms.length === 0) {
         return { type: 'NativeModule', aliases, spec, moduleNames };
