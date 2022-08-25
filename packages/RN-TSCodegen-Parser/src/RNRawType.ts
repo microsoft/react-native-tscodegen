@@ -28,6 +28,12 @@ export interface RNRawFunctionParameter {
     parameterType: RNRawType;
 }
 
+export interface RNRawFunctionType {
+    kind: 'Function';
+    returnType: RNRawType;
+    parameters: RNRawFunctionParameter[];
+}
+
 export type RNRawType = (
     | {
         kind: 'StringLiterals';
@@ -60,11 +66,7 @@ export type RNRawType = (
         kind: 'js:Promise';
         elementType: RNRawType;
     }
-    | {
-        kind: 'Function';
-        returnType: RNRawType;
-        parameters: RNRawFunctionParameter[];
-    }
+    | RNRawFunctionType
     | {
         kind: 'Union' | 'Tuple';
         types: RNRawType[];

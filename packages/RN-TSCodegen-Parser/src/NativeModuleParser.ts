@@ -3,7 +3,7 @@
 
 import * as cs from 'react-native-tscodegen';
 import { ExportNativeModuleInfo } from './ExportParser';
-import { RNRawFunctionParameter, RNRawObjectProperty, RNRawType } from './RNRawType';
+import { RNRawFunctionParameter, RNRawFunctionType, RNRawObjectProperty, RNRawType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
 function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.NativeModuleBaseTypeAnnotation {
@@ -53,20 +53,24 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
     }
 }
 
+function functionTypeToParamType(rawType: RNRawFunctionType, usedAliases: string[]): cs.NativeModuleParamTypeAnnotation {
+    return {
+        type: 'FunctionTypeAnnotation',
+        params: rawType.parameters.map((param: RNRawFunctionParameter) => {
+            const parameterType = rawTypeToParamType(param.parameterType, usedAliases);
+            return {
+                optional: param.optional,
+                name: param.name,
+                typeAnnotation: param.parameterType.isNullable ? { type: 'NullableTypeAnnotation', typeAnnotation: parameterType } : parameterType
+            };
+        }),
+        returnTypeAnnotation: rawTypeToReturnType(rawType.returnType, usedAliases)
+    };
+}
+
 function rawTypeToParamType(rawType: RNRawType, usedAliases: string[]): cs.NativeModuleParamTypeAnnotation {
     switch (rawType.kind) {
-        case 'Function': return {
-            type: 'FunctionTypeAnnotation',
-            params: rawType.parameters.map((param: RNRawFunctionParameter) => {
-                const parameterType = rawTypeToParamType(param.parameterType, usedAliases);
-                return {
-                    optional: param.optional,
-                    name: param.name,
-                    typeAnnotation: param.parameterType.isNullable ? { type: 'NullableTypeAnnotation', typeAnnotation: parameterType } : parameterType
-                };
-            }),
-            returnTypeAnnotation: rawTypeToReturnType(rawType.returnType, usedAliases)
-        };
+        case 'Function': return functionTypeToParamType(rawType, usedAliases);
         default:
             return rawTypeToBaseType(rawType, usedAliases);
     }
@@ -85,6 +89,7 @@ function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.Nati
         case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
         case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
+        case 'Function': return <cs.NativeModuleReturnTypeAnnotation>functionTypeToParamType(rawType, usedAliases);
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
                 return { type: 'ArrayTypeAnnotation' };
