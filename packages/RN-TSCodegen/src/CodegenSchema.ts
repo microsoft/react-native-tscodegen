@@ -69,12 +69,12 @@ export interface ComponentSchema {
   };
 }
 
-export type ComponentShape = OptionsShape & {
+export interface ComponentShape extends OptionsShape {
   readonly extendsProps: readonly ExtendsPropsShape[];
   readonly events: readonly EventTypeShape[];
   readonly props: readonly NamedShape<PropTypeAnnotation>[];
   readonly commands: readonly NamedShape<CommandTypeAnnotation>[];
-};
+}
 
 export interface OptionsShape {
   readonly interfaceOnly?: boolean;
@@ -218,7 +218,7 @@ export interface NativeModuleSpec {
 export type NativeModulePropertyShape = NamedShape<Nullable<NativeModuleFunctionTypeAnnotation>>;
 
 export interface NativeModuleAliasMap {
-  [aliasName: string]: NativeModuleObjectTypeAnnotation;
+  readonly [aliasName: string]: NativeModuleObjectTypeAnnotation;
 }
 
 export type NativeModuleFunctionTypeAnnotation = FunctionTypeAnnotation<Nullable<NativeModuleParamTypeAnnotation>, Nullable<NativeModuleReturnTypeAnnotation>>;

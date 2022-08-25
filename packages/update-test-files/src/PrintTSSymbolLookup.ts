@@ -79,7 +79,7 @@ function checkBaseType(lookup: SymbolLookup, name: string, visited: Set<string> 
         }
 
         const allBaseTypesReadonly = baseTypeNames.filter((memberName: string) => !lookup.t2iAllMembersReadonly.has(memberName)).length === 0;
-        const allMembersReadonly = decl.interfaceType.members.filter((member: flow.ObjectMember) => !member.isReadonly).length !== 0;
+        const allMembersReadonly = decl.interfaceType.members.filter((member: flow.ObjectMember) => !member.isReadonly).length === 0;
         if (readonly && (!allBaseTypesReadonly || !allMembersReadonly)) {
             return false;
         }

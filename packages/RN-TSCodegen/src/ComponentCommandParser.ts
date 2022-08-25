@@ -81,7 +81,6 @@ export function parseCommands(info?: ExportCommandInfo): cs.NamedShape<cs.Comman
         }
 
         if (resolveType(funcReturnType, info.sourceFile).kind !== ts.SyntaxKind.VoidKeyword) {
-            console.log(funcReturnType.kind);
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should return void.`);
         }
         if (funcParameters.length === 0) {
