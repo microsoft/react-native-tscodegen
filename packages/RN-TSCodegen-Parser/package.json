@@ -6,7 +6,7 @@
   "bin": "./bin/cli",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
+    "build": "tslint --project tsconfig.json & tsc"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "dependencies": {
     "typescript": "^4.7.4",
     "jscodeshift": "0.6.4",
-    "nullthrows": "1.1.1"
+    "nullthrows": "1.1.1",
+    "react-native-tscodegen": "*"
   }
 }
