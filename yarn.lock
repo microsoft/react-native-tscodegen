@@ -2423,15 +2423,6 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@17.0.8":
-  version "17.0.8"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.8.tgz#fe76e3ba0fbb5602704110fd1e3035cf394778e3"
-  integrity sha512-3sx4c0PbXujrYAKwXxNONXUtRp9C+hE2di0IuxFyf5BELD+B+AXL8G7QrmSKhVwKZDbv0igiAjQAMhXj8Yg3aw==
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
 "@types/scheduler@*":
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
@@ -7620,25 +7611,6 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
-react-native-tscodegen-types@*:
-  version "0.67.3"
-  resolved "https://registry.yarnpkg.com/react-native-tscodegen-types/-/react-native-tscodegen-types-0.67.3.tgz#e740c79e1a234edc2cdbfe1704788958afb12431"
-  integrity sha512-EiEiD8cXyF7TQwXD71Ecyhouo6WAjIkpa8SgwcV/YpOIgSMjVtgvUwlY28L7/BH8cLMMtg9db6f7iOdFsZWp+w==
-  dependencies:
-    "@react-native/assets" "1.0.0"
-    "@types/react" "17.0.8"
-    "@types/react-native__assets" "1.0.0"
-    react-native "0.64.1"
-
-react-native-tscodegen@*:
-  version "0.68.5"
-  resolved "https://registry.yarnpkg.com/react-native-tscodegen/-/react-native-tscodegen-0.68.5.tgz#79a3565dea06d34eb27660ffcf79a6d4c5c416cf"
-  integrity sha512-+RXa6CCTv1JhB3QhOsmRaIYfxCCsOqgPoT8XCjW1jRmEMXVOajJ2aP0kLtADt7i9cQMxnOG4rTO7Qqch42553A==
-  dependencies:
-    jscodeshift "0.6.4"
-    nullthrows "1.1.1"
-    typescript "^4.1.5"
-
 react-native@0.64.1:
   version "0.64.1"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.64.1.tgz#cd38f5b47b085549686f34eb0c9dcd466f307635"
@@ -8991,7 +8963,7 @@ typescript-parsec@^0.1.0, typescript-parsec@^0.1.1:
   resolved "https://registry.yarnpkg.com/typescript-parsec/-/typescript-parsec-0.1.1.tgz#2017ea8456614b4a67b662ac33e75d373cf1843b"
   integrity sha512-D6lnpfYPqjxJVXsKH+z+/66QfuBiv/nKf8aOrmfAtDpb8YfIBZyUXWnVFRubO47ETB39F6C0cIPOXw2Kb8JYiw==
 
-typescript@^4.1.5, typescript@^4.7.4:
+typescript@^4.7.4:
   version "4.7.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==

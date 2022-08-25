@@ -28,6 +28,6 @@
     "typescript": "^4.7.4",
     "jscodeshift": "0.6.4",
     "nullthrows": "1.1.1",
-    "react-native-tscodegen": "*"
+    "react-native-tscodegen": "0.70.0-rc.3"
   }
 }
