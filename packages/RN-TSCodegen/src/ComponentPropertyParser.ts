@@ -9,7 +9,7 @@ import { ExportComponentInfo } from './ExportParser';
 import { RNRawObjectProperty, RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
 
-function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode): cs.ObjectTypeAnnotation_PropTypeAnnotation {
+function rnRawTypeToObjectTypeAnnotation(rawType: RNRawObjectType & RNRawTypeCommon, typeNode: ts.TypeNode): cs.ObjectTypeAnnotation<cs.PropTypeAnnotation> {
   return {
     type: 'ObjectTypeAnnotation',
     properties: rawType.properties.map((value: RNRawObjectProperty) => {
