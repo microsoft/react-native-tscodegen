@@ -87,7 +87,7 @@ function printFunctionType(printer: Printer, functionType: flow.FunctionType, in
     printType(printer, functionType.returnType);
 }
 
-function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, forInterface: boolean): void {
+function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, forInterface: boolean, readonly: boolean): void {
     printer.write('{');
     printer.writeLn();
     printer.pushIndent();
@@ -102,7 +102,7 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
                     }
                     printFunctionType(printer, member.propType, true);
                 } else {
-                    if (member.isReadonly) {
+                    if (member.isReadonly || readonly) {
                         printer.write('readonly ');
                     }
                     printer.write(member.name);
@@ -168,7 +168,7 @@ function printExpressionArray(printer: Printer, exprs: flow.Expression[], delimi
     }
 }
 
-function printType(printer: Printer, flowType: flow.Type): void {
+function printType(printer: Printer, flowType: flow.Type, readonly: boolean = false): void {
     switch (flowType.kind) {
         case 'PrimitiveType': {
             printer.write(flowType.name);
@@ -196,9 +196,15 @@ function printType(printer: Printer, flowType: flow.Type): void {
         }
         case 'ArrayType': {
             if (flowType.isReadonly) {
-                printer.write('ReadonlyArray<');
-                printType(printer, flowType.elementType);
-                printer.write('>');
+                if (printer.config.forTestCase) {
+                    printer.write('ReadonlyArray<');
+                    printType(printer, flowType.elementType);
+                    printer.write('>');
+                } else {
+                    printer.write('readonly ');
+                    printType(printer, flowType.elementType);
+                    printer.write('[]');
+                }
             } else {
                 printType(printer, flowType.elementType);
                 printer.write('[]');
@@ -216,13 +222,17 @@ function printType(printer: Printer, flowType: flow.Type): void {
                 printType(printer, mixinType);
                 printer.write(' & ');
             }
-            printObjectTypeWithoutMixins(printer, flowType, false);
+            printObjectTypeWithoutMixins(printer, flowType, false, readonly);
             break;
         }
         case 'DecoratedGenericType': {
-            printer.write('Readonly<');
-            printType(printer, flowType.elementType);
-            printer.write('>');
+            if (printer.config.forTestCase) {
+                printer.write('Readonly<');
+                printType(printer, flowType.elementType);
+                printer.write('>');
+            } else {
+                printType(printer, flowType.elementType, true);
+            }
             break;
         }
         case 'UnionType': {
@@ -343,6 +353,18 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
             if (forceExport || stat.hasExport) {
                 printer.write(`export `);
             }
+
+            //var printInterface = false;
+            //if (!printer.config.forTestCase) {
+            //    if (stat.aliasedType.kind === 'ObjectType') {
+            //        printInterface = true;
+            //    } else if (stat.aliasedType.kind === 'DecoratedGenericType' && stat.aliasedType.name === '$ReadOnly') {
+            //        if (stat.aliasedType.elementType.kind === 'ObjectType') {
+            //            printInterface = true;
+            //        }
+            //    }
+            //}
+
             printer.write(`type ${stat.name}`);
             printGenericHeader(printer, stat.generic);
             printer.write(' =');
@@ -369,7 +391,7 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
             }
 
             printer.write(' ');
-            printObjectTypeWithoutMixins(printer, stat.interfaceType, true);
+            printObjectTypeWithoutMixins(printer, stat.interfaceType, true, false);
             break;
         }
         case 'ImportEqualStat': {
