@@ -354,27 +354,42 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
                 printer.write(`export `);
             }
 
-            //var printInterface = false;
-            //if (!printer.config.forTestCase) {
-            //    if (stat.aliasedType.kind === 'ObjectType') {
-            //        printInterface = true;
-            //    } else if (stat.aliasedType.kind === 'DecoratedGenericType' && stat.aliasedType.name === '$ReadOnly') {
-            //        if (stat.aliasedType.elementType.kind === 'ObjectType') {
-            //            printInterface = true;
-            //        }
-            //    }
-            //}
+            let interfaceType: flow.ObjectType | undefined;
+            let interfaceReadonly = false;
 
-            printer.write(`type ${stat.name}`);
-            printGenericHeader(printer, stat.generic);
-            printer.write(' =');
-            if (stat.aliasedType.kind === 'UnionType') {
-                printUnionTypeWithHeader(printer, stat.aliasedType);
-                printer.write(';');
-            } else {
+            if (!printer.config.forTestCase) {
+                if (stat.aliasedType.kind === 'ObjectType') {
+                    if (stat.aliasedType.mixinTypes.length === 0) {
+                        interfaceType = stat.aliasedType;
+                    }
+                } else if (stat.aliasedType.kind === 'DecoratedGenericType' && stat.aliasedType.name === '$ReadOnly') {
+                    if (stat.aliasedType.elementType.kind === 'ObjectType') {
+                        if (stat.aliasedType.elementType.mixinTypes.length === 0) {
+                            interfaceType = stat.aliasedType.elementType;
+                            interfaceReadonly = true;
+                        }
+                    }
+                }
+            }
+
+            if (interfaceType !== undefined) {
+                printer.write(`interface ${stat.name}`);
+                printGenericHeader(printer, stat.generic);
                 printer.write(' ');
-                printType(printer, stat.aliasedType);
-                printer.write(';');
+                printObjectTypeWithoutMixins(printer, interfaceType, true, interfaceReadonly);
+                break;
+            } else {
+                printer.write(`type ${stat.name}`);
+                printGenericHeader(printer, stat.generic);
+                printer.write(' =');
+                if (stat.aliasedType.kind === 'UnionType') {
+                    printUnionTypeWithHeader(printer, stat.aliasedType);
+                    printer.write(';');
+                } else {
+                    printer.write(' ');
+                    printType(printer, stat.aliasedType);
+                    printer.write(';');
+                }
             }
             break;
         }

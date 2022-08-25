@@ -10,64 +10,64 @@ export type PlatformType =
   | 'iOS'
   | 'android';
 
-export type SchemaType = {
+export interface SchemaType {
   readonly modules: {
     [hasteModuleName: string]: ComponentSchema | NativeModuleSchema;
   };
-};
+}
 
-export type DoubleTypeAnnotation = {
+export interface DoubleTypeAnnotation {
   readonly type: 'DoubleTypeAnnotation';
-};
+}
 
-export type FloatTypeAnnotation = {
+export interface FloatTypeAnnotation {
   readonly type: 'FloatTypeAnnotation';
-};
+}
 
-export type BooleanTypeAnnotation = {
+export interface BooleanTypeAnnotation {
   readonly type: 'BooleanTypeAnnotation';
-};
+}
 
-export type Int32TypeAnnotation = {
+export interface Int32TypeAnnotation {
   readonly type: 'Int32TypeAnnotation';
-};
+}
 
-export type StringTypeAnnotation = {
+export interface StringTypeAnnotation {
   readonly type: 'StringTypeAnnotation';
-};
+}
 
-export type StringEnumTypeAnnotation = {
+export interface StringEnumTypeAnnotation {
   readonly type: 'StringEnumTypeAnnotation';
   readonly options: readonly string[];
-};
+}
 
-export type VoidTypeAnnotation = {
+export interface VoidTypeAnnotation {
   readonly type: 'VoidTypeAnnotation';
-};
+}
 
-export type ObjectTypeAnnotation<T> = {
+export interface ObjectTypeAnnotation<T> {
   readonly type: 'ObjectTypeAnnotation';
   readonly properties: readonly NamedShape<T>[];
-};
+}
 
-export type FunctionTypeAnnotation<P, R> = {
+export interface FunctionTypeAnnotation<P, R> {
   readonly type: 'FunctionTypeAnnotation';
   readonly params: readonly NamedShape<P>[];
   readonly returnTypeAnnotation: R;
-};
+}
 
-export type NamedShape<T> = {
+export interface NamedShape<T> {
   readonly name: string;
   readonly optional: boolean;
   readonly typeAnnotation: T;
-};
+}
 
-export type ComponentSchema = {
+export interface ComponentSchema {
   readonly type: 'Component';
   readonly components: {
     [componentName: string]: ComponentShape;
   };
-};
+}
 
 export type ComponentShape = OptionsShape & {
   readonly extendsProps: readonly ExtendsPropsShape[];
@@ -76,19 +76,19 @@ export type ComponentShape = OptionsShape & {
   readonly commands: readonly NamedShape<CommandTypeAnnotation>[];
 };
 
-export type OptionsShape = {
+export interface OptionsShape {
   readonly interfaceOnly?: boolean;
   readonly paperComponentName?: string;
   readonly excludedPlatforms?: readonly PlatformType[];
   readonly paperComponentNameDeprecated?: string;
-};
+}
 
-export type ExtendsPropsShape = {
+export interface ExtendsPropsShape {
   readonly type: 'ReactNativeBuiltInType';
   readonly knownTypeName: 'ReactNativeCoreViewProps';
-};
+}
 
-export type EventTypeShape = {
+export interface EventTypeShape {
   readonly name: string;
   readonly bubblingType:
     | 'direct'
@@ -99,7 +99,7 @@ export type EventTypeShape = {
     readonly type: 'EventTypeAnnotation';
     readonly argument?: ObjectTypeAnnotation<EventTypeAnnotation>;
   };
-};
+}
 
 export type EventTypeAnnotation =
   | BooleanTypeAnnotation
@@ -170,14 +170,14 @@ export type PropTypeAnnotation =
           };
     };
 
-export type ReservedPropTypeAnnotation = {
+export interface ReservedPropTypeAnnotation {
   readonly type: 'ReservedPropTypeAnnotation';
   readonly name:
     | 'ColorPrimitive'
     | 'ImageSourcePrimitive'
     | 'PointPrimitive'
     | 'EdgeInsetsPrimitive';
-};
+}
 
 export type CommandTypeAnnotation = FunctionTypeAnnotation<CommandParamTypeAnnotation, VoidTypeAnnotation>;
 
@@ -189,87 +189,87 @@ export type CommandParamTypeAnnotation =
   | FloatTypeAnnotation
   | StringTypeAnnotation;
 
-export type ReservedTypeAnnotation = {
+export interface ReservedTypeAnnotation {
   readonly type: 'ReservedTypeAnnotation';
   readonly name: 'RootTag';
-};
+}
 
 export type Nullable<T extends NativeModuleTypeAnnotation> =
   | NullableTypeAnnotation<T>
   | T;
 
-export type NullableTypeAnnotation<T extends NativeModuleTypeAnnotation> = {
+export interface NullableTypeAnnotation<T extends NativeModuleTypeAnnotation> {
   readonly type: 'NullableTypeAnnotation';
   readonly typeAnnotation: T;
-};
+}
 
-export type NativeModuleSchema = {
+export interface NativeModuleSchema {
   readonly type: 'NativeModule';
   readonly aliases: NativeModuleAliasMap;
   readonly spec: NativeModuleSpec;
   readonly moduleNames: readonly string[];
   readonly excludedPlatforms?: readonly PlatformType[];
-};
+}
 
-export type NativeModuleSpec = {
+export interface NativeModuleSpec {
   readonly properties: readonly NativeModulePropertyShape[];
-};
+}
 
 export type NativeModulePropertyShape = NamedShape<Nullable<NativeModuleFunctionTypeAnnotation>>;
 
-export type NativeModuleAliasMap = {
+export interface NativeModuleAliasMap {
   [aliasName: string]: NativeModuleObjectTypeAnnotation;
-};
+}
 
 export type NativeModuleFunctionTypeAnnotation = FunctionTypeAnnotation<Nullable<NativeModuleParamTypeAnnotation>, Nullable<NativeModuleReturnTypeAnnotation>>;
 
 export type NativeModuleObjectTypeAnnotation = ObjectTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>>;
 
-export type NativeModuleArrayTypeAnnotation<T extends Nullable<NativeModuleBaseTypeAnnotation>> = {
+export interface NativeModuleArrayTypeAnnotation<T extends Nullable<NativeModuleBaseTypeAnnotation>> {
   readonly type: 'ArrayTypeAnnotation';
   readonly elementType?: T;
-};
+}
 
-export type NativeModuleStringTypeAnnotation = {
+export interface NativeModuleStringTypeAnnotation {
   readonly type: 'StringTypeAnnotation';
-};
+}
 
-export type NativeModuleNumberTypeAnnotation = {
+export interface NativeModuleNumberTypeAnnotation {
   readonly type: 'NumberTypeAnnotation';
-};
+}
 
-export type NativeModuleInt32TypeAnnotation = {
+export interface NativeModuleInt32TypeAnnotation {
   readonly type: 'Int32TypeAnnotation';
-};
+}
 
-export type NativeModuleDoubleTypeAnnotation = {
+export interface NativeModuleDoubleTypeAnnotation {
   readonly type: 'DoubleTypeAnnotation';
-};
+}
 
-export type NativeModuleFloatTypeAnnotation = {
+export interface NativeModuleFloatTypeAnnotation {
   readonly type: 'FloatTypeAnnotation';
-};
+}
 
-export type NativeModuleBooleanTypeAnnotation = {
+export interface NativeModuleBooleanTypeAnnotation {
   readonly type: 'BooleanTypeAnnotation';
-};
+}
 
-export type NativeModuleGenericObjectTypeAnnotation = {
+export interface NativeModuleGenericObjectTypeAnnotation {
   readonly type: 'GenericObjectTypeAnnotation';
-};
+}
 
-export type NativeModuleTypeAliasTypeAnnotation = {
+export interface NativeModuleTypeAliasTypeAnnotation {
   readonly type: 'TypeAliasTypeAnnotation';
   readonly name: string;
-};
+}
 
-export type NativeModulePromiseTypeAnnotation = {
+export interface NativeModulePromiseTypeAnnotation {
   readonly type: 'PromiseTypeAnnotation';
-};
+}
 
-export type NativeModuleMixedTypeAnnotation = {
+export interface NativeModuleMixedTypeAnnotation {
   readonly type: 'MixedTypeAnnotation';
-};
+}
 
 export type NativeModuleBaseTypeAnnotation =
   | NativeModuleStringTypeAnnotation
