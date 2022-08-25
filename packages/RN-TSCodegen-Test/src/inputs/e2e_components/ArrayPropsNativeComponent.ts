@@ -10,7 +10,6 @@ import {WithDefault} from 'react-native-tscodegen-types';
 import {ImageSource} from 'react-native-tscodegen-types';
 import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
-import {EdgeInsetsValue} from 'react-native-tscodegen-types';
 import {ViewProps} from 'react-native-tscodegen-types';
 import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
@@ -22,7 +21,6 @@ type NativeProps = Readonly<ViewProps & {
   colors?: ReadonlyArray<ColorValue>;
   srcs?: ReadonlyArray<ImageSource>;
   points?: ReadonlyArray<PointValue>;
-  edgeInsets?: ReadonlyArray<EdgeInsetsValue>;
   sizes?: WithDefault<ReadonlyArray<'small' | 'large'>, 'small'>;
   object?: ReadonlyArray<Readonly<{
     prop: string;

@@ -1,5 +1,5 @@
 
-// Automatically copied from modules/__test_fixtures__/failures.js
+// Automatically copied from modules/__test_fixtures__/fixtures.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow)
 
 /**
@@ -18,12 +18,9 @@ import type {TurboModule} from '../RCTExport';
 import * as TurboModuleRegistry from '../TurboModuleRegistry';
 
 export interface Spec extends TurboModule {
-  +getBool: (arg: boolean) => boolean;
-  +getNumber: (arg: number) => number;
-  +getString: (arg: string) => string;
-  sampleBool: boolean,
-
+  +getCallback: () => () => void;
+  +getMixed: (arg: mixed) => mixed;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');
+export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModuleCxx');
 
