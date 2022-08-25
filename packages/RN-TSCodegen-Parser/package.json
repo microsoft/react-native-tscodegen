@@ -1,0 +1,32 @@
+{
+  "name": "react-native-tscodegen-parser",
+  "version": "0.70.0-rc.3",
+  "description": "TypeScript Code Generation for React Native Turbo Module",
+  "main": "./lib/index.js",
+  "bin": "./bin/cli",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoft/react-native-tscodegen.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microsoft/react-native-tscodegen/issues"
+  },
+  "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
+  "devDependencies": {
+    "@types/node": "^12.6.9",
+    "flow-remove-types": "^2.158.0",
+    "tslint": "^5.18.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "@react-native-tscodegen/tslint-shared": "^1.0.0"
+  },
+  "dependencies": {
+    "typescript": "^4.7.4",
+    "jscodeshift": "0.6.4",
+    "nullthrows": "1.1.1"
+  }
+}
