@@ -351,9 +351,8 @@ function printStatement(printer: Printer, lookup: SymbolLookup, stat: flow.State
             printer.write(`'use strict';`); break;
         }
         case 'TypeAliasDecl': {
-            const interfaceDecl = printer.config.forTestCase ? undefined : tryConvertTypeAlias(stat);
-            if (interfaceDecl !== undefined) {
-                printStatement(printer, lookup, interfaceDecl, forceExport);
+            if (lookup.t2iSelected[stat.name] === true) {
+                printStatement(printer, lookup, lookup.t2iCandidates[stat.name][1], forceExport);
                 break;
             } else {
                 if (forceExport || stat.hasExport) {
