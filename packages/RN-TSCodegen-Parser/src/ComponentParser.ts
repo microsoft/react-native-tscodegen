@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+import * as cs from 'react-native-tscodegen';
 import * as ts from 'typescript';
-import * as cs from './CodegenSchema';
 import { parseCommands } from './ComponentCommandParser';
 import { checkEventType, parseEvent } from './ComponentEventParser';
 import { parseProperty } from './ComponentPropertyParser';

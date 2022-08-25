@@ -3,8 +3,8 @@
 
 // tslint:disable:no-null-keyword
 
+import * as cs from 'react-native-tscodegen';
 import * as ts from 'typescript';
-import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
 import { RNRawObjectProperty, RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';

@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+import * as cs from 'react-native-tscodegen';
 import * as ts from 'typescript';
-import * as cs from './CodegenSchema';
 import { ExportComponentInfo } from './ExportParser';
 import { RNRawObjectProperty, RNRawType, WritableObjectType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';

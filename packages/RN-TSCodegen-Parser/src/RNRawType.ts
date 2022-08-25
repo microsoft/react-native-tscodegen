@@ -38,7 +38,7 @@ export type RNRawType = (
         values: number[];
     }
     | {
-        kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any';
+        kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any' | 'Unknown';
     }
     | {
         kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive' | 'rn:RootTag' | 'rn:UnsafeObject';

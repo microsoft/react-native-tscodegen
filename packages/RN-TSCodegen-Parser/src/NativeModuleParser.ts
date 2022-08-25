@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as cs from './CodegenSchema';
+import * as cs from 'react-native-tscodegen';
 import { ExportNativeModuleInfo } from './ExportParser';
 import { RNRawFunctionParameter, RNRawObjectProperty, RNRawType } from './RNRawType';
 import { typeToRNRawType } from './TypeChecker';
@@ -14,6 +14,7 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
         case 'Float': return { type: 'FloatTypeAnnotation' };
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
+        case 'Unknown': return { type: 'MixedTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
         case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
@@ -79,6 +80,7 @@ function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.Nati
         case 'Float': return { type: 'FloatTypeAnnotation' };
         case 'Double': return { type: 'DoubleTypeAnnotation' };
         case 'Boolean': return { type: 'BooleanTypeAnnotation' };
+        case 'Unknown': return { type: 'MixedTypeAnnotation' };
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
         case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };

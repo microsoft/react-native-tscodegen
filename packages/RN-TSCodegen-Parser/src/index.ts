@@ -2,8 +2,8 @@
 // Licensed under the MIT license.
 
 import * as path from 'path';
+import * as cs from 'react-native-tscodegen';
 import * as ts from 'typescript';
-import * as cs from './CodegenSchema';
 import { processComponent } from './ComponentParser';
 import * as ep from './ExportParser';
 import { NativeModuleAliases, processNativeModule } from './NativeModuleParser';

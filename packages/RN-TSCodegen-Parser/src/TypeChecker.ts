@@ -248,6 +248,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 case ts.SyntaxKind.AnyKeyword:
                     itemOthers.push({ kind: 'Any', isNullable: false });
                     break;
+                case ts.SyntaxKind.UnknownKeyword:
+                    itemOthers.push({ kind: 'Unknown', isNullable: false });
+                    break;
                 default:
                     recognized = false;
             }
