@@ -172,7 +172,11 @@ function printExpressionArray(printer: Printer, exprs: flow.Expression[], delimi
 function printType(printer: Printer, flowType: flow.Type, readonly: boolean = false): void {
     switch (flowType.kind) {
         case 'PrimitiveType': {
-            printer.write(flowType.name);
+            if (flowType.name === 'mixed') {
+                printer.write('unknown');
+            } else {
+                printer.write(flowType.name);
+            }
             break;
         }
         case 'LiteralType': {

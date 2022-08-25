@@ -15,6 +15,10 @@ type Token = parsec.Token<TokenKind>;
  * Types (apply)
  ****************************************************************/
 
+function applyMixed(value: Token): ast.Type {
+  return { kind: 'PrimitiveType', name: 'mixed' };
+}
+
 function applyVoid(value: Token): ast.Type {
   return { kind: 'PrimitiveType', name: 'void' };
 }
@@ -590,6 +594,8 @@ TYPE_FUNCTION.setPattern(
 TYPE_TERM.setPattern(
   alt(
     alt(
+      // syntax: mixed
+      apply(str('mixed'), applyMixed),
       // syntax: void
       apply(str('void'), applyVoid),
       // syntax: number

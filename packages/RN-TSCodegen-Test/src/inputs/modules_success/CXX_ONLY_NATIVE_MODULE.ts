@@ -10,7 +10,7 @@ import {TurboModuleRegistry} from 'react-native-tscodegen-types';
 
 export interface Spec extends TurboModule {
   getCallback(): () => void;
-  getMixed(arg: mixed): mixed;
+  getMixed(arg: unknown): unknown;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModuleCxx');
