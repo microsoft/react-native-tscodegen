@@ -2,7 +2,8 @@
 // Licensed under the MIT license.
 
 import { existsSync, mkdirSync, readFileSync } from 'fs';
-import { generator, typeScriptToCodeSchema } from './index';
+import { generator } from 'react-native-tscodegen';
+import { typeScriptToCodeSchema } from './index';
 
 try {
     if (process.argv.length !== 3) {

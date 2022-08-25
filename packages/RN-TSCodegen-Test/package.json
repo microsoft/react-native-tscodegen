@@ -30,6 +30,7 @@
     "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
+    "react-native-tscodegen": "*",
     "react-native-tscodegen-parser": "*",
     "react-native-tscodegen-types": "*"
   },
