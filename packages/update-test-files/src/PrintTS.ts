@@ -4,9 +4,20 @@
 import * as flow from '@react-native-tscodegen/minimum-flow-parser';
 import * as os from 'os';
 
+interface PrintTypeConfig {
+    forTestCase: boolean;
+}
+
 class Printer {
     private indentation: number = 0;
     private text: string = '';
+
+    constructor(readonly typeConfig: PrintTypeConfig) {
+    }
+
+    public get config(): PrintTypeConfig {
+        return this.typeConfig;
+    }
 
     public pushIndent(): void {
         this.indentation++;
@@ -45,24 +56,20 @@ function printEntity(printer: Printer, entity: flow.EntityName): void {
     }
 }
 
-interface PrintTypeConfig {
-    useReactNull: boolean;
-}
-
-function printUnionTypeWithHeader(printer: Printer, unionType: flow.UnionType, config: PrintTypeConfig): void {
+function printUnionTypeWithHeader(printer: Printer, unionType: flow.UnionType): void {
     printer.pushIndent();
     for (const unionItem of unionType.elementTypes) {
         printer.writeLn();
         printer.writeIndent();
         printer.write('| ');
         printer.pushIndent();
-        printType(printer, unionItem, config);
+        printType(printer, unionItem);
         printer.popIndent();
     }
     printer.popIndent();
 }
 
-function printFunctionType(printer: Printer, functionType: flow.FunctionType, interfaceMember: boolean, config: PrintTypeConfig): void {
+function printFunctionType(printer: Printer, functionType: flow.FunctionType, interfaceMember: boolean): void {
     printer.write('(');
     for (let i = 0; i < functionType.parameters.length; i++) {
         if (i !== 0) {
@@ -70,17 +77,17 @@ function printFunctionType(printer: Printer, functionType: flow.FunctionType, in
         }
         printer.write(functionType.parameters[i].name);
         printer.write(functionType.parameters[i].optional ? '?: ' : ': ');
-        printType(printer, functionType.parameters[i].parameterType, config);
+        printType(printer, functionType.parameters[i].parameterType);
     }
     if (interfaceMember) {
         printer.write('): ');
     } else {
         printer.write(') => ');
     }
-    printType(printer, functionType.returnType, config);
+    printType(printer, functionType.returnType);
 }
 
-function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, forInterface: boolean, config: PrintTypeConfig): void {
+function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectType, forInterface: boolean): void {
     printer.write('{');
     printer.writeLn();
     printer.pushIndent();
@@ -93,7 +100,7 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
                     if (member.isOptional) {
                         printer.write('?');
                     }
-                    printFunctionType(printer, member.propType, true, config);
+                    printFunctionType(printer, member.propType, true);
                 } else {
                     if (member.isReadonly) {
                         printer.write('readonly ');
@@ -104,10 +111,10 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
                     }
                     if (member.propType.kind === 'UnionType') {
                         printer.write(':');
-                        printUnionTypeWithHeader(printer, member.propType, config);
+                        printUnionTypeWithHeader(printer, member.propType);
                     } else {
                         printer.write(': ');
-                        printType(printer, member.propType, config);
+                        printType(printer, member.propType);
                     }
                 }
                 printer.write(';');
@@ -122,9 +129,9 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
                 printer.write('[');
                 printer.write(member.keyName);
                 printer.write(': ');
-                printType(printer, member.keyType, config);
+                printType(printer, member.keyType);
                 printer.write(']: ');
-                printType(printer, member.valueType, config);
+                printType(printer, member.valueType);
                 printer.write(';');
                 printer.writeLn();
                 break;
@@ -137,7 +144,7 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
     printer.write('}');
 }
 
-function printTypeArray(printer: Printer, types: flow.Type[], delimiter: string, config: PrintTypeConfig, braceOnFunction: boolean): void {
+function printTypeArray(printer: Printer, types: flow.Type[], delimiter: string, braceOnFunction: boolean): void {
     for (let i = 0; i < types.length; i++) {
         if (i !== 0) {
             printer.write(delimiter);
@@ -145,23 +152,23 @@ function printTypeArray(printer: Printer, types: flow.Type[], delimiter: string,
         if (braceOnFunction && types[i].kind === 'FunctionType') {
             printer.write('(');
         }
-        printType(printer, types[i], config);
+        printType(printer, types[i]);
         if (braceOnFunction && types[i].kind === 'FunctionType') {
             printer.write(')');
         }
     }
 }
 
-function printExpressionArray(printer: Printer, exprs: flow.Expression[], delimiter: string, config: PrintTypeConfig): void {
+function printExpressionArray(printer: Printer, exprs: flow.Expression[], delimiter: string): void {
     for (let i = 0; i < exprs.length; i++) {
         if (i !== 0) {
             printer.write(delimiter);
         }
-        printExpression(printer, exprs[i], config);
+        printExpression(printer, exprs[i]);
     }
 }
 
-function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfig): void {
+function printType(printer: Printer, flowType: flow.Type): void {
     switch (flowType.kind) {
         case 'PrimitiveType': {
             printer.write(flowType.name);
@@ -172,7 +179,7 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             break;
         }
         case 'OptionalType': {
-            if (config.useReactNull) {
+            if (printer.config.forTestCase) {
                 printer.write('(ReactNull | ');
             } else {
                 printer.write('(undefined | ');
@@ -180,7 +187,7 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
             if (flowType.elementType.kind === 'FunctionType') {
                 printer.write('(');
             }
-            printType(printer, flowType.elementType, config);
+            printType(printer, flowType.elementType);
             if (flowType.elementType.kind === 'FunctionType') {
                 printer.write(')');
             }
@@ -190,54 +197,54 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
         case 'ArrayType': {
             if (flowType.isReadonly) {
                 printer.write('ReadonlyArray<');
-                printType(printer, flowType.elementType, config);
+                printType(printer, flowType.elementType);
                 printer.write('>');
             } else {
-                printType(printer, flowType.elementType, config);
+                printType(printer, flowType.elementType);
                 printer.write('[]');
             }
             break;
         }
         case 'TupleType': {
             printer.write('[');
-            printTypeArray(printer, flowType.types, ', ', config, false);
+            printTypeArray(printer, flowType.types, ', ', false);
             printer.write(']');
             break;
         }
         case 'ObjectType': {
             for (const mixinType of flowType.mixinTypes) {
-                printType(printer, mixinType, config);
+                printType(printer, mixinType);
                 printer.write(' & ');
             }
-            printObjectTypeWithoutMixins(printer, flowType, false, config);
+            printObjectTypeWithoutMixins(printer, flowType, false);
             break;
         }
         case 'DecoratedGenericType': {
             printer.write('Readonly<');
-            printType(printer, flowType.elementType, config);
+            printType(printer, flowType.elementType);
             printer.write('>');
             break;
         }
         case 'UnionType': {
-            printTypeArray(printer, flowType.elementTypes, ' | ', config, true);
+            printTypeArray(printer, flowType.elementTypes, ' | ', true);
             break;
         }
         case 'TypeReference': {
             printEntity(printer, flowType.name);
             if (flowType.typeArguments.length > 0) {
                 printer.write('<');
-                printTypeArray(printer, flowType.typeArguments, ', ', config, false);
+                printTypeArray(printer, flowType.typeArguments, ', ', false);
                 printer.write('>');
             }
             break;
         }
         case 'FunctionType': {
-            printFunctionType(printer, flowType, false, config);
+            printFunctionType(printer, flowType, false);
             break;
         }
         case 'ParenType': {
             printer.write('(');
-            printType(printer, flowType.elementType, config);
+            printType(printer, flowType.elementType);
             printer.write(')');
             break;
         }
@@ -245,7 +252,7 @@ function printType(printer: Printer, flowType: flow.Type, config: PrintTypeConfi
     }
 }
 
-function printExpression(printer: Printer, expr: flow.Expression, config: PrintTypeConfig): void {
+function printExpression(printer: Printer, expr: flow.Expression): void {
     switch (expr.kind) {
         case 'LiteralExpr': {
             printer.write(expr.text);
@@ -255,21 +262,21 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
             printEntity(printer, expr.name);
             if (expr.typeArguments.length > 0) {
                 printer.write('<');
-                printTypeArray(printer, expr.typeArguments, ', ', config, false);
+                printTypeArray(printer, expr.typeArguments, ', ', false);
                 printer.write('>');
             }
             break;
         }
         case 'TypeCastExpr': {
-            printExpression(printer, expr.expr, config);
+            printExpression(printer, expr.expr);
             printer.write(' as ');
-            printType(printer, expr.toType, config);
+            printType(printer, expr.toType);
             break;
         }
         case 'CallExpr': {
-            printExpression(printer, expr.expr, config);
+            printExpression(printer, expr.expr);
             printer.write('(');
-            printExpressionArray(printer, expr.funcArguments, ', ', config);
+            printExpressionArray(printer, expr.funcArguments, ', ');
             printer.write(')');
             break;
         }
@@ -282,7 +289,7 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
                 printer.writeIndent();
                 printer.write(prop.key);
                 printer.write(': ');
-                printExpression(printer, prop.value, config);
+                printExpression(printer, prop.value);
                 if (i < expr.properties.length - 1) {
                     printer.write(',');
                 }
@@ -295,13 +302,13 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
         }
         case 'ArrayLiteralExpr': {
             printer.write('[');
-            printExpressionArray(printer, expr.values, ', ', config);
+            printExpressionArray(printer, expr.values, ', ');
             printer.write(']');
             break;
         }
         case 'ParenExpr': {
             printer.write('(');
-            printExpression(printer, expr.expr, config);
+            printExpression(printer, expr.expr);
             printer.write(')');
             break;
         }
@@ -309,7 +316,7 @@ function printExpression(printer: Printer, expr: flow.Expression, config: PrintT
     }
 }
 
-function printGenericHeader(printer: Printer, generic: undefined | flow.GenericHeader, typeConfig: PrintTypeConfig): void {
+function printGenericHeader(printer: Printer, generic: undefined | flow.GenericHeader): void {
     if (generic !== undefined) {
         printer.write('<');
         for (let i = 0; i < generic.parameters.length; i++) {
@@ -320,14 +327,14 @@ function printGenericHeader(printer: Printer, generic: undefined | flow.GenericH
             const baseType = generic.parameters[i].baseType;
             if (baseType !== undefined) {
                 printer.write(' extends ');
-                printType(printer, baseType, typeConfig);
+                printType(printer, baseType);
             }
         }
         printer.write('>');
     }
 }
 
-function printStatement(printer: Printer, stat: flow.Statement, forceExport: boolean, typeConfig: PrintTypeConfig): void {
+function printStatement(printer: Printer, stat: flow.Statement, forceExport: boolean): void {
     switch (stat.kind) {
         case 'UseStrictStat': {
             printer.write(`'use strict';`); break;
@@ -337,14 +344,14 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
                 printer.write(`export `);
             }
             printer.write(`type ${stat.name}`);
-            printGenericHeader(printer, stat.generic, typeConfig);
+            printGenericHeader(printer, stat.generic);
             printer.write(' =');
             if (stat.aliasedType.kind === 'UnionType') {
-                printUnionTypeWithHeader(printer, stat.aliasedType, typeConfig);
+                printUnionTypeWithHeader(printer, stat.aliasedType);
                 printer.write(';');
             } else {
                 printer.write(' ');
-                printType(printer, stat.aliasedType, typeConfig);
+                printType(printer, stat.aliasedType);
                 printer.write(';');
             }
             break;
@@ -354,15 +361,15 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
                 printer.write(`export `);
             }
             printer.write(`interface ${stat.name}`);
-            printGenericHeader(printer, stat.generic, typeConfig);
+            printGenericHeader(printer, stat.generic);
 
             if (stat.baseTypes.length > 0) {
                 printer.write(' extends ');
-                printTypeArray(printer, stat.baseTypes.concat(stat.interfaceType.mixinTypes), ', ', typeConfig, false);
+                printTypeArray(printer, stat.baseTypes.concat(stat.interfaceType.mixinTypes), ', ', false);
             }
 
             printer.write(' ');
-            printObjectTypeWithoutMixins(printer, stat.interfaceType, true, typeConfig);
+            printObjectTypeWithoutMixins(printer, stat.interfaceType, true);
             break;
         }
         case 'ImportEqualStat': {
@@ -383,13 +390,13 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
         }
         case 'ExportEqualStat': {
             printer.write(`export const ${stat.name} = `);
-            printExpression(printer, stat.expr, typeConfig);
+            printExpression(printer, stat.expr);
             printer.write(';');
             break;
         }
         case 'ExportDefaultStat': {
             printer.write(`export default `);
-            printExpression(printer, stat.expr, typeConfig);
+            printExpression(printer, stat.expr);
             printer.write(';');
             break;
         }
@@ -398,9 +405,9 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
 }
 
 export function printTypeScript(program: flow.FlowProgram, forceExport: boolean, typeConfig: PrintTypeConfig): string {
-    const printer = new Printer();
+    const printer = new Printer(typeConfig);
     for (const stat of program.statements) {
-        printStatement(printer, stat, forceExport, typeConfig);
+        printStatement(printer, stat, forceExport);
         printer.writeLn();
         printer.writeLn();
     }

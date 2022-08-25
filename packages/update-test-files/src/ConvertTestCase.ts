@@ -40,7 +40,7 @@ const importMaps = {
 
 export function flowTestCaseToTypeScript(program: flow.FlowProgram, keyName?: string): string {
   fixTestCase(program);
-  const tsSourceCode = printTypeScript(program, false, { useReactNull: true });
+  const tsSourceCode = printTypeScript(program, false, { forTestCase: true });
 
   let header = '';
   Object.keys(importMaps).forEach((key: string) => {

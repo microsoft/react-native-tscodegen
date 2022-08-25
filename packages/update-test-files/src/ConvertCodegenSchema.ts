@@ -24,7 +24,7 @@ export function convertCodegenSchema(): void {
 ${printTypeScript(
     expectSingleResult(expectEOF(flow.PROGRAM.parse(flow.tokenizer.parse(flowSourceCode)))),
     true,
-    { useReactNull: false }
+    { forTestCase: false }
   )}`;
   fs.writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
 }
