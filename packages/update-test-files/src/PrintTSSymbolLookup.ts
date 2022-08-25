@@ -2,11 +2,14 @@
 // Licensed under the MIT license.
 
 import * as flow from '@react-native-tscodegen/minimum-flow-parser';
+import { Declaration } from '@react-native-tscodegen/minimum-flow-parser';
+import { LookupAddress } from 'dns';
 
 export interface SymbolLookup {
     decls: { [key: string]: flow.Declaration };
     t2iCandidates: { [key: string]: [boolean, flow.InterfaceDecl] };
-    t2iSelected: string[];
+    t2iAllMembersReadonly: Set<string>;
+    t2iSelected: Set<string>;
 }
 
 function tryConvertTypeAlias(stat: flow.TypeAliasDecl): [boolean, flow.InterfaceDecl] | undefined {
@@ -45,8 +48,57 @@ function tryConvertTypeAlias(stat: flow.TypeAliasDecl): [boolean, flow.Interface
     }];
 }
 
+function checkBaseType(lookup: SymbolLookup, name: string, visited: Set<string> = new Set<string>()): boolean {
+    if (visited.has(name)) {
+        return true;
+    }
+
+    visited.add(name);
+    const result = (() => {
+        if (lookup.t2iCandidates[name] == undefined) {
+            return false;
+        }
+        const [readonly, decl] = lookup.t2iCandidates[name];
+        const baseTypeNames: string[] = [];
+
+        for (const baseType of decl.baseTypes) {
+            if (baseType.kind !== 'TypeReference') {
+                return false;
+            }
+            if (baseType.typeArguments.length != 0) {
+                return false;
+            }
+            if (typeof baseType.name !== 'string') {
+                return false;
+            }
+            if (!checkBaseType(lookup, baseType.name, visited)) {
+                return false;
+            }
+            baseTypeNames.push(baseType.name);
+        }
+
+        const allBaseTypesReadonly = baseTypeNames.filter((name: string) => !lookup.t2iAllMembersReadonly.has(name)).length == 0;
+        const allMembersReadonly = decl.interfaceType.members.filter((member: flow.ObjectMember) => !member.isReadonly).length != 0;
+        if (readonly && (!allBaseTypesReadonly || !allMembersReadonly)) {
+            return false;
+        }
+
+        if (allBaseTypesReadonly && allMembersReadonly) {
+            lookup.t2iAllMembersReadonly.add(name);
+        }
+        return true;
+    })();
+    visited.delete(name);
+    return result;
+}
+
 export function generateLookup(program: flow.FlowProgram): SymbolLookup {
-    const lookup: SymbolLookup = { decls: {}, t2iCandidates: {}, t2iSelected: [] };
+    const lookup: SymbolLookup = {
+        decls: {},
+        t2iCandidates: {},
+        t2iAllMembersReadonly: new Set<string>(),
+        t2iSelected: new Set<string>(),
+    };
 
     for (const stat of program.statements) {
         switch (stat.kind) {
@@ -62,6 +114,12 @@ export function generateLookup(program: flow.FlowProgram): SymbolLookup {
                 lookup.decls[stat.name] = stat;
                 break;
             }
+        }
+    }
+
+    for (const name in lookup.t2iCandidates) {
+        if (checkBaseType(lookup, name)) {
+            lookup.t2iSelected.add(name);
         }
     }
 
