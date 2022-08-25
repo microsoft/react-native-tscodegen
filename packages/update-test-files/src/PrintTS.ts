@@ -344,41 +344,85 @@ function printGenericHeader(printer: Printer, generic: undefined | flow.GenericH
     }
 }
 
-function printStatement(printer: Printer, stat: flow.Statement, forceExport: boolean): void {
+interface SymbolLookup {
+    decls: { [key: string]: flow.Declaration };
+    t2iCandidates: { [key: string]: [boolean, flow.InterfaceDecl] };
+    t2iSelected: string[];
+}
+
+function tryConvertTypeAlias(stat: flow.TypeAliasDecl): [boolean, flow.InterfaceDecl] | undefined {
+    let interfaceReadonly = false;
+    let interfaceType: flow.ObjectType | undefined;
+
+    if (stat.aliasedType.kind === 'ObjectType') {
+        interfaceType = stat.aliasedType;
+    } else if (stat.aliasedType.kind === 'DecoratedGenericType' && stat.aliasedType.name === '$ReadOnly') {
+        if (stat.aliasedType.elementType.kind === 'ObjectType') {
+            interfaceType = stat.aliasedType.elementType;
+            interfaceReadonly = true;
+        }
+    }
+
+    if (interfaceType === undefined) {
+        return undefined;
+    }
+
+    return [interfaceReadonly, {
+        kind: 'InterfaceDecl',
+        hasExport: stat.hasExport,
+        name: stat.name,
+        generic: stat.generic,
+        baseTypes: interfaceType.mixinTypes,
+        interfaceType: {
+            kind: 'ObjectType',
+            isExact: interfaceType.isExact,
+            mixinTypes: [],
+            members: interfaceType.members.map((member: flow.ObjectMember) => {
+                let cloned = Object.assign({}, member);
+                cloned.isReadonly ||= interfaceReadonly;
+                return cloned;
+            })
+        }
+    }];
+}
+
+function generateLookup(program: flow.FlowProgram): SymbolLookup {
+    const lookup: SymbolLookup = { decls: {}, t2iCandidates: {}, t2iSelected: [] };
+
+    for (const stat of program.statements) {
+        switch (stat.kind) {
+            case 'TypeAliasDecl': {
+                lookup.decls[stat.name] = stat;
+                let converted = tryConvertTypeAlias(stat);
+                if (converted !== undefined) {
+                    lookup.t2iCandidates[stat.name] = converted;
+                }
+                break;
+            }
+            case 'InterfaceDecl': {
+                lookup.decls[stat.name] = stat;
+                break;
+            }
+        }
+    }
+
+    return lookup;
+}
+
+function printStatement(printer: Printer, lookup: SymbolLookup, stat: flow.Statement, forceExport: boolean): void {
     switch (stat.kind) {
         case 'UseStrictStat': {
             printer.write(`'use strict';`); break;
         }
         case 'TypeAliasDecl': {
-            if (forceExport || stat.hasExport) {
-                printer.write(`export `);
-            }
-
-            let interfaceType: flow.ObjectType | undefined;
-            let interfaceReadonly = false;
-
-            if (!printer.config.forTestCase) {
-                if (stat.aliasedType.kind === 'ObjectType') {
-                    if (stat.aliasedType.mixinTypes.length === 0) {
-                        interfaceType = stat.aliasedType;
-                    }
-                } else if (stat.aliasedType.kind === 'DecoratedGenericType' && stat.aliasedType.name === '$ReadOnly') {
-                    if (stat.aliasedType.elementType.kind === 'ObjectType') {
-                        if (stat.aliasedType.elementType.mixinTypes.length === 0) {
-                            interfaceType = stat.aliasedType.elementType;
-                            interfaceReadonly = true;
-                        }
-                    }
-                }
-            }
-
-            if (interfaceType !== undefined) {
-                printer.write(`interface ${stat.name}`);
-                printGenericHeader(printer, stat.generic);
-                printer.write(' ');
-                printObjectTypeWithoutMixins(printer, interfaceType, true, interfaceReadonly);
+            const interfaceDecl = printer.config.forTestCase ? undefined : tryConvertTypeAlias(stat);
+            if (interfaceDecl !== undefined) {
+                printStatement(printer, lookup, interfaceDecl, forceExport);
                 break;
             } else {
+                if (forceExport || stat.hasExport) {
+                    printer.write(`export `);
+                }
                 printer.write(`type ${stat.name}`);
                 printGenericHeader(printer, stat.generic);
                 printer.write(' =');
@@ -443,8 +487,9 @@ function printStatement(printer: Printer, stat: flow.Statement, forceExport: boo
 
 export function printTypeScript(program: flow.FlowProgram, forceExport: boolean, typeConfig: PrintTypeConfig): string {
     const printer = new Printer(typeConfig);
+    const lookup = generateLookup(program);
     for (const stat of program.statements) {
-        printStatement(printer, stat, forceExport);
+        printStatement(printer, lookup, stat, forceExport);
         printer.writeLn();
         printer.writeLn();
     }
