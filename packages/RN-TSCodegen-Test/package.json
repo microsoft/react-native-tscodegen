@@ -28,6 +28,8 @@
     "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "metro-react-native-babel-preset": "^0.72.1",
     "react-native-tscodegen": "0.70.0-rc.3",
     "react-native-tscodegen-parser": "*",
     "react-native-tscodegen-types": "0.70.0-rc.3"
