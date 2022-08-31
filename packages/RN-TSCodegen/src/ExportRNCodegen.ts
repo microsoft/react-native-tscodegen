@@ -41,4 +41,4 @@ interface ParserModule {
 
 export const generate = <GeneratePrototype>(require('./rncodegen/src/generators/RNCodegen.js').generate);
 export const flowParser = <ParserModule>(require('./rncodegen/src/parsers/flow/index.js'));
-export const typescriptParser = <ParserModule>(require('./rncodegen/src/parsers/typescript/index.js'));
+export const typeScriptParser = <ParserModule>(require('./rncodegen/src/parsers/typescript/index.js'));

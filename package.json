@@ -6,8 +6,8 @@
     "build": "lerna run build --stream",
     "test": "lerna run test --stream",
     "change": "node ./node_modules/beachball/bin/beachball.js change",
-    "fix": "cls && pushd packages\\RN-TSCodegen && npm run build & cd ..\\RN-TSCodegen-Test && npm run build && npm run test && popd",
-    "gen": "cls && pushd packages\\update-test-files && npm run build & cd ..\\RN-TSCodegen-Test && npm run build && popd"
+    "test-parser": "cls & yarn build & pushd packages\\RN-TSCodegen-Test & npm run test & popd",
+    "gen": "cls & pushd packages\\update-test-files & npm run build & npm run start & popd & yarn build"
   },
   "repository": {
     "type": "git",
