@@ -6,10 +6,10 @@
 
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
+import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
-import {codegenNativeCommands} from 'react-native-tscodegen-types';
 import * as React from 'react';
 'use strict';
 

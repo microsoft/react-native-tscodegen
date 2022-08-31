@@ -6,7 +6,7 @@
 
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 'use strict';
 
 type DeepSpread = Readonly<{

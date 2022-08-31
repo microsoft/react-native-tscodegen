@@ -5,15 +5,15 @@
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
 import {ColorValue} from 'react-native';
+import {ImagePropertiesSourceOptions as ImageSource} from 'react-native';
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {ImageSource} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type ObjectArrayPropType = Readonly<{
   array: ReadonlyArray<string>;
 }>;

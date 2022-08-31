@@ -6,8 +6,8 @@
 
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {PointValue} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   startPoint?: PointValue;
 }>;

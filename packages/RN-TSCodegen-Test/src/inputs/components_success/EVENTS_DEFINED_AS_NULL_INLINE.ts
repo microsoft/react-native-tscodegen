@@ -6,10 +6,10 @@
 
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 
 type ModuleProps = Readonly<ViewProps & {

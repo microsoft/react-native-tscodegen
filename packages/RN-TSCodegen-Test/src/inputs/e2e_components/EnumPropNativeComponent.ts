@@ -6,8 +6,8 @@
 
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   alignment?: WithDefault<'top' | 'center' | 'bottom-right', 'center'>;
   intervals?: WithDefault<0 | 15 | 30 | 60, 0>;

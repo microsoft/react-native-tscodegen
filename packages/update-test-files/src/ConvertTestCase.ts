@@ -9,12 +9,16 @@ import { printTypeScript } from './PrintTS';
 const importMaps = {
   ProcessedColorValue: `import {ProcessedColorValue} from 'react-native';`,
   ColorValue: `import {ColorValue} from 'react-native';`,
+  ImageSource: `import {ImagePropertiesSourceOptions as ImageSource} from 'react-native';`,
   ViewProps: `import {ViewProps} from 'react-native';`,
   NativeComponent: `import {NativeComponent} from 'react-native';`,
   NativeComponentType: `import {NativeComponentType} from 'react-native';`,
   HostComponent: `import {HostComponent} from 'react-native';`,
   TurboModule: `import {TurboModule} from 'react-native'`,
   TurboModuleRegistry: `import {TurboModuleRegistry} from 'react-native';`,
+
+  codegenNativeCommands: `import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';`,
+  codegenNativeComponent: `import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';`,
 
   BubblingEventHandler: `import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';`,
   DirectEventHandler: `import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';`,
@@ -28,12 +32,9 @@ const importMaps = {
   Stringish: `import {Stringish} from 'react-native-tscodegen-types';`,
   ReactNull: `import {ReactNull} from 'react-native-tscodegen-types';`,
   RootTag: `import {RootTag} from 'react-native-tscodegen-types';`,
-  ImageSource: `import {ImageSource} from 'react-native-tscodegen-types';`,
   ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
   PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,
   EdgeInsetsValue: `import {EdgeInsetsValue} from 'react-native-tscodegen-types';`,
-  codegenNativeComponent: `import {codegenNativeComponent} from 'react-native-tscodegen-types';`,
-  codegenNativeCommands: `import {codegenNativeCommands} from 'react-native-tscodegen-types';`,
 
   React: `import * as React from 'react';`
 };

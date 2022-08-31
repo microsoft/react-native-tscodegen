@@ -6,9 +6,9 @@
 
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   blurRadius: Float;
   blurRadius2?: WithDefault<Float, 0.001>;

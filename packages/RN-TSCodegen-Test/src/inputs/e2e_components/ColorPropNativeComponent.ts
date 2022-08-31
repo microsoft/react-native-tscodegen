@@ -7,7 +7,7 @@
 import {ColorValue} from 'react-native';
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 type NativeProps = Readonly<ViewProps & {
   tintColor?: ColorValue;
 }>;
