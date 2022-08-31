@@ -28,7 +28,6 @@
     "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@types/react-native": "0.69.5",
     "metro-react-native-babel-preset": "^0.72.1",
     "react-native-tscodegen": "0.70.0-rc.3",
@@ -38,10 +37,5 @@
   "jest": {
     "testRegex": "/lib/test/Test.*Cases\\.js",
     "verbose": true
-  },
-  "babel":{
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
   }
 }
