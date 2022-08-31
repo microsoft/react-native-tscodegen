@@ -38,5 +38,10 @@
   "jest": {
     "testRegex": "/lib/test/Test.*Cases\\.js",
     "verbose": true
+  },
+  "babel":{
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
   }
 }
