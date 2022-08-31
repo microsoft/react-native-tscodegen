@@ -22,12 +22,3 @@ declare module "react-native-tscodegen-types" {
   export type Stringish = string;
   export type RootTag = number;
 }
-
-declare module "react-native/Libraries/Utilities/codegenNativeComponent" {
-  // This is just for compiling auto-translated test cases
-  
-  export function codegenNativeComponent<Props extends object>(
-    componentName: string,
-    options?: Options & { deprecatedViewConfigName: string },
-  ): NativeComponentType<Props>;
-}

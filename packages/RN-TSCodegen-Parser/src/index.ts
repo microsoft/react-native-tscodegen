@@ -51,11 +51,11 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
         });
     const errors = ts.getPreEmitDiagnostics(program).filter((value: ts.Diagnostic) => value.category === ts.DiagnosticCategory.Error);
     if (errors.length > 0) {
-        let errorMessage = 'Please ensure that the input TypeScript source file compiles.';
+        let errorMessage = 'Please ensure input files compile.';
         for (const error of errors) {
             errorMessage += `\r\n${errorToString(error)}`;
         }
-        throw new Error(errorMessage);
+        console.log(errorMessage);
     }
 
     const nativeModuleInfos: ep.ExportNativeModuleInfo[] = [];
