@@ -4,14 +4,14 @@
 // Automatically generated from EventPropsNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {BubblingEventHandler} from 'react-native-tscodegen-types';
-import {DirectEventHandler} from 'react-native-tscodegen-types';
-import {Float} from 'react-native-tscodegen-types';
-import {Int32} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
+import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
+import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {WithDefault} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type OnChangeEvent = Readonly<{
   value: boolean;

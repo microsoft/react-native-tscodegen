@@ -4,13 +4,13 @@
 // Automatically generated from components_failure/COMMANDS_DEFINED_WITH_NULLABLE_REF.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/failures.js)
 
-import {Int32} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {React} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeCommands} from 'react-native-tscodegen-types';
+import * as React from 'react';
 'use strict';
 
 interface NativeCommands {

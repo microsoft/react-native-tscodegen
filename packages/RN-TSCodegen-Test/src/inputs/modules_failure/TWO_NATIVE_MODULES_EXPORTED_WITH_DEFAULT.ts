@@ -4,7 +4,7 @@
 // Automatically generated from modules_failure/TWO_NATIVE_MODULES_EXPORTED_WITH_DEFAULT.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/failures.js)
 
-import {TurboModuleRegistry} from 'react-native-tscodegen-types';
+import {TurboModuleRegistry} from 'react-native';
 'use strict';
 
 export default TurboModuleRegistry.getEnforcing<Spec1>('SampleTurboModule1');

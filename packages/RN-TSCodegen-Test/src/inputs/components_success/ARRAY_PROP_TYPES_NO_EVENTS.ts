@@ -4,17 +4,17 @@
 // Automatically generated from components_success/ARRAY_PROP_TYPES_NO_EVENTS.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {Float} from 'react-native-tscodegen-types';
-import {Double} from 'react-native-tscodegen-types';
-import {Int32} from 'react-native-tscodegen-types';
+import {ColorValue} from 'react-native';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {Double} from 'react-native/Libraries/Types/CodegenTypes';
+import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
+import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {WithDefault} from 'react-native-tscodegen-types';
 import {ImageSource} from 'react-native-tscodegen-types';
-import {ColorValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 

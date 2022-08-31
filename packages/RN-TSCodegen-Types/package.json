@@ -15,8 +15,8 @@
   "devDependencies": {},
   "dependencies": {
     "@react-native/assets": "1.0.0",
-    "react-native": "0.64.1",
     "@types/react-native": "0.69.5",
-    "@types/react-native__assets": "1.0.0"
+    "@types/react-native__assets": "1.0.0",
+    "react-native": "0.64.1"
   }
 }

@@ -4,11 +4,11 @@
 // Automatically generated from components_success/EVENTS_DEFINED_AS_NULL_INLINE.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {BubblingEventHandler} from 'react-native-tscodegen-types';
-import {DirectEventHandler} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
+import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 'use strict';
 

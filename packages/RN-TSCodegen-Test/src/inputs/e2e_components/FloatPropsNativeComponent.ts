@@ -4,10 +4,10 @@
 // Automatically generated from FloatPropsNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {Float} from 'react-native-tscodegen-types';
-import {WithDefault} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   blurRadius: Float;

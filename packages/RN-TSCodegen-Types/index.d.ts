@@ -34,11 +34,6 @@ declare module "react-native-tscodegen-types" {
   // Do not import anything from here
   // React.ElementRef is a Flow predefined type, use React.Ref instead
 
-  export namespace React {
-    export type Ref<T> = React.Ref<T>;
-    export type ElementRef<T> = React.Ref<T>;
-  }
-
   export function codegenNativeComponent<Props extends object>(
     componentName: string,
     options?: Options & { deprecatedViewConfigName: string },

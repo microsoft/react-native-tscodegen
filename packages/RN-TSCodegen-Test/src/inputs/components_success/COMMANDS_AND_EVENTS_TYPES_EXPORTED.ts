@@ -4,17 +4,17 @@
 // Automatically generated from components_success/COMMANDS_AND_EVENTS_TYPES_EXPORTED.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {BubblingEventHandler} from 'react-native-tscodegen-types';
-import {DirectEventHandler} from 'react-native-tscodegen-types';
-import {Float} from 'react-native-tscodegen-types';
-import {Double} from 'react-native-tscodegen-types';
-import {Int32} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
+import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {Double} from 'react-native/Libraries/Types/CodegenTypes';
+import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {ReactNull} from 'react-native-tscodegen-types';
-import {React} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
 import {codegenNativeComponent} from 'react-native-tscodegen-types';
 import {codegenNativeCommands} from 'react-native-tscodegen-types';
+import * as React from 'react';
 'use strict';
 
 export type EventInFile = Readonly<{

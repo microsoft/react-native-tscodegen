@@ -4,8 +4,8 @@
 // Automatically generated from modules_failure/TWO_NATIVE_EXTENDING_TURBO_MODULE.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/failures.js)
 
+import {TurboModule} from 'react-native'
 import {ReactNull} from 'react-native-tscodegen-types';
-import {TurboModule} from 'react-native-tscodegen-types'
 'use strict';
 
 export interface Spec extends TurboModule {
