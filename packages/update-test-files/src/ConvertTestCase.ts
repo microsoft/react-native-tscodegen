@@ -12,11 +12,11 @@ const importMaps = {
   ImageSource: `import {ImagePropertiesSourceOptions as ImageSource} from 'react-native';`,
   ViewProps: `import {ViewProps} from 'react-native';`,
   NativeComponent: `import {NativeComponent} from 'react-native';`,
-  NativeComponentType: `import {NativeComponentType} from 'react-native';`,
   HostComponent: `import {HostComponent} from 'react-native';`,
   TurboModule: `import {TurboModule} from 'react-native'`,
   TurboModuleRegistry: `import {TurboModuleRegistry} from 'react-native';`,
 
+  NativeComponentType: `import {NativeComponentType} from 'react-native/Libraries/Utilities/codegenNativeComponent';`,
   codegenNativeCommands: `import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';`,
   codegenNativeComponent: `import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';`,
 
