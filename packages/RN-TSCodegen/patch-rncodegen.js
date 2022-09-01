@@ -11,4 +11,20 @@ function fix_typescript_utils_js() {
     fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
 }
 
+function fix_typescript_modules_index() {
+    const filepath = path.join(__dirname, 'lib/rncodegen/src/parsers/typescript/modules/index.js');
+    const content = fs.readFileSync(filepath, { encoding: 'utf-8' });
+    const fixed = content.replace(
+        `case 'TSUnknownKeyword':`,
+        `case 'TSParenthesizedType':
+      {
+        return translateFunctionTypeAnnotation(hasteModuleName, typeAnnotation.typeAnnotation, types, aliasMap, tryParse, cxxOnly);
+      }
+
+    case 'TSUnknownKeyword':`
+    );
+    fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+}
+
 fix_typescript_utils_js();
+fix_typescript_modules_index();
