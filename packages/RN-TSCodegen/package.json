@@ -8,8 +8,9 @@
     "clean-flow": "rimraf lib/rncodegen",
     "build-flow": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/",
     "fix-flow": "babel lib/rncodegen/ -d lib/rncodegen",
+    "patch-rncodegen": "node ./patch-rncodegen.js",
     "build-ts": "tslint --project tsconfig.json & tsc",
-    "build": "npm run clean-flow & npm run build-flow & npm run fix-flow & npm run build-ts"
+    "build": "npm run clean-flow & npm run build-flow & npm run fix-flow & npm run patch-rncodegen & npm run build-ts"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import { typeScriptParser } from 'react-native-tscodegen';
+import { NativeModuleSchema, typeScriptParser } from 'react-native-tscodegen';
 import { typeScriptToCodeSchema } from 'react-native-tscodegen-parser';
 import { testCaseIndex } from './TestCaseIndex';
 
@@ -13,19 +13,30 @@ testCaseIndex.modules.success.forEach((key: string) => {
         const inputFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.ts`);
         const snapshotFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.json`);
         const schema = typeScriptToCodeSchema(inputFile, 'NativeSampleTurboModule', 'SampleTurboModule');
-        const schema2 = typeScriptParser.parseString(readFileSync(inputFile, { encoding: 'utf-8' }), 'NativeSampleTurboModule.ts');
         const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
         assert.deepStrictEqual(schema, snapshot);
-        assert.deepStrictEqual(schema2, snapshot);
     });
 });
 
-//testCaseIndex.modules.success.forEach((key: string) => {
-//    test(`module codegen (original): ${key}`, () => {
-//        const inputFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.ts`);
-//        const snapshotFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.json`);
-//        const schema = typeScriptParser.parseString(readFileSync(inputFile, { encoding: 'utf-8' }), 'NativeSampleTurboModule.ts');
-//        const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
-//        assert.deepStrictEqual(schema, snapshot);
-//    });
-//});
+interface WritableNativeModuleSchema {
+    excludedPlatforms: NativeModuleSchema['excludedPlatforms'];
+}
+
+testCaseIndex.modules.success.forEach((key: string) => {
+    test(`module codegen (original): ${key}`, () => {
+        const inputFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.ts`);
+        const snapshotFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.json`);
+        const schema = typeScriptParser.parseString(readFileSync(inputFile, { encoding: 'utf-8' }), 'NativeSampleTurboModule.ts');
+        const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
+
+        for (const moduleName of Object.keys(schema.modules)) {
+            const nativeModule = schema.modules[moduleName];
+            if (nativeModule.type === 'NativeModule') {
+                if (nativeModule.excludedPlatforms === undefined) {
+                    delete (<WritableNativeModuleSchema>nativeModule).excludedPlatforms;
+                }
+            }
+        }
+        assert.deepStrictEqual(schema, snapshot);
+    });
+});

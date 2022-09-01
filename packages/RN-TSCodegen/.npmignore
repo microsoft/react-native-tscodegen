@@ -13,5 +13,6 @@ lib/rncodegen/src/parsers/flow/modules/__test_fixtures__/
 lib/rncodegen/src/parsers/flow/modules/__tests__/
 node_modules/
 src/
+patch-rncodegen.js
 tsconfig.json
 tslint.json
