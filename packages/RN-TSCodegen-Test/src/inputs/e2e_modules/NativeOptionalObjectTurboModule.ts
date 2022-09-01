@@ -6,16 +6,15 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 export interface Spec extends TurboModule {
   getConstants(): {
-    D?: (ReactNull | boolean);
+    D?: (undefined | null | boolean);
     A?: Array<any>;
-    E?: (ReactNull | {
-      D?: (ReactNull | boolean);
-      E?: (ReactNull | {
-        D?: (ReactNull | boolean);
-        E?: (ReactNull | {
+    E?: (undefined | null | {
+      D?: (undefined | null | boolean);
+      E?: (undefined | null | {
+        D?: (undefined | null | boolean);
+        E?: (undefined | null | {
           D?: boolean;
           E?: number;
           F?: string;

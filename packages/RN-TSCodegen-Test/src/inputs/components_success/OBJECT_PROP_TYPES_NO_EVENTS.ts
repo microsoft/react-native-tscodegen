@@ -14,7 +14,6 @@ import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {Double} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-import {ReactNull} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
 'use strict';
@@ -60,10 +59,10 @@ type ModuleProps = Readonly<ViewProps & {
     prop?: ImageSource;
   }>;
   image_optional_value: Readonly<{
-    prop: (ReactNull | ImageSource);
+    prop: (undefined | null | ImageSource);
   }>;
   image_optional_both: Readonly<{
-    prop?: (ReactNull | ImageSource);
+    prop?: (undefined | null | ImageSource);
   }>;
   color_required: Readonly<{
     prop: ColorValue;
@@ -72,10 +71,10 @@ type ModuleProps = Readonly<ViewProps & {
     prop?: ColorValue;
   }>;
   color_optional_value: Readonly<{
-    prop: (ReactNull | ColorValue);
+    prop: (undefined | null | ColorValue);
   }>;
   color_optional_both: Readonly<{
-    prop?: (ReactNull | ColorValue);
+    prop?: (undefined | null | ColorValue);
   }>;
   processed_color_required: Readonly<{
     prop: ProcessedColorValue;
@@ -84,10 +83,10 @@ type ModuleProps = Readonly<ViewProps & {
     prop?: ProcessedColorValue;
   }>;
   processed_color_optional_value: Readonly<{
-    prop: (ReactNull | ProcessedColorValue);
+    prop: (undefined | null | ProcessedColorValue);
   }>;
   processed_color_optional_both: Readonly<{
-    prop?: (ReactNull | ProcessedColorValue);
+    prop?: (undefined | null | ProcessedColorValue);
   }>;
   point_required: Readonly<{
     prop: PointValue;
@@ -96,10 +95,10 @@ type ModuleProps = Readonly<ViewProps & {
     prop?: PointValue;
   }>;
   point_optional_value: Readonly<{
-    prop: (ReactNull | PointValue);
+    prop: (undefined | null | PointValue);
   }>;
   point_optional_both: Readonly<{
-    prop?: (ReactNull | PointValue);
+    prop?: (undefined | null | PointValue);
   }>;
   insets_required: Readonly<{
     prop: EdgeInsetsValue;
@@ -108,10 +107,10 @@ type ModuleProps = Readonly<ViewProps & {
     prop?: EdgeInsetsValue;
   }>;
   insets_optional_value: Readonly<{
-    prop: (ReactNull | EdgeInsetsValue);
+    prop: (undefined | null | EdgeInsetsValue);
   }>;
   insets_optional_both: Readonly<{
-    prop?: (ReactNull | EdgeInsetsValue);
+    prop?: (undefined | null | EdgeInsetsValue);
   }>;
   object_required: Readonly<{
     prop: Readonly<{
@@ -123,12 +122,12 @@ type ModuleProps = Readonly<ViewProps & {
       nestedProp: string;
     }>;
   }>;
-  object_optional_value: (ReactNull | Readonly<{
+  object_optional_value: (undefined | null | Readonly<{
     prop: Readonly<{
       nestedProp: string;
     }>;
   }>);
-  object_optional_both?: (ReactNull | Readonly<{
+  object_optional_both?: (undefined | null | Readonly<{
     prop: Readonly<{
       nestedProp: string;
     }>;

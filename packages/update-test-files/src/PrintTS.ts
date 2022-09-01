@@ -185,7 +185,7 @@ function printType(printer: Printer, flowType: flow.Type, readonly: boolean = fa
         }
         case 'OptionalType': {
             if (printer.config.forTestCase) {
-                printer.write('(ReactNull | ');
+                printer.write('(undefined | null | ');
             } else {
                 printer.write('(undefined | ');
             }

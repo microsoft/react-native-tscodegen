@@ -9,20 +9,19 @@ import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
-import {ReactNull} from 'react-native-tscodegen-types';
 'use strict';
 
 type ModuleProps = Readonly<ViewProps & {
   onDirectEventDefinedInlineNull: DirectEventHandler<null>;
   onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullOptionalValue: (ReactNull | DirectEventHandler<null>);
+  onDirectEventDefinedInlineNullOptionalValue: (undefined | null | DirectEventHandler<null>);
   onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullWithPaperName?: (ReactNull | DirectEventHandler<null, 'paperDirectEventDefinedInlineNullWithPaperName'>);
+  onDirectEventDefinedInlineNullWithPaperName?: (undefined | null | DirectEventHandler<null, 'paperDirectEventDefinedInlineNullWithPaperName'>);
   onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
   onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalValue: (ReactNull | BubblingEventHandler<null>);
-  onBubblingEventDefinedInlineNullOptionalBoth?: (ReactNull | BubblingEventHandler<null>);
-  onBubblingEventDefinedInlineNullWithPaperName?: (ReactNull | BubblingEventHandler<null, 'paperBubblingEventDefinedInlineNullWithPaperName'>);
+  onBubblingEventDefinedInlineNullOptionalValue: (undefined | null | BubblingEventHandler<null>);
+  onBubblingEventDefinedInlineNullOptionalBoth?: (undefined | null | BubblingEventHandler<null>);
+  onBubblingEventDefinedInlineNullWithPaperName?: (undefined | null | BubblingEventHandler<null, 'paperBubblingEventDefinedInlineNullWithPaperName'>);
 }>;
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);

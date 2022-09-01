@@ -6,7 +6,6 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 'use strict';
 
 type NumNum = number;
@@ -37,9 +36,9 @@ export interface Spec extends TurboModule {
     a: B;
   };
   getStringFromAlias(a: ObjectAlias): string;
-  getStringFromNullableAlias(a: (ReactNull | ObjectAlias)): string;
+  getStringFromNullableAlias(a: (undefined | null | ObjectAlias)): string;
   getStringFromReadOnlyAlias(a: ReadOnlyAlias): string;
-  getStringFromNullableReadOnlyAlias(a: (ReactNull | ReadOnlyAlias)): string;
+  getStringFromNullableReadOnlyAlias(a: (undefined | null | ReadOnlyAlias)): string;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

@@ -9,11 +9,10 @@ import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-import {ReactNull} from 'react-native-tscodegen-types';
 'use strict';
 
 export type ModuleProps = Readonly<ViewProps & {
-  nullable_with_default: (ReactNull | WithDefault<Float, 1.0>);
+  nullable_with_default: (undefined | null | WithDefault<Float, 1.0>);
 }>;
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);

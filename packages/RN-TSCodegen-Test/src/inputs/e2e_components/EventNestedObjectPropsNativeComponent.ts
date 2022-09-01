@@ -10,7 +10,6 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-import {ReactNull} from 'react-native-tscodegen-types';
 type OnChangeEvent = Readonly<{
   location: {
     source: {
@@ -23,7 +22,7 @@ type OnChangeEvent = Readonly<{
 
 type NativeProps = Readonly<ViewProps & {
   disabled?: WithDefault<boolean, false>;
-  onChange?: (ReactNull | BubblingEventHandler<OnChangeEvent>);
+  onChange?: (undefined | null | BubblingEventHandler<OnChangeEvent>);
 }>;
 
 export default (codegenNativeComponent<NativeProps>('EventNestedObjectPropsNativeComponentView') as HostComponent<NativeProps>);

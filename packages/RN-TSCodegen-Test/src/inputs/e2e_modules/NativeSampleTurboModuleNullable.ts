@@ -6,34 +6,33 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 import {RootTag} from 'react-native-tscodegen-types';
-type Animal = (ReactNull | {
-  name: (ReactNull | string);
+type Animal = (undefined | null | {
+  name: (undefined | null | string);
 });
 
 export interface Spec extends TurboModule {
   getConstants(): {
-    const1: (ReactNull | boolean);
-    const2: (ReactNull | number);
-    const3: (ReactNull | string);
+    const1: (undefined | null | boolean);
+    const2: (undefined | null | number);
+    const3: (undefined | null | string);
   };
   voidFunc(): void;
-  getBool(arg: (ReactNull | boolean)): (ReactNull | boolean);
-  getNumber(arg: (ReactNull | number)): (ReactNull | number);
-  getString(arg: (ReactNull | string)): (ReactNull | string);
-  getArray(arg: (ReactNull | Array<any>)): (ReactNull | Array<any>);
-  getObject(arg: (ReactNull | Object)): (ReactNull | Object);
-  getObjectShape(arg: (ReactNull | {
-    prop: (ReactNull | number);
-  })): (ReactNull | {
-    prop: (ReactNull | number);
+  getBool(arg: (undefined | null | boolean)): (undefined | null | boolean);
+  getNumber(arg: (undefined | null | number)): (undefined | null | number);
+  getString(arg: (undefined | null | string)): (undefined | null | string);
+  getArray(arg: (undefined | null | Array<any>)): (undefined | null | Array<any>);
+  getObject(arg: (undefined | null | Object)): (undefined | null | Object);
+  getObjectShape(arg: (undefined | null | {
+    prop: (undefined | null | number);
+  })): (undefined | null | {
+    prop: (undefined | null | number);
   });
-  getAlias(arg: (ReactNull | Animal)): (ReactNull | Animal);
-  getRootTag(arg: (ReactNull | RootTag)): (ReactNull | RootTag);
-  getValue(x: (ReactNull | number), y: (ReactNull | string), z: (ReactNull | Object)): (ReactNull | Object);
-  getValueWithCallback(callback: (value: (ReactNull | string)) => void): void;
-  getValueWithPromise(error: (ReactNull | boolean)): (ReactNull | Promise<string>);
+  getAlias(arg: (undefined | null | Animal)): (undefined | null | Animal);
+  getRootTag(arg: (undefined | null | RootTag)): (undefined | null | RootTag);
+  getValue(x: (undefined | null | number), y: (undefined | null | string), z: (undefined | null | Object)): (undefined | null | Object);
+  getValueWithCallback(callback: (value: (undefined | null | string)) => void): void;
+  getValueWithPromise(error: (undefined | null | boolean)): (undefined | null | Promise<string>);
 }
 
 export default (TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModuleNullable') as Spec);

@@ -48,9 +48,6 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
         if (ts.isTypeReferenceNode(item)) {
             const typeReferenceName = item.typeName.getText();
             switch (typeReferenceName) {
-                case 'ReactNull':
-                    itemNullable = true;
-                    break;
                 case 'Stringish':
                     itemOthers.push({ kind: 'String', isNullable: false });
                     break;

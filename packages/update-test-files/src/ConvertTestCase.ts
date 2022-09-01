@@ -30,7 +30,6 @@ const importMaps = {
 
   NotString: `import {NotString} from 'react-native-tscodegen-types';`,
   Stringish: `import {Stringish} from 'react-native-tscodegen-types';`,
-  ReactNull: `import {ReactNull} from 'react-native-tscodegen-types';`,
   RootTag: `import {RootTag} from 'react-native-tscodegen-types';`,
   ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
   PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,

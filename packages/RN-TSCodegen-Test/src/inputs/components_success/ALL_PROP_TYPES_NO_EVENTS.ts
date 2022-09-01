@@ -15,7 +15,6 @@ import {Double} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {Stringish} from 'react-native-tscodegen-types';
-import {ReactNull} from 'react-native-tscodegen-types';
 import {ColorArrayValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
@@ -54,35 +53,35 @@ type ModuleProps = Readonly<ViewProps & {
   object_optional_key?: Readonly<{
     prop: string;
   }>;
-  object_optional_both?: (ReactNull | Readonly<{
+  object_optional_both?: (undefined | null | Readonly<{
     prop: string;
   }>);
-  object_optional_value: (ReactNull | Readonly<{
+  object_optional_value: (undefined | null | Readonly<{
     prop: string;
   }>);
   image_required: ImageSource;
-  image_optional_value: (ReactNull | ImageSource);
-  image_optional_both?: (ReactNull | ImageSource);
+  image_optional_value: (undefined | null | ImageSource);
+  image_optional_both?: (undefined | null | ImageSource);
   color_required: ColorValue;
   color_optional_key?: ColorValue;
-  color_optional_value: (ReactNull | ColorValue);
-  color_optional_both?: (ReactNull | ColorValue);
+  color_optional_value: (undefined | null | ColorValue);
+  color_optional_both?: (undefined | null | ColorValue);
   color_array_required: ColorArrayValue;
   color_array_optional_key?: ColorArrayValue;
-  color_array_optional_value: (ReactNull | ColorArrayValue);
-  color_array_optional_both?: (ReactNull | ColorArrayValue);
+  color_array_optional_value: (undefined | null | ColorArrayValue);
+  color_array_optional_both?: (undefined | null | ColorArrayValue);
   processed_color_required: ProcessedColorValue;
   processed_color_optional_key?: ProcessedColorValue;
-  processed_color_optional_value: (ReactNull | ProcessedColorValue);
-  processed_color_optional_both?: (ReactNull | ProcessedColorValue);
+  processed_color_optional_value: (undefined | null | ProcessedColorValue);
+  processed_color_optional_both?: (undefined | null | ProcessedColorValue);
   point_required: PointValue;
   point_optional_key?: PointValue;
-  point_optional_value: (ReactNull | PointValue);
-  point_optional_both?: (ReactNull | PointValue);
+  point_optional_value: (undefined | null | PointValue);
+  point_optional_both?: (undefined | null | PointValue);
   insets_required: EdgeInsetsValue;
   insets_optional_key?: EdgeInsetsValue;
-  insets_optional_value: (ReactNull | EdgeInsetsValue);
-  insets_optional_both?: (ReactNull | EdgeInsetsValue);
+  insets_optional_value: (undefined | null | EdgeInsetsValue);
+  insets_optional_both?: (undefined | null | EdgeInsetsValue);
 }>;
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);

@@ -12,7 +12,6 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-import {ReactNull} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 type ObjectArrayPropType = Readonly<{
   array: ReadonlyArray<string>;
@@ -31,7 +30,7 @@ type NativeProps = Readonly<ViewProps & {
   objectPrimitiveRequiredProp: Readonly<{
     image: ImageSource;
     color?: ColorValue;
-    point: (ReactNull | PointValue);
+    point: (undefined | null | PointValue);
   }>;
 }>;
 

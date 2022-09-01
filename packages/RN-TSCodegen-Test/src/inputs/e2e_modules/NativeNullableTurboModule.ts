@@ -6,14 +6,13 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 export interface Spec extends TurboModule {
-  getBool(a: (ReactNull | boolean)): (ReactNull | boolean);
-  getNumber(a: (ReactNull | number)): (ReactNull | number);
-  getString(a: (ReactNull | number)): (ReactNull | string);
-  getArray(a: (ReactNull | Array<any>)): (ReactNull | Array<any>);
-  getObject(a: (ReactNull | Object)): (ReactNull | Object);
-  getValueWithPromise(): (ReactNull | Promise<string>);
+  getBool(a: (undefined | null | boolean)): (undefined | null | boolean);
+  getNumber(a: (undefined | null | number)): (undefined | null | number);
+  getString(a: (undefined | null | number)): (undefined | null | string);
+  getArray(a: (undefined | null | Array<any>)): (undefined | null | Array<any>);
+  getObject(a: (undefined | null | Object)): (undefined | null | Object);
+  getValueWithPromise(): (undefined | null | Promise<string>);
 }
 
 export default (TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule') as Spec);

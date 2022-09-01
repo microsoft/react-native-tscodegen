@@ -6,7 +6,6 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 import {RootTag} from 'react-native-tscodegen-types';
 type Animal = {
   name: string;
@@ -17,7 +16,7 @@ export interface Spec extends TurboModule {
     const1: Array<boolean>;
     const2: Array<number>;
     const3: Array<string>;
-    id?: Array<(ReactNull | {
+    id?: Array<(undefined | null | {
       prop: number;
     })>;
   };

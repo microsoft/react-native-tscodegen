@@ -6,11 +6,10 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 'use strict';
 
 export interface Spec extends TurboModule {
-  voidFunc(arg: (ReactNull | string)): void;
+  voidFunc(arg: (undefined | null | string)): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

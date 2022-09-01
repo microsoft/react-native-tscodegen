@@ -16,8 +16,6 @@ declare module "react-native-tscodegen-types" {
     bottom: number;
   }
 
-  export type ReactNull = undefined | null;
-  export type FlowOptional<T> = ReactNull | T;
   export type NotString = {};
   export type Stringish = string;
   export type RootTag = number;

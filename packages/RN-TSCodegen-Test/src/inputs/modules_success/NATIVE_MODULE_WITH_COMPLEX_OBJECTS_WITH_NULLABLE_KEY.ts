@@ -6,7 +6,6 @@
 
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
-import {ReactNull} from 'react-native-tscodegen-types';
 'use strict';
 
 export interface Spec extends TurboModule {
@@ -16,7 +15,7 @@ export interface Spec extends TurboModule {
       major: number;
       minor: number;
       patch?: number;
-      prerelease: (ReactNull | number);
+      prerelease: (undefined | null | number);
     };
     forceTouchAvailable: boolean;
     osVersion: string;
