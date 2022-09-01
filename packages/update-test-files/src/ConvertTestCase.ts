@@ -9,7 +9,7 @@ import { printTypeScript } from './PrintTS';
 const importMaps = {
   ProcessedColorValue: `import {ProcessedColorValue} from 'react-native';`,
   ColorValue: `import {ColorValue} from 'react-native';`,
-  ImageSource: `import {ImagePropertiesSourceOptions as ImageSource} from 'react-native';`,
+  ImageSource: `import {ImageSourcePropType as ImageSource} from 'react-native';`,
   ViewProps: `import {ViewProps} from 'react-native';`,
   NativeComponent: `import {NativeComponent} from 'react-native';`,
   HostComponent: `import {HostComponent} from 'react-native';`,

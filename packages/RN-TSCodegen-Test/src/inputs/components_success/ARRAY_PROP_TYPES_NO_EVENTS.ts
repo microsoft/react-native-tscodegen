@@ -5,7 +5,7 @@
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
 import {ColorValue} from 'react-native';
-import {ImagePropertiesSourceOptions as ImageSource} from 'react-native';
+import {ImageSourcePropType as ImageSource} from 'react-native';
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';

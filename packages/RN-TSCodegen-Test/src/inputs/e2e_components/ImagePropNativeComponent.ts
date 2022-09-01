@@ -4,7 +4,7 @@
 // Automatically generated from ImagePropNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {ImagePropertiesSourceOptions as ImageSource} from 'react-native';
+import {ImageSourcePropType as ImageSource} from 'react-native';
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
