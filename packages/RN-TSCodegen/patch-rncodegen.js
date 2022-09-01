@@ -8,7 +8,12 @@ function fix_typescript_utils_js() {
         `if (node.type === 'ExportNamedDeclaration' && node.exportKind === 'type') {`,
         `if (node.type === 'ExportNamedDeclaration') {`
     );
-    fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+
+    if (content === fixed) {
+        console.log('fix_typescript_utils_js() fixed nothing!');
+    } else {
+        fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+    }
 }
 
 function fix_typescript_modules_index() {
@@ -18,12 +23,17 @@ function fix_typescript_modules_index() {
         `case 'TSUnknownKeyword':`,
         `case 'TSParenthesizedType':
       {
-        return translateFunctionTypeAnnotation(hasteModuleName, typeAnnotation.typeAnnotation, types, aliasMap, tryParse, cxxOnly);
+        return translateTypeAnnotation(hasteModuleName, typeAnnotation.typeAnnotation, types, aliasMap, tryParse, cxxOnly);
       }
 
     case 'TSUnknownKeyword':`
     );
-    fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+
+    if (content === fixed) {
+        console.log('fix_typescript_modules_index() fixed nothing!');
+    } else {
+        fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+    }
 }
 
 fix_typescript_utils_js();
