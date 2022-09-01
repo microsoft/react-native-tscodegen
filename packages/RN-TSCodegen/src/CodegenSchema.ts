@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 // Automatically generated from react-native/packages/react-native-codegen/src/CodegenSchema.js
-// Targeting react-native 0.70.0-rc.3
+// Targeting react-native 1000.0.0
 
 'use strict';
 
@@ -267,6 +267,16 @@ export interface NativeModulePromiseTypeAnnotation {
   readonly type: 'PromiseTypeAnnotation';
 }
 
+export type UnionTypeAnnotationMemberType =
+  | 'NumberTypeAnnotation'
+  | 'ObjectTypeAnnotation'
+  | 'StringTypeAnnotation';
+
+export interface NativeModuleUnionTypeAnnotation {
+  readonly type: 'UnionTypeAnnotation';
+  readonly memberType: UnionTypeAnnotationMemberType;
+}
+
 export interface NativeModuleMixedTypeAnnotation {
   readonly type: 'MixedTypeAnnotation';
 }
@@ -283,6 +293,7 @@ export type NativeModuleBaseTypeAnnotation =
   | NativeModuleTypeAliasTypeAnnotation
   | NativeModuleArrayTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>>
   | NativeModuleObjectTypeAnnotation
+  | NativeModuleUnionTypeAnnotation
   | NativeModuleMixedTypeAnnotation;
 
 export type NativeModuleParamTypeAnnotation =
