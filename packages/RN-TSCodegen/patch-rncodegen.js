@@ -46,6 +46,20 @@ function fix_typescript_components_props() {
         `const alias = types[propsTypeName];`,
         `const alias = types[propsTypeName];
   `+ 'if (!alias) throw new Error(`Failed to find definition for "${ propsTypeName }", please check that you have a valid codegen typescript file`);'
+    ).replace(
+        `case 'TSUnionType':`,
+        `case 'TSParenthesizedType':
+      {
+        return getTypeAnnotationForArray(name, typeAnnotation.typeAnnotation, defaultValue, types);
+      }
+
+    case 'TSUnionType':`
+    ).replace(
+        `const typeAnnotation = getValueFromTypes(annotation, types); // Covers: readonly T[]`,
+        `const typeAnnotation = getValueFromTypes(annotation, types); // Covers: readonly T[]
+  if (typeAnnotation.type === 'TSParenthesizedType') {
+    return getTypeAnnotation(name, typeAnnotation.typeAnnotation, defaultValue, withNullDefault, types);
+  }`,
     );
 
     if (content === fixed) {
