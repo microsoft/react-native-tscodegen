@@ -13,9 +13,9 @@ import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {PointValue} from 'react-native-tscodegen-types';
-interface ObjectArrayPropType {
-  readonly array: ReadonlyArray<string>;
-}
+type ObjectArrayPropType = Readonly<{
+  array: ReadonlyArray<string>;
+}>;
 
 type NativeProps = Readonly<ViewProps & {
   objectProp?: Readonly<{

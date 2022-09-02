@@ -4,7 +4,7 @@
 import * as flow from '@react-native-tscodegen/minimum-flow-parser';
 import * as os from 'os';
 import { fixTestCase } from './FixTestCase';
-import { printTypeScript } from './PrintTS';
+import { PrintTypeConfig, printTypeScript } from './PrintTS';
 
 const importMaps = {
   ProcessedColorValue: `import {ProcessedColorValue} from 'react-native';`,
@@ -38,9 +38,9 @@ const importMaps = {
   React: `import * as React from 'react';`
 };
 
-export function flowTestCaseToTypeScript(program: flow.FlowProgram, keyName?: string): string {
+export function flowTestCaseToTypeScript(program: flow.FlowProgram, forScenario: PrintTypeConfig['forScenario']): string {
   fixTestCase(program);
-  const tsSourceCode = printTypeScript(program, false, { forTestCase: true });
+  const tsSourceCode = printTypeScript(program, false, { forTestCase: true, forScenario });
 
   let header = '';
   Object.keys(importMaps).forEach((key: string) => {

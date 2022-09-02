@@ -8,14 +8,14 @@ import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
 'use strict';
 
-interface Bar {
+type Bar = {
   z: number;
-}
+};
 
-interface Foo {
+type Foo = {
   bar1: Bar;
   bar2: Bar;
-}
+};
 
 export interface Spec extends TurboModule {
   foo1(x: Foo): Foo;

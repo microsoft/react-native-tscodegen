@@ -20,12 +20,12 @@ export type A = number;
 
 export type B = number;
 
-export interface ObjectAlias {
+export type ObjectAlias = {
   x: number;
   y: number;
   label: string;
   truthy: boolean;
-}
+};
 
 export type ReadOnlyAlias = Readonly<ObjectAlias>;
 

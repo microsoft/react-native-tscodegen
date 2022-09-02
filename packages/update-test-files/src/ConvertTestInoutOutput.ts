@@ -8,11 +8,12 @@ import { writeFileSync } from 'fs';
 import * as path from 'path';
 import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import { flowTestCaseToTypeScript } from './ConvertTestCase';
+import { PrintTypeConfig } from './PrintTS';
 
 type TestCaseModule = { [key: string]: string };
 type TestCaseSnapshot = { [key: string]: string };
 
-export function convertTestInput(inputFolder: string, inputPath: string, outputFolder: string, category: string): TestCaseModule {
+export function convertTestInput(inputFolder: string, inputPath: string, outputFolder: string, category: string, forScenario: PrintTypeConfig['forScenario']): TestCaseModule {
   const inputJsPath = path.join(inputFolder, inputPath);
   console.log(`Converting ${inputJsPath} ...`);
 
@@ -39,7 +40,7 @@ ${flowSourceCode}`,
 // Automatically generated from ${category}/${key}.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow${inputPath.substr(1)})
 
-${flowTestCaseToTypeScript(flowAst, key)}
+${flowTestCaseToTypeScript(flowAst, forScenario)}
 `;
       writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
     }

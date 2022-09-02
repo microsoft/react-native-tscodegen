@@ -9,9 +9,9 @@ import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 'use strict';
 
-interface PropsInFile {
-  readonly isEnabled: boolean;
-}
+type PropsInFile = Readonly<{
+  isEnabled: boolean;
+}>;
 
 export type ModuleProps = Readonly<ViewProps & PropsInFile & {
   isEnabled: boolean;

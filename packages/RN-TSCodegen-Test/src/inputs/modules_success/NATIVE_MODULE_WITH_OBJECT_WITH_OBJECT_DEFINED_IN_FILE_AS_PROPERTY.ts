@@ -8,9 +8,9 @@ import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
 'use strict';
 
-interface DisplayMetricsAndroid {
+type DisplayMetricsAndroid = {
   width: number;
-}
+};
 
 export interface Spec extends TurboModule {
   getConstants(): {

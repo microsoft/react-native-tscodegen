@@ -12,22 +12,22 @@ import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-interface OnChangeEvent {
-  readonly value: boolean;
-  readonly source?: string;
-  readonly progress: (undefined | null | Int32);
-  readonly scale?: (undefined | null | Float);
-}
+type OnChangeEvent = Readonly<{
+  value: boolean;
+  source?: string;
+  progress: (undefined | null | Int32);
+  scale?: (undefined | null | Float);
+}>;
 
-interface OnEventDirect {
-  readonly value: boolean;
-}
+type OnEventDirect = Readonly<{
+  value: boolean;
+}>;
 
-interface OnOrientationChangeEvent {
-  readonly orientation:
+type OnOrientationChangeEvent = Readonly<{
+  orientation:
     | 'landscape'
     | 'portrait';
-}
+}>;
 
 type NativeProps = Readonly<ViewProps & {
   disabled?: WithDefault<boolean, false>;

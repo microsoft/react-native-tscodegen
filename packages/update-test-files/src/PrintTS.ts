@@ -5,8 +5,9 @@ import * as flow from '@react-native-tscodegen/minimum-flow-parser';
 import * as os from 'os';
 import { generateLookup, SymbolLookup } from './PrintTSSymbolLookup';
 
-interface PrintTypeConfig {
+export interface PrintTypeConfig {
     forTestCase: boolean;
+    forScenario: 'CodegenSchema' | 'ModuleSuccess' | 'ComponentSuccess' | 'Others';
 }
 
 class Printer {
@@ -355,7 +356,7 @@ function printStatement(printer: Printer, lookup: SymbolLookup, stat: flow.State
             printer.write(`'use strict';`); break;
         }
         case 'TypeAliasDecl': {
-            if (lookup.t2iSelected[stat.name] === true) {
+            if ((!printer.config.forTestCase || printer.config.forScenario === 'ComponentSuccess') && lookup.t2iSelected[stat.name] === true) {
                 printStatement(printer, lookup, lookup.t2iCandidates[stat.name][1], forceExport);
                 break;
             } else {
