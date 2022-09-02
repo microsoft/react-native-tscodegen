@@ -36,5 +36,25 @@ function fix_typescript_modules_index() {
     }
 }
 
+function fix_typescript_components_props() {
+    const filepath = path.join(__dirname, 'lib/rncodegen/src/parsers/typescript/components/props.js');
+    const content = fs.readFileSync(filepath, { encoding: 'utf-8' });
+    const fixed = content.replace(
+        `}).reduce((acc, item) => {`,
+        `}).filter(Boolean).reduce((acc, item) => {`
+    ).replace(
+        `const alias = types[propsTypeName];`,
+        `const alias = types[propsTypeName];
+  `+ 'if (!alias) throw new Error(`Failed to find definition for "${ propsTypeName }", please check that you have a valid codegen typescript file`);'
+    );
+
+    if (content === fixed) {
+        console.log('fix_typescript_components_props() fixed nothing!');
+    } else {
+        fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+    }
+}
+
 fix_typescript_utils_js();
 fix_typescript_modules_index();
+fix_typescript_components_props();
