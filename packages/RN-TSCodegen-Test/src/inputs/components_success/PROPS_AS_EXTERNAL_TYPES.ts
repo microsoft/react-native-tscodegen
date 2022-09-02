@@ -12,10 +12,10 @@ export type String = string;
 
 export type AnotherArray = ReadonlyArray<String>;
 
-export type ModuleProps = Readonly<{
-  disable: String;
-  array: AnotherArray;
-}>;
+export interface ModuleProps {
+  readonly disable: String;
+  readonly array: AnotherArray;
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

@@ -14,44 +14,44 @@ import {Double} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 'use strict';
 
-export type EventInFile = Readonly<{
-  boolean_required: boolean;
-  boolean_optional_key?: boolean;
-  boolean_optional_value: (undefined | null | boolean);
-  boolean_optional_both?: (undefined | null | boolean);
-  string_required: string;
-  string_optional_key?: string;
-  string_optional_value: (undefined | null | string);
-  string_optional_both?: (undefined | null | string);
-  double_required: Double;
-  double_optional_key?: Double;
-  double_optional_value: (undefined | null | Double);
-  double_optional_both?: (undefined | null | Double);
-  float_required: Float;
-  float_optional_key?: Float;
-  float_optional_value: (undefined | null | Float);
-  float_optional_both?: (undefined | null | Float);
-  int32_required: Int32;
-  int32_optional_key?: Int32;
-  int32_optional_value: (undefined | null | Int32);
-  int32_optional_both?: (undefined | null | Int32);
-  enum_required: ('small' | 'large');
-  enum_optional_key?: ('small' | 'large');
-  enum_optional_value: (undefined | null | ('small' | 'large'));
-  enum_optional_both?: (undefined | null | ('small' | 'large'));
-  object_required: {
+export interface EventInFile {
+  readonly boolean_required: boolean;
+  readonly boolean_optional_key?: boolean;
+  readonly boolean_optional_value: (undefined | null | boolean);
+  readonly boolean_optional_both?: (undefined | null | boolean);
+  readonly string_required: string;
+  readonly string_optional_key?: string;
+  readonly string_optional_value: (undefined | null | string);
+  readonly string_optional_both?: (undefined | null | string);
+  readonly double_required: Double;
+  readonly double_optional_key?: Double;
+  readonly double_optional_value: (undefined | null | Double);
+  readonly double_optional_both?: (undefined | null | Double);
+  readonly float_required: Float;
+  readonly float_optional_key?: Float;
+  readonly float_optional_value: (undefined | null | Float);
+  readonly float_optional_both?: (undefined | null | Float);
+  readonly int32_required: Int32;
+  readonly int32_optional_key?: Int32;
+  readonly int32_optional_value: (undefined | null | Int32);
+  readonly int32_optional_both?: (undefined | null | Int32);
+  readonly enum_required: ('small' | 'large');
+  readonly enum_optional_key?: ('small' | 'large');
+  readonly enum_optional_value: (undefined | null | ('small' | 'large'));
+  readonly enum_optional_both?: (undefined | null | ('small' | 'large'));
+  readonly object_required: {
     boolean_required: boolean;
   };
-  object_optional_key?: {
+  readonly object_optional_key?: {
     string_optional_key?: string;
   };
-  object_optional_value: (undefined | null | {
+  readonly object_optional_value: (undefined | null | {
     float_optional_value: (undefined | null | Float);
   });
-  object_optional_both?: (undefined | null | {
+  readonly object_optional_both?: (undefined | null | {
     int32_optional_both?: (undefined | null | Int32);
   });
-  object_required_nested_2_layers: {
+  readonly object_required_nested_2_layers: {
     object_optional_nested_1_layer?: (undefined | null | {
       boolean_required: Int32;
       string_optional_key?: string;
@@ -60,19 +60,19 @@ export type EventInFile = Readonly<{
       int32_optional_both?: (undefined | null | Int32);
     });
   };
-  object_readonly_required: Readonly<{
+  readonly object_readonly_required: Readonly<{
     boolean_required: boolean;
   }>;
-  object_readonly_optional_key?: Readonly<{
+  readonly object_readonly_optional_key?: Readonly<{
     string_optional_key?: string;
   }>;
-  object_readonly_optional_value: (undefined | null | Readonly<{
+  readonly object_readonly_optional_value: (undefined | null | Readonly<{
     float_optional_value: (undefined | null | Float);
   }>);
-  object_readonly_optional_both?: (undefined | null | Readonly<{
+  readonly object_readonly_optional_both?: (undefined | null | Readonly<{
     int32_optional_both?: (undefined | null | Int32);
   }>);
-}>;
+}
 
 export type ModuleProps = Readonly<ViewProps & {
   onBubblingEventDefinedInline: BubblingEventHandler<EventInFile>;

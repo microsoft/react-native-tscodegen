@@ -9,8 +9,8 @@ import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 'use strict';
 
-interface ModuleProps extends ViewProps {
-}
+type ModuleProps = Readonly<ViewProps & {
+}>;
 
 export default (codegenNativeComponent<ModuleProps>('Module', {
   deprecatedViewConfigName: 'DeprecateModuleName'

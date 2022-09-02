@@ -10,9 +10,9 @@ import {TurboModuleRegistry} from 'react-native';
 
 export type String = string;
 
-export type SomeObj = {
+export interface SomeObj {
   a: string;
-};
+}
 
 export interface Spec extends TurboModule {
   getValueWithPromise(): Promise<string>;

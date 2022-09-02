@@ -7,9 +7,9 @@
 import {TurboModule} from 'react-native'
 import {TurboModuleRegistry} from 'react-native';
 import {RootTag} from 'react-native-tscodegen-types';
-type Animal = {
+interface Animal {
   name?: string;
-};
+}
 
 export interface Spec extends TurboModule {
   getConstants?(): {

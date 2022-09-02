@@ -9,14 +9,14 @@ import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 'use strict';
 
-type DeepSpread = Readonly<{
-  otherStringProp: string;
-}>;
+interface DeepSpread {
+  readonly otherStringProp: string;
+}
 
-export type PropsInFile = Readonly<DeepSpread & {
-  isEnabled: boolean;
-  label: string;
-}>;
+export interface PropsInFile extends DeepSpread {
+  readonly isEnabled: boolean;
+  readonly label: string;
+}
 
 export type ModuleProps = Readonly<ViewProps & PropsInFile & {
   localType: Readonly<PropsInFile & {

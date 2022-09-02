@@ -17,9 +17,9 @@ import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
 'use strict';
 
-type ObjectType = Readonly<{
-  prop: string;
-}>;
+interface ObjectType {
+  readonly prop: string;
+}
 
 type ArrayObjectType = ReadonlyArray<Readonly<{
   prop: string;

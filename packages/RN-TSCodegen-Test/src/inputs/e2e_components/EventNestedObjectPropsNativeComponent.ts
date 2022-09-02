@@ -10,15 +10,15 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
-type OnChangeEvent = Readonly<{
-  location: {
+interface OnChangeEvent {
+  readonly location: {
     source: {
       url: string;
     };
     x: Int32;
     y: Int32;
   };
-}>;
+}
 
 type NativeProps = Readonly<ViewProps & {
   disabled?: WithDefault<boolean, false>;
