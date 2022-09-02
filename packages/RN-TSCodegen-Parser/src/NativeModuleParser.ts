@@ -18,6 +18,8 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
         case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
         case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
         case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
+        case 'StringLiterals': return { type: 'UnionTypeAnnotation', memberType: 'StringTypeAnnotation' };
+        case 'NumberLiterals': return { type: 'UnionTypeAnnotation', memberType: 'NumberTypeAnnotation' };
         case 'Array': {
             if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
                 return { type: 'ArrayTypeAnnotation' };
@@ -43,13 +45,21 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
                 name: rawType.name
             };
         }
+        case 'Union': {
+            const nonObjects = rawType.types.filter((elementType: RNRawType) => elementType.kind !== 'Object');
+            if (nonObjects.length === 0) {
+                return { type: 'UnionTypeAnnotation', memberType: 'ObjectTypeAnnotation' };
+            } else {
+                const nonObjectTypes = nonObjects.map((elementType: RNRawType) => elementType.kind);
+                const nonObjectTypesText = nonObjectTypes.filter((name: RNRawType['kind'], index: number) => nonObjectTypes.indexOf(name) === index).join(', ');
+                throw new Error(`${rawType.kind} of ${nonObjectTypesText}} is only allowed in arrays in native module.`);
+            }
+        }
+        case 'Tuple': {
+            throw new Error(`Tuple is only allowed in arrays in native module.`);
+        }
         default:
-    }
-
-    if (rawType.kind === 'Union' || rawType.kind === 'Tuple') {
-        throw new Error(`${rawType.kind} is only allowed in arrays in native module.`);
-    } else {
-        throw new Error(`${rawType.kind} is not supported in native module.`);
+            throw new Error(`${rawType.kind} is not supported in native module.`);
     }
 }
 
@@ -78,52 +88,13 @@ function rawTypeToParamType(rawType: RNRawType, usedAliases: string[]): cs.Nativ
 
 function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.NativeModuleReturnTypeAnnotation {
     switch (rawType.kind) {
-        case 'String': return { type: 'StringTypeAnnotation' };
-        case 'Number': return { type: 'NumberTypeAnnotation' };
-        case 'Int32': return { type: 'Int32TypeAnnotation' };
-        case 'Float': return { type: 'FloatTypeAnnotation' };
-        case 'Double': return { type: 'DoubleTypeAnnotation' };
-        case 'Boolean': return { type: 'BooleanTypeAnnotation' };
-        case 'Unknown': return { type: 'MixedTypeAnnotation' };
-        case 'js:Object': return { type: 'GenericObjectTypeAnnotation' };
-        case 'rn:RootTag': return { type: 'ReservedTypeAnnotation', name: 'RootTag' };
-        case 'rn:UnsafeObject': return { type: 'GenericObjectTypeAnnotation' };
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Function': return <cs.NativeModuleReturnTypeAnnotation>functionTypeToParamType(rawType, usedAliases);
-        case 'Array': {
-            if (rawType.elementType.kind === 'Union' || rawType.elementType.kind === 'Tuple' || rawType.elementType.kind === 'Any') {
-                return { type: 'ArrayTypeAnnotation' };
-            } else {
-                return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
-            }
-        }
         // What happened?
         // case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', nullable: rawType.isNullable, resolvedType: rawTypeToReturnType(rawType.elementType) };
         case 'js:Promise': return { type: 'PromiseTypeAnnotation' };
-        case 'Object': return {
-            type: 'ObjectTypeAnnotation',
-            properties: rawType.properties.map((param: { name: string; propertyType: RNRawType }) => {
-                return {
-                    optional: param.propertyType.isNullable,
-                    name: param.name,
-                    typeAnnotation: rawTypeToBaseType(param.propertyType, usedAliases)
-                };
-            })
-        };
-        case 'Alias': {
-            usedAliases.push(rawType.name);
-            return {
-                type: 'TypeAliasTypeAnnotation',
-                name: rawType.name
-            };
-        }
         default:
-    }
-
-    if (rawType.kind === 'Union' || rawType.kind === 'Tuple') {
-        throw new Error(`${rawType.kind} is only allowed in arrays in native module.`);
-    } else {
-        throw new Error(`${rawType.kind} is not supported in native module.`);
+            return rawTypeToBaseType(rawType, usedAliases);
     }
 }
 
