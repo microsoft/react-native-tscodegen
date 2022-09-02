@@ -98,8 +98,8 @@ export function generateLookup(program: flow.FlowProgram): SymbolLookup {
     const lookup: SymbolLookup = {
         decls: {},
         t2iCandidates: {},
-        t2iSelected: {},
-        t2iAllMembersReadonly: new Set<string>()
+        t2iSelected: { ViewProps: true },
+        t2iAllMembersReadonly: new Set<string>(['ViewProps'])
     };
 
     for (const stat of program.statements) {

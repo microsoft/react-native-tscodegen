@@ -18,8 +18,8 @@ export type Int = Int32;
 
 export type Void = void;
 
-export type ModuleProps = Readonly<ViewProps & {
-}>;
+export interface ModuleProps extends ViewProps {
+}
 
 type NativeType = HostComponent<ModuleProps>;
 

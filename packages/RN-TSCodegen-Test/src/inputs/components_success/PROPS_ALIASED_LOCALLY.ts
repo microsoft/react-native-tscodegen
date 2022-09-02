@@ -18,11 +18,11 @@ export interface PropsInFile extends DeepSpread {
   readonly label: string;
 }
 
-export type ModuleProps = Readonly<ViewProps & PropsInFile & {
-  localType: Readonly<PropsInFile & {
+export interface ModuleProps extends ViewProps, PropsInFile {
+  readonly localType: Readonly<PropsInFile & {
   }>;
-  localArr: ReadonlyArray<PropsInFile>;
-}>;
+  readonly localArr: ReadonlyArray<PropsInFile>;
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

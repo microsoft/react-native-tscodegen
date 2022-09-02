@@ -19,7 +19,7 @@ testCaseIndex.components.success.forEach((key: string) => {
 });
 
 testCaseIndex.components.success.forEach((key: string) => {
-    test(`component codegen: ${key}`, () => {
+    test(`component codegen (origin): ${key}`, () => {
         const inputFile = path.join(__dirname, `../../src/inputs/components_success/${key}.ts`);
         const snapshotFile = path.join(__dirname, `../../src/inputs/components_success/${key}.json`);
         const schema = typeScriptParser.parseString(readFileSync(inputFile, { encoding: 'utf-8' }), 'NativeSampleTurboModule.ts');

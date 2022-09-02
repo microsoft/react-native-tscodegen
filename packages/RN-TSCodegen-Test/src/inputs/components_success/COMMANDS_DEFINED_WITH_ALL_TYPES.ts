@@ -15,8 +15,8 @@ import {RootTag} from 'react-native-tscodegen-types';
 import * as React from 'react';
 'use strict';
 
-export type ModuleProps = Readonly<ViewProps & {
-}>;
+export interface ModuleProps extends ViewProps {
+}
 
 type NativeType = HostComponent<ModuleProps>;
 

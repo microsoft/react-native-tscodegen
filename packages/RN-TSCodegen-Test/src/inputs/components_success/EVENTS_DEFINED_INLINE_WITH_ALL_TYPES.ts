@@ -14,8 +14,8 @@ import {Double} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 'use strict';
 
-type ModuleProps = Readonly<ViewProps & {
-  onDirectEventDefinedInline: DirectEventHandler<Readonly<{
+interface ModuleProps extends ViewProps {
+  readonly onDirectEventDefinedInline: DirectEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -74,7 +74,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>;
-  onDirectEventDefinedInlineOptionalKey?: DirectEventHandler<Readonly<{
+  readonly onDirectEventDefinedInlineOptionalKey?: DirectEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -133,7 +133,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>;
-  onDirectEventDefinedInlineOptionalValue: (undefined | null | DirectEventHandler<Readonly<{
+  readonly onDirectEventDefinedInlineOptionalValue: (undefined | null | DirectEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -192,7 +192,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>);
-  onDirectEventDefinedInlineOptionalBoth?: (undefined | null | DirectEventHandler<Readonly<{
+  readonly onDirectEventDefinedInlineOptionalBoth?: (undefined | null | DirectEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -251,7 +251,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>);
-  onDirectEventDefinedInlineWithPaperName?: (undefined | null | DirectEventHandler<Readonly<{
+  readonly onDirectEventDefinedInlineWithPaperName?: (undefined | null | DirectEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -310,7 +310,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>, 'paperDirectEventDefinedInlineWithPaperName'>);
-  onBubblingEventDefinedInline: BubblingEventHandler<Readonly<{
+  readonly onBubblingEventDefinedInline: BubblingEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -369,7 +369,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>;
-  onBubblingEventDefinedInlineOptionalKey?: BubblingEventHandler<Readonly<{
+  readonly onBubblingEventDefinedInlineOptionalKey?: BubblingEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -428,7 +428,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>;
-  onBubblingEventDefinedInlineOptionalValue: (undefined | null | BubblingEventHandler<Readonly<{
+  readonly onBubblingEventDefinedInlineOptionalValue: (undefined | null | BubblingEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -487,7 +487,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>);
-  onBubblingEventDefinedInlineOptionalBoth?: (undefined | null | BubblingEventHandler<Readonly<{
+  readonly onBubblingEventDefinedInlineOptionalBoth?: (undefined | null | BubblingEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -546,7 +546,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>>);
-  onBubblingEventDefinedInlineWithPaperName?: (undefined | null | BubblingEventHandler<Readonly<{
+  readonly onBubblingEventDefinedInlineWithPaperName?: (undefined | null | BubblingEventHandler<Readonly<{
     boolean_required: boolean;
     boolean_optional_key?: boolean;
     boolean_optional_value: (undefined | null | boolean);
@@ -605,7 +605,7 @@ type ModuleProps = Readonly<ViewProps & {
       int32_optional_both?: (undefined | null | Int32);
     }>);
   }>, 'paperBubblingEventDefinedInlineWithPaperName'>);
-}>;
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

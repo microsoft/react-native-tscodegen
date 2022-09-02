@@ -11,11 +11,11 @@ import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 'use strict';
 
-type ModuleProps = Readonly<ViewProps & {
-  boolean_default_true_optional_both?: WithDefault<boolean, true>;
-  onDirectEventDefinedInlineNull: DirectEventHandler<null>;
-  onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
-}>;
+interface ModuleProps extends ViewProps {
+  readonly boolean_default_true_optional_both?: WithDefault<boolean, true>;
+  readonly onDirectEventDefinedInlineNull: DirectEventHandler<null>;
+  readonly onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
+}
 
 export default codegenNativeComponent<ModuleProps>('Module', {
   interfaceOnly: true,

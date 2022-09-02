@@ -11,18 +11,18 @@ import {BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 'use strict';
 
-type ModuleProps = Readonly<ViewProps & {
-  onDirectEventDefinedInlineNull: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullOptionalValue: (undefined | null | DirectEventHandler<null>);
-  onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
-  onDirectEventDefinedInlineNullWithPaperName?: (undefined | null | DirectEventHandler<null, 'paperDirectEventDefinedInlineNullWithPaperName'>);
-  onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
-  onBubblingEventDefinedInlineNullOptionalValue: (undefined | null | BubblingEventHandler<null>);
-  onBubblingEventDefinedInlineNullOptionalBoth?: (undefined | null | BubblingEventHandler<null>);
-  onBubblingEventDefinedInlineNullWithPaperName?: (undefined | null | BubblingEventHandler<null, 'paperBubblingEventDefinedInlineNullWithPaperName'>);
-}>;
+interface ModuleProps extends ViewProps {
+  readonly onDirectEventDefinedInlineNull: DirectEventHandler<null>;
+  readonly onDirectEventDefinedInlineNullOptionalKey?: DirectEventHandler<null>;
+  readonly onDirectEventDefinedInlineNullOptionalValue: (undefined | null | DirectEventHandler<null>);
+  readonly onDirectEventDefinedInlineNullOptionalBoth?: DirectEventHandler<null>;
+  readonly onDirectEventDefinedInlineNullWithPaperName?: (undefined | null | DirectEventHandler<null, 'paperDirectEventDefinedInlineNullWithPaperName'>);
+  readonly onBubblingEventDefinedInlineNull: BubblingEventHandler<null>;
+  readonly onBubblingEventDefinedInlineNullOptionalKey?: BubblingEventHandler<null>;
+  readonly onBubblingEventDefinedInlineNullOptionalValue: (undefined | null | BubblingEventHandler<null>);
+  readonly onBubblingEventDefinedInlineNullOptionalBoth?: (undefined | null | BubblingEventHandler<null>);
+  readonly onBubblingEventDefinedInlineNullWithPaperName?: (undefined | null | BubblingEventHandler<null, 'paperBubblingEventDefinedInlineNullWithPaperName'>);
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

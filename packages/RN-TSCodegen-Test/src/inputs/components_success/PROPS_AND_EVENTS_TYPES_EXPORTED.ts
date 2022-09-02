@@ -74,12 +74,12 @@ export interface EventInFile {
   }>);
 }
 
-export type ModuleProps = Readonly<ViewProps & {
-  onBubblingEventDefinedInline: BubblingEventHandler<EventInFile>;
-  onBubblingEventDefinedInlineWithPaperName: BubblingEventHandler<EventInFile, 'paperBubblingEventDefinedInlineWithPaperName'>;
-  onDirectEventDefinedInline: DirectEventHandler<EventInFile>;
-  onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>;
-}>;
+export interface ModuleProps extends ViewProps {
+  readonly onBubblingEventDefinedInline: BubblingEventHandler<EventInFile>;
+  readonly onBubblingEventDefinedInlineWithPaperName: BubblingEventHandler<EventInFile, 'paperBubblingEventDefinedInlineWithPaperName'>;
+  readonly onDirectEventDefinedInline: DirectEventHandler<EventInFile>;
+  readonly onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>;
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

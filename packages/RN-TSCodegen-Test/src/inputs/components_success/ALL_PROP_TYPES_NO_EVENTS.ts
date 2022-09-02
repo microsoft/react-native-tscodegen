@@ -20,69 +20,69 @@ import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
 'use strict';
 
-type ModuleProps = Readonly<ViewProps & {
-  boolean_required: boolean;
-  boolean_optional_key?: WithDefault<boolean, true>;
-  boolean_optional_both?: WithDefault<boolean, true>;
-  boolean_null_optional_key?: WithDefault<boolean, null>;
-  boolean_null_optional_both?: WithDefault<boolean, null>;
-  string_required: string;
-  string_optional_key?: WithDefault<string, ''>;
-  string_optional_both?: WithDefault<string, ''>;
-  string_null_optional_key?: WithDefault<string, null>;
-  string_null_optional_both?: WithDefault<string, null>;
-  stringish_required: Stringish;
-  stringish_optional_key?: WithDefault<Stringish, ''>;
-  stringish_optional_both?: WithDefault<Stringish, ''>;
-  stringish_null_optional_key?: WithDefault<Stringish, null>;
-  stringish_null_optional_both?: WithDefault<Stringish, null>;
-  double_required: Double;
-  double_optional_key?: WithDefault<Double, 1.1>;
-  double_optional_both?: WithDefault<Double, 1.1>;
-  float_required: Float;
-  float_optional_key?: WithDefault<Float, 1.1>;
-  float_optional_both?: WithDefault<Float, 1.1>;
-  float_null_optional_key?: WithDefault<Float, null>;
-  float_null_optional_both?: WithDefault<Float, null>;
-  int32_required: Int32;
-  int32_optional_key?: WithDefault<Int32, 1>;
-  int32_optional_both?: WithDefault<Int32, 1>;
-  enum_optional_key?: WithDefault<'small' | 'large', 'small'>;
-  enum_optional_both?: WithDefault<'small' | 'large', 'small'>;
-  int_enum_optional_key?: WithDefault<0 | 1, 0>;
-  object_optional_key?: Readonly<{
+interface ModuleProps extends ViewProps {
+  readonly boolean_required: boolean;
+  readonly boolean_optional_key?: WithDefault<boolean, true>;
+  readonly boolean_optional_both?: WithDefault<boolean, true>;
+  readonly boolean_null_optional_key?: WithDefault<boolean, null>;
+  readonly boolean_null_optional_both?: WithDefault<boolean, null>;
+  readonly string_required: string;
+  readonly string_optional_key?: WithDefault<string, ''>;
+  readonly string_optional_both?: WithDefault<string, ''>;
+  readonly string_null_optional_key?: WithDefault<string, null>;
+  readonly string_null_optional_both?: WithDefault<string, null>;
+  readonly stringish_required: Stringish;
+  readonly stringish_optional_key?: WithDefault<Stringish, ''>;
+  readonly stringish_optional_both?: WithDefault<Stringish, ''>;
+  readonly stringish_null_optional_key?: WithDefault<Stringish, null>;
+  readonly stringish_null_optional_both?: WithDefault<Stringish, null>;
+  readonly double_required: Double;
+  readonly double_optional_key?: WithDefault<Double, 1.1>;
+  readonly double_optional_both?: WithDefault<Double, 1.1>;
+  readonly float_required: Float;
+  readonly float_optional_key?: WithDefault<Float, 1.1>;
+  readonly float_optional_both?: WithDefault<Float, 1.1>;
+  readonly float_null_optional_key?: WithDefault<Float, null>;
+  readonly float_null_optional_both?: WithDefault<Float, null>;
+  readonly int32_required: Int32;
+  readonly int32_optional_key?: WithDefault<Int32, 1>;
+  readonly int32_optional_both?: WithDefault<Int32, 1>;
+  readonly enum_optional_key?: WithDefault<'small' | 'large', 'small'>;
+  readonly enum_optional_both?: WithDefault<'small' | 'large', 'small'>;
+  readonly int_enum_optional_key?: WithDefault<0 | 1, 0>;
+  readonly object_optional_key?: Readonly<{
     prop: string;
   }>;
-  object_optional_both?: (undefined | null | Readonly<{
+  readonly object_optional_both?: (undefined | null | Readonly<{
     prop: string;
   }>);
-  object_optional_value: (undefined | null | Readonly<{
+  readonly object_optional_value: (undefined | null | Readonly<{
     prop: string;
   }>);
-  image_required: ImageSource;
-  image_optional_value: (undefined | null | ImageSource);
-  image_optional_both?: (undefined | null | ImageSource);
-  color_required: ColorValue;
-  color_optional_key?: ColorValue;
-  color_optional_value: (undefined | null | ColorValue);
-  color_optional_both?: (undefined | null | ColorValue);
-  color_array_required: ColorArrayValue;
-  color_array_optional_key?: ColorArrayValue;
-  color_array_optional_value: (undefined | null | ColorArrayValue);
-  color_array_optional_both?: (undefined | null | ColorArrayValue);
-  processed_color_required: ProcessedColorValue;
-  processed_color_optional_key?: ProcessedColorValue;
-  processed_color_optional_value: (undefined | null | ProcessedColorValue);
-  processed_color_optional_both?: (undefined | null | ProcessedColorValue);
-  point_required: PointValue;
-  point_optional_key?: PointValue;
-  point_optional_value: (undefined | null | PointValue);
-  point_optional_both?: (undefined | null | PointValue);
-  insets_required: EdgeInsetsValue;
-  insets_optional_key?: EdgeInsetsValue;
-  insets_optional_value: (undefined | null | EdgeInsetsValue);
-  insets_optional_both?: (undefined | null | EdgeInsetsValue);
-}>;
+  readonly image_required: ImageSource;
+  readonly image_optional_value: (undefined | null | ImageSource);
+  readonly image_optional_both?: (undefined | null | ImageSource);
+  readonly color_required: ColorValue;
+  readonly color_optional_key?: ColorValue;
+  readonly color_optional_value: (undefined | null | ColorValue);
+  readonly color_optional_both?: (undefined | null | ColorValue);
+  readonly color_array_required: ColorArrayValue;
+  readonly color_array_optional_key?: ColorArrayValue;
+  readonly color_array_optional_value: (undefined | null | ColorArrayValue);
+  readonly color_array_optional_both?: (undefined | null | ColorArrayValue);
+  readonly processed_color_required: ProcessedColorValue;
+  readonly processed_color_optional_key?: ProcessedColorValue;
+  readonly processed_color_optional_value: (undefined | null | ProcessedColorValue);
+  readonly processed_color_optional_both?: (undefined | null | ProcessedColorValue);
+  readonly point_required: PointValue;
+  readonly point_optional_key?: PointValue;
+  readonly point_optional_value: (undefined | null | PointValue);
+  readonly point_optional_both?: (undefined | null | PointValue);
+  readonly insets_required: EdgeInsetsValue;
+  readonly insets_optional_key?: EdgeInsetsValue;
+  readonly insets_optional_value: (undefined | null | EdgeInsetsValue);
+  readonly insets_optional_both?: (undefined | null | EdgeInsetsValue);
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

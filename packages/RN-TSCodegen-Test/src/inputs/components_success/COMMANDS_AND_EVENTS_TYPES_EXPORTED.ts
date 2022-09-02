@@ -82,12 +82,12 @@ export type Int = Int32;
 
 export type Void = void;
 
-export type ModuleProps = Readonly<ViewProps & {
-  onBubblingEventDefinedInline: BubblingEventHandler<EventInFile>;
-  onBubblingEventDefinedInlineWithPaperName: BubblingEventHandler<EventInFile, 'paperBubblingEventDefinedInlineWithPaperName'>;
-  onDirectEventDefinedInline: DirectEventHandler<EventInFile>;
-  onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>;
-}>;
+export interface ModuleProps extends ViewProps {
+  readonly onBubblingEventDefinedInline: BubblingEventHandler<EventInFile>;
+  readonly onBubblingEventDefinedInlineWithPaperName: BubblingEventHandler<EventInFile, 'paperBubblingEventDefinedInlineWithPaperName'>;
+  readonly onDirectEventDefinedInline: DirectEventHandler<EventInFile>;
+  readonly onDirectEventDefinedInlineWithPaperName: DirectEventHandler<EventInFile, 'paperDirectEventDefinedInlineWithPaperName'>;
+}
 
 type NativeType = HostComponent<ModuleProps>;
 

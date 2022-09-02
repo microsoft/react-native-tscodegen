@@ -18,121 +18,121 @@ import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
 'use strict';
 
-type ModuleProps = Readonly<ViewProps & {
-  boolean_required: Readonly<{
+interface ModuleProps extends ViewProps {
+  readonly boolean_required: Readonly<{
     prop: boolean;
   }>;
-  boolean_optional: Readonly<{
+  readonly boolean_optional: Readonly<{
     prop?: WithDefault<boolean, false>;
   }>;
-  string_required: Readonly<{
+  readonly string_required: Readonly<{
     prop: string;
   }>;
-  string_optional: Readonly<{
+  readonly string_optional: Readonly<{
     prop?: WithDefault<string, ''>;
   }>;
-  double_required: Readonly<{
+  readonly double_required: Readonly<{
     prop: Double;
   }>;
-  double_optional: Readonly<{
+  readonly double_optional: Readonly<{
     prop?: WithDefault<Double, 0.0>;
   }>;
-  float_required: Readonly<{
+  readonly float_required: Readonly<{
     prop: Float;
   }>;
-  float_optional: Readonly<{
+  readonly float_optional: Readonly<{
     prop?: WithDefault<Float, 0.0>;
   }>;
-  int_required: Readonly<{
+  readonly int_required: Readonly<{
     prop: Int32;
   }>;
-  int_optional: Readonly<{
+  readonly int_optional: Readonly<{
     prop?: WithDefault<Int32, 0>;
   }>;
-  enum_optional: Readonly<{
+  readonly enum_optional: Readonly<{
     prop?: WithDefault<ReadonlyArray<'small' | 'large'>, 'small'>;
   }>;
-  image_required: Readonly<{
+  readonly image_required: Readonly<{
     prop: ImageSource;
   }>;
-  image_optional_key: Readonly<{
+  readonly image_optional_key: Readonly<{
     prop?: ImageSource;
   }>;
-  image_optional_value: Readonly<{
+  readonly image_optional_value: Readonly<{
     prop: (undefined | null | ImageSource);
   }>;
-  image_optional_both: Readonly<{
+  readonly image_optional_both: Readonly<{
     prop?: (undefined | null | ImageSource);
   }>;
-  color_required: Readonly<{
+  readonly color_required: Readonly<{
     prop: ColorValue;
   }>;
-  color_optional_key: Readonly<{
+  readonly color_optional_key: Readonly<{
     prop?: ColorValue;
   }>;
-  color_optional_value: Readonly<{
+  readonly color_optional_value: Readonly<{
     prop: (undefined | null | ColorValue);
   }>;
-  color_optional_both: Readonly<{
+  readonly color_optional_both: Readonly<{
     prop?: (undefined | null | ColorValue);
   }>;
-  processed_color_required: Readonly<{
+  readonly processed_color_required: Readonly<{
     prop: ProcessedColorValue;
   }>;
-  processed_color_optional_key: Readonly<{
+  readonly processed_color_optional_key: Readonly<{
     prop?: ProcessedColorValue;
   }>;
-  processed_color_optional_value: Readonly<{
+  readonly processed_color_optional_value: Readonly<{
     prop: (undefined | null | ProcessedColorValue);
   }>;
-  processed_color_optional_both: Readonly<{
+  readonly processed_color_optional_both: Readonly<{
     prop?: (undefined | null | ProcessedColorValue);
   }>;
-  point_required: Readonly<{
+  readonly point_required: Readonly<{
     prop: PointValue;
   }>;
-  point_optional_key: Readonly<{
+  readonly point_optional_key: Readonly<{
     prop?: PointValue;
   }>;
-  point_optional_value: Readonly<{
+  readonly point_optional_value: Readonly<{
     prop: (undefined | null | PointValue);
   }>;
-  point_optional_both: Readonly<{
+  readonly point_optional_both: Readonly<{
     prop?: (undefined | null | PointValue);
   }>;
-  insets_required: Readonly<{
+  readonly insets_required: Readonly<{
     prop: EdgeInsetsValue;
   }>;
-  insets_optional_key: Readonly<{
+  readonly insets_optional_key: Readonly<{
     prop?: EdgeInsetsValue;
   }>;
-  insets_optional_value: Readonly<{
+  readonly insets_optional_value: Readonly<{
     prop: (undefined | null | EdgeInsetsValue);
   }>;
-  insets_optional_both: Readonly<{
+  readonly insets_optional_both: Readonly<{
     prop?: (undefined | null | EdgeInsetsValue);
   }>;
-  object_required: Readonly<{
+  readonly object_required: Readonly<{
     prop: Readonly<{
       nestedProp: string;
     }>;
   }>;
-  object_optional_key?: Readonly<{
+  readonly object_optional_key?: Readonly<{
     prop: Readonly<{
       nestedProp: string;
     }>;
   }>;
-  object_optional_value: (undefined | null | Readonly<{
+  readonly object_optional_value: (undefined | null | Readonly<{
     prop: Readonly<{
       nestedProp: string;
     }>;
   }>);
-  object_optional_both?: (undefined | null | Readonly<{
+  readonly object_optional_both?: (undefined | null | Readonly<{
     prop: Readonly<{
       nestedProp: string;
     }>;
   }>);
-}>;
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 
