@@ -197,9 +197,20 @@ export interface InterfaceDecl extends DeclarationBase {
   interfaceType: ObjectType;
 }
 
+export interface EnumItem {
+  name: string;
+  value?: LiteralType;
+}
+
+export interface EnumDecl extends DeclarationBase {
+  kind: 'EnumDecl';
+  members: EnumItem[];
+}
+
 export type Declaration =
   | TypeAliasDecl
   | InterfaceDecl
+  | EnumDecl
   ;
 
 /*****************************************************************

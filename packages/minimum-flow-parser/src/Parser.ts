@@ -392,6 +392,27 @@ function applyInterfaceDecl(value: [
   };
 }
 
+function applyEnumDecl(value: [
+  undefined | {/*export*/ },
+  Token,
+  [Token, undefined | Token][]
+]): ast.Declaration {
+  const [hasExport, name, items] = value;
+  return {
+    kind: 'EnumDecl',
+    hasExport: hasExport !== undefined,
+    name: name.text,
+    members: items.map((item: [Token, undefined | Token]): ast.EnumItem => {
+      const [itemName, itemValue] = item;
+      const result: ast.EnumItem = { name: itemName.text };
+      if (itemValue !== undefined) {
+        result.value = { kind: 'LiteralType', text: itemValue.text };
+      }
+      return result;
+    })
+  };
+}
+
 /*****************************************************************
  * Statements (apply)
  ****************************************************************/
@@ -787,7 +808,7 @@ DECL.setPattern(
       ),
       applyTypeAliasDecl
     ),
-    // export interface NAME [extends TYPE, ...] {...};
+    // export interface NAME [extends TYPE, ...] {...}
     apply(
       seq(
         kleft(
@@ -801,6 +822,36 @@ DECL.setPattern(
         createObjectSyntax()
       ),
       applyInterfaceDecl
+    ),
+    // export enum NAME {...}
+    apply(
+      seq(
+        kleft(
+          opt_sc(str('export')),
+          str('enum')
+        ),
+        IDENTIFIER,
+        kmid(
+          str('{'),
+          kleft(
+            list_sc(
+              seq(
+                IDENTIFIER,
+                opt_sc(
+                  kright(
+                    str('='),
+                    alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral))
+                  )
+                )
+              ),
+              str(',')
+            ),
+            opt_sc(str(','))
+          ),
+          str('}')
+        )
+      ),
+      applyEnumDecl
     )
   )
 );
