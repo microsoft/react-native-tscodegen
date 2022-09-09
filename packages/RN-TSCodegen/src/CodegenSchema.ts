@@ -254,6 +254,13 @@ export interface NativeModuleBooleanTypeAnnotation {
   readonly type: 'BooleanTypeAnnotation';
 }
 
+export interface NativeModuleEnumDeclaration {
+  readonly type: 'EnumDeclaration';
+  readonly memberType:
+    | 'NumberTypeAnnotation'
+    | 'StringTypeAnnotation';
+}
+
 export interface NativeModuleGenericObjectTypeAnnotation {
   readonly type: 'GenericObjectTypeAnnotation';
 }
@@ -288,6 +295,7 @@ export type NativeModuleBaseTypeAnnotation =
   | NativeModuleDoubleTypeAnnotation
   | NativeModuleFloatTypeAnnotation
   | NativeModuleBooleanTypeAnnotation
+  | NativeModuleEnumDeclaration
   | NativeModuleGenericObjectTypeAnnotation
   | ReservedTypeAnnotation
   | NativeModuleTypeAliasTypeAnnotation
