@@ -4,7 +4,7 @@
 // tslint:disable:no-conditional-assignment
 
 import * as ts from 'typescript';
-import { getMembersFromType, resolveType } from './ExportParser';
+import { getMembersFromType, resolveTypeOrDecl } from './ExportParser';
 import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 
 export interface RNRawTypeOptions {
@@ -187,8 +187,32 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     if (options.knownAliases !== undefined && options.knownAliases.indexOf(typeReferenceName) !== -1) {
                         itemOthers.push({ kind: 'Alias', isNullable: false, name: typeReferenceName });
                     } else {
-                        const resolvedType = resolveType(item, sourceFile);
-                        if (resolvedType !== item) {
+                        const [resolvedType, resolvedDecl] = resolveTypeOrDecl(item, sourceFile);
+                        if (resolvedDecl !== undefined && ts.isEnumDeclaration(resolvedDecl)) {
+                            let foundNumber = false;
+                            let foundString = false;
+                            for (const member of resolvedDecl.members) {
+                                if (member.initializer === undefined) {
+                                    foundString = true;
+                                } else if (ts.isNumericLiteral(member.initializer)) {
+                                    foundNumber = true;
+                                } else if (ts.isStringLiteral(member.initializer)) {
+                                    foundString = true;
+                                } else {
+                                    throw new Error(`Enum is not supported: ${resolvedDecl.name.getText()}, only number of string are allowed in an enum.`);
+                                }
+                            }
+
+                            if (foundNumber && foundString) {
+                                throw new Error(`Enum is not supported: ${resolvedDecl.name.getText()}, only numbers and strings are not allowed to be mixed in an enum.`);
+                            } else if (foundNumber) {
+                                itemOthers.push({ kind: 'NumberEnum', isNullable: false });
+                            } else if (foundString) {
+                                itemOthers.push({ kind: 'StringEnum', isNullable: false });
+                            } else {
+                                itemOthers.push({ kind: 'StringEnum', isNullable: false });
+                            }
+                        } else if (resolvedType !== item) {
                             scannedItems.push(resolvedType);
                         } else {
                             recognized = false;

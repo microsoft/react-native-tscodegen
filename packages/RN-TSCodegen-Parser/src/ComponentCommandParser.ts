@@ -3,7 +3,7 @@
 
 import * as cs from 'react-native-tscodegen';
 import * as ts from 'typescript';
-import { ExportCommandInfo, getMembersFromType, resolveType } from './ExportParser';
+import { ExportCommandInfo, getMembersFromType, resolveTypeOrDecl } from './ExportParser';
 import { typeToRNRawType } from './TypeChecker';
 
 function typeNodeToCommandsTypeAnnotation(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): cs.CommandParamTypeAnnotation {
@@ -65,7 +65,7 @@ export function parseCommands(info?: ExportCommandInfo): cs.NamedShape<cs.Comman
                 throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should have a property type.`);
             }
 
-            const propType = resolveType(decl.type, info.sourceFile);
+            const propType = resolveTypeOrDecl(decl.type, info.sourceFile)[0];
             if (ts.isFunctionTypeNode(propType)) {
                 if (propType.typeParameters !== undefined && propType.typeParameters.length !== 0) {
                     throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should not be generic.`);
@@ -80,7 +80,7 @@ export function parseCommands(info?: ExportCommandInfo): cs.NamedShape<cs.Comman
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should be a function.`);
         }
 
-        if (resolveType(funcReturnType, info.sourceFile).kind !== ts.SyntaxKind.VoidKeyword) {
+        if (resolveTypeOrDecl(funcReturnType, info.sourceFile)[0].kind !== ts.SyntaxKind.VoidKeyword) {
             throw new Error(`Command ${commandName} in type ${info.typeNode.getText()} should return void.`);
         }
         if (funcParameters.length === 0) {

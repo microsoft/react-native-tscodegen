@@ -27,19 +27,25 @@ export interface ExportCommandInfo {
 
 type ExportInfo = [ts.TypeNode, ts.Expression, ts.Expression];
 
-export function resolveType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): ts.TypeNode {
+export function resolveTypeOrDecl(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): [ts.TypeNode, ts.InterfaceDeclaration | ts.EnumDeclaration | undefined] {
     if (ts.isParenthesizedTypeNode(typeNode)) {
-        return typeNode.type;
+        return resolveTypeOrDecl(typeNode.type, sourceFile);
     } else if (ts.isTypeReferenceNode(typeNode)) {
         if (typeNode.typeArguments === undefined || typeNode.typeArguments.length === 0) {
             for (const stat of sourceFile.statements) {
-                if (ts.isTypeAliasDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
-                    return resolveType(stat.type, sourceFile);
+                if (ts.isTypeAliasDeclaration(stat)) {
+                    if (stat.name.getText() === typeNode.typeName.getText()) {
+                        return resolveTypeOrDecl(stat.type, sourceFile);
+                    }
+                } else if (ts.isInterfaceDeclaration(stat) || ts.isEnumDeclaration(stat)) {
+                    if (stat.name.getText() === typeNode.typeName.getText()) {
+                        return [typeNode, stat];
+                    }
                 }
             }
         }
     }
-    return typeNode;
+    return [typeNode, undefined];
 }
 
 export function getMembersFromType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): readonly ts.TypeElement[] | undefined {

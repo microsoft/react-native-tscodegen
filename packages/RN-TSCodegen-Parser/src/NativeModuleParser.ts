@@ -10,6 +10,8 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
     switch (rawType.kind) {
         case 'String': return { type: 'StringTypeAnnotation' };
         case 'Number': return { type: 'NumberTypeAnnotation' };
+        case 'StringEnum': return { type: 'EnumDeclaration', memberType: 'StringTypeAnnotation' };
+        case 'NumberEnum': return { type: 'EnumDeclaration', memberType: 'NumberTypeAnnotation' };
         case 'Int32': return { type: 'Int32TypeAnnotation' };
         case 'Float': return { type: 'FloatTypeAnnotation' };
         case 'Double': return { type: 'DoubleTypeAnnotation' };
