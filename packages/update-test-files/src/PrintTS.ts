@@ -393,6 +393,27 @@ function printStatement(printer: Printer, lookup: SymbolLookup, stat: flow.State
             printObjectTypeWithoutMixins(printer, stat.interfaceType, true, false);
             break;
         }
+        case 'EnumDecl': {
+            if (forceExport || stat.hasExport) {
+                printer.write(`export `);
+            }
+            printer.write(`enum ${stat.name} {`);
+            printer.writeLn();
+            printer.pushIndent();
+            for (const item of stat.members) {
+                printer.writeIndent();
+                printer.write(item.name);
+                if (item.value !== undefined) {
+                    printer.write(` = ${item.value.text}`);
+                }
+                printer.write(',');
+                printer.writeLn();
+            }
+            printer.popIndent();
+            printer.writeIndent();
+            printer.write('}');
+            break;
+        }
         case 'ImportEqualStat': {
             printer.write(`import ${stat.name} = require(${stat.source});`);
             break;
