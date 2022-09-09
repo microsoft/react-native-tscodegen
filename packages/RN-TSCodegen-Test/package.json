@@ -35,7 +35,7 @@
     "react-native-tscodegen-types": "0.70.0"
   },
   "jest": {
-    "testRegex": "/lib/test/Test.*Cases\\.js",
+    "testRegex": "/lib/test/Test.*Cases(-Original)?\\.js",
     "verbose": true
   }
 }
