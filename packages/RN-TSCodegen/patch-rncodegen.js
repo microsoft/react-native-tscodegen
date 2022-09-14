@@ -26,4 +26,21 @@ function fix_typescript_components_props() {
     }
 }
 
+function fix_typescript_components_events() {
+    const filepath = path.join(__dirname, 'lib/rncodegen/src/parsers/typescript/components/events.js');
+    const content = fs.readFileSync(filepath, { encoding: 'utf-8' });
+    const fixed = content.replace(
+        `const type = typeAnnotation.type === 'TSTypeReference' ? typeAnnotation.typeName.name : typeAnnotation.type;`,
+        `if (typeAnnotation.type == 'TSParenthesizedType') return getPropertyType(name, optional, typeAnnotation.typeAnnotation);
+  const type = typeAnnotation.type === 'TSTypeReference' ? typeAnnotation.typeName.name : typeAnnotation.type;`
+    );
+
+    if (content === fixed) {
+        console.log('fix_typescript_components_events() fixed nothing!');
+    } else {
+        fs.writeFileSync(filepath, fixed, { encoding: 'utf-8' });
+    }
+}
+
 fix_typescript_components_props();
+fix_typescript_components_events();
