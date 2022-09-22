@@ -42,5 +42,5 @@ function fix_typescript_components_events() {
     }
 }
 
-fix_typescript_components_props();
-fix_typescript_components_events();
+//fix_typescript_components_props();
+//fix_typescript_components_events();
