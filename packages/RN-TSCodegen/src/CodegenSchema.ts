@@ -74,6 +74,7 @@ export interface ComponentShape extends OptionsShape {
   readonly events: readonly EventTypeShape[];
   readonly props: readonly NamedShape<PropTypeAnnotation>[];
   readonly commands: readonly NamedShape<CommandTypeAnnotation>[];
+  readonly state?: readonly NamedShape<StateTypeAnnotation>[];
 }
 
 export interface OptionsShape {
@@ -178,6 +179,8 @@ export interface ReservedPropTypeAnnotation {
     | 'PointPrimitive'
     | 'EdgeInsetsPrimitive';
 }
+
+export type StateTypeAnnotation = PropTypeAnnotation;
 
 export type CommandTypeAnnotation = FunctionTypeAnnotation<CommandParamTypeAnnotation, VoidTypeAnnotation>;
 

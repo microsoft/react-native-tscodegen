@@ -1,0 +1,660 @@
+{
+  "modules": {
+    "Module": {
+      "type": "Component",
+      "components": {
+        "Module": {
+          "extendsProps": [
+            {
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
+            }
+          ],
+          "events": [],
+          "props": [],
+          "commands": [],
+          "state": [
+            {
+              "name": "boolean_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "BooleanTypeAnnotation",
+                      "default": false
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "boolean_optional",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "BooleanTypeAnnotation",
+                      "default": false
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "string_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "StringTypeAnnotation",
+                      "default": null
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "string_optional",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "StringTypeAnnotation",
+                      "default": ""
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "double_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "DoubleTypeAnnotation",
+                      "default": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "double_optional",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "DoubleTypeAnnotation",
+                      "default": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "float_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "FloatTypeAnnotation",
+                      "default": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "float_optional",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "FloatTypeAnnotation",
+                      "default": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "int_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "Int32TypeAnnotation",
+                      "default": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "int_optional",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "Int32TypeAnnotation",
+                      "default": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "enum_optional",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ArrayTypeAnnotation",
+                      "elementType": {
+                        "type": "StringEnumTypeAnnotation",
+                        "default": "small",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "image_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "image_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "image_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "image_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ImageSourcePrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "color_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "color_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "color_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "color_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "processed_color_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "processed_color_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "processed_color_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "processed_color_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "ColorPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "point_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "point_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "point_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "point_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "PointPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "insets_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "insets_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "insets_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "insets_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "EdgeInsetsPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "object_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "nestedProp",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "StringTypeAnnotation",
+                            "default": null
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "object_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "nestedProp",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "StringTypeAnnotation",
+                            "default": null
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "object_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "nestedProp",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "StringTypeAnnotation",
+                            "default": null
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "object_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ObjectTypeAnnotation",
+                      "properties": [
+                        {
+                          "name": "nestedProp",
+                          "optional": false,
+                          "typeAnnotation": {
+                            "type": "StringTypeAnnotation",
+                            "default": null
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

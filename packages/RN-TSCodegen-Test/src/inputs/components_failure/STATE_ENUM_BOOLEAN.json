@@ -1,0 +1,1 @@
+{"error": "Unsupported union type for \"someProp\", received \"BooleanLiteralTypeAnnotation\""}
