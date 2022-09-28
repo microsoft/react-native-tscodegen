@@ -7,6 +7,7 @@ import { parseCommands } from './ComponentCommandParser';
 import { checkEventType, parseEvent } from './ComponentEventParser';
 import { parseProperty } from './ComponentPropertyParser';
 import { ExportCommandInfo, ExportComponentInfo, getMembersFromType } from './ExportParser';
+import { WritableObjectType } from './RNRawType';
 
 function importExists(sourceFile: ts.SourceFile, name: string): boolean {
     const result = sourceFile.forEachChild((importNode: ts.Node) => {
@@ -89,6 +90,10 @@ export function processComponent(info: ExportComponentInfo, commandsInfo?: Expor
         state,
         commands
     };
+
+    if (state === undefined) {
+        delete (<WritableObjectType<cs.ComponentShape>>shape).state;
+    }
 
     Object.getOwnPropertyNames(info.options).forEach((key: string) => {
         shape[key] = info.options[key];
