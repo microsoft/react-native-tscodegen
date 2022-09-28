@@ -49,6 +49,29 @@ export function resolveTypeOrDecl(typeNode: ts.TypeNode, sourceFile: ts.SourceFi
     return [typeNode, undefined];
 }
 
+function getMembersFromTypeName(typeName: string, sourceFile: ts.SourceFile): readonly ts.TypeElement[] | undefined {
+    for (const stat of sourceFile.statements) {
+        if (ts.isInterfaceDeclaration(stat) && stat.name.getText() === typeName) {
+            let members: ts.TypeElement[] = [];
+            if (stat.heritageClauses !== undefined) {
+                for (const heritage of stat.heritageClauses) {
+                    for (const expr of heritage.types) {
+                        if (ts.isIdentifier(expr.expression)) {
+                            const inherited = getMembersFromTypeName(expr.expression.getText(), sourceFile);
+                            if (inherited !== undefined) {
+                                members = members.concat(inherited);
+                            }
+                        }
+                    }
+                }
+            }
+            return members.concat(stat.members);
+        } else if (ts.isTypeAliasDeclaration(stat) && stat.name.getText() === typeName) {
+            return getMembersFromType(stat.type, sourceFile);
+        }
+    }
+}
+
 export function getMembersFromType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile): readonly ts.TypeElement[] | undefined {
     if (ts.isParenthesizedTypeNode(typeNode)) {
         return getMembersFromType(typeNode.type, sourceFile);
@@ -72,15 +95,7 @@ export function getMembersFromType(typeNode: ts.TypeNode, sourceFile: ts.SourceF
                 break;
             }
             case 'ViewProps': return undefined;
-            default: {
-                for (const stat of sourceFile.statements) {
-                    if (ts.isInterfaceDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
-                        return stat.members;
-                    } else if (ts.isTypeAliasDeclaration(stat) && stat.name.getText() === typeNode.typeName.getText()) {
-                        return getMembersFromType(stat.type, sourceFile);
-                    }
-                }
-            }
+            default: return getMembersFromTypeName(typeNode.typeName.getText(), sourceFile);
         }
     }
     return undefined;
