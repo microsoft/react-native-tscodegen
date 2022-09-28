@@ -10,7 +10,7 @@
     "sourceMap": true,
     "outDir": "./lib",
     "noEmitOnError": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "skipLibCheck": true,
     "strictNullChecks": true
   },
