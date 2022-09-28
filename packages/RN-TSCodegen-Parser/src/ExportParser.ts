@@ -14,6 +14,7 @@ export interface ExportComponentInfo {
     program: ts.Program;
     sourceFile: ts.SourceFile;
     typeNode: ts.TypeNode;
+    stateNode?: ts.InterfaceDeclaration;
     name: string;
     options: { [key: string]: boolean | string | string[] };
 }
@@ -196,6 +197,18 @@ export function tryParseExportComponent(program: ts.Program, sourceFile: ts.Sour
         name: componentNameNode.text,
         options: {}
     };
+
+    for (const stat of sourceFile.statements) {
+        if (ts.isInterfaceDeclaration(stat)) {
+            if (stat.name.getText().endsWith('NativeState')) {
+                if (result.stateNode === undefined) {
+                    result.stateNode = stat;
+                } else {
+                    throw new Error(`Unexpected interface ${stat.name.getText()} found, only one state interface is allowed in component.`);
+                }
+            }
+        }
+    }
 
     if (optionsNode !== undefined && ts.isObjectLiteralExpression(optionsNode)) {
         optionsNode.properties.forEach((optionItem: ts.ObjectLiteralElementLike) => {
