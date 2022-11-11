@@ -278,44 +278,56 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
             }
         }
 
-        if (!recognized) {
-            if (options.allowObject) {
-                const members = getMembersFromType(item, sourceFile);
-                if (members === undefined) {
-                    throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.getText()} is not an interface.`);
+        if (!recognized && options.allowIndexer) {
+            if (ts.isTypeLiteralNode(item) && item.members.length === 1) {
+                const index = item.members[0];
+                if (ts.isIndexSignatureDeclaration(index)) {
+                    const keyName = index.parameters[0].name.getText();
+                    recognized = true;
+                    itemOthers.push({ kind: 'Indexer', name: keyName, isNullable: false });
                 }
+            }
+        }
 
-                const rawObjectType: RNRawObjectType & RNRawTypeCommon = {
-                    kind: 'Object',
-                    isNullable: false,
-                    properties: []
-                };
-                for (const member of members) {
-                    if (member.name !== undefined) {
-                        const name = member.name.getText();
-                        let propertyType: RNRawType | undefined;
+        if (!recognized && options.allowObject) {
+            const members = getMembersFromType(item, sourceFile);
+            if (members === undefined) {
+                throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.getText()} is not an interface.`);
+            }
 
-                        if (ts.isMethodSignature(member) || ts.isCallSignatureDeclaration(member)) {
-                            propertyType = functionToRNRawType(member, sourceFile, options);
-                        } else if (ts.isPropertySignature(member) || ts.isPropertyDeclaration(member)) {
-                            propertyType = member.type === undefined
-                                ? { kind: 'Any', isNullable: false }
-                                : typeToRNRawType(member.type, sourceFile, options);
-                        }
+            const rawObjectType: RNRawObjectType & RNRawTypeCommon = {
+                kind: 'Object',
+                isNullable: false,
+                properties: []
+            };
+            for (const member of members) {
+                if (member.name !== undefined) {
+                    const name = member.name.getText();
+                    let propertyType: RNRawType | undefined;
 
-                        if (propertyType !== undefined) {
-                            rawObjectType.properties.push({
-                                name,
-                                optional: member.questionToken !== undefined,
-                                propertyType
-                            });
-                        }
+                    if (ts.isMethodSignature(member) || ts.isCallSignatureDeclaration(member)) {
+                        propertyType = functionToRNRawType(member, sourceFile, options);
+                    } else if (ts.isPropertySignature(member) || ts.isPropertyDeclaration(member)) {
+                        propertyType = member.type === undefined
+                            ? { kind: 'Any', isNullable: false }
+                            : typeToRNRawType(member.type, sourceFile, options);
+                    }
+
+                    if (propertyType !== undefined) {
+                        rawObjectType.properties.push({
+                            name,
+                            optional: member.questionToken !== undefined,
+                            propertyType
+                        });
                     }
                 }
-                itemOthers.push(rawObjectType);
-            } else {
-                throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.getText()} is not an interface, or object is not allowed.`);
             }
+            itemOthers.push(rawObjectType);
+            recognized = true;
+        }
+
+        if (!recognized) {
+            throw new Error(`Type is not supported: ${typeNode.getText()}, because ${item.getText()} is not an interface, or object is not allowed.`);
         }
     }
 
