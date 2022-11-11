@@ -22,6 +22,7 @@
     "src/inputs/components_failure/*.ts",
     "src/inputs/modules_failure/*.ts",
     "src/inputs/components_success/NO_PROPS_EVENTS_ONLY_DEPRECATED_VIEW_CONFIG_NAME_OPTION.ts",
+    "src/inputs/modules_success/IOS_ONLY_NATIVE_MODULE.ts",
     "src/inputs/modules_success/CXX_ONLY_NATIVE_MODULE.ts"
   ]
 }
