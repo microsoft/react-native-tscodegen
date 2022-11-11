@@ -84,6 +84,80 @@
             }
           },
           {
+            "name": "getMap",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "b",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "GenericObjectTypeAnnotation"
+                    }
+                  }
+                ]
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "a",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "GenericObjectTypeAnnotation"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getAnotherMap",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "key",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "GenericObjectTypeAnnotation"
+                    }
+                  }
+                ]
+              },
+              "params": [
+                {
+                  "name": "arg",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "key",
+                        "optional": false,
+                        "typeAnnotation": {
+                          "type": "GenericObjectTypeAnnotation"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
             "name": "getUnion",
             "optional": false,
             "typeAnnotation": {

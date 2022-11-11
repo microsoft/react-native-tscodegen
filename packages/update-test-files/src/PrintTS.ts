@@ -129,7 +129,7 @@ function printObjectTypeWithoutMixins(printer: Printer, objectType: flow.ObjectT
                     printer.write('readonly ');
                 }
                 printer.write('[');
-                printer.write(member.keyName);
+                printer.write(member.keyName ?? 'key');
                 printer.write(': ');
                 printType(printer, member.keyType);
                 printer.write(']: ');

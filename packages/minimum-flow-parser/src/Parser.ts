@@ -162,7 +162,7 @@ function applyObjectTypeProp(value: [
 
 function applyObjectIndexer(value: [
   undefined | {/*+*/ },
-  Token,
+  Token | undefined,
   ast.Type,
   ast.Type
 ]): ast.ObjectIndexer {
@@ -170,7 +170,7 @@ function applyObjectIndexer(value: [
   return {
     kind: 'Indexer',
     isReadonly: isReadonly !== undefined,
-    keyName: keyName.text,
+    keyName: keyName === undefined ? undefined : keyName.text,
     keyType,
     valueType
   };
@@ -548,7 +548,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             apply(
               seq(
                 kleft(opt_sc(str('+')), str('[')),
-                kleft(IDENTIFIER, str(':')),
+                opt_sc(kleft(IDENTIFIER, str(':'))),
                 TYPE,
                 kright(
                   seq(str(']'), str(':')),

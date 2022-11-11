@@ -50,7 +50,7 @@ export interface ObjectProp {
 export interface ObjectIndexer {
   kind: 'Indexer';
   isReadonly: boolean;
-  keyName: string;
+  keyName: string | undefined;
   keyType: Type;
   valueType: Type;
 }
