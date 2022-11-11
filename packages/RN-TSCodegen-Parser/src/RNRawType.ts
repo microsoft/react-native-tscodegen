@@ -56,6 +56,9 @@ export type RNRawType = (
         kind: 'Array';
         elementType: RNRawType;
     }
+    | {
+        kind: 'Indexer';
+    }
     | RNRawObjectType
     | {
         kind: 'DirectEventHandler' | 'BubblingEventHandler';

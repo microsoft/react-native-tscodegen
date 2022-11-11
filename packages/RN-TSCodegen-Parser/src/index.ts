@@ -101,7 +101,7 @@ export function typeScriptToCodeSchema(fileName: string, moduleName: string, tar
                 sourceFile.statements.forEach((node: ts.Node) => {
                     if (ts.isTypeAliasDeclaration(node)) {
                         if (node.typeParameters === undefined || node.typeParameters.length === 0) {
-                            const rnRawType = typeToRNRawType(node.type, sourceFile, { allowObject: true, knownAliases });
+                            const rnRawType = typeToRNRawType(node.type, sourceFile, { allowObject: true, allowIndexer: true, knownAliases });
                             if (rnRawType.kind === 'Object') {
                                 const aliasName = node.name.text;
                                 aliases.aliases[aliasName] = rnRawType;

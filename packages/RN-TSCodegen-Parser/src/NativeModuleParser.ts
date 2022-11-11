@@ -29,6 +29,7 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
         }
+        case 'Indexer': return { type: 'GenericObjectTypeAnnotation' };
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
             properties: rawType.properties.map((param: RNRawObjectProperty) => {
@@ -105,7 +106,7 @@ export interface NativeModuleAliases {
 }
 
 export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAliases: NativeModuleAliases): cs.NativeModuleSchema {
-    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, { allowObject: true, knownAliases: Object.keys(nativeModuleAliases.aliases) });
+    const rawType = typeToRNRawType(info.typeNode, info.sourceFile, { allowObject: true, allowIndexer: true, knownAliases: Object.keys(nativeModuleAliases.aliases) });
     if (rawType.kind !== 'Object') {
         throw new Error(`An object type is expected as a native module: ${info.typeNode.getText()}.`);
     }

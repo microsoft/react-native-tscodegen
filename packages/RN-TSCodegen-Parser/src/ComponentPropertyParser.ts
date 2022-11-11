@@ -156,7 +156,7 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
 
 export function parseProperty(info: ExportComponentInfo, propDecl: ts.PropertySignature | ts.PropertyDeclaration): cs.NamedShape<cs.PropTypeAnnotation> {
   const propType = <ts.TypeNode>propDecl.type;
-  const rawType = typeToRNRawType(propType, info.sourceFile, { allowObject: true });
+  const rawType = typeToRNRawType(propType, info.sourceFile, { allowObject: true, allowIndexer: false });
   const [optional, typeAnnotation] = rnRawTypeToPropTypeTypeAnnotation(rawType, propType);
   return {
     name: propDecl.name.getText(),

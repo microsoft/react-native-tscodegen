@@ -9,6 +9,7 @@ import { RNRawObjectType, RNRawType, RNRawTypeCommon } from './RNRawType';
 
 export interface RNRawTypeOptions {
     allowObject: boolean;
+    allowIndexer: boolean;
     knownAliases?: string[];
 }
 
@@ -98,7 +99,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                         throw new Error(`${typeNode.getText()} should have one type argument and another optional string literal type argument.`);
                     }
 
-                    const eventType = typeToRNRawType(item.typeArguments[0], sourceFile, { allowObject: true, knownAliases: options.knownAliases });
+                    const eventType = typeToRNRawType(item.typeArguments[0], sourceFile, { allowObject: true, allowIndexer: false, knownAliases: options.knownAliases });
                     let nameType: string | undefined;
                     if (item.typeArguments.length === 2) {
                         const nameNode = item.typeArguments[1];
