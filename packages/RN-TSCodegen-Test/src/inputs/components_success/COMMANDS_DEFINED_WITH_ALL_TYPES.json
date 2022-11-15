@@ -21,6 +21,7 @@
                 "params": [
                   {
                     "name": "rootTag",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "ReservedTypeAnnotation",
                       "name": "RootTag"
@@ -40,12 +41,14 @@
                 "params": [
                   {
                     "name": "x",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "Int32TypeAnnotation"
                     }
                   },
                   {
                     "name": "y",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "Int32TypeAnnotation"
                     }
@@ -64,24 +67,28 @@
                 "params": [
                   {
                     "name": "x",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "FloatTypeAnnotation"
                     }
                   },
                   {
                     "name": "y",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "Int32TypeAnnotation"
                     }
                   },
                   {
                     "name": "z",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "DoubleTypeAnnotation"
                     }
                   },
                   {
                     "name": "animated",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "BooleanTypeAnnotation"
                     }

@@ -1536,12 +1536,14 @@
                 "params": [
                   {
                     "name": "y",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "Int32TypeAnnotation"
                     }
                   },
                   {
                     "name": "animated",
+                    "optional": false,
                     "typeAnnotation": {
                       "type": "BooleanTypeAnnotation"
                     }

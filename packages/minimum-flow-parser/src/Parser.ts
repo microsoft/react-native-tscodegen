@@ -532,7 +532,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             // syntax: ...TYPE
             kright(str('...'), TYPE),
             // syntax: [+]NAME:TYPE
-            // syntax: [+]NAME(params)=>return
+            // syntax: [+]NAME(params):return
             apply(
               seq(
                 opt_sc(str('+')),
@@ -582,6 +582,7 @@ IDENTIFIER.setPattern(
 
 TYPE_FUNCTION.setPattern(
   // syntax: (a:TYPE, TYPE)=>TYPE
+  // syntax: (a:TYPE, TYPE): TYPE
   apply(
     seq(
       kright(
@@ -602,8 +603,7 @@ TYPE_FUNCTION.setPattern(
       kright(
         seq(
           str(')'),
-          str('='),
-          str('>')
+          alt(seq(str('='), str('>')), str(':'))
         ),
         TYPE
       )
