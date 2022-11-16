@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import * as flow from '@react-native-tscodegen/minimum-flow-parser';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
 import { expectEOF, expectSingleResult } from 'typescript-parsec';
 import { flowTestCaseToTypeScript } from './ConvertTestCase';
@@ -35,7 +35,7 @@ ${flowSourceCode}`,
 // Automatically generated from ${inputFile}
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-${flowTestCaseToTypeScript(flowAst, key)}
+${flowTestCaseToTypeScript(flowAst, 'Others')}
 `;
             writeFileSync(outputPath, tsSourceCode, { encoding: 'utf-8' });
         }

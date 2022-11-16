@@ -13,5 +13,5 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
   },
-  "exclude": ["node_modules", "src/test", "lib", "lib-amd"]
+  "exclude": ["node_modules", "lib", "lib-amd"]
 }

@@ -4,10 +4,9 @@
 // Automatically generated from NativeSampleTurboModuleArrays.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {ReactNull} from 'react-native-tscodegen-types';
+import {TurboModule} from 'react-native'
+import {TurboModuleRegistry} from 'react-native';
 import {RootTag} from 'react-native-tscodegen-types';
-import {TurboModule} from 'react-native-tscodegen-types'
-import {TurboModuleRegistry} from 'react-native-tscodegen-types';
 type Animal = {
   name: string;
 };
@@ -17,7 +16,7 @@ export interface Spec extends TurboModule {
     const1: Array<boolean>;
     const2: Array<number>;
     const3: Array<string>;
-    id?: Array<(ReactNull | {
+    id?: Array<(undefined | null | {
       prop: number;
     })>;
   };

@@ -4,7 +4,7 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import { typeScriptToCodeSchema } from 'react-native-tscodegen';
+import { typeScriptToCodeSchema } from 'react-native-tscodegen-parser';
 import { testCaseIndex } from './TestCaseIndex';
 
 testCaseIndex.modules.success.forEach((key: string) => {
@@ -13,6 +13,6 @@ testCaseIndex.modules.success.forEach((key: string) => {
         const snapshotFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.json`);
         const schema = typeScriptToCodeSchema(inputFile, 'NativeSampleTurboModule', 'SampleTurboModule');
         const snapshot = JSON.parse(readFileSync(snapshotFile, { encoding: 'utf-8' }));
-        assert.deepEqual(schema, snapshot);
+        assert.deepStrictEqual(schema, snapshot);
     });
 });

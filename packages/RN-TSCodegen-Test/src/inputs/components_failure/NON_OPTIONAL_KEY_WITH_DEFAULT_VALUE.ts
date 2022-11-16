@@ -4,11 +4,11 @@
 // Automatically generated from components_failure/NON_OPTIONAL_KEY_WITH_DEFAULT_VALUE.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/failures.js)
 
-import {Float} from 'react-native-tscodegen-types';
-import {WithDefault} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 'use strict';
 
 export type ModuleProps = Readonly<ViewProps & {

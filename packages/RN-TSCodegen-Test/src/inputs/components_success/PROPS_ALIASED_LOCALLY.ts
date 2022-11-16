@@ -4,25 +4,25 @@
 // Automatically generated from components_success/PROPS_ALIASED_LOCALLY.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 'use strict';
 
-type DeepSpread = Readonly<{
-  otherStringProp: string;
-}>;
+interface DeepSpread {
+  readonly otherStringProp: string;
+}
 
-export type PropsInFile = Readonly<DeepSpread & {
-  isEnabled: boolean;
-  label: string;
-}>;
+export interface PropsInFile extends DeepSpread {
+  readonly isEnabled: boolean;
+  readonly label: string;
+}
 
-export type ModuleProps = Readonly<ViewProps & PropsInFile & {
-  localType: Readonly<PropsInFile & {
+export interface ModuleProps extends ViewProps, PropsInFile {
+  readonly localType: Readonly<PropsInFile & {
   }>;
-  localArr: ReadonlyArray<PropsInFile>;
-}>;
+  readonly localArr: ReadonlyArray<PropsInFile>;
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);
 

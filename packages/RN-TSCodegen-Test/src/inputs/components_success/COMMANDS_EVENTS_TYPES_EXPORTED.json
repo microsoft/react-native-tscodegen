@@ -1,0 +1,1562 @@
+{
+  "modules": {
+    "Module": {
+      "type": "Component",
+      "components": {
+        "Module": {
+          "extendsProps": [
+            {
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
+            }
+          ],
+          "events": [
+            {
+              "name": "onBubblingEventDefinedInline",
+              "optional": false,
+              "bubblingType": "bubble",
+              "typeAnnotation": {
+                "type": "EventTypeAnnotation",
+                "argument": {
+                  "type": "ObjectTypeAnnotation",
+                  "properties": [
+                    {
+                      "name": "boolean_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "enum_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required_nested_2_layers",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "object_optional_nested_1_layer",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "ObjectTypeAnnotation",
+                              "properties": [
+                                {
+                                  "name": "boolean_required",
+                                  "optional": false,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "string_optional_key",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "StringTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "double_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "DoubleTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "float_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "FloatTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "int32_optional_both",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "onBubblingEventDefinedInlineWithPaperName",
+              "optional": false,
+              "bubblingType": "bubble",
+              "paperTopLevelNameDeprecated": "paperBubblingEventDefinedInlineWithPaperName",
+              "typeAnnotation": {
+                "type": "EventTypeAnnotation",
+                "argument": {
+                  "type": "ObjectTypeAnnotation",
+                  "properties": [
+                    {
+                      "name": "boolean_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "enum_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required_nested_2_layers",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "object_optional_nested_1_layer",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "ObjectTypeAnnotation",
+                              "properties": [
+                                {
+                                  "name": "boolean_required",
+                                  "optional": false,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "string_optional_key",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "StringTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "double_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "DoubleTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "float_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "FloatTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "int32_optional_both",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "onDirectEventDefinedInline",
+              "optional": false,
+              "bubblingType": "direct",
+              "typeAnnotation": {
+                "type": "EventTypeAnnotation",
+                "argument": {
+                  "type": "ObjectTypeAnnotation",
+                  "properties": [
+                    {
+                      "name": "boolean_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "enum_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required_nested_2_layers",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "object_optional_nested_1_layer",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "ObjectTypeAnnotation",
+                              "properties": [
+                                {
+                                  "name": "boolean_required",
+                                  "optional": false,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "string_optional_key",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "StringTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "double_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "DoubleTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "float_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "FloatTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "int32_optional_both",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "onDirectEventDefinedInlineWithPaperName",
+              "optional": false,
+              "bubblingType": "direct",
+              "paperTopLevelNameDeprecated": "paperDirectEventDefinedInlineWithPaperName",
+              "typeAnnotation": {
+                "type": "EventTypeAnnotation",
+                "argument": {
+                  "type": "ObjectTypeAnnotation",
+                  "properties": [
+                    {
+                      "name": "boolean_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "boolean_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "BooleanTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "string_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "double_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "DoubleTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "float_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "FloatTypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "int32_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "Int32TypeAnnotation"
+                      }
+                    },
+                    {
+                      "name": "enum_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enum_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "StringEnumTypeAnnotation",
+                        "options": [
+                          "small",
+                          "large"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_required_nested_2_layers",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "object_optional_nested_1_layer",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "ObjectTypeAnnotation",
+                              "properties": [
+                                {
+                                  "name": "boolean_required",
+                                  "optional": false,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "string_optional_key",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "StringTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "double_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "DoubleTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "float_optional_value",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "FloatTypeAnnotation"
+                                  }
+                                },
+                                {
+                                  "name": "int32_optional_both",
+                                  "optional": true,
+                                  "typeAnnotation": {
+                                    "type": "Int32TypeAnnotation"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_required",
+                      "optional": false,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "boolean_required",
+                            "optional": false,
+                            "typeAnnotation": {
+                              "type": "BooleanTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_key",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "string_optional_key",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "StringTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_value",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "float_optional_value",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "FloatTypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "object_readonly_optional_both",
+                      "optional": true,
+                      "typeAnnotation": {
+                        "type": "ObjectTypeAnnotation",
+                        "properties": [
+                          {
+                            "name": "int32_optional_both",
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "Int32TypeAnnotation"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "props": [],
+          "commands": [
+            {
+              "name": "scrollTo",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "FunctionTypeAnnotation",
+                "params": [
+                  {
+                    "name": "y",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "Int32TypeAnnotation"
+                    }
+                  },
+                  {
+                    "name": "animated",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "BooleanTypeAnnotation"
+                    }
+                  }
+                ],
+                "returnTypeAnnotation": {
+                  "type": "VoidTypeAnnotation"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

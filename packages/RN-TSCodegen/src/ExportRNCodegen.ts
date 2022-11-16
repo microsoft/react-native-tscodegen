@@ -33,4 +33,12 @@ export type Config = Readonly<{
 
 type GeneratePrototype = (options: Options, config: Config) => boolean;
 
+interface ParserModule {
+    parseFile(filename: string): SchemaType;
+    parseModuleFixture(filename: string): SchemaType;
+    parseString(contents: string, filename: string): SchemaType;
+}
+
 export const generate = <GeneratePrototype>(require('./rncodegen/src/generators/RNCodegen.js').generate);
+export const flowParser = <ParserModule>(require('./rncodegen/src/parsers/flow/index.js'));
+export const typeScriptParser = <ParserModule>(require('./rncodegen/src/parsers/typescript/index.js'));

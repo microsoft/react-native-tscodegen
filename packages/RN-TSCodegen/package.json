@@ -1,12 +1,16 @@
 {
   "name": "react-native-tscodegen",
-  "version": "0.68.5",
+  "version": "0.70.0",
   "description": "TypeScript Code Generation for React Native Turbo Module",
   "main": "./lib/index.js",
-  "bin": "./bin/cli",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "build": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/ & tslint --project tsconfig.json & tsc"
+    "clean-flow": "rimraf lib/rncodegen",
+    "build-flow": "flow-remove-types ../../react-native/packages/react-native-codegen/ -q -d lib/rncodegen/",
+    "fix-flow": "babel lib/rncodegen/ -d lib/rncodegen",
+    "patch-rncodegen": "node ./patch-rncodegen.js",
+    "build-ts": "tslint --project tsconfig.json & tsc",
+    "build": "npm run clean-flow & npm run build-flow & npm run fix-flow & npm run patch-rncodegen & npm run build-ts"
   },
   "repository": {
     "type": "git",
@@ -22,11 +26,32 @@
     "flow-remove-types": "^2.158.0",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "@react-native-tscodegen/tslint-shared": "^1.0.0"
+    "rimraf": "3.0.2",
+    "@react-native-tscodegen/tslint-shared": "^1.0.0",
+    "@babel/cli": "7.18.10",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-async-to-generator": "^7.0.0",
+    "@babel/plugin-transform-destructuring": "^7.0.0",
+    "@babel/plugin-transform-flow-strip-types": "^7.0.0"
   },
   "dependencies": {
-    "typescript": "^4.1.5",
     "jscodeshift": "0.6.4",
     "nullthrows": "1.1.1"
+  },
+  "babel":{
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-transform-async-to-generator",
+      "@babel/plugin-transform-destructuring",
+      "@babel/plugin-transform-flow-strip-types",
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-nullish-coalescing-operator",
+      "@babel/plugin-proposal-optional-chaining"
+    ]
   }
 }

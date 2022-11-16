@@ -21,25 +21,21 @@
   "devDependencies": {
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.9",
-    "@babel/plugin-proposal-class-properties": "^7.12.13",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "^4.1.5",
     "@react-native-tscodegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
-    "react-native-tscodegen": "^0.68.5",
-    "react-native-tscodegen-types": "^0.67.3"
+    "@types/react-native": "0.69.5",
+    "metro-react-native-babel-preset": "^0.72.1",
+    "react-native-tscodegen": "0.70.0",
+    "react-native-tscodegen-parser": "*",
+    "react-native-tscodegen-types": "0.70.0"
   },
   "jest": {
-    "testRegex": "/lib/test/Test.*Cases\\.js",
+    "testRegex": "/lib/test/Test.*Cases(-Original)?\\.js",
     "verbose": true
-  },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
   }
 }

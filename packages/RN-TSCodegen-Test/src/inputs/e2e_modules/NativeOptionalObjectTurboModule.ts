@@ -4,18 +4,17 @@
 // Automatically generated from NativeOptionalObjectTurboModule.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {ReactNull} from 'react-native-tscodegen-types';
-import {TurboModule} from 'react-native-tscodegen-types'
-import {TurboModuleRegistry} from 'react-native-tscodegen-types';
+import {TurboModule} from 'react-native'
+import {TurboModuleRegistry} from 'react-native';
 export interface Spec extends TurboModule {
   getConstants(): {
-    D?: (ReactNull | boolean);
+    D?: (undefined | null | boolean);
     A?: Array<any>;
-    E?: (ReactNull | {
-      D?: (ReactNull | boolean);
-      E?: (ReactNull | {
-        D?: (ReactNull | boolean);
-        E?: (ReactNull | {
+    E?: (undefined | null | {
+      D?: (undefined | null | boolean);
+      E?: (undefined | null | {
+        D?: (undefined | null | boolean);
+        E?: (undefined | null | {
           D?: boolean;
           E?: number;
           F?: string;

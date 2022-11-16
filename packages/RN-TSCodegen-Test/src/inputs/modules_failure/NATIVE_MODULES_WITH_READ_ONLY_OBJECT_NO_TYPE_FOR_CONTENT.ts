@@ -4,8 +4,8 @@
 // Automatically generated from modules_failure/NATIVE_MODULES_WITH_READ_ONLY_OBJECT_NO_TYPE_FOR_CONTENT.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/modules/__test_fixtures__/failures.js)
 
-import {TurboModule} from 'react-native-tscodegen-types'
-import {TurboModuleRegistry} from 'react-native-tscodegen-types';
+import {TurboModule} from 'react-native'
+import {TurboModuleRegistry} from 'react-native';
 'use strict';
 
 export interface Spec extends TurboModule {

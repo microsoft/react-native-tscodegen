@@ -3,7 +3,7 @@
 // (/react-native/packages/react-native-codegen/src/parsers/flow)
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -33,13 +33,13 @@ type NativeType = HostComponent<ModuleProps>;
 interface NativeCommands {
   +handleRootTag: (viewRef: React.ElementRef<NativeType>, rootTag: RootTag) => void;
   +hotspotUpdate: (viewRef: React.ElementRef<NativeType>, x: Int32, y: Int32) => void;
-  +scrollTo: (
+  scrollTo(
     viewRef: React.ElementRef<NativeType>,
     x: Float,
     y: Int32,
     z: Double,
     animated: boolean,
-  ) => void;
+  ): void;
 }
 
 export const Commands = codegenNativeCommands<NativeCommands>({

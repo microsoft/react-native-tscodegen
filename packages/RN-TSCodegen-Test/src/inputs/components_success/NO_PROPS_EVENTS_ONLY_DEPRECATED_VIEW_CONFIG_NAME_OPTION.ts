@@ -4,13 +4,13 @@
 // Automatically generated from components_success/NO_PROPS_EVENTS_ONLY_DEPRECATED_VIEW_CONFIG_NAME_OPTION.flow.js
 // (/react-native/packages/react-native-codegen/src/parsers/flow/components/__test_fixtures__/fixtures.js)
 
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 'use strict';
 
-type ModuleProps = Readonly<ViewProps & {
-}>;
+interface ModuleProps extends ViewProps {
+}
 
 export default (codegenNativeComponent<ModuleProps>('Module', {
   deprecatedViewConfigName: 'DeprecateModuleName'

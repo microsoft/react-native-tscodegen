@@ -119,6 +119,72 @@
                 }
               ]
             }
+          },
+          {
+            "name": "getStringFromNullableAlias",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "StringTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "a",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "NullableTypeAnnotation",
+                    "typeAnnotation": {
+                      "type": "TypeAliasTypeAnnotation",
+                      "name": "ObjectAlias"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getStringFromReadOnlyAlias",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "StringTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "a",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "TypeAliasTypeAnnotation",
+                    "name": "ObjectAlias"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "getStringFromNullableReadOnlyAlias",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "StringTypeAnnotation"
+              },
+              "params": [
+                {
+                  "name": "a",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "NullableTypeAnnotation",
+                    "typeAnnotation": {
+                      "type": "TypeAliasTypeAnnotation",
+                      "name": "ObjectAlias"
+                    }
+                  }
+                }
+              ]
+            }
           }
         ]
       },

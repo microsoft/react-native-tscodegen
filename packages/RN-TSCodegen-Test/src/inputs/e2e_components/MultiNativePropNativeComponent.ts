@@ -4,12 +4,12 @@
 // Automatically generated from MultiNativePropNativeComponent.js
 // (/react-native/packages/react-native-codegen/e2e/__test_fixtures__)
 
-import {ImageSource} from 'react-native-tscodegen-types';
-import {ColorValue} from 'react-native-tscodegen-types';
+import {ColorValue} from 'react-native';
+import {ImageSourcePropType as ImageSource} from 'react-native';
+import {ViewProps} from 'react-native';
+import {HostComponent} from 'react-native';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import {PointValue} from 'react-native-tscodegen-types';
-import {ViewProps} from 'react-native-tscodegen-types';
-import {HostComponent} from 'react-native-tscodegen-types';
-import {codegenNativeComponent} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   thumbImage?: ImageSource;
   color?: ColorValue;

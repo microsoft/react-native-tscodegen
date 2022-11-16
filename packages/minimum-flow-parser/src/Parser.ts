@@ -15,6 +15,10 @@ type Token = parsec.Token<TokenKind>;
  * Types (apply)
  ****************************************************************/
 
+function applyMixed(value: Token): ast.Type {
+  return { kind: 'PrimitiveType', name: 'mixed' };
+}
+
 function applyVoid(value: Token): ast.Type {
   return { kind: 'PrimitiveType', name: 'void' };
 }
@@ -158,7 +162,7 @@ function applyObjectTypeProp(value: [
 
 function applyObjectIndexer(value: [
   undefined | {/*+*/ },
-  Token,
+  Token | undefined,
   ast.Type,
   ast.Type
 ]): ast.ObjectIndexer {
@@ -166,7 +170,7 @@ function applyObjectIndexer(value: [
   return {
     kind: 'Indexer',
     isReadonly: isReadonly !== undefined,
-    keyName: keyName.text,
+    keyName: keyName === undefined ? undefined : keyName.text,
     keyType,
     valueType
   };
@@ -388,6 +392,27 @@ function applyInterfaceDecl(value: [
   };
 }
 
+function applyEnumDecl(value: [
+  undefined | {/*export*/ },
+  Token,
+  [Token, undefined | Token][]
+]): ast.Declaration {
+  const [hasExport, name, items] = value;
+  return {
+    kind: 'EnumDecl',
+    hasExport: hasExport !== undefined,
+    name: name.text,
+    members: items.map((item: [Token, undefined | Token]): ast.EnumItem => {
+      const [itemName, itemValue] = item;
+      const result: ast.EnumItem = { name: itemName.text };
+      if (itemValue !== undefined) {
+        result.value = { kind: 'LiteralType', text: itemValue.text };
+      }
+      return result;
+    })
+  };
+}
+
 /*****************************************************************
  * Statements (apply)
  ****************************************************************/
@@ -507,7 +532,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             // syntax: ...TYPE
             kright(str('...'), TYPE),
             // syntax: [+]NAME:TYPE
-            // syntax: [+]NAME(params)=>return
+            // syntax: [+]NAME(params):return
             apply(
               seq(
                 opt_sc(str('+')),
@@ -523,7 +548,7 @@ function createObjectSyntax(): Parser<TokenKind, ast.ObjectType> {
             apply(
               seq(
                 kleft(opt_sc(str('+')), str('[')),
-                kleft(IDENTIFIER, str(':')),
+                opt_sc(kleft(IDENTIFIER, str(':'))),
                 TYPE,
                 kright(
                   seq(str(']'), str(':')),
@@ -557,6 +582,7 @@ IDENTIFIER.setPattern(
 
 TYPE_FUNCTION.setPattern(
   // syntax: (a:TYPE, TYPE)=>TYPE
+  // syntax: (a:TYPE, TYPE): TYPE
   apply(
     seq(
       kright(
@@ -577,8 +603,7 @@ TYPE_FUNCTION.setPattern(
       kright(
         seq(
           str(')'),
-          str('='),
-          str('>')
+          alt(seq(str('='), str('>')), str(':'))
         ),
         TYPE
       )
@@ -590,6 +615,8 @@ TYPE_FUNCTION.setPattern(
 TYPE_TERM.setPattern(
   alt(
     alt(
+      // syntax: mixed
+      apply(str('mixed'), applyMixed),
       // syntax: void
       apply(str('void'), applyVoid),
       // syntax: number
@@ -781,7 +808,7 @@ DECL.setPattern(
       ),
       applyTypeAliasDecl
     ),
-    // export interface NAME [extends TYPE, ...] {...};
+    // export interface NAME [extends TYPE, ...] {...}
     apply(
       seq(
         kleft(
@@ -795,6 +822,36 @@ DECL.setPattern(
         createObjectSyntax()
       ),
       applyInterfaceDecl
+    ),
+    // export enum NAME {...}
+    apply(
+      seq(
+        kleft(
+          opt_sc(str('export')),
+          str('enum')
+        ),
+        IDENTIFIER,
+        kmid(
+          str('{'),
+          kleft(
+            list_sc(
+              seq(
+                IDENTIFIER,
+                opt_sc(
+                  kright(
+                    str('='),
+                    alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral))
+                  )
+                )
+              ),
+              str(',')
+            ),
+            opt_sc(str(','))
+          ),
+          str('}')
+        )
+      ),
+      applyEnumDecl
     )
   )
 );

@@ -3,7 +3,7 @@
 // (/react-native/packages/react-native-codegen/src/parsers/flow)
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -28,7 +28,8 @@ export type ObjectAlias = {|
   y: number,
   label: string,
   truthy: boolean,
-|}
+|};
+export type ReadOnlyAlias = $ReadOnly<ObjectAlias>;
 
 export interface Spec extends TurboModule {
   // Exported methods.
@@ -36,6 +37,9 @@ export interface Spec extends TurboModule {
   +getVoid: () => Void;
   +getArray: (a: Array<A>) => {| a: B |};
   +getStringFromAlias: (a: ObjectAlias) => string;
+  +getStringFromNullableAlias: (a: ?ObjectAlias) => string;
+  +getStringFromReadOnlyAlias: (a: ReadOnlyAlias) => string;
+  +getStringFromNullableReadOnlyAlias: (a: ?ReadOnlyAlias) => string;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('SampleTurboModule');

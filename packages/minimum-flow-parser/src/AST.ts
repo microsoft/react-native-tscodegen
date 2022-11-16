@@ -12,6 +12,7 @@ export interface PrimitiveType<T> {
   name: T;
 }
 
+export type MixedType = PrimitiveType<'mixed'>;
 export type VoidType = PrimitiveType<'void'>;
 export type NumberType = PrimitiveType<'number'>;
 export type StringType = PrimitiveType<'string'>;
@@ -49,7 +50,7 @@ export interface ObjectProp {
 export interface ObjectIndexer {
   kind: 'Indexer';
   isReadonly: boolean;
-  keyName: string;
+  keyName: string | undefined;
   keyType: Type;
   valueType: Type;
 }
@@ -97,6 +98,7 @@ export interface ParenType {
 }
 
 export type Type =
+  | MixedType
   | VoidType
   | NumberType
   | StringType
@@ -195,9 +197,20 @@ export interface InterfaceDecl extends DeclarationBase {
   interfaceType: ObjectType;
 }
 
+export interface EnumItem {
+  name: string;
+  value?: LiteralType;
+}
+
+export interface EnumDecl extends DeclarationBase {
+  kind: 'EnumDecl';
+  members: EnumItem[];
+}
+
 export type Declaration =
   | TypeAliasDecl
   | InterfaceDecl
+  | EnumDecl
   ;
 
 /*****************************************************************

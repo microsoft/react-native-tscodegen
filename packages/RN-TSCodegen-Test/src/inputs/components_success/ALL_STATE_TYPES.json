@@ -1,0 +1,513 @@
+{
+  "modules": {
+    "Module": {
+      "type": "Component",
+      "components": {
+        "Module": {
+          "extendsProps": [
+            {
+              "type": "ReactNativeBuiltInType",
+              "knownTypeName": "ReactNativeCoreViewProps"
+            }
+          ],
+          "events": [],
+          "props": [],
+          "commands": [],
+          "state": [
+            {
+              "name": "boolean_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation",
+                "default": false
+              }
+            },
+            {
+              "name": "boolean_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation",
+                "default": true
+              }
+            },
+            {
+              "name": "boolean_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation",
+                "default": true
+              }
+            },
+            {
+              "name": "boolean_null_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "boolean_null_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "string_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "string_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": ""
+              }
+            },
+            {
+              "name": "string_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": ""
+              }
+            },
+            {
+              "name": "string_null_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "string_null_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "stringish_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "stringish_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": ""
+              }
+            },
+            {
+              "name": "stringish_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": ""
+              }
+            },
+            {
+              "name": "stringish_null_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "stringish_null_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "double_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "DoubleTypeAnnotation",
+                "default": 0
+              }
+            },
+            {
+              "name": "double_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "DoubleTypeAnnotation",
+                "default": 1.1
+              }
+            },
+            {
+              "name": "double_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "DoubleTypeAnnotation",
+                "default": 1.1
+              }
+            },
+            {
+              "name": "float_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "FloatTypeAnnotation",
+                "default": 0
+              }
+            },
+            {
+              "name": "float_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "FloatTypeAnnotation",
+                "default": 1.1
+              }
+            },
+            {
+              "name": "float_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "FloatTypeAnnotation",
+                "default": 1.1
+              }
+            },
+            {
+              "name": "float_null_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "FloatTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "float_null_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "FloatTypeAnnotation",
+                "default": null
+              }
+            },
+            {
+              "name": "int32_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "Int32TypeAnnotation",
+                "default": 0
+              }
+            },
+            {
+              "name": "int32_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "Int32TypeAnnotation",
+                "default": 1
+              }
+            },
+            {
+              "name": "int32_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "Int32TypeAnnotation",
+                "default": 1
+              }
+            },
+            {
+              "name": "enum_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringEnumTypeAnnotation",
+                "default": "small",
+                "options": [
+                  "small",
+                  "large"
+                ]
+              }
+            },
+            {
+              "name": "enum_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "StringEnumTypeAnnotation",
+                "default": "small",
+                "options": [
+                  "small",
+                  "large"
+                ]
+              }
+            },
+            {
+              "name": "int_enum_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "Int32EnumTypeAnnotation",
+                "default": 0,
+                "options": [
+                  0,
+                  1
+                ]
+              }
+            },
+            {
+              "name": "object_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "StringTypeAnnotation",
+                      "default": null
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "object_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "StringTypeAnnotation",
+                      "default": null
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "object_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "StringTypeAnnotation",
+                      "default": null
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "image_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ImageSourcePrimitive"
+              }
+            },
+            {
+              "name": "image_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ImageSourcePrimitive"
+              }
+            },
+            {
+              "name": "image_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ImageSourcePrimitive"
+              }
+            },
+            {
+              "name": "color_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "color_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "color_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "color_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "color_array_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ArrayTypeAnnotation",
+                "elementType": {
+                  "type": "ReservedPropTypeAnnotation",
+                  "name": "ColorPrimitive"
+                }
+              }
+            },
+            {
+              "name": "color_array_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ArrayTypeAnnotation",
+                "elementType": {
+                  "type": "ReservedPropTypeAnnotation",
+                  "name": "ColorPrimitive"
+                }
+              }
+            },
+            {
+              "name": "color_array_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ArrayTypeAnnotation",
+                "elementType": {
+                  "type": "ReservedPropTypeAnnotation",
+                  "name": "ColorPrimitive"
+                }
+              }
+            },
+            {
+              "name": "color_array_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ArrayTypeAnnotation",
+                "elementType": {
+                  "type": "ReservedPropTypeAnnotation",
+                  "name": "ColorPrimitive"
+                }
+              }
+            },
+            {
+              "name": "processed_color_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "processed_color_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "processed_color_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "processed_color_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "ColorPrimitive"
+              }
+            },
+            {
+              "name": "point_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "PointPrimitive"
+              }
+            },
+            {
+              "name": "point_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "PointPrimitive"
+              }
+            },
+            {
+              "name": "point_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "PointPrimitive"
+              }
+            },
+            {
+              "name": "point_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "PointPrimitive"
+              }
+            },
+            {
+              "name": "insets_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "EdgeInsetsPrimitive"
+              }
+            },
+            {
+              "name": "insets_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "EdgeInsetsPrimitive"
+              }
+            },
+            {
+              "name": "insets_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "EdgeInsetsPrimitive"
+              }
+            },
+            {
+              "name": "insets_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "EdgeInsetsPrimitive"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

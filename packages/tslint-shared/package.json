@@ -15,7 +15,6 @@
   "homepage": "https://github.com/microsoft/react-native-tscodegen#readme",
   "devDependencies": {
     "tslint": "^5.18.0",
-    "typescript": "^3.5.3",
     "tslint-microsoft-contrib": "^6.2.0"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@react-native-tscodegen/tslint-shared"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "src/CodegenSchema.ts"
+    ]
+  }
+}
