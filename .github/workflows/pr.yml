@@ -9,6 +9,10 @@ jobs:
         with:
           submodules: true
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - run: yarn install --frozen-lockfile
       - run: npx beachball check --branch origin/${{ github.base_ref }} --changehint "Run `yarn change` from root of repo to generate a change file."
       - run: yarn build

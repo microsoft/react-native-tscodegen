@@ -13,6 +13,10 @@ jobs:
           submodules: true
           token: ${{ secrets.githubToken }}
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - run: git config --global user.email "53619745+rnbot@users.noreply.github.com"
       - run: git config --global user.name "React-Native-Windows Bot"
       - run: git remote set-url origin https://rnbot:${{ secrets.githubToken }}@github.com/microsoft/react-native-tscodegen.git
