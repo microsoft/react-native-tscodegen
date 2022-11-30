@@ -3,7 +3,7 @@
 
 /* tslint:disable:no-eval */
 
-import * as flow from '@react-native-tscodegen/minimum-flow-parser';
+import * as flow from '@react-native-ts-codegen/minimum-flow-parser';
 import { writeFileSync } from 'fs';
 import * as path from 'path';
 import { expectEOF, expectSingleResult } from 'typescript-parsec';

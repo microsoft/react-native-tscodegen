@@ -1,5 +1,5 @@
 {
-  "name": "@react-native-tscodegen/minimum-flow-parser",
+  "name": "@react-native-ts-codegen/minimum-flow-parser",
   "version": "1.0.0",
   "private": true,
   "description": "Minimum Flow parser just enough to convert Flow to TypeScript for this project",
@@ -24,7 +24,7 @@
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "@react-native-tscodegen/tslint-shared": "^1.0.0"
+    "@react-native-ts-codegen/tslint-shared": "^1.0.0"
   },
   "dependencies": {
     "typescript-parsec": "^0.1.0"
