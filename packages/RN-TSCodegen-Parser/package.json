@@ -1,6 +1,6 @@
 {
   "name": "react-native-tscodegen-parser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "TypeScript Code Generation for React Native Turbo Module",
   "main": "./lib/index.js",
   "bin": "./bin/cli",
@@ -26,7 +26,7 @@
   "dependencies": {
     "jscodeshift": "0.6.4",
     "nullthrows": "1.1.1",
-    "react-native-tscodegen": "0.70.0",
+    "react-native-tscodegen": "0.71.0",
     "typescript": "^4.7.4"
   }
 }

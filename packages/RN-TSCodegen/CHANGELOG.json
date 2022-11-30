@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen",
   "entries": [
     {
+      "date": "Wed, 30 Nov 2022 15:29:43 GMT",
+      "tag": "react-native-tscodegen_v0.71.0",
+      "version": "0.71.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Catch up react-native-codegen 0.72",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "48000f95ea4968cd6d080bbb521f40ad5e4099a3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Jun 2022 20:03:29 GMT",
       "tag": "react-native-tscodegen_v0.68.5",
       "version": "0.68.5",

@@ -1,6 +1,6 @@
 {
   "name": "react-native-tscodegen",
-  "version": "0.70.0",
+  "version": "0.71.0",
   "description": "TypeScript Code Generation for React Native Turbo Module",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -42,7 +42,7 @@
     "jscodeshift": "0.6.4",
     "nullthrows": "1.1.1"
   },
-  "babel":{
+  "babel": {
     "plugins": [
       "@babel/plugin-proposal-object-rest-spread",
       "@babel/plugin-transform-async-to-generator",
