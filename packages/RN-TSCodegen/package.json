@@ -27,7 +27,7 @@
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "rimraf": "3.0.2",
-    "@react-native-tscodegen/tslint-shared": "^1.0.0",
+    "@react-native-ts-codegen/tslint-shared": "^1.0.0",
     "@babel/cli": "7.18.10",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",

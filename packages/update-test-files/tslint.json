@@ -1,5 +1,5 @@
 {
   "extends": [
-    "@react-native-tscodegen/tslint-shared"
+    "@react-native-ts-codegen/tslint-shared"
   ]
 }

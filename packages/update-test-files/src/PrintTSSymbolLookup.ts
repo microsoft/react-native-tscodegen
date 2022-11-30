@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as flow from '@react-native-tscodegen/minimum-flow-parser';
+import * as flow from '@react-native-ts-codegen/minimum-flow-parser';
 
 export interface SymbolLookup {
     decls: { [key: string]: flow.Declaration };
