@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Rename private scope to confirmed owned internal scope",
+  "packageName": "react-native-tscodegen-parser",
+  "email": "30809111+acoates-ms@users.noreply.github.com",
+  "commit": "e67ce4baad6a60b33d935bca3316197d1e8ddb52",
+  "date": "2022-11-30T00:42:35.569Z",
+  "file": "E:\\repos\\react-native-tscodegen\\change\\react-native-tscodegen-parser-2022-11-29-16-42-36-scoped.json"
+}
