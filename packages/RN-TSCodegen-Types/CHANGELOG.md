@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen-types
 
-This log was last generated on Wed, 25 Aug 2021 00:24:50 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Nov 2022 15:29:43 GMT and should not be manually modified.
 
+## 0.71.0
+Wed, 30 Nov 2022 15:29:43 GMT
+
+### Minor changes
+
+- Catch up react-native-codegen 0.72 (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.67.3
 Wed, 25 Aug 2021 00:24:50 GMT
 
