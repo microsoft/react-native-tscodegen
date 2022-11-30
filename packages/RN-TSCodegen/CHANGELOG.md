@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Wed, 30 Nov 2022 15:29:43 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Nov 2022 20:39:50 GMT and should not be manually modified.
 
+## 0.71.1
+Wed, 30 Nov 2022 20:39:50 GMT
+
+### Patches
+
+- Rename private scope to confirmed owned internal scope (30809111+acoates-ms@users.noreply.github.com)
 ## 0.71.0
 Wed, 30 Nov 2022 15:29:43 GMT
 
