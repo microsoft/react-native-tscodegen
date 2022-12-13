@@ -30,8 +30,8 @@
   "dependencies": {
     "@types/react-native": "0.69.5",
     "metro-react-native-babel-preset": "^0.72.1",
-    "react-native-tscodegen": "0.71.1",
-    "react-native-tscodegen-parser": "1.1.1",
+    "react-native-tscodegen": "0.72.0",
+    "react-native-tscodegen-parser": "1.2.0",
     "react-native-tscodegen-types": "0.71.0"
   },
   "jest": {

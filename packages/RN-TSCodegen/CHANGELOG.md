@@ -1,7 +1,13 @@
 # Change Log - react-native-tscodegen
 
-This log was last generated on Wed, 30 Nov 2022 20:39:50 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Dec 2022 22:32:30 GMT and should not be manually modified.
 
+## 0.72.0
+Tue, 13 Dec 2022 22:32:30 GMT
+
+### Minor changes
+
+- Catch up facebook/react-native/packages/react-native-codegen on 2022-12-13 (53799235+ZihanChen-MSFT@users.noreply.github.com)
 ## 0.71.1
 Wed, 30 Nov 2022 20:39:50 GMT
 

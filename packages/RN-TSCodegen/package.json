@@ -1,6 +1,6 @@
 {
   "name": "react-native-tscodegen",
-  "version": "0.71.1",
+  "version": "0.72.0",
   "description": "TypeScript Code Generation for React Native Turbo Module",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",

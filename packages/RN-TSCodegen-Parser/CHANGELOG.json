@@ -2,6 +2,20 @@
   "name": "react-native-tscodegen-parser",
   "entries": [
     {
+      "date": "Tue, 13 Dec 2022 22:32:30 GMT",
+      "tag": "react-native-tscodegen-parser_v1.2.0",
+      "version": "1.2.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Catch up facebook/react-native/packages/react-native-codegen on 2022-12-13",
+            "author": "53799235+ZihanChen-MSFT@users.noreply.github.com",
+            "commit": "0957c81dab95936028784aeabd6100d78d34c296"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 30 Nov 2022 20:39:50 GMT",
       "tag": "react-native-tscodegen-parser_v1.1.1",
       "version": "1.1.1",
