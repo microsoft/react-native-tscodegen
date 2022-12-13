@@ -2,7 +2,20 @@
   "modules": {
     "NativeSampleTurboModule": {
       "type": "NativeModule",
-      "aliases": {},
+      "aliases": {
+        "SomeObj": {
+          "type": "ObjectTypeAnnotation",
+          "properties": [
+            {
+              "name": "a",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation"
+              }
+            }
+          ]
+        }
+      },
       "spec": {
         "properties": [
           {
@@ -11,7 +24,10 @@
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
-                "type": "PromiseTypeAnnotation"
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "StringTypeAnnotation"
+                }
               },
               "params": []
             }
@@ -22,7 +38,10 @@
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
-                "type": "PromiseTypeAnnotation"
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "StringTypeAnnotation"
+                }
               },
               "params": []
             }
@@ -33,16 +52,18 @@
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
-                "type": "PromiseTypeAnnotation"
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "TypeAliasTypeAnnotation",
+                  "name": "SomeObj"
+                }
               },
               "params": []
             }
           }
         ]
       },
-      "moduleNames": [
-        "SampleTurboModule"
-      ]
+      "moduleName": "SampleTurboModule"
     }
   }
 }
