@@ -83,6 +83,9 @@
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
+                "elementType": {
+                  "type": "NumberTypeAnnotation"
+                },
                 "type": "PromiseTypeAnnotation"
               },
               "params": []

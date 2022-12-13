@@ -58,6 +58,7 @@ export type RNRawType = (
     }
     | {
         kind: 'Indexer';
+        elementType: RNRawType;
     }
     | RNRawObjectType
     | {

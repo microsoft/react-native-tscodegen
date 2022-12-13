@@ -29,7 +29,9 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
         }
-        case 'Indexer': return { type: 'GenericObjectTypeAnnotation' };
+        case 'Indexer':
+            rawTypeToBaseType(rawType.elementType, usedAliases);
+            return { type: 'GenericObjectTypeAnnotation' };
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
             properties: rawType.properties.map((param: RNRawObjectProperty) => {

@@ -291,7 +291,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 const index = item.members[0];
                 if (ts.isIndexSignatureDeclaration(index)) {
                     recognized = true;
-                    itemOthers.push({ kind: 'Indexer', isNullable: false });
+                    itemOthers.push({ kind: 'Indexer', isNullable: false, elementType: typeToRNRawType(index.type, sourceFile, options) });
                 }
             }
         }
