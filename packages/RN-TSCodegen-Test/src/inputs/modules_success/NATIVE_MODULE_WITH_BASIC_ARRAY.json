@@ -57,9 +57,7 @@
           }
         ]
       },
-      "moduleNames": [
-        "SampleTurboModule"
-      ]
+      "moduleName": "SampleTurboModule"
     }
   }
 }

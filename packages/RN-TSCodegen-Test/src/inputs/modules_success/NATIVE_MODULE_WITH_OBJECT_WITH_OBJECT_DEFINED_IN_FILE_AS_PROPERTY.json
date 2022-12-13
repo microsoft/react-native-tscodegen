@@ -80,9 +80,7 @@
           }
         ]
       },
-      "moduleNames": [
-        "SampleTurboModule"
-      ]
+      "moduleName": "SampleTurboModule"
     }
   }
 }

@@ -89,32 +89,14 @@
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
-                "type": "ObjectTypeAnnotation",
-                "properties": [
-                  {
-                    "name": "b",
-                    "optional": false,
-                    "typeAnnotation": {
-                      "type": "GenericObjectTypeAnnotation"
-                    }
-                  }
-                ]
+                "type": "GenericObjectTypeAnnotation"
               },
               "params": [
                 {
                   "name": "arg",
                   "optional": false,
                   "typeAnnotation": {
-                    "type": "ObjectTypeAnnotation",
-                    "properties": [
-                      {
-                        "name": "a",
-                        "optional": false,
-                        "typeAnnotation": {
-                          "type": "GenericObjectTypeAnnotation"
-                        }
-                      }
-                    ]
+                    "type": "GenericObjectTypeAnnotation"
                   }
                 }
               ]
@@ -126,32 +108,14 @@
             "typeAnnotation": {
               "type": "FunctionTypeAnnotation",
               "returnTypeAnnotation": {
-                "type": "ObjectTypeAnnotation",
-                "properties": [
-                  {
-                    "name": "key",
-                    "optional": false,
-                    "typeAnnotation": {
-                      "type": "GenericObjectTypeAnnotation"
-                    }
-                  }
-                ]
+                "type": "GenericObjectTypeAnnotation"
               },
               "params": [
                 {
                   "name": "arg",
                   "optional": false,
                   "typeAnnotation": {
-                    "type": "ObjectTypeAnnotation",
-                    "properties": [
-                      {
-                        "name": "key",
-                        "optional": false,
-                        "typeAnnotation": {
-                          "type": "GenericObjectTypeAnnotation"
-                        }
-                      }
-                    ]
+                    "type": "GenericObjectTypeAnnotation"
                   }
                 }
               ]
@@ -204,9 +168,7 @@
           }
         ]
       },
-      "moduleNames": [
-        "SampleTurboModuleCxx"
-      ],
+      "moduleName": "SampleTurboModuleCxx",
       "excludedPlatforms": [
         "iOS",
         "android"

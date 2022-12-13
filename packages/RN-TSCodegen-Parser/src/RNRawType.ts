@@ -58,7 +58,7 @@ export type RNRawType = (
     }
     | {
         kind: 'Indexer';
-        name: string;
+        elementType: RNRawType;
     }
     | RNRawObjectType
     | {
@@ -71,7 +71,7 @@ export type RNRawType = (
     }
     | {
         kind: 'js:Promise';
-        elementType: RNRawType;
+        elementType: RNRawType | undefined;
     }
     | RNRawFunctionType
     | {

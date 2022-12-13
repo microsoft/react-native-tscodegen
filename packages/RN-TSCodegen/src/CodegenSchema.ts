@@ -208,7 +208,7 @@ export interface NativeModuleSchema {
   readonly type: 'NativeModule';
   readonly aliases: NativeModuleAliasMap;
   readonly spec: NativeModuleSpec;
-  readonly moduleNames: readonly string[];
+  readonly moduleName: string;
   readonly excludedPlatforms?: readonly PlatformType[];
 }
 
@@ -273,6 +273,7 @@ export interface NativeModuleTypeAliasTypeAnnotation {
 
 export interface NativeModulePromiseTypeAnnotation {
   readonly type: 'PromiseTypeAnnotation';
+  readonly elementType?: Nullable<NativeModuleBaseTypeAnnotation>;
 }
 
 export type UnionTypeAnnotationMemberType =

@@ -51,9 +51,7 @@
           }
         ]
       },
-      "moduleNames": [
-        "SampleTurboModuleIOS"
-      ],
+      "moduleName": "SampleTurboModuleIOS",
       "excludedPlatforms": [
         "android"
       ]
