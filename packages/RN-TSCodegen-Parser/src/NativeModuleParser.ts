@@ -29,16 +29,7 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
         }
-        case 'Indexer': return {
-            type: 'ObjectTypeAnnotation',
-            properties: [{
-                name: rawType.name,
-                optional: false,
-                typeAnnotation: {
-                    type: 'GenericObjectTypeAnnotation'
-                }
-            }]
-        };
+        case 'Indexer': return { type: 'GenericObjectTypeAnnotation' };
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
             properties: rawType.properties.map((param: RNRawObjectProperty) => {
@@ -102,9 +93,12 @@ function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.Nati
     switch (rawType.kind) {
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Function': return <cs.NativeModuleReturnTypeAnnotation>functionTypeToParamType(rawType, usedAliases);
-        // What happened?
-        // case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', nullable: rawType.isNullable, resolvedType: rawTypeToReturnType(rawType.elementType) };
-        case 'js:Promise': return { type: 'PromiseTypeAnnotation' };
+        case 'js:Promise':
+            if (rawType.elementType === undefined) {
+                return { type: 'PromiseTypeAnnotation' };
+            } else {
+                return { type: 'PromiseTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
+            }
         default:
             return rawTypeToBaseType(rawType, usedAliases);
     }

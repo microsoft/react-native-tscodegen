@@ -87,10 +87,18 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     itemOthers.push({ kind: 'js:Object', isNullable: false });
                     break;
                 case 'Promise': {
-                    if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
-                        throw new Error(`${typeNode.getText()} should have one type argument.`);
+                    {
+                        if (item.typeArguments === undefined || item.typeArguments.length !== 1) {
+                            throw new Error(`${typeNode.getText()} should have one type argument.`);
+                        }
+                        let elementType: RNRawType | undefined;
+                        try {
+                            elementType = typeToRNRawType(item.typeArguments[0], sourceFile, options);
+                        } catch {
+                            // elementType will be undefined
+                        }
+                        itemOthers.push({ kind: 'js:Promise', isNullable: false, elementType });
                     }
-                    itemOthers.push({ kind: 'js:Promise', isNullable: false, elementType: typeToRNRawType(item.typeArguments[0], sourceFile, options) });
                     break;
                 }
                 case 'DirectEventHandler':
@@ -282,9 +290,8 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
             if (ts.isTypeLiteralNode(item) && item.members.length === 1) {
                 const index = item.members[0];
                 if (ts.isIndexSignatureDeclaration(index)) {
-                    const keyName = index.parameters[0].name.getText();
                     recognized = true;
-                    itemOthers.push({ kind: 'Indexer', name: keyName, isNullable: false });
+                    itemOthers.push({ kind: 'Indexer', isNullable: false });
                 }
             }
         }
