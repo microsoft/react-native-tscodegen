@@ -159,7 +159,6 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     });
 
     const spec: cs.NativeModuleSpec = { properties };
-    const moduleNames: string[] = [info.name];
     const excludedPlatforms: cs.PlatformType[] = [];
     if (info.name.endsWith('Android')) {
         excludedPlatforms.push('iOS');
@@ -173,8 +172,8 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     }
 
     if (excludedPlatforms.length === 0) {
-        return { type: 'NativeModule', aliases, spec, moduleNames };
+        return { type: 'NativeModule', aliases, spec, moduleName: info.name };
     } else {
-        return { type: 'NativeModule', aliases, spec, moduleNames, excludedPlatforms };
+        return { type: 'NativeModule', aliases, spec, moduleName: info.name, excludedPlatforms };
     }
 }

@@ -25,7 +25,7 @@ export interface Spec extends TurboModule {
   returnStringArray(): Promise<Array<string>>;
   returnObjectArray(): Promise<Array<Object>>;
   returnNullableNumber(): Promise<number | null>;
-  returnEmpty(): Promise<empty>;
+  returnEmpty(): Promise<never>;
   returnUnsupportedIndex(): Promise<{
     [key: string]: 'authorized' | 'denied' | 'undetermined' | true | false;
   }>;
