@@ -175,6 +175,8 @@ function printType(printer: Printer, flowType: flow.Type, readonly: boolean = fa
         case 'PrimitiveType': {
             if (flowType.name === 'mixed') {
                 printer.write('unknown');
+            } else if (flowType.name === 'empty') {
+                printer.write('never');
             } else {
                 printer.write(flowType.name);
             }

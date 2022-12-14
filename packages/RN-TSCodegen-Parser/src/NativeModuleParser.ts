@@ -29,16 +29,9 @@ function rawTypeToBaseType(rawType: RNRawType, usedAliases: string[]): cs.Native
                 return { type: 'ArrayTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
             }
         }
-        case 'Indexer': return {
-            type: 'ObjectTypeAnnotation',
-            properties: [{
-                name: rawType.name,
-                optional: false,
-                typeAnnotation: {
-                    type: 'GenericObjectTypeAnnotation'
-                }
-            }]
-        };
+        case 'Indexer':
+            rawTypeToBaseType(rawType.elementType, usedAliases);
+            return { type: 'GenericObjectTypeAnnotation' };
         case 'Object': return {
             type: 'ObjectTypeAnnotation',
             properties: rawType.properties.map((param: RNRawObjectProperty) => {
@@ -102,9 +95,12 @@ function rawTypeToReturnType(rawType: RNRawType, usedAliases: string[]): cs.Nati
     switch (rawType.kind) {
         case 'Void': case 'Null': return { type: 'VoidTypeAnnotation' };
         case 'Function': return <cs.NativeModuleReturnTypeAnnotation>functionTypeToParamType(rawType, usedAliases);
-        // What happened?
-        // case 'js:Promise': return { type: 'GenericPromiseTypeAnnotation', nullable: rawType.isNullable, resolvedType: rawTypeToReturnType(rawType.elementType) };
-        case 'js:Promise': return { type: 'PromiseTypeAnnotation' };
+        case 'js:Promise':
+            if (rawType.elementType === undefined) {
+                return { type: 'PromiseTypeAnnotation' };
+            } else {
+                return { type: 'PromiseTypeAnnotation', elementType: rawTypeToBaseType(rawType.elementType, usedAliases) };
+            }
         default:
             return rawTypeToBaseType(rawType, usedAliases);
     }
@@ -159,7 +155,6 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     });
 
     const spec: cs.NativeModuleSpec = { properties };
-    const moduleNames: string[] = [info.name];
     const excludedPlatforms: cs.PlatformType[] = [];
     if (info.name.endsWith('Android')) {
         excludedPlatforms.push('iOS');
@@ -173,8 +168,8 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     }
 
     if (excludedPlatforms.length === 0) {
-        return { type: 'NativeModule', aliases, spec, moduleNames };
+        return { type: 'NativeModule', aliases, spec, moduleName: info.name };
     } else {
-        return { type: 'NativeModule', aliases, spec, moduleNames, excludedPlatforms };
+        return { type: 'NativeModule', aliases, spec, moduleName: info.name, excludedPlatforms };
     }
 }

@@ -13,6 +13,10 @@ interface WritableNativeModuleSchema {
 
 testCaseIndex.modules.success.forEach((key: string) => {
     test(`module codegen (original): ${key}`, () => {
+        if (key === 'PROMISE_WITH_COMMONLY_USED_TYPES') {
+            // Official Flow parser has fallback mechanism to deal with illegal types used in Promise but TypeScript doesn't
+            return;
+        }
         const inputFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.ts`);
         const snapshotFile = path.join(__dirname, `../../src/inputs/modules_success/${key}.json`);
         const schema = typeScriptParser.parseString(readFileSync(inputFile, { encoding: 'utf-8' }), 'NativeSampleTurboModule.ts');

@@ -13,6 +13,7 @@ export interface PrimitiveType<T> {
 }
 
 export type MixedType = PrimitiveType<'mixed'>;
+export type EmptyType = PrimitiveType<'empty'>;
 export type VoidType = PrimitiveType<'void'>;
 export type NumberType = PrimitiveType<'number'>;
 export type StringType = PrimitiveType<'string'>;
@@ -99,6 +100,7 @@ export interface ParenType {
 
 export type Type =
   | MixedType
+  | EmptyType
   | VoidType
   | NumberType
   | StringType

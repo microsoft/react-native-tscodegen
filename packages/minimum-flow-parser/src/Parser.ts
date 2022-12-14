@@ -19,6 +19,10 @@ function applyMixed(value: Token): ast.Type {
   return { kind: 'PrimitiveType', name: 'mixed' };
 }
 
+function applyEmpty(value: Token): ast.Type {
+  return { kind: 'PrimitiveType', name: 'empty' };
+}
+
 function applyVoid(value: Token): ast.Type {
   return { kind: 'PrimitiveType', name: 'void' };
 }
@@ -617,6 +621,8 @@ TYPE_TERM.setPattern(
     alt(
       // syntax: mixed
       apply(str('mixed'), applyMixed),
+      // syntax: empty
+      apply(str('empty'), applyEmpty),
       // syntax: void
       apply(str('void'), applyVoid),
       // syntax: number

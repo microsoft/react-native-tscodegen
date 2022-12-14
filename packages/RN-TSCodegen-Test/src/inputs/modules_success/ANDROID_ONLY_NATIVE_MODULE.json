@@ -6,9 +6,7 @@
       "spec": {
         "properties": []
       },
-      "moduleNames": [
-        "SampleTurboModuleAndroid"
-      ],
+      "moduleName": "SampleTurboModuleAndroid",
       "excludedPlatforms": [
         "iOS"
       ]

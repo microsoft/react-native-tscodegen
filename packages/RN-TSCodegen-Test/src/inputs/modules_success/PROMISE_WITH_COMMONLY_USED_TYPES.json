@@ -1,0 +1,165 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "type": "NativeModule",
+      "aliases": {
+        "CustomObject": {
+          "type": "ObjectTypeAnnotation",
+          "properties": [
+            {
+              "name": "field1",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ArrayTypeAnnotation",
+                "elementType": {
+                  "type": "GenericObjectTypeAnnotation"
+                }
+              }
+            },
+            {
+              "name": "field2",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation"
+              }
+            },
+            {
+              "name": "field3",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation"
+              }
+            },
+            {
+              "name": "type",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "UnionTypeAnnotation",
+                "memberType": "StringTypeAnnotation"
+              }
+            }
+          ]
+        }
+      },
+      "spec": {
+        "properties": [
+          {
+            "name": "returnStringArray",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "ArrayTypeAnnotation",
+                  "elementType": {
+                    "type": "StringTypeAnnotation"
+                  }
+                }
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnObjectArray",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "ArrayTypeAnnotation",
+                  "elementType": {
+                    "type": "GenericObjectTypeAnnotation"
+                  }
+                }
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnNullableNumber",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "elementType": {
+                  "type": "NumberTypeAnnotation"
+                },
+                "type": "PromiseTypeAnnotation"
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnEmpty",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation"
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnUnsupportedIndex",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation"
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnSupportedIndex",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "GenericObjectTypeAnnotation"
+                }
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnEnum",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "UnionTypeAnnotation",
+                  "memberType": "StringTypeAnnotation"
+                }
+              },
+              "params": []
+            }
+          },
+          {
+            "name": "returnObject",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "PromiseTypeAnnotation",
+                "elementType": {
+                  "type": "TypeAliasTypeAnnotation",
+                  "name": "CustomObject"
+                }
+              },
+              "params": []
+            }
+          }
+        ]
+      },
+      "moduleName": "SampleTurboModule"
+    }
+  }
+}
