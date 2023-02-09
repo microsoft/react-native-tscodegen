@@ -140,17 +140,21 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
         });
     }
 
-    const aliases: cs.NativeModuleAliasMap = {};
-    const writableAliases = <{ [key: string]: cs.NativeModuleParamTypeAnnotation }>aliases;
+    const aliasMap: cs.NativeModuleAliasMap = {};
+    const enumMap: cs.NativeModuleEnumMap = {};
+
+    const writableAliasMap = <{ [key: string]: cs.NativeModuleParamTypeAnnotation }>aliasMap;
+    //const writableEnumMap = <{ [key: string]: cs.NativeModuleEnumDeclarationWithMembers }>enumMap;
+
     Object.keys(nativeModuleAliases.aliases).forEach((key: string) => {
         const rnRawType = nativeModuleAliases.aliases[key];
         if (rnRawType !== undefined) {
-            writableAliases[key] = rawTypeToParamType(rnRawType, usedAliases);
+            writableAliasMap[key] = rawTypeToParamType(rnRawType, usedAliases);
         }
     });
     Object.keys(nativeModuleAliases.aliases).forEach((key: string) => {
         if (usedAliases.indexOf(key) === -1) {
-            delete writableAliases[key];
+            delete writableAliasMap[key];
         }
     });
 
@@ -168,8 +172,8 @@ export function processNativeModule(info: ExportNativeModuleInfo, nativeModuleAl
     }
 
     if (excludedPlatforms.length === 0) {
-        return { type: 'NativeModule', aliasMap: aliases, enumMap: {}, spec, moduleName: info.name };
+        return { type: 'NativeModule', aliasMap, enumMap, spec, moduleName: info.name };
     } else {
-        return { type: 'NativeModule', aliasMap: aliases, enumMap: {}, spec, moduleName: info.name, excludedPlatforms };
+        return { type: 'NativeModule', aliasMap, enumMap, spec, moduleName: info.name, excludedPlatforms };
     }
 }
