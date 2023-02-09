@@ -34,6 +34,7 @@ const importMaps = {
   ColorArrayValue: `import {ColorArrayValue} from 'react-native-tscodegen-types';`,
   PointValue: `import {PointValue} from 'react-native-tscodegen-types';`,
   EdgeInsetsValue: `import {EdgeInsetsValue} from 'react-native-tscodegen-types';`,
+  DimensionValue: `import {DimensionValue} from 'react-native-tscodegen-types';`,
 
   React: `import * as React from 'react';`
 };

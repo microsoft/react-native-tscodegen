@@ -18,6 +18,7 @@ import {Stringish} from 'react-native-tscodegen-types';
 import {ColorArrayValue} from 'react-native-tscodegen-types';
 import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
+import {DimensionValue} from 'react-native-tscodegen-types';
 'use strict';
 
 interface ModuleProps extends ViewProps {

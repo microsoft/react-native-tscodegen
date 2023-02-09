@@ -7,6 +7,7 @@
 import {ViewProps} from 'react-native';
 import {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import {DimensionValue} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   marginBack?: DimensionValue;
 }>;

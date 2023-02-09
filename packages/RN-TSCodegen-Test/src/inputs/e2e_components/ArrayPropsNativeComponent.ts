@@ -14,6 +14,7 @@ import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {PointValue} from 'react-native-tscodegen-types';
 import {EdgeInsetsValue} from 'react-native-tscodegen-types';
+import {DimensionValue} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   names?: ReadonlyArray<string>;
   disableds?: ReadonlyArray<boolean>;
