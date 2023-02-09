@@ -502,6 +502,38 @@
                 "type": "ReservedPropTypeAnnotation",
                 "name": "EdgeInsetsPrimitive"
               }
+            },
+            {
+              "name": "dimension_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "DimensionPrimitive"
+              }
+            },
+            {
+              "name": "dimension_optional_key",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "DimensionPrimitive"
+              }
+            },
+            {
+              "name": "dimension_optional_value",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "DimensionPrimitive"
+              }
+            },
+            {
+              "name": "dimension_optional_both",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "ReservedPropTypeAnnotation",
+                "name": "DimensionPrimitive"
+              }
             }
           ],
           "commands": []

@@ -48,6 +48,7 @@ export interface VoidTypeAnnotation {
 export interface ObjectTypeAnnotation<T> {
   readonly type: 'ObjectTypeAnnotation';
   readonly properties: readonly NamedShape<T>[];
+  readonly baseTypes?: readonly string[];
 }
 
 export interface FunctionTypeAnnotation<P, R> {
@@ -177,7 +178,8 @@ export interface ReservedPropTypeAnnotation {
     | 'ImageSourcePrimitive'
     | 'PointPrimitive'
     | 'EdgeInsetsPrimitive'
-    | 'ImageRequestPrimitive';
+    | 'ImageRequestPrimitive'
+    | 'DimensionPrimitive';
 }
 
 export type CommandTypeAnnotation = FunctionTypeAnnotation<CommandParamTypeAnnotation, VoidTypeAnnotation>;
@@ -206,7 +208,8 @@ export interface NullableTypeAnnotation<T extends NativeModuleTypeAnnotation> {
 
 export interface NativeModuleSchema {
   readonly type: 'NativeModule';
-  readonly aliases: NativeModuleAliasMap;
+  readonly aliasMap: NativeModuleAliasMap;
+  readonly enumMap: NativeModuleEnumMap;
   readonly spec: NativeModuleSpec;
   readonly moduleName: string;
   readonly excludedPlatforms?: readonly PlatformType[];
@@ -217,6 +220,10 @@ export interface NativeModuleSpec {
 }
 
 export type NativeModulePropertyShape = NamedShape<Nullable<NativeModuleFunctionTypeAnnotation>>;
+
+export interface NativeModuleEnumMap {
+  readonly [enumName: string]: NativeModuleEnumDeclarationWithMembers;
+}
 
 export interface NativeModuleAliasMap {
   readonly [aliasName: string]: NativeModuleObjectTypeAnnotation;
@@ -255,11 +262,26 @@ export interface NativeModuleBooleanTypeAnnotation {
   readonly type: 'BooleanTypeAnnotation';
 }
 
+export type NativeModuleEnumMembers = readonly {
+  readonly name: string;
+  readonly value: string;
+}[];
+
+export type NativeModuleEnumMemberType =
+  | 'NumberTypeAnnotation'
+  | 'StringTypeAnnotation';
+
 export interface NativeModuleEnumDeclaration {
+  readonly name: string;
   readonly type: 'EnumDeclaration';
-  readonly memberType:
-    | 'NumberTypeAnnotation'
-    | 'StringTypeAnnotation';
+  readonly memberType: NativeModuleEnumMemberType;
+}
+
+export interface NativeModuleEnumDeclarationWithMembers {
+  name: string;
+  type: 'EnumDeclarationWithMembers';
+  memberType: NativeModuleEnumMemberType;
+  members: NativeModuleEnumMembers;
 }
 
 export interface NativeModuleGenericObjectTypeAnnotation {

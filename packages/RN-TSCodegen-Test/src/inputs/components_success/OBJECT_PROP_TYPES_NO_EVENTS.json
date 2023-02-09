@@ -547,6 +547,74 @@
               }
             },
             {
+              "name": "dimension_required",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": false,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "DimensionPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "dimension_optional_key",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "DimensionPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "dimension_optional_value",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "DimensionPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "dimension_optional_both",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "ObjectTypeAnnotation",
+                "properties": [
+                  {
+                    "name": "prop",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "ReservedPropTypeAnnotation",
+                      "name": "DimensionPrimitive"
+                    }
+                  }
+                ]
+              }
+            },
+            {
               "name": "object_required",
               "optional": false,
               "typeAnnotation": {

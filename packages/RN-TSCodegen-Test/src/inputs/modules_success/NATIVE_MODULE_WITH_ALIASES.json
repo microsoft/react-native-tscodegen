@@ -2,7 +2,7 @@
   "modules": {
     "NativeSampleTurboModule": {
       "type": "NativeModule",
-      "aliases": {
+      "aliasMap": {
         "ObjectAlias": {
           "type": "ObjectTypeAnnotation",
           "properties": [
@@ -37,6 +37,7 @@
           ]
         }
       },
+      "enumMap": {},
       "spec": {
         "properties": [
           {

@@ -2,7 +2,7 @@
   "modules": {
     "NativeSampleTurboModule": {
       "type": "NativeModule",
-      "aliases": {
+      "aliasMap": {
         "DisplayMetricsAndroid": {
           "type": "ObjectTypeAnnotation",
           "properties": [
@@ -16,6 +16,7 @@
           ]
         }
       },
+      "enumMap": {},
       "spec": {
         "properties": [
           {

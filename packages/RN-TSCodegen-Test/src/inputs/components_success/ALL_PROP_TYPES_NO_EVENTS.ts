@@ -82,6 +82,10 @@ interface ModuleProps extends ViewProps {
   readonly insets_optional_key?: EdgeInsetsValue;
   readonly insets_optional_value: (undefined | null | EdgeInsetsValue);
   readonly insets_optional_both?: (undefined | null | EdgeInsetsValue);
+  readonly dimension_required: DimensionValue;
+  readonly dimension_optional_key?: DimensionValue;
+  readonly dimension_optional_value: (undefined | null | DimensionValue);
+  readonly dimension_optional_both?: (undefined | null | DimensionValue);
 }
 
 export default (codegenNativeComponent<ModuleProps>('Module') as HostComponent<ModuleProps>);

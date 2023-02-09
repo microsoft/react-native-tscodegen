@@ -64,6 +64,10 @@ interface ModuleProps extends ViewProps {
   readonly array_insets_optional_key?: ReadonlyArray<EdgeInsetsValue>;
   readonly array_insets_optional_value: (undefined | null | ReadonlyArray<EdgeInsetsValue>);
   readonly array_insets_optional_both?: (undefined | null | ReadonlyArray<EdgeInsetsValue>);
+  readonly array_dimension_required: ReadonlyArray<DimensionValue>;
+  readonly array_dimension_optional_key?: ReadonlyArray<DimensionValue>;
+  readonly array_dimension_optional_value: (undefined | null | ReadonlyArray<DimensionValue>);
+  readonly array_dimension_optional_both?: (undefined | null | ReadonlyArray<DimensionValue>);
   readonly array_object_required: ReadonlyArray<Readonly<{
     prop: string;
   }>>;

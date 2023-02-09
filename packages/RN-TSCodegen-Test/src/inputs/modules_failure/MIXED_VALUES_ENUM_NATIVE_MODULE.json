@@ -1,0 +1,1 @@
+{"error": "Module NativeSampleTurboModule: Failed parsing the enum SomeEnum in NativeSampleTurboModule with the error: Enums should have at least one member and member values can not be mixed- they all must be either blank, number, or string values."}

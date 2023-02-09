@@ -48,6 +48,8 @@
       "NATIVE_MODULE_WITH_COMPLEX_OBJECTS_WITH_NULLABLE_KEY",
       "NATIVE_MODULE_WITH_SIMPLE_OBJECT",
       "NATIVE_MODULE_WITH_UNSAFE_OBJECT",
+      "NATIVE_MODULE_WITH_PARTIALS",
+      "NATIVE_MODULE_WITH_PARTIALS_COMPLEX",
       "NATIVE_MODULE_WITH_ROOT_TAG",
       "NATIVE_MODULE_WITH_NULLABLE_PARAM",
       "NATIVE_MODULE_WITH_BASIC_ARRAY",
@@ -70,7 +72,9 @@
       "NATIVE_MODULES_WITH_ARRAY_WITH_NO_TYPE_FOR_CONTENT",
       "TWO_NATIVE_MODULES_EXPORTED_WITH_DEFAULT",
       "NATIVE_MODULES_WITH_NOT_ONLY_METHODS",
-      "TWO_NATIVE_EXTENDING_TURBO_MODULE"
+      "TWO_NATIVE_EXTENDING_TURBO_MODULE",
+      "EMPTY_ENUM_NATIVE_MODULE",
+      "MIXED_VALUES_ENUM_NATIVE_MODULE"
     ]
   },
   "e2e_components": {
@@ -78,6 +82,7 @@
       "ArrayPropsNativeComponent",
       "BooleanPropNativeComponent",
       "ColorPropNativeComponent",
+      "DimensionPropNativeComponent",
       "EdgeInsetsPropNativeComponent",
       "EnumPropNativeComponent",
       "EventNestedObjectPropsNativeComponent",
@@ -99,10 +104,12 @@
       "NativeArrayTurboModule",
       "NativeBooleanTurboModule",
       "NativeCallbackTurboModule",
+      "NativeEnumTurboModule",
       "NativeNullableTurboModule",
       "NativeNumberTurboModule",
       "NativeObjectTurboModule",
       "NativeOptionalObjectTurboModule",
+      "NativePartialAnnotationTurboModule",
       "NativePromiseTurboModule",
       "NativeSampleTurboModule",
       "NativeSampleTurboModuleArrays",

@@ -13,6 +13,7 @@ import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
 import {WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
 import {PointValue} from 'react-native-tscodegen-types';
+import {EdgeInsetsValue} from 'react-native-tscodegen-types';
 type NativeProps = Readonly<ViewProps & {
   names?: ReadonlyArray<string>;
   disableds?: ReadonlyArray<boolean>;
@@ -21,9 +22,15 @@ type NativeProps = Readonly<ViewProps & {
   colors?: ReadonlyArray<ColorValue>;
   srcs?: ReadonlyArray<ImageSource>;
   points?: ReadonlyArray<PointValue>;
+  edgeInsets?: ReadonlyArray<EdgeInsetsValue>;
+  dimensions?: ReadonlyArray<DimensionValue>;
   sizes?: WithDefault<ReadonlyArray<'small' | 'large'>, 'small'>;
   object?: ReadonlyArray<Readonly<{
     prop: string;
+  }>>;
+  arrayOfObjects?: ReadonlyArray<Readonly<{
+    prop1: Float;
+    prop2: Int32;
   }>>;
 }>;
 

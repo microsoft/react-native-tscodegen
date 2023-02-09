@@ -112,6 +112,18 @@ interface ModuleProps extends ViewProps {
   readonly insets_optional_both: Readonly<{
     prop?: (undefined | null | EdgeInsetsValue);
   }>;
+  readonly dimension_required: Readonly<{
+    prop: DimensionValue;
+  }>;
+  readonly dimension_optional_key: Readonly<{
+    prop?: DimensionValue;
+  }>;
+  readonly dimension_optional_value: Readonly<{
+    prop: (undefined | null | DimensionValue);
+  }>;
+  readonly dimension_optional_both: Readonly<{
+    prop?: (undefined | null | DimensionValue);
+  }>;
   readonly object_required: Readonly<{
     prop: Readonly<{
       nestedProp: string;

@@ -81,6 +81,12 @@ type ModuleProps = $ReadOnly<{|
   insets_optional_value: $ReadOnly<{|prop: ?EdgeInsetsValue|}>,
   insets_optional_both: $ReadOnly<{|prop?: ?EdgeInsetsValue|}>,
 
+  // DimensionValue props
+  dimension_required: $ReadOnly<{|prop: DimensionValue|}>,
+  dimension_optional_key: $ReadOnly<{|prop?: DimensionValue|}>,
+  dimension_optional_value: $ReadOnly<{|prop: ?DimensionValue|}>,
+  dimension_optional_both: $ReadOnly<{|prop?: ?DimensionValue|}>,
+
   // Nested object props
   object_required: $ReadOnly<{|prop: $ReadOnly<{nestedProp: string}>|}>,
   object_optional_key?: $ReadOnly<{|prop: $ReadOnly<{nestedProp: string}>|}>,

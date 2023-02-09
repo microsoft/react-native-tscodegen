@@ -2,7 +2,8 @@
   "modules": {
     "NativeSampleTurboModule": {
       "type": "NativeModule",
-      "aliases": {},
+      "aliasMap": {},
+      "enumMap": {},
       "spec": {
         "properties": []
       },

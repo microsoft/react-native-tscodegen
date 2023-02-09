@@ -1,0 +1,93 @@
+{
+  "modules": {
+    "NativeSampleTurboModule": {
+      "type": "NativeModule",
+      "aliasMap": {
+        "SomeObj": {
+          "type": "ObjectTypeAnnotation",
+          "properties": [
+            {
+              "name": "a",
+              "optional": false,
+              "typeAnnotation": {
+                "type": "StringTypeAnnotation"
+              }
+            },
+            {
+              "name": "b",
+              "optional": true,
+              "typeAnnotation": {
+                "type": "BooleanTypeAnnotation"
+              }
+            }
+          ]
+        }
+      },
+      "enumMap": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "getPartialPartial",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "returnTypeAnnotation": {
+                "type": "TypeAliasTypeAnnotation",
+                "name": "SomeObj"
+              },
+              "params": [
+                {
+                  "name": "value1",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "a",
+                        "optional": true,
+                        "typeAnnotation": {
+                          "type": "StringTypeAnnotation"
+                        }
+                      },
+                      {
+                        "name": "b",
+                        "optional": true,
+                        "typeAnnotation": {
+                          "type": "BooleanTypeAnnotation"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "value2",
+                  "optional": false,
+                  "typeAnnotation": {
+                    "type": "ObjectTypeAnnotation",
+                    "properties": [
+                      {
+                        "name": "a",
+                        "optional": true,
+                        "typeAnnotation": {
+                          "type": "StringTypeAnnotation"
+                        }
+                      },
+                      {
+                        "name": "b",
+                        "optional": true,
+                        "typeAnnotation": {
+                          "type": "BooleanTypeAnnotation"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "moduleName": "SampleTurboModule"
+    }
+  }
+}

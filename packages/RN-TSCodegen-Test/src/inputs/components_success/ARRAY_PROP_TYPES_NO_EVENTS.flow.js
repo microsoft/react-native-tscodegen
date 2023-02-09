@@ -18,7 +18,7 @@ const codegenNativeComponent = require('codegenNativeComponent');
 
 import type {Int32, Double, Float, WithDefault} from 'CodegenTypes';
 import type {ImageSource} from 'ImageSource';
-import type {ColorValue, PointValue, ProcessColorValue, EdgeInsetsValue} from 'StyleSheetTypes';
+import type {ColorValue, PointValue, ProcessColorValue, EdgeInsetsValue, DimensionValue} from 'StyleSheetTypes';
 import type {ViewProps} from 'ViewPropTypes';
 import type {HostComponent} from 'react-native';
 
@@ -92,6 +92,12 @@ type ModuleProps = $ReadOnly<{|
   array_insets_optional_key?: $ReadOnlyArray<EdgeInsetsValue>,
   array_insets_optional_value: ?$ReadOnlyArray<EdgeInsetsValue>,
   array_insets_optional_both?: ?$ReadOnlyArray<EdgeInsetsValue>,
+
+  // DimensionValue props
+  array_dimension_required: $ReadOnlyArray<DimensionValue>,
+  array_dimension_optional_key?: $ReadOnlyArray<DimensionValue>,
+  array_dimension_optional_value: ?$ReadOnlyArray<DimensionValue>,
+  array_dimension_optional_both?: ?$ReadOnlyArray<DimensionValue>,
 
   // Object props
   array_object_required: $ReadOnlyArray<$ReadOnly<{| prop: string |}>>,
