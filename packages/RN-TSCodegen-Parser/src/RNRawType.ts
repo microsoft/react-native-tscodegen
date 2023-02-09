@@ -45,6 +45,7 @@ export type RNRawType = (
     }
     | {
         kind: 'StringEnum' | 'NumberEnum';
+        name: string;
     }
     | {
         kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any' | 'Unknown';

@@ -25,7 +25,8 @@
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "@react-native-ts-codegen/tslint-shared": "^1.0.0"
+    "@react-native-ts-codegen/tslint-shared": "^1.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0"
   },
   "dependencies": {
     "@types/react-native": "0.69.5",
@@ -37,5 +38,10 @@
   "jest": {
     "testRegex": "/lib/test/Test.*Cases(-Original)?\\.js",
     "verbose": true
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
   }
 }

@@ -201,6 +201,7 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                     } else {
                         const [resolvedType, resolvedDecl] = resolveTypeOrDecl(item, sourceFile);
                         if (resolvedDecl !== undefined && ts.isEnumDeclaration(resolvedDecl)) {
+                            const enumName = resolvedDecl.name.getText();
                             let foundNumber = false;
                             let foundString = false;
                             for (const member of resolvedDecl.members) {
@@ -218,11 +219,11 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                             if (foundNumber && foundString) {
                                 throw new Error(`Enum is not supported: ${resolvedDecl.name.getText()}, only numbers and strings are not allowed to be mixed in an enum.`);
                             } else if (foundNumber) {
-                                itemOthers.push({ kind: 'NumberEnum', isNullable: false });
+                                itemOthers.push({ kind: 'NumberEnum', name: enumName, isNullable: false });
                             } else if (foundString) {
-                                itemOthers.push({ kind: 'StringEnum', isNullable: false });
+                                itemOthers.push({ kind: 'StringEnum', name: enumName, isNullable: false });
                             } else {
-                                itemOthers.push({ kind: 'StringEnum', isNullable: false });
+                                itemOthers.push({ kind: 'StringEnum', name: enumName, isNullable: false });
                             }
                         } else if (resolvedType !== item) {
                             scannedItems.push(resolvedType);
