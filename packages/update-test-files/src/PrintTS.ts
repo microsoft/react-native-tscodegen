@@ -225,6 +225,12 @@ function printType(printer: Printer, flowType: flow.Type, readonly: boolean = fa
             printer.write(']');
             break;
         }
+        case 'PartialType': {
+            printer.write('Partial<');
+            printType(printer, flowType.elementType);
+            printer.write('>');
+            break;
+        }
         case 'ObjectType': {
             for (const mixinType of flowType.mixinTypes) {
                 printType(printer, mixinType);
