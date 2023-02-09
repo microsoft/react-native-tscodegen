@@ -40,6 +40,11 @@ export interface TupleType {
   types: Type[];
 }
 
+export interface PartialType {
+  kind: 'PartialType';
+  elementType: Type;
+}
+
 export interface ObjectProp {
   kind: 'Prop';
   isReadonly: boolean;
@@ -109,6 +114,7 @@ export type Type =
   | OptionalType
   | ArrayType
   | TupleType
+  | PartialType
   | ObjectType
   | DecoratedGenericType
   | UnionType

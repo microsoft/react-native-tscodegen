@@ -111,6 +111,13 @@ function applyDecoratedGenericType(value: undefined | ast.Type): ast.Type {
   };
 }
 
+function applyPartialType(value: ast.Type): ast.Type {
+  return {
+    kind: 'PartialType',
+    elementType: value
+  };
+}
+
 function applyTypeReference(value: [
   Token[],
   undefined | ast.Type[]
@@ -399,21 +406,21 @@ function applyInterfaceDecl(value: [
 function applyEnumDecl(value: [
   undefined | {/*export*/ },
   Token,
-  [Token, undefined | Token][]
+  undefined | [Token, undefined | Token][]
 ]): ast.Declaration {
   const [hasExport, name, items] = value;
   return {
     kind: 'EnumDecl',
     hasExport: hasExport !== undefined,
     name: name.text,
-    members: items.map((item: [Token, undefined | Token]): ast.EnumItem => {
+    members: items === undefined ? [] : (items.map((item: [Token, undefined | Token]): ast.EnumItem => {
       const [itemName, itemValue] = item;
       const result: ast.EnumItem = { name: itemName.text };
       if (itemValue !== undefined) {
         result.value = { kind: 'LiteralType', text: itemValue.text };
       }
       return result;
-    })
+    }))
   };
 }
 
@@ -661,6 +668,15 @@ TYPE_TERM.setPattern(
         ),
         applyDecoratedGenericType
       ),
+      // syntax: $Partial<TYPE>
+      apply(
+        kmid(
+          seq(str('$Partial'), str('<')),
+          TYPE,
+          str('>')
+        ),
+        applyPartialType
+      ),
       // syntax: A[.B ...][<TYPE, ...>]
       apply(
         seq(
@@ -839,20 +855,22 @@ DECL.setPattern(
         IDENTIFIER,
         kmid(
           str('{'),
-          kleft(
-            list_sc(
-              seq(
-                IDENTIFIER,
-                opt_sc(
-                  kright(
-                    str('='),
-                    alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral))
+          opt_sc(
+            kleft(
+              list_sc(
+                seq(
+                  IDENTIFIER,
+                  opt_sc(
+                    kright(
+                      str('='),
+                      alt(tok(TokenKind.StringLiteral), tok(TokenKind.NumberLiteral))
+                    )
                   )
-                )
+                ),
+                str(',')
               ),
-              str(',')
-            ),
-            opt_sc(str(','))
+              opt_sc(str(','))
+            )
           ),
           str('}')
         )
