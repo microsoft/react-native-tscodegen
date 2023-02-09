@@ -68,6 +68,9 @@ export function typeToRNRawType(typeNode: ts.TypeNode, sourceFile: ts.SourceFile
                 case 'ColorArrayValue':
                     itemOthers.push({ kind: 'Array', isNullable: false, elementType: { kind: 'rn:ColorPrimitive', isNullable: false } });
                     break;
+                case 'DimensionValue':
+                    itemOthers.push({ kind: 'rn:DimensionPrimitive', isNullable: false });
+                    break;
                 case 'ImageSource':
                     itemOthers.push({ kind: 'rn:ImageSourcePrimitive', isNullable: false });
                     break;

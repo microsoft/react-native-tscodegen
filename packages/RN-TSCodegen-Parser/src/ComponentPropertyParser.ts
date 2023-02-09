@@ -59,6 +59,10 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
       type: 'ReservedPropTypeAnnotation',
       name: 'ColorPrimitive'
     }];
+    case 'rn:DimensionPrimitive': return [rawType.isNullable, {
+      type: 'ReservedPropTypeAnnotation',
+      name: 'DimensionPrimitive'
+    }];
     case 'rn:ImageSourcePrimitive': return [rawType.isNullable, {
       type: 'ReservedPropTypeAnnotation',
       name: 'ImageSourcePrimitive'
@@ -107,6 +111,13 @@ function rnRawTypeToPropTypeTypeAnnotation(rawType: RNRawType, typeNode: ts.Type
           elementType: {
             type: 'ReservedPropTypeAnnotation',
             name: 'ColorPrimitive'
+          }
+        }];
+        case 'rn:DimensionPrimitive': return [rawType.isNullable, {
+          type: 'ArrayTypeAnnotation',
+          elementType: {
+            type: 'ReservedPropTypeAnnotation',
+            name: 'DimensionPrimitive'
           }
         }];
         case 'rn:ImageSourcePrimitive': return [rawType.isNullable, {

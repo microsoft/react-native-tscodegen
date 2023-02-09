@@ -50,7 +50,7 @@ export type RNRawType = (
         kind: 'Boolean' | 'Number' | 'Float' | 'Double' | 'Int32' | 'String' | 'Null' | 'Void' | 'Any' | 'Unknown';
     }
     | {
-        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive' | 'rn:RootTag' | 'rn:UnsafeObject';
+        kind: 'rn:ColorPrimitive' | 'rn:ImageSourcePrimitive' | 'rn:PointPrimitive' | 'rn:EdgeInsetsPrimitive' | 'rn:DimensionPrimitive' | 'rn:RootTag' | 'rn:UnsafeObject';
     }
     | {
         kind: 'Array';
