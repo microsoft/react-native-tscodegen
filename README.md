@@ -1,5 +1,7 @@
 # react-native-tscodegen
 
+## All works are ported to react-native, this project has stopped developing.
+
 TypeScript Code Generation for React Native Turbo Module
 
 - Index
